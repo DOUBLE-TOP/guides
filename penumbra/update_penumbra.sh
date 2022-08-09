@@ -36,21 +36,25 @@ function build_penumbra {
   if [ ! -d $HOME/penumbra/ ]; then
     cd $HOME/penumbra/
     cargo build --release --bin pcli
+    sudo rm -f /usr/bin/pcli
+    sudo cp target/release/pcli /usr/bin/pcli
   else
     source_git
     cd $HOME/penumbra/
     cargo build --release --bin pcli
+    sudo rm -f /usr/bin/pcli
+    sudo cp target/release/pcli /usr/bin/pcli
   fi
 }
 
 function generate_wallet {
   cd $HOME/penumbra/
-  cargo run --quiet --release --bin pcli wallet generate
+  pcli wallet generate
 }
 
 function reset_wallet {
   cd $HOME/penumbra/
-  cargo run --quiet --release --bin pcli wallet reset
+  pcli wallet reset
 }
 
 function rust_update {
