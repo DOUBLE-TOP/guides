@@ -1,0 +1,158 @@
+seeds:
+  bb14af025d226288a3488b4433cf5cb54d6a710365a2d95ac6ffbd9b9198a86a:
+    addresses:
+    - "/dns4/pfn0.node.devnet.aptoslabs.com/tcp/6182/ln-noise-ik/bb14af025d226288a3488b4433cf5cb54d6a710365a2d95ac6ffbd9b9198a86a/ln-handshake/0"
+    role: "Upstream"
+  7fe8523388084607cdf78ff40e3e717652173b436ae1809df4a5fcfc67f8fc61:
+    addresses:
+    - "/dns4/pfn1.node.devnet.aptoslabs.com/tcp/6182/ln-noise-ik/7fe8523388084607cdf78ff40e3e717652173b436ae1809df4a5fcfc67f8fc61/ln-handshake/0"
+    role: "Upstream"
+  f6b135a59591677afc98168791551a0a476222516fdc55869d2b649c614d965b:
+    addresses:
+    - "/dns4/pfn2.node.devnet.aptoslabs.com/tcp/6182/ln-noise-ik/f6b135a59591677afc98168791551a0a476222516fdc55869d2b649c614d965b/ln-handshake/0"
+    role: "Upstream"
+  66bf30b3d36aa987ef8149d08b05f350585ca9676ad2c12bc607b855e61df525:
+    addresses:
+    - "/ip4/65.108.58.9/tcp/6180/ln-noise-ik/66bf30b3d36aa987ef8149d08b05f350585ca9676ad2c12bc607b855e61df525/ln-handshake/0"
+    role: "Upstream"
+  e94b4a32e319d50f063a140e6c59c8acf65cbe104d1e5caea87c372d6ece6f63:
+    addresses:
+    - "/ip4/65.21.193.112/tcp/6180/ln-noise-ik/e94b4a32e319d50f063a140e6c59c8acf65cbe104d1e5caea87c372d6ece6f63/ln-handshake/0"
+    role: "Upstream"
+  132652bf6f78e71b756145cafb44b17b0a4e39ebdcc0757023fb7caf7b4ad256:
+    addresses:
+    - "/ip4/144.76.42.115/tcp/6180/ln-noise-ik/132652bf6f78e71b756145cafb44b17b0a4e39ebdcc0757023fb7caf7b4ad256/ln-handshake/0"
+    role: "Upstream"
+  c761cb03a45352ed1bd0b9a1aa003b0cc37e7fdbdc0f23f0efdd79db2beaef47:
+    addresses:
+    - "/ip4/65.21.231.114/tcp/6180/ln-noise-ik/c761cb03a45352ed1bd0b9a1aa003b0cc37e7fdbdc0f23f0efdd79db2beaef47/ln-handshake/0"
+    role: "Upstream"
+  6db76b54268b74a546d293b81738433f3b27a3382a313f384975b58d01cac14a:
+    addresses:
+    - "/ip4/167.99.209.179/tcp/6180/ln-noise-ik/6db76b54268b74a546d293b81738433f3b27a3382a313f384975b58d01cac14a/ln-handshake/0"
+    role: "Upstream"
+  4e77596f36166f454d406807370d81f999752d1c7f0cb9bf3934808b4fc2b73f:
+    addresses:
+    - "/ip4/167.99.217.85/tcp/6180/ln-noise-ik/4e77596f36166f454d406807370d81f999752d1c7f0cb9bf3934808b4fc2b73f/ln-handshake/0"
+    role: "Upstream"
+  9dcf386c08c5701d292d40575c6286935b4839103e715fc4056ba0b9e4959d32:
+    addresses:
+    - "/ip4/167.99.210.123/tcp/6180/ln-noise-ik/9dcf386c08c5701d292d40575c6286935b4839103e715fc4056ba0b9e4959d32/ln-handshake/0"
+    role: "Upstream"
+  68c48b30df11f8f1ea34e7bb4b802d7eb184084f7f9143807d7a5dee9457ec35:
+    addresses:
+    - "/ip4/188.40.89.173/tcp/6180/ln-noise-ik/68c48b30df11f8f1ea34e7bb4b802d7eb184084f7f9143807d7a5dee9457ec35/ln-handshake/0"
+    role: "Upstream"
+  ac70bf53f704f88b9ddde30717c978378f93ba2a7befb6f0f6896c326506384c:
+    addresses:
+    - "/ip4/65.108.67.34/tcp/6180/ln-noise-ik/ac70bf53f704f88b9ddde30717c978378f93ba2a7befb6f0f6896c326506384c/ln-handshake/0"
+    role: "Upstream"
+  6116c8c35610e0b98af183137c77e81ee97f15785e95ac6c45d62429866b397d:
+    addresses:
+    - "/ip4/194.163.134.235/tcp/6180/ln-noise-ik/6116c8c35610e0b98af183137c77e81ee97f15785e95ac6c45d62429866b397d/ln-handshake/0"
+    role: "Upstream"
+  cdd85d6f18105f6aa0fe33096a637d5a33f6fe178d1736b6c88508b2895ff420:
+    addresses:
+    - "/ip4/194.163.190.88/tcp/6180/ln-noise-ik/cdd85d6f18105f6aa0fe33096a637d5a33f6fe178d1736b6c88508b2895ff420/ln-handshake/0"
+    role: "Upstream"
+  1b9c116cf6fc7af45eddcff98dc855f5e4e89ddf86b904ccc2075a88e3490b65:
+    addresses:
+    - "/ip4/38.242.212.18/tcp/6180/ln-noise-ik/1b9c116cf6fc7af45eddcff98dc855f5e4e89ddf86b904ccc2075a88e3490b65/ln-handshake/0"
+    role: "Upstream"
+  b873ab39bcf5ee936a8997467bc4e28efc40a40d9895be30c33e1fbf2737650c:
+    addresses:
+    - "/ip4/38.105.232.160/tcp/6180/ln-noise-ik/b873ab39bcf5ee936a8997467bc4e28efc40a40d9895be30c33e1fbf2737650c/ln-handshake/0"
+    role: "Upstream"
+  51ef9da15d87984b585b1e5e5760bf07be8e84cb6bca957e47b0054886803479:
+    addresses:
+    - "/ip4/176.57.188.86/tcp/6180/ln-noise-ik/51ef9da15d87984b585b1e5e5760bf07be8e84cb6bca957e47b0054886803479/ln-handshake/0"
+    role: "Upstream"
+  a04fbb17b7dbebe7498c74bfa25ae8dfb0a85f94ef541a93540eee7a71a4ef37:
+    addresses:
+    - "/ip4/23.88.71.213/tcp/6180/ln-noise-ik/a04fbb17b7dbebe7498c74bfa25ae8dfb0a85f94ef541a93540eee7a71a4ef37/ln-handshake/0"
+    role: "Upstream"
+  4c9bae273409beb138c44049a2dbdd93802c33ec399f8d85cc2812c1b12dd86a:
+    addresses:
+    - "/ip4/162.55.92.101/tcp/6180/ln-noise-ik/4c9bae273409beb138c44049a2dbdd93802c33ec399f8d85cc2812c1b12dd86a/ln-handshake/0"
+    role: "Upstream"
+  11cc76bf1c78a99857542176a2b04c1b384656838c281c38dbd9465d2fcfd64c:
+    addresses:
+    - "/ip4/5.9.20.185/tcp/6180/ln-noise-ik/11cc76bf1c78a99857542176a2b04c1b384656838c281c38dbd9465d2fcfd64c/ln-handshake/0"
+    role: "Upstream"
+  b2d9c694f3b155f70f003b45eb9c1d27584e7146eba76a57478616e67b9ae845:
+    addresses:
+    - "/ip4/65.21.121.89/tcp/6180/ln-noise-ik/b2d9c694f3b155f70f003b45eb9c1d27584e7146eba76a57478616e67b9ae845/ln-handshake/0"
+    role: "Upstream"
+  ab574e5b63de7406768cddec2e6313318f959716067107bf6a0a3791c561456a:
+    addresses:
+    - "/ip4/65.21.141.159/tcp/6180/ln-noise-ik/ab574e5b63de7406768cddec2e6313318f959716067107bf6a0a3791c561456a/ln-handshake/0"
+    role: "Upstream"
+  d5791075c30c8278e1ec23c9928440345a5608b1a27f62cd919c4f6622a96b29:
+    addresses:
+    - "/ip4/65.21.131.96/tcp/6180/ln-noise-ik/d5791075c30c8278e1ec23c9928440345a5608b1a27f62cd919c4f6622a96b29/ln-handshake/0"
+    role: "Upstream"
+  dfa8eaec480d3262ac32e03de8ff036f26045a9e617ef118fbb84438cc56362a:
+    addresses:
+    - "/ip4/164.68.115.117/tcp/6180/ln-noise-ik/dfa8eaec480d3262ac32e03de8ff036f26045a9e617ef118fbb84438cc56362a/ln-handshake/0"
+    role: "Upstream"
+  b8189d556f579aa5b0e0be9a6b262682459579ef16a4e4a3a093c221e3637042:
+    addresses:
+    - "/ip4/176.57.184.77/tcp/6180/ln-noise-ik/b8189d556f579aa5b0e0be9a6b262682459579ef16a4e4a3a093c221e3637042/ln-handshake/0"
+    role: "Upstream"
+  932138c7947c6bc9311329b819014dab08c66b5104c968e8a0e478983d32a70d:
+    addresses:
+    - "/ip4/161.97.94.127/tcp/6180/ln-noise-ik/932138c7947c6bc9311329b819014dab08c66b5104c968e8a0e478983d32a70d/ln-handshake/0"
+    role: "Upstream"
+  68c48b30df11f8f1ea34e7bb4b802d7eb184084f7f9143807d7a5dee9457ec35:
+    addresses:
+    - "/ip4/188.40.89.173/tcp/6180/ln-noise-ik/68c48b30df11f8f1ea34e7bb4b802d7eb184084f7f9143807d7a5dee9457ec35/ln-handshake/0"
+    role: "Upstream"
+  e1f93e980f8d3e33265eecd7b0829ca8621f6160ca58fc2d3d1a14d883428c38:
+    addresses:
+    - "/ip4/135.181.75.219/tcp/6180/ln-noise-ik/e1f93e980f8d3e33265eecd7b0829ca8621f6160ca58fc2d3d1a14d883428c38/ln-handshake/0"
+    role: "Upstream"
+  2a88f7b7c596a07960419cdeda02cb9bb120a07fa3c4b190de89dd4900e2f50c:
+    addresses:
+    - "/ip4/135.181.58.99/tcp/6180/ln-noise-ik/2a88f7b7c596a07960419cdeda02cb9bb120a07fa3c4b190de89dd4900e2f50c/ln-handshake/0"
+    role: "Upstream"
+  14fb62068aaa1bebc78c8aa88d7e291a46ed23509e0239ffcaf48f570c95f03f:
+    addresses:
+    - "/ip4/88.99.105.36/tcp/6180/ln-noise-ik/14fb62068aaa1bebc78c8aa88d7e291a46ed23509e0239ffcaf48f570c95f03f/ln-handshake/0"
+    role: "Upstream"
+  b1cda367b2f7171df5c591101098184ca856f1c7a95750ddcf7cf38ca1651405:
+    addresses:
+    - "/ip4/65.108.127.58/tcp/6180/ln-noise-ik/b1cda367b2f7171df5c591101098184ca856f1c7a95750ddcf7cf38ca1651405/ln-handshake/0"
+    role: "Upstream"
+  d0a1519998fb0388ea579d69711048ecf533a0383ee7f0902398052163345e72:
+    addresses:
+    - "/ip4/65.108.47.108/tcp/6180/ln-noise-ik/d0a1519998fb0388ea579d69711048ecf533a0383ee7f0902398052163345e72/ln-handshake/0"
+    role: "Upstream"
+  0e6ebe05be210e8e1464259e89936926271136f82dc19a4e440c62c9df5a9b2a:
+    addresses:
+    - "/ip4/38.242.243.54/tcp/6180/ln-noise-ik/0e6ebe05be210e8e1464259e89936926271136f82dc19a4e440c62c9df5a9b2a/ln-handshake/0"
+    role: "Upstream"
+  755656d2f2638efeb2aaf0d3fb9658ffc5160c1ead7f11afd5507d00593b1a37:
+    addresses:
+    - "/ip4/38.242.245.193/tcp/6180/ln-noise-ik/755656d2f2638efeb2aaf0d3fb9658ffc5160c1ead7f11afd5507d00593b1a37/ln-handshake/0"
+    role: "Upstream"
+  aabc49b19a5a58de1589333655ac370dd5ebe207979dc7d74a2df66ac5ab231a:
+    addresses:
+    - "/ip4/38.242.246.20/tcp/6180/ln-noise-ik/aabc49b19a5a58de1589333655ac370dd5ebe207979dc7d74a2df66ac5ab231a/ln-handshake/0"
+    role: "Upstream"
+  cbe530765dbf06d27f5019e1d130bb0550798516adc9a4516c48e6cb3b293129:
+    addresses:
+    - "/ip4/185.217.126.68/tcp/6180/ln-noise-ik/cbe530765dbf06d27f5019e1d130bb0550798516adc9a4516c48e6cb3b293129/ln-handshake/0"
+    role: "Upstream"
+
+  9569b1adbbb5611ef5e41bdd20a81f48e425361239eddc0955880521a5c2962b:
+    addresses:
+    - "/ip4/5.9.21.18/tcp/6180/ln-noise-ik/9569b1adbbb5611ef5e41bdd20a81f48e425361239eddc0955880521a5c2962b/ln-handshake/0"
+    role: "Upstream"
+  2e664aa615264a4db65bf70a43f1cbe01cdcfc4e8b344aede646682bb69b2267:
+    addresses:
+    - "/ip4/46.4.226.215/tcp/6180/ln-noise-ik/2e664aa615264a4db65bf70a43f1cbe01cdcfc4e8b344aede646682bb69b2267/ln-handshake/0"
+    role: "Upstream"
+  5c629a8e9d7cfc688e06f1c99069a0e6a90bbc1269ec4e0ce5a23cebed4db944:
+    addresses:
+    - "/ip4/168.119.33.34/tcp/6180/ln-noise-ik/5c629a8e9d7cfc688e06f1c99069a0e6a90bbc1269ec4e0ce5a23cebed4db944/ln-handshake/0"
+    role: "Upstream"

@@ -1,0 +1,22 @@
+base:
+    data_dir: "/opt/aptos/data"
+    role: "full_node"
+    waypoint:
+        from_config: "0:01234567890ABCDEFFEDCA098765421001234567890ABCDEFFEDCA0987654210"
+
+state_sync:
+  state_sync_driver:
+    enable_state_sync_v2: true
+
+execution:
+    genesis_file_location: "/opt/aptos/etc/genesis.blob"
+
+full_node_networks:
+    - network_id: "public"
+      discovery_method: "onchain"
+      listen_address: "/ip4/127.0.0.1/tcp/6180"
+      seeds:
+        {}
+
+api:
+    address: 0.0.0.0:8080
