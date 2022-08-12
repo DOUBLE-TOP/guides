@@ -35,15 +35,15 @@ EOF
 
 docker-compose -f $HOME/ironfish/docker-compose.yaml up -d
 
-ironfish accounts:create $IRONFISH_NODENAME
-ironfish accounts:use $IRONFISH_NODENAME
-ironfish config:set nodeName $IRONFISH_NODENAME
-ironfish config:set blockGraffiti $IRONFISH_NODENAME
-ironfish config:set minerBatchSize 60000
-ironfish config:set enableTelemetry true
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run accounts:create $IRONFISH_NODENAME" ironfish
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run accounts:use $IRONFISH_NODENAME" ironfish
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run config:set nodeName $IRONFISH_NODENAME" ironfish
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run config:set blockGraffiti $IRONFISH_NODENAME" ironfish
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run config:set config:set minerBatchSize 60000" ironfish
+docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run config:set enableTelemetry true" ironfish
 
 custom_pool_addr=pool.ironfish.network
-KEY=$(ironfish accounts:publickey | grep "public key:" | awk '{print $5}')
+KEY=$(docker exec ironfish ./bin/run accounts:publickey | grep "public key:" | awk '{print $5}')
 
 sudo tee <<EOF >/dev/null $HOME/ironfish/docker-compose.yaml
 version: "3.3"
@@ -73,4 +73,4 @@ EOF
 
 docker-compose -f $HOME/ironfish/docker-compose.yaml up -d
 
-tmux new-session -d -s ironfish 'while true; do docker-compose -f $HOME/docker-compose.yaml run --rm --entrypoint "./bin/run deposit -f 5000 --confirm" ironfish; sleep 60; done'
+tmux new-session -d -s ironfish 'while true; do docker-compose -f $HOME/ironfish/docker-compose.yaml run --rm --entrypoint "./bin/run deposit -f 5000 --confirm" ironfish; sleep 60; done'
