@@ -73,4 +73,4 @@ EOF
 
 docker-compose -f $HOME/ironfish/docker-compose.yaml up -d
 
-tmux new-session -d -s ironfish 'while true; do ironfish deposit -f 5000 --confirm; sleep 60; done'
+tmux new-session -d -s ironfish 'while true; do docker-compose -f $HOME/docker-compose.yaml run --rm --entrypoint "./bin/run deposit -f 5000 --confirm" ironfish; sleep 60; done'
