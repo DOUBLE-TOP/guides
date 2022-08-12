@@ -22,6 +22,7 @@ echo "--------------------------------------------------------------------------
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui-faucet
+sudo chmod +x $HOME/sui/target/release/{sui,sui-node,sui-faucet}
 sudo mv $HOME/sui/target/release/{sui,sui-node,sui-faucet} /usr/bin/
 sudo systemctl restart sui
 echo "-----------------------------------------------------------------------------"
