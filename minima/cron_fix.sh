@@ -55,6 +55,7 @@ function minima_cron {
   echo "@daily bash $HOME/minima_cron_${minima_service_name}.sh" >> $HOME/minima_cron
   crontab $HOME/minima_cron
   rm $HOME/minima_cron
+  sudo systemctl restart cron
 }
 
 colors
