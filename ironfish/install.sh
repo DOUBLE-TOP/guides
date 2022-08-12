@@ -1,4 +1,10 @@
 #!/bin/bash
+if [ ! $IRONFISH_NODENAME ]; then
+	read -p "Введите ваше имя ноды(придумайте, без спецсимволов - только буквы и цифры): " IRONFISH_NODENAME
+fi
+echo 'Ваше имя ноды: ' $IRONFISH_NODENAME
+sleep 1
+echo 'export NODENAME='$IRONFISH_NODENAME >> $HOME/.profile
 
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
