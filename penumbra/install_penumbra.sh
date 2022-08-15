@@ -44,6 +44,13 @@ function build_penumbra {
   fi
 }
 
+function wget_bin_pcli {
+  mkdir -p $HOME/penumbra/target/release/
+  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/025-helike/pcli
+  sudo chmod +x $HOME/penumbra/target/release/pcli
+  sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
+}
+
 function generate_wallet {
   cd $HOME/penumbra/
   mkdir -p $HOME/.local/share/penumbra-testnet-archive/
@@ -67,7 +74,8 @@ source_git
 line
 echo -e "${GREEN}3/5 Начинаем билд ${NORMAL}"
 line
-build_penumbra
+# build_penumbra
+wget_bin_pcli
 line
 echo -e "${GREEN}4/5 Создаем кошелек ${NORMAL}"
 line

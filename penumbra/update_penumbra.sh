@@ -47,6 +47,13 @@ function build_penumbra {
   fi
 }
 
+function wget_bin_pcli {
+  mkdir -p $HOME/penumbra/target/release/
+  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/025-helike/pcli
+  sudo chmod +x $HOME/penumbra/target/release/pcli
+  sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
+}
+
 function generate_wallet {
   cd $HOME/penumbra/
   pcli wallet generate
@@ -77,7 +84,8 @@ line
 echo -e "${GREEN}2/2 Начинаем билд ${NORMAL}"
 rust_update
 line
-build_penumbra
+# build_penumbra
+wget_bin_pcli
 reset_wallet
 line
 echo -e "${RED}Скрипт завершил свою работу ${NORMAL}"
