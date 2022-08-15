@@ -46,6 +46,7 @@ function build_penumbra {
 
 function generate_wallet {
   cd $HOME/penumbra/
+  mkdir -p $HOME/.local/share/penumbra-testnet-archive/
   pcli wallet generate
 }
 
