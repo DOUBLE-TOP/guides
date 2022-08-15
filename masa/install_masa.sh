@@ -29,7 +29,7 @@ fi
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 cd $HOME/masa-node-v1.0/src
-git checkout v1.03
+git checkout v1.04
 make all &>/dev/null
 go get github.com/ethereum/go-ethereum/accounts/keystore &>/dev/null
 cd $HOME/masa-node-v1.0/src/build/bin
