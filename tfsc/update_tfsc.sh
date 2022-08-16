@@ -11,6 +11,7 @@ wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfsc
 
 cd $HOME/tfsc/
 PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"172.17.0.1\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
+sed -i "s/OFF/INFO/" "$HOME/tfsc/config.json"
 
 chmod +x $HOME/tfsc/tfsc
 
