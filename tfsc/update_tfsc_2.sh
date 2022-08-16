@@ -10,7 +10,7 @@ cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfsc_v0.2.0_681c2ec_devnet
 
 cd $HOME/tfsc/
-PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"172.17.0.1\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
+PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"pub_ip\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
 sed -i "s/OFF/INFO/" "$HOME/tfsc/config.json"
 
 

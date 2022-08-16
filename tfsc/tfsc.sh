@@ -34,8 +34,7 @@ line
 tmux new-session -d -s tfsc 'cd $HOME/tfsc/ && $HOME/tfsc/tfsc'
 sleep 5
 pkill -9 tfsc
-IP=$(curl -s ifconfig.me)
-sed -i "s/\ \ \ \ \"ip\"\:\ \".*"\,/\ \ \ \ \"ip\"\:\ \"$IP"\"\,/" "$HOME/tfsc/config.json"
+PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"pub_ip\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
 sed -i "s/OFF/INFO/" "$HOME/tfsc/config.json"
 tmux new-session -d -s tfsc 'cd $HOME/tfsc/ && $HOME/tfsc/tfsc -m'
 line
