@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pkill -9 tfsc
+tmux kill-session -t tfsc
 
 rm -rf $HOME/tfsc/tfsc
 rm -rf $HOME/tfsc/config.json
