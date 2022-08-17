@@ -9,12 +9,14 @@ echo "--------------------------------------------------------------------------
 sudo systemctl stop sui
 rm -rf $HOME/.sui/db
 wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
-#rm -rf sui
-#git clone https://github.com/MystenLabs/sui.git
-cd $HOME/sui
-git remote add upstream https://github.com/MystenLabs/sui
-git fetch upstream
-git checkout -B devnet --track upstream/devnet
+rm -rf sui
+git clone https://github.com/MystenLabs/sui.git
+git checkout 8a29394515eaf520cc6fa54bca8ce0c22db0dbc8
+mkdir -p $HOME/sui/target/release/
+# cd $HOME/sui
+# git remote add upstream https://github.com/MystenLabs/sui
+# git fetch upstream
+# git checkout -B devnet --track upstream/devnet
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
