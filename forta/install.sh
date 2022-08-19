@@ -18,7 +18,7 @@ function forta_owner {
 
 function tools_install {
   sudo apt update
-  sudo apt install mc build-essential wget htop curl jq -y
+  bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
 }
 
 function docker_install {
