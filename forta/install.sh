@@ -1,8 +1,19 @@
 #!/bin/bash
 
 function forta_passphrase {
-  echo -e "Придумайте парольную фразу для вашего кошелька" && sleep 1
-  read forta_passphrase
+  if [ ! $forta_passphrase ]; then
+    echo -e "Придумайте парольную фразу для вашего кошелька" && sleep 1
+    read forta_passphrase
+    echo 'export forta_passphrase='$forta_passphrase >> $HOME/.profile
+  fi
+}
+
+function forta_owner {
+  if [ ! $forta_owner ]; then
+    echo -e "Введите кошелек Метамаска(можно один для всех нод использовать)" && sleep 1
+    read forta_owner
+    echo 'export forta_owner='$forta_owner >> $HOME/.profile
+  fi
 }
 
 function tools_install {
@@ -15,8 +26,6 @@ function docker_install {
 }
 
 function forta_install {
-  # sudo curl https://dist.forta.network/artifacts/forta -o /usr/local/bin/forta
-  # sudo chmod 755 /usr/local/bin/forta
   sudo curl https://dist.forta.network/pgp.public -o /usr/share/keyrings/forta-keyring.asc -s
   echo 'deb [signed-by=/usr/share/keyrings/forta-keyring.asc] https://dist.forta.network/repositories/apt stable main' | sudo tee -a /etc/apt/sources.list.d/forta.list
   sudo apt update
@@ -77,6 +86,7 @@ logo
 line
 echo -e "${GREEN}1. Введите парольную фразу для кошелька... ${NORMAL}" && sleep 1
 forta_passphrase
+forta_owner
 line
 echo -e "${GREEN}2. Ставим зависимости... ${NORMAL}" && sleep 1
 line
