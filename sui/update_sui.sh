@@ -11,7 +11,7 @@ rm -rf $HOME/.sui/db
 wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
-git checkout 8a29394515eaf520cc6fa54bca8ce0c22db0dbc8
+git checkout -B devnet --track upstream/devnet
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui
@@ -21,9 +21,10 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
-wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/upd20.08/sui
-wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/upd20.08/sui-node
-wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/upd20.08/sui-faucet
+version=upd20.08
+wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
+wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
+wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
 sudo chmod +x $HOME/sui/target/release/{sui,sui-node,sui-faucet}
 sudo mv $HOME/sui/target/release/{sui,sui-node,sui-faucet} /usr/bin/
 sudo systemctl restart sui
