@@ -4,16 +4,16 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 if [ ! $MASA_NODENAME ]; then
 	read -p "Введите ваше имя ноды(придумайте, без спецсимволов - только буквы и цифры): " MASA_NODENAME
+    echo 'export MASA_NODENAME='$MASA_NODENAME >> $HOME/.profile
 fi
 sleep 1
-echo 'export MASA_NODENAME='$MASA_NODENAME >> $HOME/.profile
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash &>/dev/null
 sudo apt install nano mc wget -y &>/dev/null
-source .profile
+source $HOME/.profile
 sleep 1
 cd $HOME
 sudo apt install apt-transport-https -y &>/dev/null
@@ -33,7 +33,7 @@ git checkout v1.04
 make all &>/dev/null
 go get github.com/ethereum/go-ethereum/accounts/keystore &>/dev/null
 cd $HOME/masa-node-v1.0/src/build/bin
-cp * /usr/local/bin
+sudo cp * /usr/local/bin
 echo "Ставим geth quorum"
 echo "-----------------------------------------------------------------------------"
 cd $HOME

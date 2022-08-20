@@ -20,14 +20,15 @@ rm -rf /var/sui/db /var/sui/genesis.blob $HOME/sui $HOME/.sui
 mkdir -p $HOME/.sui
 git clone https://github.com/MystenLabs/sui.git
 cd $HOME/sui
-git checkout 8a29394515eaf520cc6fa54bca8ce0c22db0dbc8
+git checkout cff7a37e5c9b6bba1c82ff184657963a3ddba0e6
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
 mkdir -p /root/sui/target/release/
-wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui
-wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui-node
-wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/0.6.4/sui-faucet
+version=0.7.0
+wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
+wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
+wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
 sudo chmod +x $HOME/sui/target/release/{sui,sui-node,sui-faucet}
 sudo mv $HOME/sui/target/release/{sui,sui-node,sui-faucet} /usr/bin/
 wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
