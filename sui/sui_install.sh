@@ -20,12 +20,12 @@ rm -rf /var/sui/db /var/sui/genesis.blob $HOME/sui $HOME/.sui
 mkdir -p $HOME/.sui
 git clone https://github.com/MystenLabs/sui.git
 cd $HOME/sui
-git checkout cff7a37e5c9b6bba1c82ff184657963a3ddba0e6
+git checkout -B devnet --track upstream/devnet
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
 mkdir -p /root/sui/target/release/
-version=0.7.0
+version=upd20.08
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
