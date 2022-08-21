@@ -26,9 +26,9 @@ EOF
 }
 
 function download_framework {
-  wget -qO ${HOME}/aptos_testnet/framework.zip https://github.com/aptos-labs/aptos-core/releases/download/aptos-framework-v0.1.0/framework.zip
-  unzip -o ${HOME}/aptos_testnet/framework.zip -d ${HOME}/aptos_testnet/
-  rm ${HOME}/aptos_testnet/framework.zip
+  wget -q https://github.com/aptos-labs/aptos-core/archive/refs/tags/aptos-framework-v0.3.0.zip
+  unzip -o aptos-framework-v0.3.0.zip -d $HOME/aptos_testnet/
+  rm aptos-framework-v0.3.0.zip
 }
 
 function configure_validator {

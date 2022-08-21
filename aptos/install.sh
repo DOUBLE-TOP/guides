@@ -27,7 +27,7 @@ function update_deps {
 
 function download_aptos_cli {
   rm -f /usr/local/bin/aptos
-  wget -O $HOME/aptos-cli.zip https://github.com/aptos-labs/aptos-core/releases/download/aptos-cli-0.2.0/aptos-cli-0.2.0-Ubuntu-x86_64.zip
+  wget -O $HOME/aptos-cli.zip https://github.com/aptos-labs/aptos-core/releases/download/aptos-cli-v0.3.1/aptos-cli-0.3.1-Ubuntu-x86_64.zip
   sudo unzip -o aptos-cli -d /usr/local/bin
   sudo chmod +x /usr/local/bin/aptos
 }
@@ -53,10 +53,10 @@ function prepare_validator {
 
   tee $HOME/aptos_testnet/layout.yaml > /dev/null <<EOF
 ---
-root_key: "F22409A93D1CD12D2FC92B5F8EB84CDCD24C348E32B3E7A720F3D2E288E63394"
+root_key: "D04470F43AB6AEAA4EB616B72128881EEF77346F2075FFE68E14BA7DEBD8095E"
 users:
  - $aptos_username
-chain_id: 40
+chain_id: 43
 min_stake: 0
 max_stake: 100000
 min_lockup_duration_secs: 0
@@ -67,9 +67,7 @@ min_price_per_gas_unit: 1
 allow_new_validators: true
 EOF
 
-  wget -q https://github.com/aptos-labs/aptos-core/releases/download/aptos-framework-v0.2.0/framework.zip
-  unzip -o framework.zip -d $HOME/aptos_testnet/
-  rm framework.zip
+  wget -O $HOME/aptos_testnet/framework.mrb https://github.com/aptos-labs/aptos-core/releases/download/aptos-framework-v0.3.0/framework.mrb
 
   aptos genesis generate-genesis --local-repository-dir $HOME/aptos_testnet --output-dir $HOME/aptos_testnet
 }
