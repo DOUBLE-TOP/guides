@@ -80,6 +80,7 @@ EOF
 }
 
 function up_validator {
+  docker-compose -f ${HOME}/aptos_testnet/docker-compose.yaml pull
   docker-compose -f ${HOME}/aptos_testnet/docker-compose.yaml up -d
 }
 function logo {
