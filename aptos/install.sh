@@ -41,15 +41,16 @@ function prepare_config {
 function prepare_validator {
   mkdir -p $HOME/aptos_testnet/keys/
 
-  aptos genesis generate-keys --output-dir $HOME/aptos_testnet
+  aptos genesis generate-keys --output-dir $HOME/aptos_testnet/keys
 
   aptos key generate --output-file $HOME/aptos_testnet/keys/root
 
   aptos genesis set-validator-configuration \
-    --keys-dir $HOME/aptos_testnet --local-repository-dir $HOME/aptos_testnet \
+    --owner-public-identity-file  $HOME/aptos_testnet/keys/public-keys.yaml --local-repository-dir $HOME/aptos_testnet \
     --username "$aptos_username" \
     --validator-host `wget -qO- eth0.me`:6180 \
-    --full-node-host `wget -qO- eth0.me`:6182
+    --full-node-host `wget -qO- eth0.me`:6182 \
+    --stake-amount 100000000000000
 
   tee $HOME/aptos_testnet/layout.yaml > /dev/null <<EOF
 ---
