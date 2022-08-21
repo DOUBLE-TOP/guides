@@ -52,20 +52,26 @@ function prepare_validator {
     --full-node-host `wget -qO- eth0.me`:6182 \
     --stake-amount 100000000000000
 
+    # aptos genesis generate-layout-template --output-file ~/aptos_testnet/layout.yaml
+
+
   tee $HOME/aptos_testnet/layout.yaml > /dev/null <<EOF
 ---
 root_key: "D04470F43AB6AEAA4EB616B72128881EEF77346F2075FFE68E14BA7DEBD8095E"
 users:
  - $aptos_username
 chain_id: 43
-min_stake: 0
-max_stake: 100000
-min_lockup_duration_secs: 0
-max_lockup_duration_secs: 2592000
-epoch_duration_secs: 86400
-initial_lockup_timestamp: 1656615600
-min_price_per_gas_unit: 1
-allow_new_validators: true
+allow_new_validators: false
+epoch_duration_secs: 7200
+is_test: true
+min_stake: 100000000000000
+min_voting_threshold: 100000000000000
+max_stake: 100000000000000000
+recurring_lockup_duration_secs: 86400
+required_proposer_stake: 100000000000000
+rewards_apy_percentage: 10
+voting_duration_secs: 43200
+voting_power_increase_limit: 20
 EOF
 
   wget -O $HOME/aptos_testnet/framework.mrb https://github.com/aptos-labs/aptos-core/releases/download/aptos-framework-v0.3.0/framework.mrb
