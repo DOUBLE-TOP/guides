@@ -80,7 +80,7 @@ EOF
 }
 
 function up_validator {
-  docker compose -f ${HOME}/aptos_testnet/docker-compose.yaml up -d
+  docker-compose -f ${HOME}/aptos_testnet/docker-compose.yaml up -d
 }
 function logo {
   curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
