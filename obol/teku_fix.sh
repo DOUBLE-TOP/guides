@@ -18,7 +18,7 @@ for (( ;; )); do
     ;;
     *)
     echo "Removing lock file"
-    rm /root/charon-distributed-validator-node/.charon/validator_keys/keystore-0.json.lock
+    rm $HOME/charon-distributed-validator-node/.charon/validator_keys/keystore-0.json.lock
     ;;
   esac
 done
