@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 echo "Начинаем обновление репрозитория "
 echo "-----------------------------------------------------------------------------"
-cd ~/pathfinder/py
+cd $HOME/pathfinder/py
 git fetch &>/dev/null
 git checkout v0.3.1 &>/dev/null
 echo "Репозиторий успешно обновлен, начинаем билд"
@@ -20,6 +20,6 @@ sleep 2
 source $HOME/.bash_profile &>/dev/null
 echo "Билд завершен успешно"
 echo "-----------------------------------------------------------------------------"
-systemctl restart starknet
+sudo systemctl restart starknet
 echo "Нода обновлена и запущена"
 echo "-----------------------------------------------------------------------------"
