@@ -22,3 +22,5 @@ for (( ;; )); do
     ;;
   esac
 done
+
+#tmux new-session -d -s obol-teku 'bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/obol/teku_fix.sh)'
