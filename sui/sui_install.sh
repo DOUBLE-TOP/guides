@@ -25,7 +25,7 @@ echo "Репозиторий успешно склонирован, начина
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
 mkdir -p /root/sui/target/release/
-version=0.7.1
+version=0.7.2
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
