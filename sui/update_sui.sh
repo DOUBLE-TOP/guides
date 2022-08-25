@@ -21,7 +21,7 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
-version=upd20.08
+version=0.7.1
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
