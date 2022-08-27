@@ -15,10 +15,10 @@ function colors {
 }
 
 function prom_token {
-  if [ ! ${prom_token} ]; then
+  if [ ! ${PROM_REMOTE_WRITE_TOKEN} ]; then
   echo "Введите токен мониторинга"
   line
-  read prom_token
+  read PROM_REMOTE_WRITE_TOKEN
   fi
 }
 
