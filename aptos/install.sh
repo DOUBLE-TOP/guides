@@ -60,7 +60,7 @@ function prepare_validator {
 root_key: "D04470F43AB6AEAA4EB616B72128881EEF77346F2075FFE68E14BA7DEBD8095E"
 users:
  - $aptos_username
-chain_id: 43
+chain_id: 47
 allow_new_validators: false
 epoch_duration_secs: 7200
 is_test: true
