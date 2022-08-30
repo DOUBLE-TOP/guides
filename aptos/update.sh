@@ -30,8 +30,8 @@ EOF
 
 function update_files {
   sudo wget -O $HOME/aptos_testnet/docker-compose.yaml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/aptos/docker-compose.yaml
-  sudo wget -O genesis.blob https://github.com/aptos-labs/aptos-ait3/raw/main/genesis.blob
-  sudo wget -O waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-ait3/main/waypoint.txt
+  sudo wget -O $HOME/aptos_testnet/genesis.blob https://github.com/aptos-labs/aptos-ait3/raw/main/genesis.blob
+  sudo wget -O $HOME/aptos_testnet/waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-ait3/main/waypoint.txt
 }
 
 docker-compose -f $HOME/aptos_testnet/docker-compose.yaml down -v
