@@ -38,4 +38,5 @@ docker-compose -f $HOME/aptos_testnet/docker-compose.yaml down -v
 download_aptos_cli
 add_layout
 update_files
-docker-compose -f $HOME/aptos_testnet/docker-compose.yaml up -d
+# docker-compose -f $HOME/aptos_testnet/docker-compose.yaml up -d
+echo "обновлено, переходите к следующему пункту гайда"
