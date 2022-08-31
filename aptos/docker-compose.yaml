@@ -25,6 +25,10 @@ services:
         target: /opt/aptos/genesis/validator-identity.yaml
     command: ["/usr/local/bin/aptos-node", "-f", "/opt/aptos/etc/validator.yaml"]
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 2048000
+        hard: 2048000
     ports:
       - "6180:6180"
       - "6181:6181"
