@@ -34,9 +34,16 @@ function update_files {
   sudo wget -O $HOME/aptos_testnet/waypoint.txt https://raw.githubusercontent.com/aptos-labs/aptos-ait3/main/waypoint.txt
 }
 
+function get_envs {
+  echo "export operator_addr=`cat $HOME/aptos_testnet/keys/private-keys.yaml | grep "account_address" | awk '{print $2}'`" >> $HOME/.profile
+
+  echo "export pr_key=`cat $HOME/aptos_testnet/keys/private-keys.yaml | grep "account_private_key" | awk '{print $2}' | sed 's/\"//g'`" >> $HOME/.profile
+}
+
 docker-compose -f $HOME/aptos_testnet/docker-compose.yaml down -v
 download_aptos_cli
 add_layout
 update_files
+get_envs
 # docker-compose -f $HOME/aptos_testnet/docker-compose.yaml up -d
 echo "обновлено, переходите к следующему пункту гайда"
