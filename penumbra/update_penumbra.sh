@@ -56,12 +56,12 @@ function wget_bin_pcli {
 
 function generate_wallet {
   cd $HOME/penumbra/
-  pcli wallet generate
+  pcli keys generate
 }
 
 function reset_wallet {
   cd $HOME/penumbra/
-  pcli wallet reset
+  pcli view reset
 }
 
 function rust_update {

@@ -54,7 +54,7 @@ function wget_bin_pcli {
 function generate_wallet {
   cd $HOME/penumbra/
   mkdir -p $HOME/.local/share/penumbra-testnet-archive/
-  pcli wallet generate
+  pcli keys generate
 }
 
 colors
