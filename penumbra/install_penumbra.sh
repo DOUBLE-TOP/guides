@@ -28,7 +28,7 @@ function source_git {
   fi
   cd $HOME/penumbra
   git fetch
-  git checkout 026-hermippe && cargo update
+  git checkout 027-thyone && cargo update
 }
 
 function build_penumbra {
