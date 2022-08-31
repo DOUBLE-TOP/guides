@@ -27,8 +27,8 @@ services:
     restart: unless-stopped
     ulimits:
       nofile:
-        soft: 2048000
-        hard: 2048000
+        soft: 1024000
+        hard: 1024000
     ports:
       - "6180:6180"
       - "6181:6181"
