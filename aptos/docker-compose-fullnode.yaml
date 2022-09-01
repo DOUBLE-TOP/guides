@@ -5,8 +5,6 @@ version: "3.8"
 services:
   fullnode:
     image: "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"
-    networks:
-      shared:
     volumes:
       - type: volume
         source: aptos-fullnode
