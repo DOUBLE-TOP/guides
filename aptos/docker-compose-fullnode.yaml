@@ -34,13 +34,6 @@ services:
       - 8080
       - 9101
 
-networks:
-  shared:
-    name: "aptos-docker-compose-shared"
-    ipam:
-      config:
-        - subnet: 172.16.1.0/24
-
 volumes:
   aptos-fullnode:
     name: aptos-fullnode
