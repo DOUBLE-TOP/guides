@@ -4,7 +4,7 @@
 version: "3.8"
 services:
   fullnode:
-    image: "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_4219d75c57115805f0faf0ad07c17becf6580202}"
+    image: "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_26ed95ce4c8798743e7900bba566d29079af0a70}"
     volumes:
       - type: volume
         source: aptos-fullnode
