@@ -25,7 +25,7 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 
-git clone --branch v0.3.2 https://github.com/eqlabs/pathfinder.git &>/dev/null
+git clone --branch v0.3.3 https://github.com/eqlabs/pathfinder.git &>/dev/null
 cd pathfinder/py &>/dev/null
 python3 -m venv .venv &>/dev/null
 source .venv/bin/activate &>/dev/null
