@@ -26,7 +26,7 @@ cd bazuka && git pull origin master && cargo build && cargo install --path .
 sudo mv $HOME/bazuka/target/debug/bazuka /usr/local/bin/ &>/dev/null
 echo "Билд закончен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
-bazuka init --seed $BAZUKA_KEY --network debug --node 127.0.0.1:8765
+bazuka init --seed '"$BAZUKA_KEY"' --network debug --node 127.0.0.1:8765
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/bazuka.service
 [Unit]
