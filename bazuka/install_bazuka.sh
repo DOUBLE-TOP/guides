@@ -3,7 +3,7 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
 if [ ! $BAZUKA_KEY ]; then
-	read -p "Введите bip39 mnemonic в ковычках (ПРИМЕР: "protect survey define garden lesson worry canvas fatigue crystal stand tank soccer network rather select artist coconut effort parrot use sword water power gossip"): " BAZUKA_KEY
+	read -p "Введите bip39 mnemonic в ковычках (ПРИМЕР: protect survey define garden lesson worry canvas fatigue crystal stand tank soccer network rather select artist coconut effort parrot use sword water power gossip): " BAZUKA_KEY
 fi
 echo 'Ваш ключ: ' $BAZUKA_KEY
 sleep 1
