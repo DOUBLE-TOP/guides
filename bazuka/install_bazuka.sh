@@ -7,7 +7,7 @@ if [ ! $BAZUKA_KEY ]; then
 fi
 echo 'Ваш ключ: ' $BAZUKA_KEY
 sleep 1
-echo 'export ALCHEMY_KEY='$BAZUKA_KEY >> $HOME/.bash_profile
+echo 'export BAZUKA_KEY='$BAZUKA_KEY >> $HOME/.bash_profile
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
