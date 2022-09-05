@@ -14,6 +14,7 @@ python3 -m venv .venv &>/dev/null
 source .venv/bin/activate &>/dev/null
 PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip &>/dev/null
 PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt &>/dev/null
+rustup default stable
 rustup update
 cargo build --release --bin pathfinder &>/dev/null
 sleep 2
