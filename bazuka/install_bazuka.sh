@@ -22,8 +22,7 @@ sleep 1
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 git clone https://github.com/zeeka-network/bazuka &>/dev/null
-cd bazuka && cargo build
-git pull origin master && cargo install --path
+cd bazuka && git pull origin master && cargo build && cargo install --path .
 sudo mv $HOME/bazuka/target/debug/bazuka /usr/local/bin/ &>/dev/null
 echo "Билд закончен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
