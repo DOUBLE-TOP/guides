@@ -16,7 +16,7 @@ function line {
 
 function get_vars {
   export CHAIN="gemini-1"
-  export RELEASE="gemini-1b-2022-jun-18"
+  export RELEASE="gemini-2a-2022-sep-06"
   export SUBSPACE_NODENAME=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-name" | awk -F\" '{print $4}')
   export WALLET_ADDRESS=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-reward-address" | awk -F\" '{print $4}')
   export PLOT_SIZE=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-plot-size" | awk -F\" '{print $4}')
