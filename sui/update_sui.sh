@@ -11,7 +11,8 @@ rm -rf $HOME/.sui/db
 wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
-git checkout -B devnet --track upstream/devnet
+git fetch
+git checkout devnet-0.9.0
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui
@@ -21,7 +22,7 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
-version=0.8.0
+version=0.9.0
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
