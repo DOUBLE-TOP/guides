@@ -22,6 +22,15 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
+
+if [ ! -d /etc/systemd/system/minima_9001.service ]; then
+  no minima no conflicts
+else
+  sed -i -e "s/port 9001/port 19001/" /etc/systemd/system/minima_9001.service
+  sudo systemctl daemon-reload
+  sudo systemctl restart minima_9001
+fi
+
 version=0.9.0
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
