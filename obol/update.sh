@@ -1,5 +1,5 @@
 #!/bin/bash
-
+docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
 cd $HOME/charon-distributed-validator-node
 git stash
 git pull
