@@ -11,6 +11,7 @@ echo -e "\nLIGHTHOUSE_PORT_P2P=19000" >> $HOME/charon-distributed-validator-node
 echo -e "\nMONITORING_PORT_GRAFANA=4000" >> $HOME/charon-distributed-validator-node/.env
 echo -e "\nCHARON_P2P_EXTERNAL_HOSTNAME=$(curl -s ifconfig.me)" >> $HOME/charon-distributed-validator-node/.env
 sed -i -e 's/9100:9100/19100:9100/' $HOME/charon-distributed-validator-node/docker-compose.yml
+sudo chmod -R 777 .charon
 docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml up -d
 echo "--------------------------------------------------"
 echo "Обновление завершено"
