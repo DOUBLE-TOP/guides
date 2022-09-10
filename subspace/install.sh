@@ -76,7 +76,7 @@ function eof_docker_compose {
         - "0.0.0.0:30333:30333"
       restart: unless-stopped
       command: [
-        "--chain", "gemini-1",
+        "--chain", "gemini-2a",
         "--base-path", "/var/subspace",
         "--execution", "wasm",
         "--pruning", "1024",
