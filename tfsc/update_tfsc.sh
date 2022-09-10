@@ -7,7 +7,7 @@ rm -rf $HOME/tfsc/config.json
 # rm -rf $HOME/tfsc/data.db
 
 cd $HOME/tfsc/
-wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfsc_v0.4.0_762f9d0_devnet
+wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/v0.5.0_cc7126b_devnet
 
 cd $HOME/tfsc/
 PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"pub_ip\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
