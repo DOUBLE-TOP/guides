@@ -10,7 +10,8 @@ git fetch
 git checkout v0.3.4
 echo "Репозиторий успешно обновлен, начинаем билд"
 echo "-----------------------------------------------------------------------------"
-#source .venv/bin/activate
+#python3 -m venv .venv
+source .venv/bin/activate
 PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip
 PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt
 rustup default stable
