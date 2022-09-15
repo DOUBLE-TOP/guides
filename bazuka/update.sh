@@ -12,6 +12,8 @@ cd bazuka
 git pull origin master
 cargo build
 cargo install --path .
+rm -f /usr/local/bin/bazuka
+sudo mv $HOME/bazuka/target/debug/bazuka /usr/local/bin/
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/bazuka.service
 [Unit]
