@@ -13,7 +13,7 @@ git pull origin master
 cargo build
 cargo install --path .
 rm -f /usr/local/bin/bazuka
-rm -rf $HOME/.bazuka-debug
+# rm -rf $HOME/.bazuka-debug
 sudo mv $HOME/bazuka/target/debug/bazuka /usr/local/bin/
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/bazuka.service
