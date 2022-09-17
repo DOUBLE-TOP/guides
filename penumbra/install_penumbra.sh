@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="029-eukelade"
+export version="029-eukelade.2"
 line
 logo
 line
