@@ -87,8 +87,8 @@ delete
 line
 echo "Скачиваем новую версию и переписываем конфиг"
 install
-routable_ip
-replace_bootstraps
+#routable_ip
+#replace_bootstraps
 alias
 line
 #echo "Восстанавливаемся из бекапа"
