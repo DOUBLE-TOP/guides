@@ -25,13 +25,13 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 
-git clone --branch v0.3.2 https://github.com/eqlabs/pathfinder.git &>/dev/null
+git clone --branch v0.3.5 https://github.com/eqlabs/pathfinder.git
 cd pathfinder/py &>/dev/null
 python3 -m venv .venv &>/dev/null
 source .venv/bin/activate &>/dev/null
-PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip &>/dev/null
-PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt &>/dev/null
-cargo build --release --bin pathfinder &>/dev/null
+PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip
+PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt
+cargo build --release --bin pathfinder
 sleep 2
 source $HOME/.bash_profile &>/dev/null
 echo "Билд завершен успешно"

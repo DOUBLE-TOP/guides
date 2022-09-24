@@ -29,7 +29,7 @@ function source_git {
   cd $HOME/penumbra
   git reset --hard
   git fetch
-  git checkout 027-thyone && cargo update
+  git checkout $version && cargo update
 }
 
 function build_penumbra {
@@ -49,7 +49,7 @@ function build_penumbra {
 
 function wget_bin_pcli {
   mkdir -p $HOME/penumbra/target/release/
-  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/027-thyone/pcli
+  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/$version/pcli
   sudo chmod +x $HOME/penumbra/target/release/pcli
   sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
 }
@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-
+export version="029-eukelade.2"
 line
 logo
 line

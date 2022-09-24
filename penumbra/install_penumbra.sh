@@ -28,7 +28,7 @@ function source_git {
   fi
   cd $HOME/penumbra
   git fetch
-  git checkout 027-thyone && cargo update
+  git checkout $version && cargo update
 }
 
 function build_penumbra {
@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-
+export version="029-eukelade.2"
 line
 logo
 line

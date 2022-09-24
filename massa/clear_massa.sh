@@ -20,8 +20,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.13.0/massa_TEST.13.0_release_linux.tar.gz
-  tar zxvf massa_TEST.13.0_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.14.7/massa_TEST.14.7_release_linux.tar.gz
+  tar zxvf massa_TEST.14.7_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -92,9 +92,9 @@ line
 massa_pass
 delete
 install
-routable_ip
+#routable_ip
 line
-replace_bootstraps
+#replace_bootstraps
 line
 systemd
 line
