@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="029-eukelade.2"
+export version="030-isonoe"
 line
 logo
 line
