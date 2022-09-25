@@ -31,7 +31,7 @@ else
   sudo systemctl daemon-reload
   sudo systemctl restart minima_9001
 fi
-mkdir -p /root/sui/target/release/
+mkdir -p $HOME/sui/target/release/
 version=0.8.0
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
