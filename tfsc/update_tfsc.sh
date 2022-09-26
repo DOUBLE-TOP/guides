@@ -3,8 +3,8 @@
 tmux kill-session -t tfsc
 
 rm -rf $HOME/tfsc/tfsc
-rm -rf $HOME/tfsc/config.json
-rm -rf $HOME/tfsc/data.db
+#rm -rf $HOME/tfsc/config.json
+#rm -rf $HOME/tfsc/data.db
 
 cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfsc_v0.6.2_4955156_devnet
