@@ -1,9 +1,9 @@
 #!/bin/bash
 docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
 cd $HOME/charon-distributed-validator-node
-git reset --hard HEAD~3
-# git pull
-# git checkout -- $HOME/charon-distributed-validator-node/docker-compose.yml
+git reset --hard
+git pull
+git checkout -- $HOME/charon-distributed-validator-node/docker-compose.yml
 cp $HOME/charon-distributed-validator-node/.env.sample $HOME/charon-distributed-validator-node/.env
 echo -e "\nGETH_PORT_HTTP=18545" >> $HOME/charon-distributed-validator-node/.env
 echo -e "\nLIGHTHOUSE_PORT_P2P=19000" >> $HOME/charon-distributed-validator-node/.env
