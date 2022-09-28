@@ -12,7 +12,7 @@ wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/m
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
 git fetch
-git checkout devnet-0.9.0
+git checkout -B devnet --track upstream/devnet
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui
@@ -31,7 +31,7 @@ else
   sudo systemctl restart minima_9001
 fi
 
-version=0.9.0
+version=0.10.0
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
