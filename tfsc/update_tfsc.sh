@@ -8,9 +8,8 @@ if [ ! -d $HOME/tfsc_backup/ ]; then
   cp $HOME/tfsc/cert/* $HOME/tfsc_backup/
 fi
 
-rm -rf $HOME/tfsc/tfsc
-rm -rf $HOME/tfsc/config.json
-rm -rf $HOME/tfsc/data.db
+rm -rf $HOME/tfsc
+mkdir $HOME/tfsc
 
 cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfs_v0.7.0_61ec7b1_devnet
