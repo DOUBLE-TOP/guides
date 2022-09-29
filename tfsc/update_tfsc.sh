@@ -9,8 +9,8 @@ if [ ! -d $HOME/tfsc_backup/ ]; then
 fi
 
 rm -rf $HOME/tfsc/tfsc
-#rm -rf $HOME/tfsc/config.json
-#rm -rf $HOME/tfsc/data.db
+rm -rf $HOME/tfsc/config.json
+rm -rf $HOME/tfsc/data.db
 
 cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfs_v0.7.0_61ec7b1_devnet
