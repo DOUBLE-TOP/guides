@@ -2,6 +2,12 @@
 
 tmux kill-session -t tfsc
 
+cd $HOME
+if [ ! -d $HOME/tfsc_backup/ ]; then
+  mkdir -p $HOME/tfsc_backup
+  cp $HOME/tfsc/cert/* $HOME/tfsc_backup/
+fi
+
 rm -rf $HOME/tfsc/tfsc
 #rm -rf $HOME/tfsc/config.json
 #rm -rf $HOME/tfsc/data.db
