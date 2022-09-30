@@ -8,9 +8,9 @@ tmux kill-session -t tfsc
 #  cp $HOME/tfsc/cert/* $HOME/tfsc_backup/
 #fi
 
-rm -rf $HOME/tfsc
-mkdir $HOME/tfsc
-
+#rm -rf $HOME/tfsc
+#mkdir $HOME/tfsc
+rm -rf $HOME/tfsc/tfsc
 cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc  https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/test/ttfs_v0.8.0_76a6414_devnet
 
