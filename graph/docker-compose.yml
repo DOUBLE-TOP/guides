@@ -63,11 +63,11 @@ services:
       GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: ${GRAPH_ALLOW_NON_DETERMINISTIC_IPFS:-false}
       EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
     restart: unless-stopped
-    expose:
-      - 8001
-      - 8000
-      - 8030
-      - 8040
+    ports:
+      - 8001:8001
+      - 8000:8000
+      - 8030:8030
+      - 8040:8040
     networks:
       - network
     logging: *default-logging
@@ -85,8 +85,8 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - network
-    expose:
-      - 5432
+    ports:
+      - 5432:5432
     logging: *default-logging
 
   prometheus:
@@ -103,7 +103,7 @@ services:
       - '--storage.tsdb.retention.time=200h'
       - '--web.enable-lifecycle'
     restart: unless-stopped
-    expose:
+    ports:
       - 29090:9090
     networks:
       - network
@@ -124,7 +124,7 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
-    expose:
+    ports:
       - 29100:9100
     networks:
       - network
@@ -142,7 +142,7 @@ services:
       - /var/lib/docker:/var/lib/docker:ro
       - /cgroup:/cgroup:ro
     restart: unless-stopped
-    expose:
+    ports:
       - 28080:8080
     networks:
       - network
@@ -164,7 +164,7 @@ services:
   #     - GF_INSTALL_PLUGINS=fifemon-graphql-datasource
   #     - subgraph_endpoint=${SUBGRAPH_ENDPOINT:-https://gateway.thegraph.com/network}
   #   restart: unless-stopped
-  #   expose:
+  #   ports:
   #     - 3000
   #   networks:
   #     - network
