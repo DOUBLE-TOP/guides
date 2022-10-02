@@ -19,7 +19,7 @@ line
 your_domain
 line
 
-sudo tee -a <<EOF >/dev/null $HOME/Caddyfile
+sudo tee <<EOF >/dev/null $HOME/Caddyfile
 https://$your_domain {
     reverse_proxy localhost:8000
 }
