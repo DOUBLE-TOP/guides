@@ -16,11 +16,8 @@ function line {
 
 logo
 line
-app_name
+your_domain
 line
-api_port
-line
-grpc_port
 
 sudo tee -a <<EOF >/dev/null $HOME/Caddyfile
 https://$your_domain {
