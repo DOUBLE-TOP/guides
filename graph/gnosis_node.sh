@@ -11,6 +11,11 @@ rm -f nethermind-linux-amd64-1.14.2-08354f9-20220915.zip
 sudo bash -c 'echo "nethermind hard nofile 1000000" >> /etc/security/limits.d/nethermind.conf'
 sudo bash -c 'echo "nethermind hard nofile 1000000" >> /etc/security/limits.d/nethermind.conf'
 
+mv $HOME/xdai_archive/nethermind_db/xdai_archive $HOME/xdai_archive/nethermind_db/xdai_archive.del
+mkdir -p $HOME/xdai_archive/nethermind_db/xdai_archive
+mv $HOME/xdai_archive/{blockInfos,blocks,bloom,canonicalHashTrie,code,discoveryNodes,headers,metadata,peers,receipts,state,witness} $HOME/xdai_archive/nethermind_db/xdai_archive/
+rm -rf $HOME/xdai_archive/nethermind_db/xdai_archive.del
+
 sudo tee <<EOF >/dev/null $HOME/nethermind/configs/xdai_archive.cfg
 {
   "Init": {
