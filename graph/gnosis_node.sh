@@ -67,7 +67,7 @@ After=network.target
 [Service]
 User=$USER
 WorkingDirectory=$HOME
-ExecStart=$HOME/nethermind/Nethermind.Runner --config xdai_archive --datadir $HOME/xdai_archive
+ExecStart=$HOME/nethermind/Nethermind.Runner --config xdai_archive --datadir $HOME/xdai_archive --JsonRpc.Enabled true --JsonRpc.Host 0.0.0.0
 Restart=on-failure
 LimitNOFILE=1000000
 

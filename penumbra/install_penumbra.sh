@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="030-isonoe"
+export version="031-autonoe"
 line
 logo
 line
