@@ -50,8 +50,6 @@ scrape_configs:
         target_label: instance
         replacement: '$indexer_domain'
 
-
-
   - job_name: 'index-node'
     scrape_interval: 5s
     static_configs:
