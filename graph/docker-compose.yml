@@ -73,7 +73,7 @@ services:
     logging: *default-logging
 
   postgres:
-    image: postgres:latest
+    image: postgres:14.5
     container_name: postgres
     command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
     restart: unless-stopped
