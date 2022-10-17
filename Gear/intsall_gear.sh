@@ -44,7 +44,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/root/
-ExecStart=/root/gear-node \
+ExecStart=/root/gear \
         --name $NODENAME_GEAR \
         --execution wasm \
 	--port 31333 \
