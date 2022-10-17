@@ -46,37 +46,20 @@ function read_wallet {
   fi
 }
 
-# function source_git {
-#   git clone https://github.com/subspace/subspace
-#   cd $HOME/subspace
-#   git fetch
-#   git checkout gemini-1b-2022-june-05
-# }
-#
-# function build_image_node {
-#   cd $HOME/subspace
-#   docker build -t subspacelabs/subspace-node:gemini-1b-2022-june-05 -f $HOME/subspace/Dockerfile-node .
-# }
-#
-# function build_image_farmer {
-#   cd $HOME/subspace
-#   docker build -t subspacelabs/subspace-farmer:gemini-1b-2022-june-05 -f $HOME/subspace/Dockerfile-farmer .
-# }
-
 function eof_docker_compose {
   mkdir -p $HOME/subspace_docker/
   sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:gemini-1b-2022-jun-18
+      image: ghcr.io/subspace/node:gemini-2a-2022-oct-06
       volumes:
         - node-data:/var/subspace:rw
       ports:
         - "0.0.0.0:30333:30333"
       restart: unless-stopped
       command: [
-        "--chain", "gemini-1",
+        "--chain", "gemini-2a",
         "--base-path", "/var/subspace",
         "--execution", "wasm",
         "--pruning", "1024",
@@ -88,20 +71,7 @@ function eof_docker_compose {
         "--validator",
         "--name", "$SUBSPACE_NODENAME",
         "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.postcapitalist.io/submit 0",
-        "--reserved-nodes", "/dns/bootstrap-0.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWF9CgB8bDvWCvzPPZrWG3awjhS7gPFu7MzNPkF9F9xWwc",
-        "--reserved-nodes", "/dns/bootstrap-1.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWLrpSArNaZ3Hvs4mABwYGDY1Rf2bqiNTqUzLm7koxedQQ",
-        "--reserved-nodes", "/dns/bootstrap-2.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWNN5uuzPtDNtWoLU28ZDCQP7HTdRjyWbNYo5EA6fZDAMD",
-        "--reserved-nodes", "/dns/bootstrap-3.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWM47uyGtvbUFt5tmWdFezNQjwbYZmWE19RpWhXgRzuEqh",
-        "--reserved-nodes", "/dns/bootstrap-4.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWNMEKxFZm9mbwPXfQ3LQaUgin9JckCq7TJdLS2UnH6E7z",
-        "--reserved-nodes", "/dns/bootstrap-5.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWFfEtDmpb8BWKXoEAgxkKAMfxU2yGDq8nK87MqnHvXsok",
-        "--reserved-nodes", "/dns/bootstrap-6.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWHSeob6t43ukWAGnkTcQEoRaFSUWphGDCKF1uefG2UGDh",
-        "--reserved-nodes", "/dns/bootstrap-7.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWKwrGSmaGJBD29agJGC3MWiA7NZt34Vd98f6VYgRbV8hH",
-        "--reserved-nodes", "/dns/bootstrap-8.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWCXFrzVGtAzrTUc4y7jyyvhCcNTAcm18Zj7UN46whZ5Bm",
-        "--reserved-nodes", "/dns/bootstrap-9.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWNGxWQ4sajzW1akPRZxjYM5TszRtsCnEiLhpsGrsHrFC6",
-        "--reserved-nodes", "/dns/bootstrap-10.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWNGf1qr5411JwPHgwqftjEL6RgFRUEFnsJpTMx6zKEdWn",
-        "--reserved-nodes", "/dns/bootstrap-11.gemini-1b.subspace.network/tcp/30333/p2p/12D3KooWM7Qe4rVfzUAMucb5GTs3m4ts5ZrFg83LZnLhRCjmYEJK"
-        # "--reserved-only"
+        "--telemetry-url", "wss://telemetry.postcapitalist.io/submit 0"
       ]
       healthcheck:
         timeout: 5s
@@ -111,7 +81,7 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:gemini-1b-2022-jun-18
+      image: ghcr.io/subspace/farmer:gemini-2a-2022-oct-06
       volumes:
         - farmer-data:/var/subspace:rw
       restart: unless-stopped

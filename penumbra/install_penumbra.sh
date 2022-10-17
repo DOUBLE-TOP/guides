@@ -28,7 +28,7 @@ function source_git {
   fi
   cd $HOME/penumbra
   git fetch
-  git checkout 025-helike && cargo update
+  git checkout $version && cargo update
 }
 
 function build_penumbra {
@@ -46,7 +46,7 @@ function build_penumbra {
 
 function wget_bin_pcli {
   mkdir -p $HOME/penumbra/target/release/
-  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/025-helike/pcli
+  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/027-thyone/pcli
   sudo chmod +x $HOME/penumbra/target/release/pcli
   sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
 }
@@ -54,11 +54,11 @@ function wget_bin_pcli {
 function generate_wallet {
   cd $HOME/penumbra/
   mkdir -p $HOME/.local/share/penumbra-testnet-archive/
-  pcli wallet generate
+  pcli keys generate
 }
 
 colors
-
+export version="031-autonoe"
 line
 logo
 line

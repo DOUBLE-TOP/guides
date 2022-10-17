@@ -6,16 +6,18 @@ echo "--------------------------------------------------------------------------
 echo "Начинаем обновление репрозитория "
 echo "-----------------------------------------------------------------------------"
 cd $HOME/pathfinder/py
-git fetch &>/dev/null
-git checkout v0.3.1 &>/dev/null
+git fetch
+git checkout v0.3.6
 echo "Репозиторий успешно обновлен, начинаем билд"
 echo "-----------------------------------------------------------------------------"
-python3 -m venv .venv &>/dev/null
-source .venv/bin/activate &>/dev/null
-PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip &>/dev/null
-PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt &>/dev/null
+rm -rf $HOME/pathfinder/py/.venv
+python3 -m venv .venv
+source .venv/bin/activate
+PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip
+PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt
+rustup default stable
 rustup update
-cargo build --release --bin pathfinder &>/dev/null
+cargo build --release --bin pathfinder
 sleep 2
 source $HOME/.bash_profile &>/dev/null
 echo "Билд завершен успешно"

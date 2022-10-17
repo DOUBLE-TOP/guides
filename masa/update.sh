@@ -31,6 +31,8 @@ function init_db_recover_keys {
 }
 
 function bin_update {
+  source $HOME/.profile
+  
   cd $HOME/masa-node-v1.0/src
   git fetch
   git checkout v1.04

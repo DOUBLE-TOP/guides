@@ -29,7 +29,7 @@ function source_git {
   cd $HOME/penumbra
   git reset --hard
   git fetch
-  git checkout 025-helike && cargo update
+  git checkout $version && cargo update
 }
 
 function build_penumbra {
@@ -49,19 +49,19 @@ function build_penumbra {
 
 function wget_bin_pcli {
   mkdir -p $HOME/penumbra/target/release/
-  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/025-helike/pcli
+  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/$version/pcli
   sudo chmod +x $HOME/penumbra/target/release/pcli
   sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
 }
 
 function generate_wallet {
   cd $HOME/penumbra/
-  pcli wallet generate
+  pcli keys generate
 }
 
 function reset_wallet {
   cd $HOME/penumbra/
-  pcli wallet reset
+  pcli view reset
 }
 
 function rust_update {
@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-
+export version="031-autonoe"
 line
 logo
 line

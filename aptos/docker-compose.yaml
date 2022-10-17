@@ -4,7 +4,7 @@
 version: "3.8"
 services:
   validator:
-    image: "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_f5d8013b0a1851da8e078394d83130d3adaf7670}"
+    image: "${VALIDATOR_IMAGE_REPO:-aptoslabs/validator}:${IMAGE_TAG:-testnet_26ed95ce4c8798743e7900bba566d29079af0a70}"
     networks:
       shared:
     volumes:
@@ -21,10 +21,14 @@ services:
         source: ./waypoint.txt
         target: /opt/aptos/genesis/waypoint.txt
       - type: bind
-        source: ./validator-identity.yaml
+        source: ./keys/validator-identity.yaml
         target: /opt/aptos/genesis/validator-identity.yaml
-    command: ["/opt/aptos/bin/aptos-node", "-f", "/opt/aptos/etc/validator.yaml"]
+    command: ["/usr/local/bin/aptos-node", "-f", "/opt/aptos/etc/validator.yaml"]
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 1024000
+        hard: 1024000
     ports:
       - "6180:6180"
       - "6181:6181"
