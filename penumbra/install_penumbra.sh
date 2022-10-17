@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="029-eukelade.2"
+export version="031-autonoe"
 line
 logo
 line
