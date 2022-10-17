@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 sudo systemctl stop gear-node
 /root/gear-node purge-chain -y
 
