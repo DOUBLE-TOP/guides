@@ -2,12 +2,17 @@
 
 tmux kill-session -t tfsc
 
-rm -rf $HOME/tfsc/tfsc
-rm -rf $HOME/tfsc/config.json
-rm -rf $HOME/tfsc/data.db
+#cd $HOME
+#if [ ! -d $HOME/tfsc_backup/ ]; then
+#  mkdir -p $HOME/tfsc_backup
+#  cp $HOME/tfsc/cert/* $HOME/tfsc_backup/
+#fi
 
+#rm -rf $HOME/tfsc
+#mkdir $HOME/tfsc
+rm -rf $HOME/tfsc/tfsc
 cd $HOME/tfsc/
-wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/ttfsc_v0.6.0_a318309_devnet
+wget -O $HOME/tfsc/tfsc  https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/test/ttfs_v0.8.1_003950f_devnet
 
 cd $HOME/tfsc/
 PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"pub_ip\"#\"ip\": '\"${PUB_IP}\"'#' > config.json

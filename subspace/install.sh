@@ -46,30 +46,13 @@ function read_wallet {
   fi
 }
 
-# function source_git {
-#   git clone https://github.com/subspace/subspace
-#   cd $HOME/subspace
-#   git fetch
-#   git checkout gemini-2a-2022-sep-06
-# }
-#
-# function build_image_node {
-#   cd $HOME/subspace
-#   docker build -t subspacelabs/subspace-node:gemini-2a-2022-sep-06 -f $HOME/subspace/Dockerfile-node .
-# }
-#
-# function build_image_farmer {
-#   cd $HOME/subspace
-#   docker build -t subspacelabs/subspace-farmer:gemini-2a-2022-sep-06 -f $HOME/subspace/Dockerfile-farmer .
-# }
-
 function eof_docker_compose {
   mkdir -p $HOME/subspace_docker/
   sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:gemini-2a-2022-sep-06
+      image: ghcr.io/subspace/node:gemini-2a-2022-oct-06
       volumes:
         - node-data:/var/subspace:rw
       ports:
@@ -98,7 +81,7 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:gemini-2a-2022-sep-06
+      image: ghcr.io/subspace/farmer:gemini-2a-2022-oct-06
       volumes:
         - farmer-data:/var/subspace:rw
       restart: unless-stopped
