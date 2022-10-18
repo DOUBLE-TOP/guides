@@ -22,6 +22,6 @@ sleep 2
 source $HOME/.bash_profile &>/dev/null
 echo "Билд завершен успешно"
 echo "-----------------------------------------------------------------------------"
-systemctl restart starknet
+sudo systemctl restart starknet
 echo "Нода обновлена и запущена"
 echo "-----------------------------------------------------------------------------"

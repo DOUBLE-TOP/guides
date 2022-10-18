@@ -3,25 +3,26 @@
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
-if [ ! $NODENAME_GEAR ]; then
-	read -p "Введите ваше имя ноды(придумайте, без спецсимволов - только буквы и цифры): " NODENAME_GEAR
+if [ -z $NODENAME_GEAR ]; then
+        read -p "Введите ваше имя ноды (придумайте, без спецсимволов - только буквы и цифры): " NODENAME_GEAR
+        echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
 fi
 echo 'Ваше имя ноды: ' $NODENAME_GEAR
 sleep 1
-echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
 sudo apt install --fix-broken -y &>/dev/null
-sudo apt install nano mc git mc clang curl jq htop net-tools libssl-dev llvm libudev-dev -y &>/dev/null
+sudo apt install git mc clang curl jq htop net-tools libssl-dev llvm libudev-dev -y &>/dev/null
 source $HOME/.profile &>/dev/null
 source $HOME/.bashrc &>/dev/null
 source $HOME/.cargo/env &>/dev/null
 sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
+
 
 wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz &>/dev/null
 tar xvf gear-nightly-linux-x86_64.tar.xz &>/dev/null
@@ -42,9 +43,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
-WorkingDirectory=/root/
-ExecStart=/root/gear-node \
+User=$USER
+WorkingDirectory=$HOME
+ExecStart=$HOME/gear-node \
         --name $NODENAME_GEAR \
         --execution wasm \
 	--port 31333 \
