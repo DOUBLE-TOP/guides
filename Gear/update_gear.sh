@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-sudo systemctl stop gear-node
+sudo systemctl stop gear
 /root/gear-node purge-chain -y
 
 wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz
