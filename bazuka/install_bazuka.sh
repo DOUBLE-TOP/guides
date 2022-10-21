@@ -12,7 +12,7 @@ echo 'export BAZUKA_KEY='$BAZUKA_KEY >> $HOME/.bash_profile
 if [ ! $BAZUKA_DISCORD ]; then
 	read -p "Введите discord handle(Например:KURASH#7375): " BAZUKA_DISCORD
 fi
-echo 'Ваш ключ: ' $BAZUKA_DISCORD
+echo 'Ваш дискорд: ' $BAZUKA_DISCORD
 sleep 1
 echo 'export BAZUKA_DISCORD='$BAZUKA_DISCORD >> $HOME/.bash_profile
 echo "-----------------------------------------------------------------------------"
