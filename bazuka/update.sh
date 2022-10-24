@@ -3,12 +3,15 @@
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
-#if [ ! $BAZUKA_DISCORD ]; then
-#	read -p "Введите discord handle(Например:KURASH#7375): " BAZUKA_DISCORD
-#fi
-#echo 'Ваш дискорд: ' $BAZUKA_DISCORD
-#sleep 1
-#echo 'export BAZUKA_KEY='$BAZUKA_DISCORD >> $HOME/.bash_profile
+source $HOME/.profile
+source $HOME/.bash_profile
+
+if [ ! $BAZUKA_DISCORD ]; then
+	read -p "Введите discord handle(Например:KURASH#7375): " BAZUKA_DISCORD
+fi
+echo 'Ваш дискорд: ' $BAZUKA_DISCORD
+sleep 1
+echo 'export BAZUKA_KEY='$BAZUKA_DISCORD >> $HOME/.bash_profile
 
 source $HOME/.profile
 source $HOME/.bash_profile
