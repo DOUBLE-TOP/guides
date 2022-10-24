@@ -3,7 +3,7 @@
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
-
+source $HOME/.profile
 sudo systemctl stop gear
 /root/gear-node purge-chain -y
 
