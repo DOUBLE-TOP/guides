@@ -27,7 +27,7 @@ echo "--------------------------------------------------------------------------
 wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz &>/dev/null
 tar xvf gear-nightly-linux-x86_64.tar.xz &>/dev/null
 rm gear-nightly-linux-x86_64.tar.xz &>/dev/null
-chmod +x $HOME/gear-node &>/dev/null
+chmod +x $HOME/gear &>/dev/null
 echo "Билд завершен успешно"
 echo "-----------------------------------------------------------------------------"
 
@@ -45,7 +45,7 @@ After=network.target
 Type=simple
 User=$USER
 WorkingDirectory=$HOME
-ExecStart=$HOME/gear-node \
+ExecStart=$HOME/gear \
         --name $NODENAME_GEAR \
         --execution wasm \
 	--port 31333 \
