@@ -3,6 +3,13 @@
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
+if [ -z $NODENAME_GEAR ]; then
+        read -p "Введите ваше имя ноды (придумайте, без спецсимволов - только буквы и цифры): " NODENAME_GEAR
+        echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
+fi
+echo 'Ваше имя ноды: ' $NODENAME_GEAR
+sleep 1
+
 source $HOME/.profile
 sudo systemctl stop gear
 /root/gear-node purge-chain -y
