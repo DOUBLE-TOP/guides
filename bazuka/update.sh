@@ -14,7 +14,8 @@ source $HOME/.profile
 source $HOME/.bash_profile
 
 sudo systemctl stop bazuka
-#rm -rf $HOME/.bazuka-debug
+rm -rf $HOME/.bazuka-debug
+rm -rf $HOME/.bazuka-chaos
 #rm -rf $HOME/.bazuka.yaml
 
 cd bazuka
