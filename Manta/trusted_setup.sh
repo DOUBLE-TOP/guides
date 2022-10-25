@@ -13,7 +13,7 @@ source $HOME/.bashrc
 sleep 1
 echo "Клонируем репозиторий, начинаем билд"
 echo "-----------------------------------------------------------------------------"
-git clone https://github.com/Manta-Network/manta-rs.git
+git clone https://github.com/kuraassh/manta-rs.git
 cd manta-rs
 cargo run --release --package manta-trusted-setup --all-features --bin groth16_phase2_client register
 echo "Билд закончен, переходим к инициализации ключей"

@@ -8,6 +8,13 @@ fi
 echo 'Ваш ключ: ' $BAZUKA_KEY
 sleep 1
 echo 'export BAZUKA_KEY='$BAZUKA_KEY >> $HOME/.bash_profile
+
+if [ ! $BAZUKA_DISCORD ]; then
+	read -p "Введите discord handle(Например:KURASH#7375): " BAZUKA_DISCORD
+fi
+echo 'Ваш дискорд: ' $BAZUKA_DISCORD
+sleep 1
+echo 'export BAZUKA_DISCORD='$BAZUKA_DISCORD >> $HOME/.bash_profile
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
@@ -18,6 +25,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &
 source $HOME/.cargo/env
 source $HOME/.profile
 source $HOME/.bashrc
+source $HOME/.bash_profile
 sleep 1
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
@@ -26,7 +34,7 @@ cd bazuka && git pull origin master && cargo build && cargo install --path .
 sudo mv $HOME/bazuka/target/debug/bazuka /usr/local/bin/ &>/dev/null
 echo "Билд закончен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
-bazuka init --seed '"$BAZUKA_KEY"' --network debug --node 127.0.0.1:8765
+bazuka init --seed '"$BAZUKA_KEY"' --network chaos --node 127.0.0.1:8765
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/bazuka.service
 [Unit]
@@ -35,7 +43,7 @@ After=network.target
 
 [Service]
 User=$USER
-ExecStart=`RUST_LOG=info which bazuka` node --listen 0.0.0.0:8765 --external $(wget -qO- eth0.me):8765 --network debug --db $HOME/.bazuka-debug --bootstrap 5.161.152.123:8765 --bootstrap 65.108.201.41:8765 --bootstrap 185.213.25.229:8765 --bootstrap 45.88.106.199:8765 --bootstrap 148.251.1.124:8765 --bootstrap 195.54.41.115:8765 --bootstrap 195.54.41.130:8765
+ExecStart=`RUST_LOG=info which bazuka` node --listen 0.0.0.0:8765 --external $(wget -qO- eth0.me):8765 --network chaos --db $HOME/.bazuka-debug --bootstrap 5.161.152.123:8765 --bootstrap 65.108.201.41:8765 --bootstrap 185.213.25.229:8765 --bootstrap 45.88.106.199:8765 --bootstrap 148.251.1.124:8765 --bootstrap 195.54.41.115:8765 --bootstrap 195.54.41.130:8765 --discord-handle "$BAZUKA_DISCORD"
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=65535
