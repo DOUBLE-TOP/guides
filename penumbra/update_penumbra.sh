@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="032-chaldene.1"
+export version="033-eirene"
 line
 logo
 line
