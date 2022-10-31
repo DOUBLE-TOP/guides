@@ -13,8 +13,8 @@ echo "--------------------------------------------------------------------------
 rm -rf $HOME/pathfinder/py/.venv
 python3 -m venv .venv
 source .venv/bin/activate
-PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip
-PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt
+PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip --use-pep517
+PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt --use-pep517
 rustup default stable
 rustup update
 cargo build --release --bin pathfinder

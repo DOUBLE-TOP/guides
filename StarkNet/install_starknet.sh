@@ -29,8 +29,8 @@ git clone --branch v0.3.8 https://github.com/eqlabs/pathfinder.git
 cd pathfinder/py &>/dev/null
 python3 -m venv .venv &>/dev/null
 source .venv/bin/activate &>/dev/null
-PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip
-PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt
+PIP_REQUIRE_VIRTUALENV=true pip install --upgrade pip --use-pep517
+PIP_REQUIRE_VIRTUALENV=true pip install -r requirements-dev.txt --use-pep517
 cargo build --release --bin pathfinder
 sleep 2
 source $HOME/.bash_profile &>/dev/null
