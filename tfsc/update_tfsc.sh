@@ -11,6 +11,7 @@ tmux kill-session -t tfsc
 #rm -rf $HOME/tfsc
 #mkdir $HOME/tfsc
 rm -rf $HOME/tfsc/tfsc
+rm -rf $HOME/tfsc/data.db
 cd $HOME/tfsc/
 wget -O $HOME/tfsc/tfsc  https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/test/tfs_v0.9.0_90252d5_devnet
 
