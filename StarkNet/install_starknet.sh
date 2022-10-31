@@ -30,6 +30,7 @@ echo "Скачиваем последнюю версию docker image"
 docker-compose pull
 echo "Скачали, переходим к запуску"
 echo "-----------------------------------------------------------------------------"
+mkdir -p $HOME/pathfinder/pathfinder
 chown -R 1000.1000 .
 sleep 1
 docker-compose up -d
