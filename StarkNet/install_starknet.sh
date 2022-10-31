@@ -16,6 +16,7 @@ bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh
 echo "-----------------------------------------------------------------------------"
 echo "Клонируем репрозиторий"
 echo "-----------------------------------------------------------------------------"
+git clone https://github.com/eqlabs/pathfinder.git
 cd $HOME/pathfinder
 git fetch
 git checkout `curl https://api.github.com/repos/eqlabs/pathfinder/releases/latest -s | jq .name -r`
