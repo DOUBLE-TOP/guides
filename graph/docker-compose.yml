@@ -38,6 +38,9 @@ services:
     container_name: index-node
     depends_on:
       - postgres
+    volumes:
+      - ./graph-node-configs:/root/graph-node-configs/
+      - ./postgres-socket:/var/run/postgresql
     environment:
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
@@ -83,6 +86,7 @@ services:
       POSTGRES_DB: ${GRAPH_NODE_DB_NAME:-graph-node}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./postgres-socket:/var/run/postgresql
     networks:
       - network
     ports:
@@ -151,25 +155,3 @@ services:
     labels:
       org.label-schema.group: "monitoring"
     logging: *default-logging
-
-  # grafana:
-  #   image: grafana/grafana
-  #   container_name: grafana
-  #   volumes:
-  #     - grafana_data:/var/lib/grafana
-  #     - ./grafana/provisioning:/etc/grafana/provisioning
-  #   environment:
-  #     - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
-  #     - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
-  #     - GF_USERS_ALLOW_SIGN_UP=false
-  #     - GF_SECURITY_DISABLE_BRUTE_FORCE_LOGIN_PROTECTION=true
-  #     - GF_INSTALL_PLUGINS=fifemon-graphql-datasource
-  #     - subgraph_endpoint=${SUBGRAPH_ENDPOINT:-https://gateway.thegraph.com/network}
-  #   restart: unless-stopped
-  #   ports:
-  #     - 3000
-  #   networks:
-  #     - network
-  #   labels:
-  #     org.label-schema.group: "monitoring"
-  #   logging: *default-logging
