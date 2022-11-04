@@ -6,8 +6,6 @@ sudo systemctl stop solana
 
 sudo rm -rf $HOME/ledger/*
 
-# wget -O $HOME/ledger/snapshot.tar.bz2 --trust-server-names http://194.126.172.246:8899/snapshot-160991176-34QhWFp6afjFWmviBqaAiLbk62w75r18UB6qYqfZ7Wjt.tar.zst
-
 bash -c "cat > $HOME/solana.service<<EOF
 [Unit]
 Description=Solana TdS node
@@ -56,8 +54,10 @@ EOF"
 
 sudo systemctl daemon-reload
 
-source $HOME/solana-snapshot-finder/venv/bin/activate
+# source $HOME/solana-snapshot-finder/venv/bin/activate
+#
+# python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger -r https://api.testnet.solana.com
 
-python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger -r https://api.testnet.solana.com
+wget -O $HOME/ledger/snapshot-160991176-34QhWFp6afjFWmviBqaAiLbk62w75r18UB6qYqfZ7Wjt.tar.zst --trust-server-names http://107.155.88.34:8899/snapshot-160991176-34QhWFp6afjFWmviBqaAiLbk62w75r18UB6qYqfZ7Wjt.tar.zst
 
 sudo systemctl restart solana
