@@ -40,7 +40,8 @@ ${bootstrap_list}
 line
 logo
 line
-echo -e "Start replacing bootstrap list from community Let's Node"
-replace_bootstraps
+# echo -e "Start replacing bootstrap list from community Let's Node"
+# replace_bootstraps
+echo "Временно не работает, отключили :)"
 line
 echo -e "${GREEN}DONE${NORMAL}"
