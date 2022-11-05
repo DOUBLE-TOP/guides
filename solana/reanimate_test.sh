@@ -20,12 +20,13 @@ LimitNOFILE=1024000
 Environment="SOLANA_METRICS_CONFIG=host=https://metrics.solana.com:8086,db=tds,u=testnet_write,p=c4fa841aa918bf8274e3e2a44d77568d9861b3ea"
 ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator \
 --wait-for-supermajority 160991176 \
---expected-shred-version 8135 \
+--expected-shred-version 4711 \
+--hard-fork \
 --entrypoint entrypoint.testnet.solana.sergo.dev:8001 \
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---expected-bank-hash XvCZcHax1PJnfNj5TnzkqU6ksqU4tZUpcwYGi7fbKGi \
+--expected-bank-hash GfNNxK4wS51NDWos2DQoLKU2ECiMEbFMPRw7bpDi9BoY \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
 --known-validator eoKpUABi59aT4rR9HGS3LcMecfut9x7zJyodWWP43YQ \
 --known-validator FnpP7TK6F2hZFVnqSUJagZefwRJ4fmnb1StS1NokpLZM \
@@ -54,10 +55,8 @@ EOF"
 
 sudo systemctl daemon-reload
 
-# source $HOME/solana-snapshot-finder/venv/bin/activate
-#
-# python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger -r https://api.testnet.solana.com
+source $HOME/solana-snapshot-finder/venv/bin/activate
 
-wget -O $HOME/ledger/snapshot-160991176-34QhWFp6afjFWmviBqaAiLbk62w75r18UB6qYqfZ7Wjt.tar.zst --trust-server-names http://107.155.88.34:8899/snapshot-160991176-34QhWFp6afjFWmviBqaAiLbk62w75r18UB6qYqfZ7Wjt.tar.zst
+python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger -r https://api.testnet.solana.com
 
 sudo systemctl restart solana
