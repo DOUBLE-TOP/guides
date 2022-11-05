@@ -19,21 +19,22 @@ RestartSec=1
 LimitNOFILE=1024000
 Environment="SOLANA_METRICS_CONFIG=host=https://metrics.solana.com:8086,db=tds,u=testnet_write,p=c4fa841aa918bf8274e3e2a44d77568d9861b3ea"
 ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator \
---wait-for-supermajority 160991176 \
---expected-shred-version 4711 \
---no-genesis-fetch
---no-snapshot-fetch
---entrypoint tsolv.im-0.net:8000 \
 --entrypoint entrypoint.testnet.solana.sergo.dev:8001 \
+--entrypoint tsolv.im-0.net:8000 \
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---expected-bank-hash GfNNxK4wS51NDWos2DQoLKU2ECiMEbFMPRw7bpDi9BoY \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
 --known-validator eoKpUABi59aT4rR9HGS3LcMecfut9x7zJyodWWP43YQ \
+--known-validator 9v7E6oEm1V86hjTubtBon7cRYPvQriWZKHZEX6j92Po4 \
 --known-validator FnpP7TK6F2hZFVnqSUJagZefwRJ4fmnb1StS1NokpLZM \
---known-validator 9QxCLckBiJc783jnMvXZubK4wH86Eqqvashtrwvcsgkv \
---known-validator 4rVaXrd7BLSFZMSm4Lq63nxkVyezGxsQVpUhc9LqbxVk \
+--known-validator J7v9ndmcoBuo9to2MnHegLnBkC9x3SAVbQBJo5MMJrN1 \
+--wait-for-supermajority 160991176 \
+--no-snapshot-fetch \
+--no-genesis-fetch \
+--expected-bank-hash GfNNxK4wS51NDWos2DQoLKU2ECiMEbFMPRw7bpDi9BoY \
+--expected-shred-version 4711 \
+--only-known-rpc \
 --wal-recovery-mode skip_any_corrupted_record \
 --identity $HOME/validator-keypair.json \
 --vote-account $HOME/vote-account-keypair.json \
