@@ -13,7 +13,7 @@ provider = [ { label = "${CHAIN_NAME}", url = "${ETHEREUM_RPC}", features = ["ar
 
 [deployment]
 [[deployment.rule]]
-indexers = [ "index_node", "index_node_1" ]
+indexers = [ "index_node"]
 
 
 [general]

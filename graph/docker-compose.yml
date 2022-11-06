@@ -37,7 +37,6 @@ services:
     container_name: indexer-service
     depends_on:
       - index-node
-      - index-node-1
       - query-node
       - indexer-agent
       - postgres2
