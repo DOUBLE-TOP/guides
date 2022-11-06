@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo apt-get install apache2-utils -y
-
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
 
 mkdir -p $HOME/graph-indexer/{cli/scripts,configs}
