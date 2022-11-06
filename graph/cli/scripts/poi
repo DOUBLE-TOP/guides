@@ -1,0 +1,136 @@
+#!/bin/bash
+
+set -e
+
+SUBGRAPH=$1
+MIN_EPOCH=$2
+EPOCH=$2
+MAX_EPOCH=$3
+SAFE_VERIFICATION_NUMBER=$4
+FULL_NODE=$5
+
+timestamp=$(date +%s)
+FILENAME="${SUBGRAPH}-${timestamp}"
+
+QUERY_NODE_STATUS_ENDPOINT=http://query-node-0:8030/graphql
+SUCCESSFUL_VERIFICATIONS=0
+FAILED_VERIFICATIONS=0
+
+if [[ -z "$QUERY_NODE_STATUS_ENDPOINT" ]] || [[ -z "$MAX_EPOCH" ]] || [[ -z "$MIN_EPOCH" ]] ||  [[ -z "$SAFE_VERIFICATION_NUMBER" ]] || [[ -z "$FILENAME" ]] ||[[ -z "$SUBGRAPH" ]]; then
+  echo "Usage: $0 <subgraph-id> <min-epoch> <max-epoch> <max-acceptable-epoch-verification> <full_node_url>"
+  echo
+  echo "Example: $0 QmRhYzT8HEZ9LziQhP6JfNfd4co9A7muUYQhPMJsMUojSF 100 135 1 http://ip:port"
+  exit 1
+fi
+
+echo "Epoch,Verified,Indexer ID,Allocation ID,Subgraph PoI,Verification PoI,Verification Try Number" >> ${FILENAME}-successful.csv
+echo "Epoch,Verified,Indexer ID,Allocation ID,Subgraph PoI,Verification PoI,Verification Try Number" >> ${FILENAME}-failed.csv
+echo "Epoch,Verified,Indexer ID,Allocation ID,Subgraph PoI,Verification PoI,Verification Try Number" >> ${FILENAME}.csv
+
+while [[ $EPOCH -le $MAX_EPOCH ]]
+do
+  echo "Checking for epoch: $EPOCH"
+
+  echo "Generating block numbers and hashes for the amount of verifications required ($SAFE_VERIFICATION_NUMBER)"
+  HASHES=()
+  NON_HEX_NUMBERS=()
+  start_block_index=0
+  while [[ $start_block_index -lt $SAFE_VERIFICATION_NUMBER ]]
+  do
+    START_BLOCK=$(http -b post https://gateway.thegraph.com/network query='query epoch($epoch: ID!) { epoch(id: $epoch) { startBlock } }' variables:="{ \"epoch\": \"$((($EPOCH-$start_block_index)))\" }" | jq .data.epoch.startBlock)
+    START_BLOCK_HEX=$(printf '%x' $START_BLOCK)
+
+    BLOCK_DATA=$(http -b post $FULL_NODE jsonrpc="2.0" id="1" method="eth_getBlockByNumber" params:="[\"0x$START_BLOCK_HEX\", false]" | jq -c '.result | { number, hash }')
+
+    HASHES[$start_block_index]=$(echo $BLOCK_DATA | jq '.hash')
+    NON_HEX_NUMBERS[$start_block_index]=$(echo "$BLOCK_DATA" | jq '.number' | xargs printf '%d')
+
+  ((start_block_index=start_block_index+1))
+  done
+
+  SUBGRAPH_VARIABLES="{\"ipfsHash\": \"$SUBGRAPH\"}"
+  DEPLOYMENT=$(http -b post https://gateway.thegraph.com/network \
+       query='query deployment($ipfsHash: String!) {subgraphDeployments (where: {ipfsHash: $ipfsHash}) {id}}' \
+       variables:="$(echo $SUBGRAPH_VARIABLES)" | jq .data.subgraphDeployments[0].id)
+  VARIABLES="{\"epoch\": $EPOCH, \"deployment\": $DEPLOYMENT}"
+
+  POIS=$(http -b post https://gateway.thegraph.com/network \
+       query='query pois($epoch: Int!, $deployment: String!) {allocations (where: {closedAtEpoch: $epoch, subgraphDeployment_contains: $deployment, poi_not:"0x0000000000000000000000000000000000000000000000000000000000000000"}) {indexer {id} id poi closedAtEpoch}}' \
+       variables:="$(echo $VARIABLES)")
+  echo $VARIABLES
+  echo $POIS
+
+  ### Loop
+  length=$(echo $POIS | jq -r '.data.allocations' | jq length)
+  index=0
+
+  echo "Allocations found for epoch $EPOCH: $length"
+
+  while [[ $index -lt $length ]]
+  do
+    echo "Processing allocation $((($index+1))) for epoch $EPOCH"
+    echo "Generating verifications for allocation #$((($index+1)))"
+    verifications=0
+    verified=false
+    while [[ $verifications -lt $start_block_index ]]
+    do
+      NON_HEX_NUMBER="${NON_HEX_NUMBERS[$verifications]}"
+      HASH="${HASHES[$verifications]}"
+      echo "Number: $NON_HEX_NUMBER"
+      echo "Hash: $HASH"
+      VARIABLES="{\"number\": $NON_HEX_NUMBER, \"hash\": $HASH, \"indexer\": \"$(echo $POIS | jq -r ".data.allocations[$index].indexer.id")\", \"subgraph\": \"$SUBGRAPH\"}"
+
+      VERIFICATION=$(http -b post $QUERY_NODE_STATUS_ENDPOINT \
+      query='query poi($number: Int!, $hash: String!, $indexer: String!, $subgraph: String!) { proofOfIndexing(subgraph: $subgraph, blockNumber: $number, blockHash: $hash, indexer: $indexer) }' \
+      variables:="$(echo $VARIABLES)")
+
+      if [ "$(echo $POIS | jq -r ".data.allocations[$index].poi")" = "$(echo $VERIFICATION | jq -r '.data.proofOfIndexing')" ]; then
+          echo "POIs are equal. Amount of verifications done: $((($verifications+1)))"
+          indexer_id=$(echo $POIS | jq -r ".data.allocations[$index].indexer.id")
+          allocation_id=$(echo $POIS | jq -r ".data.allocations[$index].id")
+          subgraph_poi=$(echo $POIS | jq -r ".data.allocations[$index].poi")
+          verification_poi=$(echo $VERIFICATION | jq -r '.data.proofOfIndexing')
+          echo "$EPOCH,true,$indexer_id,$allocation_id,$subgraph_poi,$verification_poi,$verifications" >> ${FILENAME}-successful.csv
+          echo "$EPOCH,true,$indexer_id,$allocation_id,$subgraph_poi,$verification_poi,$verifications" >> ${FILENAME}.csv
+          verified=true
+          ((SUCCESSFUL_VERIFICATIONS=SUCCESSFUL_VERIFICATIONS+1))
+          break
+      fi
+    ((verifications=verifications+1))
+    done
+
+
+    if [ "$verified" = false ]; then
+        indexer_id=$(echo $POIS | jq -r ".data.allocations[$index].indexer.id")
+        allocation_id=$(echo $POIS | jq -r ".data.allocations[$index].id")
+        subgraph_poi=$(echo $POIS | jq -r ".data.allocations[$index].poi")
+        verification_poi=$(echo $VERIFICATION | jq -r '.data.proofOfIndexing')
+        echo "Indexer ID: $indexer_id"
+        echo "Allocation ID: $allocation_id"
+        echo "Subgraph PoI: $subgraph_poi"
+        echo "Verification PoI: $verification_poi"
+        echo "ALERT ALERT ALERT !!! POIs are not equal."
+        echo "$EPOCH,false,$indexer_id,$allocation_id,$subgraph_poi,$verification_poi,$verifications" >> ${FILENAME}-failed.csv
+        echo "$EPOCH,false,$indexer_id,$allocation_id,$subgraph_poi,$verification_poi,$verifications" >> ${FILENAME}.csv
+        ((FAILED_VERIFICATIONS=FAILED_VERIFICATIONS+1))
+    fi
+
+    echo "####"
+  ((index=index+1))
+  done
+
+((EPOCH=EPOCH+1))
+done
+
+TOTAL=$((SUCCESSFUL_VERIFICATIONS+FAILED_VERIFICATIONS))
+if command -v bc &> /dev/null; then
+  SUCCESS_RATE=$(bc -l <<< "scale=2; ${SUCCESSFUL_VERIFICATIONS}*100/${TOTAL}")
+  FAIL_RATE=$(bc -l <<< "scale=2; ${FAILED_VERIFICATIONS}*100/${TOTAL}")
+else
+  echo "bc not installed, falling back to integer based division for success and fail rate"
+  SUCCESS_RATE=$((SUCCESSFUL_VERIFICATIONS*100/TOTAL))
+  FAIL_RATE=$((FAILED_VERIFICATIONS*100/TOTAL))
+fi
+
+echo "Successes: ${SUCCESSFUL_VERIFICATIONS}, Fails: ${FAILED_VERIFICATIONS}, Total: ${TOTAL}"
+echo "Success rate: ${SUCCESS_RATE}%, Fail rate: ${FAIL_RATE}%"

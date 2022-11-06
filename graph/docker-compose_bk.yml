@@ -1,0 +1,157 @@
+version: '2.1'
+
+x-logging:
+  &default-logging
+  options:
+    max-file: '1'
+    compress: 'false'
+  driver: local
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+    prometheus_data: {}
+    # grafana_data: {}
+    postgres_data: {}
+
+services:
+
+  # cli:
+  #   build:
+  #     context: ./cli
+  #   container_name: cli
+  #   restart: unless-stopped
+  #   environment:
+  #     GEO_COORDINATES: ${GEO_COORDINATES:-69.42069 69.42069}
+  #   tty: true
+  #   networks:
+  #     - network
+  #   logging: *default-logging
+  #   volumes:
+  #     - ./cli/scripts:/home/graph/scripts
+
+
+  index-node:
+    image: ${GRAPH_NODE_VERSION:-graphprotocol/graph-node:latest}
+    container_name: index-node
+    depends_on:
+      - postgres
+    volumes:
+      - ./graph-node-configs:/root/graph-node-configs/
+      - ./postgres-socket:/var/run/postgresql
+    environment:
+      postgres_host: ${DB_HOST:-postgres}
+      postgres_user: ${DB_USER:-graph-node}
+      postgres_pass: ${DB_PASS:-db-password}
+      postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
+      ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com}'
+      ETHEREUM_RPC: ${ETHEREUM_RPC:-gnosis:https://rpc-gnosis.razumv.tech/}
+      node_role: index-node
+      node_id: index-node
+      BLOCK_INGESTOR: index-node
+      RUST_LOG: INFO
+      GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
+      GRAPH_ETH_CALL_GAS: 50000000
+      GRAPH_GETH_ETH_CALL_ERRORS: "out of gas"
+      GRAPH_MAX_GAS_PER_HANDLER: 1000000000000000
+      ETHEREUM_TRACE_STREAM_STEP_SIZE: ${ETHEREUM_TRACE_STREAM_STEP_SIZE:-50}
+      ETHEREUM_BLOCK_BATCH_SIZE: ${ETHEREUM_BLOCK_BATCH_SIZE:-10}
+      ETHEREUM_RPC_MAX_PARALLEL_REQUESTS: ${ETHEREUM_RPC_MAX_PARALLEL_REQUESTS:-64}
+      GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE: ${GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE:-500}
+      GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE: ${GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE:-200}
+      GRAPH_KILL_IF_UNRESPONSIVE: "true"
+      GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: ${FULLTEXT_SEARCH:-true}
+      GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: ${GRAPH_ALLOW_NON_DETERMINISTIC_IPFS:-false}
+      EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
+    restart: unless-stopped
+    ports:
+      - 8001:8001
+      - 8000:8000
+      - 8030:8030
+      - 8040:8040
+    networks:
+      - network
+    logging: *default-logging
+
+  postgres:
+    image: postgres:14.5
+    container_name: postgres
+    command: ["postgres", "-c", "shared_preload_libraries=pg_stat_statements"]
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-graph-node}
+      POSTGRES_PASSWORD: ${DB_PASS:-db-password}
+      POSTGRES_DB: ${GRAPH_NODE_DB_NAME:-graph-node}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-socket:/var/run/postgresql
+    networks:
+      - network
+    ports:
+      - 5432:5432
+    logging: *default-logging
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+      - '--web.external-url=/prometheus/'
+      - '--web.route-prefix=/prometheus/'
+    restart: unless-stopped
+    ports:
+      - 29090:9090
+    networks:
+      - network
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *default-logging
+
+  nodeexporter:
+    image: prom/node-exporter
+    container_name: nodeexporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    ports:
+      - 29100:9100
+    networks:
+      - network
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *default-logging
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /cgroup:/cgroup:ro
+    restart: unless-stopped
+    ports:
+      - 28080:8080
+    networks:
+      - network
+    labels:
+      org.label-schema.group: "monitoring"
+    logging: *default-logging
