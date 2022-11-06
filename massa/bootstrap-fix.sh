@@ -31,8 +31,8 @@ ${bootstrap_list}
 	third_part=`sed "1,${end}d" "$config_path"`
 	echo "${first_part}${second_part}${third_part}" > "$config_path"
 	sed -i -e "s%retry_delay *=.*%retry_delay = 15000%; " "$config_path"
-  sed -i "/\[bootstrap\]/a  bootstrap_whitelist_file = \"base_config/bootstrap_whitelist.json\"" "$config_path"
-  sed -i "/\[bootstrap\]/a  bootstrap_blacklist_file = \"base_config/bootstrap_blacklist.json\"" "$config_path"
+	grep bootstrap_whitelist_file $config_path || sed -i "/\[bootstrap\]/a  bootstrap_whitelist_file = \"base_config/bootstrap_whitelist.json\"" "$config_path"
+	grep bootstrap_blacklist_file $config_path || sed -i "/\[bootstrap\]/a  bootstrap_blacklist_file = \"base_config/bootstrap_blacklist.json\"" "$config_path"
   sudo systemctl restart massa
 }
 
