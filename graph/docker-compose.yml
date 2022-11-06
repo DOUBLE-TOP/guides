@@ -130,9 +130,10 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./graph-node-configs:/root/graph-node-configs/
+      - ./configs:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
+      GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
@@ -176,7 +177,7 @@ services:
       - ./configs:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
-      GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node_1_config.toml
+      GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node_1.toml
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
@@ -220,7 +221,7 @@ services:
       - ./configs:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
-      GRAPH_NODE_CONFIG: /root/graph-node-configs/config.toml
+      GRAPH_NODE_CONFIG: /root/graph-node-configs/query_node.toml
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
