@@ -141,8 +141,8 @@ services:
       ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com/ipfs/}'
       node_role: index-node
       node_id: index_node
-      CHAIN_NAME: ${CHAIN_NAME}
-      CHAIN_RPC: ${CHAIN_RPC}
+      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
+      CHAIN_RPC: ${CHAIN_RPC:-gnosis:https://rpc-gnosis.razumv.tech/}
       BLOCK_INGESTOR: index_node
       RUST_LOG: INFO
       GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
