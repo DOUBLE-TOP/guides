@@ -164,7 +164,7 @@ services:
       - 8030
       - 8040
     networks:
-      - monitor-net
+      - network
     logging: *default-logging
 
   query-node:
