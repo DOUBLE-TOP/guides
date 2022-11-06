@@ -142,7 +142,7 @@ services:
       node_role: index-node
       node_id: index_node
       CHAIN_NAME: ${CHAIN_NAME}
-      ETHEREUM_RPC: ${ETHEREUM_RPC}
+      CHAIN_RPC: ${CHAIN_RPC}
       BLOCK_INGESTOR: index_node
       RUST_LOG: INFO
       GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
@@ -174,10 +174,10 @@ services:
       - postgres
       - postgres2
     volumes:
-      - ./configs:/root/graph-node-configs/
+      - ./configs/:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
-      GRAPH_NODE_CONFIG: /root/graph-node-configs/query_node.toml
+      GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
