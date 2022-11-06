@@ -130,7 +130,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./configs:/root/graph-node-configs/
+      - ./configs/:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
       GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
@@ -174,7 +174,7 @@ services:
       - postgres
       - postgres2
     volumes:
-      - ./configs:/root/graph-node-configs/
+      - ./configs/:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
       GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node_1.toml
