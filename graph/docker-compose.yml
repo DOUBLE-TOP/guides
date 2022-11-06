@@ -27,7 +27,7 @@ services:
       GEO_COORDINATES: ${GEO_COORDINATES:-69.42069 69.42069}
     tty: true
     networks:
-      - monitor-net
+      - network
     logging: *default-logging
     volumes:
       - ./cli/scripts:/home/graph/scripts
@@ -73,7 +73,7 @@ services:
       - 7300
       - 7600
     networks:
-      - monitor-net
+      - network
     restart: unless-stopped
     logging: *default-logging
 
@@ -120,7 +120,7 @@ services:
       INDEXER_AGENT_OFFCHAIN_SUBGRAPHS: ${INDEXER_AGENT_OFFCHAIN_SUBGRAPHS}
       INDEXER_AGENT_GAS_PRICE_MAX: ${INDEXER_AGENT_GAS_PRICE_MAX:-50}
     networks:
-      - monitor-net
+      - network
     restart: unless-stopped
     logging: *default-logging
 
