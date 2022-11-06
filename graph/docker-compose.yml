@@ -118,6 +118,8 @@ services:
       INDEXER_AGENT_COLLECT_RECEIPTS_ENDPOINT: https://gateway.testnet.thegraph.com/collect-receipts
       INDEXER_AGENT_OFFCHAIN_SUBGRAPHS: ${INDEXER_AGENT_OFFCHAIN_SUBGRAPHS}
       INDEXER_AGENT_GAS_PRICE_MAX: ${INDEXER_AGENT_GAS_PRICE_MAX:-50}
+      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
+      CHAIN_RPC: ${CHAIN_RPC:-gnosis:https://rpc-gnosis.razumv.tech/}
     networks:
       - network
     restart: unless-stopped
@@ -182,6 +184,8 @@ services:
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
       postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
+      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
+      CHAIN_RPC: ${CHAIN_RPC:-gnosis:https://rpc-gnosis.razumv.tech/}
       ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com/ipfs/}'
       node_role: query-node
       node_id: query_node
