@@ -33,32 +33,29 @@ services:
       - ./cli/scripts:/home/graph/scripts
 
   indexer-service:
-    image: ${INDEXER_SERVICE_VERSION:-ghcr.io/graphprotocol/indexer-service:v0.20.3}
+    image: ${INDEXER_SERVICE_VERSION:-ghcr.io/graphprotocol/indexer-service:v0.20.5-alpha.1}
     container_name: indexer-service
     depends_on:
       - index-node
       - query-node
       - indexer-agent
       - postgres2
-      #- vector-node
     environment:
       INDEXER_SERVICE_MNEMONIC: ${OPERATOR_SEED_PHRASE}
       INDEXER_SERVICE_INDEXER_ADDRESS: ${STAKING_WALLET_ADDRESS}
       INDEXER_SERVICE_PORT: 7600
-      INDEXER_SERVICE_ETHEREUM_NETWORK: mainnet
+      INDEXER_SERVICE_ETHEREUM_NETWORK: goerli
       INDEXER_SERVICE_ETHEREUM: ${TXN_RPC}
       INDEXER_SERVICE_GRAPH_NODE_QUERY_ENDPOINT: http://query-node:8000
       INDEXER_SERVICE_GRAPH_NODE_STATUS_ENDPOINT: http://index-node:8030/graphql
-      INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT: ${INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT:-https://gateway.thegraph.com/network}
+      INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT: ${INDEXER_SERVICE_NETWORK_SUBGRAPH_ENDPOINT:-https://gateway.testnet.thegraph.com/network}
       INDEXER_SERVICE_NETWORK_SUBGRAPH_DEPLOYMENT: ${NETWORK_SUBGRAPH_DEPLOYMENT}
       INDEXER_SERVICE_POSTGRES_HOST: postgres2
       INDEXER_SERVICE_POSTGRES_USERNAME: ${DB_USER:-graph-node}
       INDEXER_SERVICE_POSTGRES_PASSWORD: ${DB_PASS:-db-password}
       INDEXER_SERVICE_POSTGRES_DATABASE: ${AGENT_DB_NAME:-indexer-agent}
       INDEXER_SERVICE_WALLET_WORKER_THREADS: ${WORKER_THREADS_PER_INDEXER_SERVICE:-8}
-      #INDEXER_SERVICE_VECTOR_NODE: "http://vector-node:8000"
-      #INDEXER_SERVICE_VECTOR_ROUTER: "vector8BSZxfkr62As6KZX2so4yXuex5XcpPXQ2tYZrBqpub94dAobu7"
-      INDEXER_SERVICE_CLIENT_SIGNER_ADDRESS: "0x982D10c56b8BBbD6e09048F5c5f01b43C65D5aE0"
+      INDEXER_SERVICE_CLIENT_SIGNER_ADDRESS: "0xe1EC4339019eC9628438F8755f847e3023e4ff9c"
       SKIP_EVM_VALIDATION: "true"
       SERVER_HOST: ${AGENT_DB_HOST:-postgres2}
       SERVER_PORT: 5432
@@ -83,7 +80,6 @@ services:
       - index-node
       - query-node
       - postgres2
-      #- vector-node
     expose:
       - 7300
       - 8000
@@ -118,8 +114,8 @@ services:
       INDEXER_AGENT_COLLECT_RECEIPTS_ENDPOINT: https://gateway.testnet.thegraph.com/collect-receipts
       INDEXER_AGENT_OFFCHAIN_SUBGRAPHS: ${INDEXER_AGENT_OFFCHAIN_SUBGRAPHS}
       INDEXER_AGENT_GAS_PRICE_MAX: ${INDEXER_AGENT_GAS_PRICE_MAX:-50}
-      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
-      CHAIN_RPC: ${CHAIN_RPC:-https://rpc-gnosis.razumv.tech/}
+      CHAIN_0_NAME: ${CHAIN_0_NAME}
+      CHAIN_0_RPC: ${CHAIN_0_RPC}
     networks:
       - network
     restart: unless-stopped
@@ -136,15 +132,15 @@ services:
       - ./postgres-socket:/var/run/postgresql
     environment:
       GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
-      postgres_host: ${DB_HOST:-postgres}
-      postgres_user: ${DB_USER:-graph-node}
-      postgres_pass: ${DB_PASS:-db-password}
-      postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_USER: ${DB_USER:-graph-node}
+      DB_PASS: ${DB_PASS:-db-password}
+      GRAPH_NODE_DB_NAME: ${GRAPH_NODE_DB_NAME:-graph-node}
       ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com/ipfs/}'
       node_role: index-node
       node_id: index_node
-      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
-      CHAIN_RPC: ${CHAIN_RPC:-https://rpc-gnosis.razumv.tech/}
+      CHAIN_0_NAME: ${CHAIN_0_NAME}
+      CHAIN_0_RPC: ${CHAIN_0_RPC}
       BLOCK_INGESTOR: index_node
       RUST_LOG: INFO
       GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
@@ -160,9 +156,9 @@ services:
       GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: ${FULLTEXT_SEARCH:-true}
       EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
     restart: unless-stopped
-    expose:
-      - 8001
-      - 8000
+    ports:
+      - 8001:8001
+      - 8000:8000
       - 8030
       - 8040
     networks:
@@ -176,16 +172,16 @@ services:
       - postgres
       - postgres2
     volumes:
-      - ./configs/:/root/graph-node-configs/
+      - ./configs:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
       GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
-      postgres_host: ${DB_HOST:-postgres}
-      postgres_user: ${DB_USER:-graph-node}
-      postgres_pass: ${DB_PASS:-db-password}
-      postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
-      CHAIN_NAME: ${CHAIN_NAME:-gnosis}
-      CHAIN_RPC: ${CHAIN_RPC:-https://rpc-gnosis.razumv.tech/}
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_USER: ${DB_USER:-graph-node}
+      DB_PASS: ${DB_PASS:-db-password}
+      GRAPH_NODE_DB_NAME: ${GRAPH_NODE_DB_NAME:-graph-node}
+      CHAIN_0_NAME: ${CHAIN_0_NAME}
+      CHAIN_0_RPC: ${CHAIN_0_RPC}
       ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com/ipfs/}'
       node_role: query-node
       node_id: query_node
@@ -194,11 +190,9 @@ services:
       GRAPH_ETH_CALL_GAS: 50000000
       GRAPH_GETH_ETH_CALL_ERRORS: "out of gas"
       GRAPH_MAX_GAS_PER_HANDLER: 1000000000000000
+      GRAPH_LOG_QUERY_TIMING: gql
       EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
       GRAPH_KILL_IF_UNRESPONSIVE: "true"
-      #VIRTUAL_HOST: ${QUERY_HOST}
-      #VIRTUAL_PORT: 8000
-      #LETSENCRYPT_HOST: ${QUERY_HOST}
       GRAPH_LOG_QUERY_TIMING: ${GRAPH_LOG_QUERY_TIMING:-gql}
       GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: ${FULLTEXT_SEARCH:-true}
     restart: unless-stopped
@@ -212,6 +206,7 @@ services:
       - 8040
     networks:
       - network
+
 
   postgres:
     image: postgres:14.5
