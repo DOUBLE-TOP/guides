@@ -125,67 +125,25 @@ services:
     logging: *default-logging
 
   index-node:
-    image: ${GRAPH_NODE_VERSION:-graphprotocol/graph-node:latest}
+    image: ${GRAPH_NODE_VERSION:-graphprotocol/graph-node:v0.28.2}
     container_name: index-node
-    depends_on:
-      - postgres
-    volumes:
-      - ./configs/:/root/graph-node-configs/
-      - ./postgres-socket:/var/run/postgresql
-    environment:
-      # GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
-      postgres_host: ${DB_HOST:-postgres}
-      postgres_user: ${DB_USER:-graph-node}
-      postgres_pass: ${DB_PASS:-db-password}
-      postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
-      ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com}'
-      ETHEREUM_RPC: ${ETHEREUM_RPC:-gnosis:https://rpc-gnosis.razumv.tech/}
-      node_role: index-node
-      node_id: index-node
-      BLOCK_INGESTOR: index-node
-      RUST_LOG: INFO
-      GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
-      GRAPH_ETH_CALL_GAS: 50000000
-      GRAPH_GETH_ETH_CALL_ERRORS: "out of gas"
-      GRAPH_MAX_GAS_PER_HANDLER: 1000000000000000
-      ETHEREUM_TRACE_STREAM_STEP_SIZE: ${ETHEREUM_TRACE_STREAM_STEP_SIZE:-50}
-      ETHEREUM_BLOCK_BATCH_SIZE: ${ETHEREUM_BLOCK_BATCH_SIZE:-10}
-      ETHEREUM_RPC_MAX_PARALLEL_REQUESTS: ${ETHEREUM_RPC_MAX_PARALLEL_REQUESTS:-64}
-      GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE: ${GRAPH_ETHEREUM_MAX_BLOCK_RANGE_SIZE:-500}
-      GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE: ${GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE:-200}
-      GRAPH_KILL_IF_UNRESPONSIVE: "true"
-      GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: ${FULLTEXT_SEARCH:-true}
-      GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: ${GRAPH_ALLOW_NON_DETERMINISTIC_IPFS:-false}
-      EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
-    restart: unless-stopped
-    ports:
-      - 8001:8001
-      - 8000:8000
-      - 8030:8030
-      - 8040:8040
-    networks:
-      - network
-    logging: *default-logging
-
-  index-node-1:
-    image: ${GRAPH_NODE_VERSION:-graphprotocol/graph-node:v0.27.0}
-    container_name: index-node-1
     depends_on:
       - postgres
       - postgres2
     volumes:
-      - ./configs/:/root/graph-node-configs/
+      - ./configs:/root/graph-node-configs/
       - ./postgres-socket:/var/run/postgresql
     environment:
-      # GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node_1.toml
+      GRAPH_NODE_CONFIG: /root/graph-node-configs/index_node.toml
       postgres_host: ${DB_HOST:-postgres}
       postgres_user: ${DB_USER:-graph-node}
       postgres_pass: ${DB_PASS:-db-password}
       postgres_db: ${GRAPH_NODE_DB_NAME:-graph-node}
       ipfs: '${IPFS_ENDPOINT:-https://ipfs.network.thegraph.com/ipfs/}'
-      ETHEREUM_RPC: ${ETHEREUM_RPC}
       node_role: index-node
-      node_id: index_node_1
+      node_id: index_node
+      CHAIN_NAME: ${CHAIN_NAME}
+      ETHEREUM_RPC: ${ETHEREUM_RPC}
       BLOCK_INGESTOR: index_node
       RUST_LOG: INFO
       GRAPH_LOG: ${GRAPHNODE_LOGLEVEL:-DEBUG}
@@ -199,7 +157,6 @@ services:
       GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE: ${GRAPH_ETHEREUM_TARGET_TRIGGERS_PER_BLOCK_RANGE:-200}
       GRAPH_KILL_IF_UNRESPONSIVE: "true"
       GRAPH_ALLOW_NON_DETERMINISTIC_FULLTEXT_SEARCH: ${FULLTEXT_SEARCH:-true}
-      GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: ${GRAPH_ALLOW_NON_DETERMINISTIC_IPFS:-false}
       EXPERIMENTAL_SUBGRAPH_VERSION_SWITCHING_MODE: synced
     restart: unless-stopped
     expose:
@@ -208,7 +165,7 @@ services:
       - 8030
       - 8040
     networks:
-      - network
+      - monitor-net
     logging: *default-logging
 
   query-node:
