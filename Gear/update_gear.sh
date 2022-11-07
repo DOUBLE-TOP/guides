@@ -26,7 +26,7 @@ rm gear-nightly-linux-x86_64.tar.xz
 
 sudo systemctl start gear
 
-sleep 30
+sleep 15
 
 echo "-----------------------------------------------------------------------------"
 echo "Выполняем восстановления ID"
