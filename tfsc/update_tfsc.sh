@@ -13,7 +13,7 @@ tmux kill-session -t tfsc
 rm -rf $HOME/tfsc/tfsc
 #rm -rf $HOME/tfsc/data.db
 cd $HOME/tfsc/
-wget -O $HOME/tfsc/tfsc https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/test/tfs_v0.12.0_9120842_devnet
+wget -O $HOME/tfsc/tfsc https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/test/tfs_v0.13.0_0a5b59a_devnet
 
 cd $HOME/tfsc/
 PUB_IP=$(wget -qO- eth0.me);wget -qO- pastebin.com/raw/MfS126mf|sed 's#\"ip\": \"pub_ip\"#\"ip\": '\"${PUB_IP}\"'#' > config.json
