@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="034-aoede"
+export version="035-taygete"
 line
 logo
 line
