@@ -21,13 +21,13 @@ function get_env {
 
 function massa_backup {
 	cd $HOME
-	if [ ! -d $HOME/massa_backup/ ]; then
-		mkdir -p $HOME/massa_backup
-		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup/
-		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup/
+	if [ ! -d $HOME/massa_backup16/ ]; then
+		mkdir -p $HOME/massa_backup16
+		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup16/
+		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup16/
 	fi
-	if [ ! -e $HOME/massa_backup.tar.gz ]; then
-		tar cvzf massa_backup.tar.gz massa_backup
+	if [ ! -e $HOME/massa_backup16.tar.gz ]; then
+		tar cvzf massa_backup.tar16.gz massa_backup16
 	fi
 }
 
@@ -65,8 +65,8 @@ function replace_bootstraps {
 }
 
 function keys_from_backup {
-	cp $HOME/massa_backup/wallet.dat $HOME/massa/massa-client/wallet.dat
-	cp $HOME/massa_backup/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
+	cp $HOME/massa_backup16/wallet.dat $HOME/massa/massa-client/wallet.dat
+	cp $HOME/massa_backup16/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
 }
 
 function alias {
