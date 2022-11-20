@@ -13,7 +13,7 @@ wget -qO $HOME/.sui/genesis.blob https://github.com/SuiExternal/sui-external/raw
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
 git fetch
-git checkout -B devnet --track upstream/testnet
+git checkout testnet
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui

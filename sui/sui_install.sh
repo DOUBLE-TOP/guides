@@ -20,7 +20,7 @@ rm -rf /var/sui/db /var/sui/genesis.blob $HOME/sui $HOME/.sui
 mkdir -p $HOME/.sui
 git clone https://github.com/MystenLabs/sui.git
 cd $HOME/sui
-git checkout -B devnet --track upstream/testnet
+git checkout testnet
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
