@@ -8,11 +8,12 @@ echo "Выполняем обновление"
 echo "-----------------------------------------------------------------------------"
 sudo systemctl stop sui
 rm -rf $HOME/.sui/db
-wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/devnet/genesis.blob
+wget -qO $HOME/.sui/genesis.blob https://github.com/SuiExternal/sui-external/raw/main/genesis.blob
+
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
 git fetch
-git checkout -B devnet --track upstream/devnet
+git checkout -B devnet --track upstream/testnet
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui
@@ -23,15 +24,7 @@ echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
 # cargo build --release
 
-if [ ! -d /etc/systemd/system/minima_9001.service ]; then
-  no minima no conflicts
-else
-  sed -i -e "s/port 9001/port 19001/" /etc/systemd/system/minima_9001.service
-  sudo systemctl daemon-reload
-  sudo systemctl restart minima_9001
-fi
-
-version=0.15.2
+version=testnet
 wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
 wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
 wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
