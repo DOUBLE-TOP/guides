@@ -12,6 +12,7 @@ wget -qO $HOME/.sui/genesis.blob https://github.com/SuiExternal/sui-external/raw
 
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
+cd $HOME/sui
 git fetch
 git checkout testnet
 mkdir -p $HOME/sui/target/release/
