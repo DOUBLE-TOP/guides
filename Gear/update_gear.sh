@@ -12,7 +12,7 @@ echo "--------------------------------------------------------------------------
 
 source $HOME/.profile
 sudo systemctl stop gear
-/root/gear-node purge-chain -y
+/root/gear purge-chain -y
 
 echo "-----------------------------------------------------------------------------"
 echo "Выполняем Обновление"
