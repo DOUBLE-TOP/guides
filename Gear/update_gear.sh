@@ -54,7 +54,7 @@ sed -i "s/gear-node/gear/" "/etc/systemd/system/gear.service"
 #[Install]
 #WantedBy=multi-user.target
 #EOF
-
+sudo systemctl daemon-reload &>/dev/null
 sudo systemctl stop gear
 cd /root/.local/share/gear/chains
 mkdir -p gear_stable_testnet/network/ gear_staging_testnet_v4/network/
@@ -62,8 +62,6 @@ sudo cp gear_staging_testnet_v3/network/secret_ed25519 gear_staging_testnet_v4/n
 sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_stable_testnet/network/secret_ed25519  &>/dev/null
 
 
-sudo systemctl restart systemd-journald &>/dev/null
-sudo systemctl daemon-reload &>/dev/null
 sudo systemctl restart gear
 echo "-----------------------------------------------------------------------------"
 echo "Обновление завершено успешно"
