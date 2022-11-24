@@ -31,7 +31,7 @@ sleep 15
 echo "-----------------------------------------------------------------------------"
 echo "Выполняем восстановления ID"
 echo "-----------------------------------------------------------------------------"
-
+sed -i "s/gear-node/gear/" "/etc/systemd/system/gear.service"
 #sudo tee <<EOF >/dev/null /etc/systemd/system/gear.service
 #[Unit]
 #Description=Gear Node
