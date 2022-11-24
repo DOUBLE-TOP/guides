@@ -56,7 +56,7 @@ echo "--------------------------------------------------------------------------
 #EOF
 
 sudo systemctl stop gear
-cd /root/.local/share/gear-node/chains
+cd /root/.local/share/gear/chains
 mkdir -p gear_stable_testnet/network/ gear_staging_testnet_v4/network/
 sudo cp gear_staging_testnet_v3/network/secret_ed25519 gear_staging_testnet_v4/network/secret_ed25519  &>/dev/null
 sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_stable_testnet/network/secret_ed25519  &>/dev/null
