@@ -57,7 +57,9 @@ echo "--------------------------------------------------------------------------
 
 sudo systemctl stop gear
 cd /root/.local/share/gear-node/chains
-sudo cp gear_staging_testnet_v3/network/secret_ed25519 gear_staging_testnet_v4/network/secret_ed25519
+mkdir -p gear_stable_testnet/network/
+
+sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_stable_testnet/network/secret_ed25519
 
 
 sudo systemctl restart systemd-journald &>/dev/null
