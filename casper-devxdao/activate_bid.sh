@@ -9,5 +9,5 @@ sudo -u casper casper-client put-deploy \
 --secret-key /etc/casper/validator_keys/secret_key.pem \
 --chain-name "$CHAIN_NAME" \
 --session-path /opt/activate_bid.wasm \
---payment-amount 300000000 \
+--payment-amount 30000000000 \
 --session-arg "validator_public_key:public_key='$(cat /etc/casper/validator_keys/public_key_hex)'"
