@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="036-iocaste.1"
+export version="036-iocaste.2"
 line
 logo
 line
