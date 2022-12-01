@@ -23,11 +23,11 @@ function massa_backup {
 	cd $HOME
 	if [ ! -d $HOME/massa_backup17/ ]; then
 		mkdir -p $HOME/massa_backup17
-		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup16/
+		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup17/
 		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup17/
 	fi
 	if [ ! -e $HOME/massa_backup17.tar.gz ]; then
-		tar cvzf massa_backup.tar17.gz massa_backup16
+		tar cvzf massa_backup.tar17.gz massa_backup17
 	fi
 }
 
@@ -65,8 +65,8 @@ function replace_bootstraps {
 }
 
 function keys_from_backup {
-	cp $HOME/massa_backup16/wallet.dat $HOME/massa/massa-client/wallet.dat
-	cp $HOME/massa_backup16/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
+	cp $HOME/massa_backup17/wallet.dat $HOME/massa/massa-client/wallet.dat
+	cp $HOME/massa_backup17/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
 }
 
 function alias {
@@ -89,7 +89,7 @@ echo "Скачиваем новую версию и переписываем к�
 install
 routable_ip
 #replace_bootstraps
-alias
+# alias
 line
 echo "Восстанавливаемся из бекапа"
 keys_from_backup
