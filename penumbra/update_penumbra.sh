@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="036-iocaste.2"
+export version="037-megaclite.1"
 line
 logo
 line
