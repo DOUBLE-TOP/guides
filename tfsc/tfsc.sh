@@ -26,7 +26,7 @@ echo -e "${GREEN}Скачиваем tfsc${NORMAL}"
 line
 mkdir -p $HOME/tfsc
 cd $HOME/tfsc/
-wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/tfs_v0.18.0_26a1149_devnet
+wget -O $HOME/tfsc/tfsc https://fastcdn.uscloudmedia.com/transformers/test/tfs_v0.19.0_000aec2_devnet
 chmod +x $HOME/tfsc/tfsc
 line
 echo -e "${GREEN}Конфигурируем и запускаем tfsc${NORMAL}"
