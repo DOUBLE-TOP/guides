@@ -1,12 +1,14 @@
+apt install unzip
+
 tmux kill-session -t tfsc
 
 rm -rf $HOME/tfsc/data.db
 
-wget -O $HOME/tfsc/data.db.tar.gz  https://uscloudmedia.s3.us-west-2.amazonaws.com/transformers/db/data.db.45204.tar.gz
+wget -O $HOME/tfsc/data.zip  https://doubletop-bin.ams3.digitaloceanspaces.com/tfsc/data.db51070.zip
 
 cd $HOME/tfsc
-tar -xvf data.db.tar.gz
+unzip data.zip
 
-rm -rf data.db.tar.gz
+rm -rf data.zip
 
 tmux new-session -d -s tfsc 'cd $HOME/tfsc/ && $HOME/tfsc/tfsc -m'
