@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="037-megaclite.1"
+export version="038-kalyke"
 line
 logo
 line
