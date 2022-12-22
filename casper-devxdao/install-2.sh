@@ -17,66 +17,7 @@ echo $KNOWN_VALIDATOR_IP
 TRUSTED_HASH=$(curl -s $KNOWN_VALIDATOR_IP:8888/status | jq -r .last_added_block_info.hash | tr -d '\n')
 if [ "$TRUSTED_HASH" != "null" ]; then sudo -u casper sed -i "/trusted_hash =/c\trusted_hash = '$TRUSTED_HASH'" /etc/casper/$CASPER_VERSION/config.toml; fi
 
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_1_0
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_1_0
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_1_2
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_1_2
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_2_0
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_2_0
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_2_1
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_2_1
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_3_1
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_3_1
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_3_2
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_3_2
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_3_4
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_3_4
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_1
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_1
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_2
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_2
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_3
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_3
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_4
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_4
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_5
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_5
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_6
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_6
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_7
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_7
-sleep 1
-sudo -u casper /etc/casper/pull_casper_node_version.sh casper-test.conf 1_4_8
-sleep 1
-sudo -u casper /etc/casper/config_from_example.sh 1_4_8
-
+sudo -u casper /etc/casper/node_util.py stage_protocols casper-test.conf
 
 sudo logrotate -f /etc/logrotate.d/casper-node
 sudo systemctl start casper-node-launcher; sleep 2
