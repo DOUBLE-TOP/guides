@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="038-kalyke"
+export version="039-praxidike"
 line
 logo
 line
