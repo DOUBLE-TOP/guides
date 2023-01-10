@@ -26,10 +26,10 @@ function update_bin {
   NEWTAG=v0.13.0
   sudo systemctl stop namada
   sudo rm /usr/local/bin/{namada,namadac,namadan,namadaw}
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namada /usr/local/bin/namada
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadac /usr/local/bin/namadac
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadan /usr/local/bin/namadan
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadaw /usr/local/bin/namadaw
+  sudo wget -O /usr/local/bin/namada https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namada
+  sudo wget -O /usr/local/bin/namadac https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadac
+  sudo wget -O /usr/local/bin/namadan https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadan
+  sudo wget -O /usr/local/bin/namadaw https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadaw
   sudo systemctl restart namada
 }
 

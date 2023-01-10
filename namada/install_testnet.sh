@@ -73,11 +73,11 @@ function vars {
 # }
 
 function wget_bin {
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namada /usr/local/bin/namada
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadac /usr/local/bin/namadac
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadan /usr/local/bin/namadan
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadaw /usr/local/bin/namadaw
-  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/tendermint /usr/local/bin/tendermint
+  sudo wget -O /usr/local/bin/namada https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namada
+  sudo wget -O /usr/local/bin/namadac https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadac
+  sudo wget -O /usr/local/bin/namadan https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadan
+  sudo wget -O /usr/local/bin/namadaw https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadaw
+  sudo wget -O /usr/local/bin/tendermint https://doubletop-bin.ams3.digitaloceanspaces.com/namada/tendermint 
 }
 
 function join_network {
