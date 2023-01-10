@@ -23,7 +23,6 @@ function main_tools {
 function rust {
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh)
   source $HOME/.profile
-  cargo install sccache
 }
 
 function nodejs {
