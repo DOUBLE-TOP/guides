@@ -33,6 +33,14 @@ function go {
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
 }
 
+function NAMADA_NAME {
+  if [ ! ${NAMADA_NAME} ]; then
+  echo "Введите свое имя ноды(придумайте)"
+  line
+  read NAMADA_NAME
+  fi
+}
+
 function vars {
   echo "export NAMADA_TAG=v0.12.2" >> ~/.bash_profile
   echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
@@ -104,6 +112,8 @@ EOF
 colors
 line
 logo
+line
+NAMADA_NAME
 line
 echo "installing tools...."
 line
