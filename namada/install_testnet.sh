@@ -69,10 +69,7 @@ function build_tendermint {
 
 function copy_bin {
   sudo cp "$HOME/tendermint/build/tendermint" /usr/local/bin/tendermint
-  sudo cp "$HOME/namada/target/release/namada" /usr/local/bin/namada
-  sudo cp "$HOME/namada/target/release/namadac" /usr/local/bin/namadac
-  sudo cp "$HOME/namada/target/release/namadan" /usr/local/bin/namadan
-  sudo cp "$HOME/namada/target/release/namadaw" /usr/local/bin/namadaw
+  sudo cp "$HOME/namada/target/release/{namada,namadac,namadan,namadaw}" /usr/local/bin/
 }
 
 function join_network {
