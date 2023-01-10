@@ -50,26 +50,34 @@ function vars {
   source ~/.bash_profile
 }
 
-function build_namada {
-  cd $HOME
-  git clone https://github.com/anoma/namada
-  cd namada
-  git checkout $NAMADA_TAG
-  make build-release
+# function build_namada {
+#   cd $HOME
+#   git clone https://github.com/anoma/namada
+#   cd namada
+#   git checkout $NAMADA_TAG
+#   make build-release
+#
+# }
+#
+# function build_tendermint {
+#     cd $HOME
+#     git clone https://github.com/heliaxdev/tendermint
+#     cd tendermint
+#     git checkout $TM_HASH
+#     make build
+# }
+#
+# function copy_bin {
+#   sudo cp "$HOME/tendermint/build/tendermint" /usr/local/bin/tendermint
+#   sudo cp $HOME/namada/target/release/{namada,namadac,namadan,namadaw} /usr/local/bin/
+# }
 
-}
-
-function build_tendermint {
-    cd $HOME
-    git clone https://github.com/heliaxdev/tendermint
-    cd tendermint
-    git checkout $TM_HASH
-    make build
-}
-
-function copy_bin {
-  sudo cp "$HOME/tendermint/build/tendermint" /usr/local/bin/tendermint
-  sudo cp $HOME/namada/target/release/{namada,namadac,namadan,namadaw} /usr/local/bin/
+function wget_bin {
+  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namada /usr/local/bin/namada
+  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadac /usr/local/bin/namadac
+  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadan /usr/local/bin/namadan
+  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadaw /usr/local/bin/namadaw
+  sudo wget -O https://doubletop-bin.ams3.digitaloceanspaces.com/namada/tendermint /usr/local/bin/tendermint
 }
 
 function join_network {
@@ -121,9 +129,9 @@ go
 line
 echo "set vars, build bin files"
 vars
-build_namada
-build_tendermint
-copy_bin
+# build_namada
+# build_tendermint
+# copy_bin
 line
 echo "run fullnode"
 join_network
