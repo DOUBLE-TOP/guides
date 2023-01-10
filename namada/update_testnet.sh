@@ -25,7 +25,7 @@ function update_code {
 function update_bin {
   sudo systemctl stop namada
   sudo rm /usr/local/bin/{namada,namadac,namadan,namadaw}
-  sudo cp "$HOME/namada/target/release/{namada,namadac,namadan,namadaw}" /usr/local/bin/
+  sudo cp $HOME/namada/target/release/{namada,namadac,namadan,namadaw} /usr/local/bin/
   sudo systemctl restart namada
 }
 
