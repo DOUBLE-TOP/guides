@@ -30,6 +30,7 @@ function update_bin {
   sudo wget -O /usr/local/bin/namadac https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadac
   sudo wget -O /usr/local/bin/namadan https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadan
   sudo wget -O /usr/local/bin/namadaw https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namadaw
+  sudo chmod +x /usr/local/bin/{tendermint,namada,namadac,namadan,namadaw}
   sudo systemctl restart namada
 }
 
