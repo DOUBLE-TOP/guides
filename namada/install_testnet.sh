@@ -137,4 +137,5 @@ line
 echo "run fullnode"
 join_network
 systemd_namada
+line
 echo "fullnode started, next steps in the guide"
