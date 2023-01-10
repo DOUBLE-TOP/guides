@@ -132,6 +132,7 @@ vars
 # build_namada
 # build_tendermint
 # copy_bin
+wget_bin
 line
 echo "run fullnode"
 join_network
