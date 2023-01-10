@@ -70,3 +70,6 @@ build_ursa
 line
 echo "creating systemd file, adding to autostart, starting"
 systemd_ursa
+echo "installation complete, check logs by command:"
+echo "journalctl -n 100 -f -u fleek -o cat"
+echo "and wait for -bootstrap complete-"
