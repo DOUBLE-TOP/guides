@@ -92,7 +92,7 @@ line
 massa_pass
 delete
 install
-#routable_ip
+routable_ip
 line
 #replace_bootstraps
 line
