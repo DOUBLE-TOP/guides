@@ -20,11 +20,12 @@ do
         elif [ $int_balance -gt "1" ]; then
                 echo "More than 1 Final Roll"
         fi
-        printf "sleep"
-        for((sec=0; sec<3600; sec++))
+        Date="date +”%H:%M”"
+        printf "$Date sleep"
+        for((m=0; m<60; m++))
         do
                 printf "."
-                sleep 1
+                sleep 1h
         done
         printf "\n"
 done
