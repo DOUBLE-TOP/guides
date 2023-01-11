@@ -20,7 +20,8 @@ do
         elif [ $int_balance -gt "1" ]; then
                 echo "More than 1 Final Roll"
         fi
-        date +”%H:%M”
+        date='date +”%H:%M”'
+        echo Last Update: $date
         printf "sleep"
         for((m=0; m<60; m++))
         do
