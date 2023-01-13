@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="039-praxidike"
+export version="040-themisto.1"
 line
 logo
 line
