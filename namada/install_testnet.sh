@@ -86,6 +86,7 @@ function join_network {
   namada client utils join-network --chain-id $CHAIN_ID
   wget https://github.com/heliaxdev/anoma-network-config/releases/download/${CHAIN_ID}/${CHAIN_ID}.tar.gz
   tar xvzf "$HOME/$CHAIN_ID.tar.gz"
+  mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
   curl -s https://raw.githubusercontent.com/systemd-run/manuals/main/namada/addrbook.json > $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json
 
 }
