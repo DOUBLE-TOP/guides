@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="040-themisto.1"
+export version="041-callirrhoe"
 line
 logo
 line
