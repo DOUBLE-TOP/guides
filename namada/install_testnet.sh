@@ -42,9 +42,9 @@ function NAMADA_NAME {
 }
 
 function vars {
-  echo "export NAMADA_TAG=v0.13.1-hardfork" >> ~/.bash_profile
+  echo "export NAMADA_TAG=v0.13.2" >> ~/.bash_profile
   echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
-  echo "export CHAIN_ID=public-testnet-2.0.2feaf2d718c" >> ~/.bash_profile
+  echo "export CHAIN_ID=public-testnet-2.1.4014f207f6d" >> ~/.bash_profile
   echo "export VALIDATOR_ALIAS=$NAMADA_NAME" >> ~/.bash_profile
   echo "export WALLET=$NAMADA_NAME" >> ~/.bash_profile
   source ~/.bash_profile
