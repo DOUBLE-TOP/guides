@@ -44,7 +44,7 @@ function NAMADA_NAME {
 function vars {
   echo "export NAMADA_TAG=v0.13.2" >> ~/.bash_profile
   echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
-  echo "export CHAIN_ID=public-testnet-2.1.4014f207f6d" >> ~/.bash_profile
+  echo "export CHAIN_ID=public-testnet-2.1.4014f207f6d" >> ~/.bash_profilegg
   echo "export VALIDATOR_ALIAS=$NAMADA_NAME" >> ~/.bash_profile
   echo "export WALLET=$NAMADA_NAME" >> ~/.bash_profile
   source ~/.bash_profile
@@ -86,6 +86,8 @@ function join_network {
   namada client utils join-network --chain-id $CHAIN_ID
   wget https://github.com/heliaxdev/anoma-network-config/releases/download/${CHAIN_ID}/${CHAIN_ID}.tar.gz
   tar xvzf "$HOME/$CHAIN_ID.tar.gz"
+  curl -s https://raw.githubusercontent.com/systemd-run/manuals/main/namada/addrbook.json > $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json
+
 }
 
 function systemd_namada {
