@@ -59,6 +59,7 @@ line
 mkdir_sui
 wget_fullnode
 wget_genesis
+docker-compose
 line
 echo "starting docker-compose"
 line
