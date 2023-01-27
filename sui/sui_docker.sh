@@ -70,4 +70,4 @@ line
 run_docker
 line
 echo "installation complete, check logs by command:"
-echo "docker logs -f --tail=100 sui-fullnode-1 "
+echo "docker logs -f $HOME/sui/docker-compose.yaml --tail=100 sui-fullnode-1 "
