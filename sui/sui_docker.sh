@@ -29,19 +29,22 @@ function mkdir_sui {
 
 function wget_fullnode {
   wget -O $HOME/sui/fullnode-template.yaml https://github.com/MystenLabs/sui/raw/main/crates/sui-config/data/fullnode-template.yaml
+  sleep 3
 }
 
 function wget_genesis {
   wget -O $HOME/sui/genesis.blob  https://github.com/MystenLabs/sui-genesis/raw/main/testnet/genesis.blob
+  sleep 3
 }
 
 function docker-compose {
   IMAGE="mysten/sui-node:2d07756360c28e35d7c60816bb0f1ed94ccf356e"
   wget -O $HOME/sui/docker-compose.yaml https://raw.githubusercontent.com/MystenLabs/sui/main/docker/fullnode/docker-compose.yaml
   sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
+  sleep 3
 }
 
-function node {
+function run_docker {
   docker-compose -f ${HOME}/sui/docker-compose.yaml pull
   docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 }
@@ -64,7 +67,7 @@ docker-compose
 line
 echo "starting docker-compose"
 line
-node
+run_docker
 line
 echo "installation complete, check logs by command:"
 echo "docker logs -f --tail=100 sui-fullnode-1 "
