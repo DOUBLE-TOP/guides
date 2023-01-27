@@ -41,7 +41,7 @@ function docker-compose {
   sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
 }
 
-function run_docker {
+function node {
   docker-compose -f ${HOME}/sui/docker-compose.yaml pull
   docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 }
@@ -64,8 +64,7 @@ docker-compose
 line
 echo "starting docker-compose"
 line
-docker-compose -f ${HOME}/sui/docker-compose.yaml pull
-docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
+node
 line
 echo "installation complete, check logs by command:"
 echo "docker logs -f --tail=100 sui-fullnode-1 "
