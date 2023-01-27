@@ -64,7 +64,8 @@ docker-compose
 line
 echo "starting docker-compose"
 line
-run_docker
+docker-compose -f ${HOME}/sui/docker-compose.yaml pull
+docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 line
 echo "installation complete, check logs by command:"
 echo "docker logs -f --tail=100 sui-fullnode-1 "
