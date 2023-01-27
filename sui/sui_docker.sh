@@ -22,26 +22,14 @@ function docker {
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
 }
 
-function mkdir_sui {
+function prepare {
   mkdir -p $HOME/sui
   cd $HOME/sui
-}
-
-function wget_fullnode {
   wget -O $HOME/sui/fullnode-template.yaml https://github.com/MystenLabs/sui/raw/main/crates/sui-config/data/fullnode-template.yaml
-  sleep 3
-}
-
-function wget_genesis {
   wget -O $HOME/sui/genesis.blob  https://github.com/MystenLabs/sui-genesis/raw/main/testnet/genesis.blob
-  sleep 3
-}
-
-function docker-compose {
   IMAGE="mysten/sui-node:2d07756360c28e35d7c60816bb0f1ed94ccf356e"
   wget -O $HOME/sui/docker-compose.yaml https://raw.githubusercontent.com/MystenLabs/sui/main/docker/fullnode/docker-compose.yaml
   sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
-  sleep 3
 }
 
 function run_docker {
@@ -60,14 +48,11 @@ docker
 line
 echo "prepare directory and docker files"
 line
-mkdir_sui
-wget_fullnode
-wget_genesis
-docker-compose
+prepare
 line
 echo "starting docker-compose"
 line
 run_docker
 line
 echo "installation complete, check logs by command:"
-echo "docker logs -f $HOME/sui/docker-compose.yaml --tail=100 sui-fullnode-1 "
+echo "docker logs -f --tail=100 sui-fullnode-1"
