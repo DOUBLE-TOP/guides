@@ -42,7 +42,8 @@ function docker-compose {
 }
 
 function run_docker {
-  docker-compose -f $HOME/sui/docker-compose.yaml up -d
+  docker-compose -f ${HOME}/sui/docker-compose.yaml pull up -d
+  docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 }
 
 colors
