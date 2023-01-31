@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="041-callirrhoe"
+export version="042-adraste"
 line
 logo
 line

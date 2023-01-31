@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="041-callirrhoe"
+export version="042-adraste"
 line
 logo
 line
