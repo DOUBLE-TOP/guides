@@ -39,7 +39,6 @@ function run_docker {
 
 function stop_docker {
   docker-compose -f ${HOME}/sui/docker-compose.yaml down
-  docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 }
 
 function repalce_image {
