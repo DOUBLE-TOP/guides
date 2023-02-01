@@ -58,7 +58,7 @@ services:
    test: "curl -s -H 'Connection: Upgrade' -H 'Upgrade: websocket' http://127.0.0.1:9033 || killall5 -9"
    interval: 180s
    timeout: 180s
-   retries: 3
+   retries: 3 
   volumes:
    - $HOME/.ironfish5:/root/.ironfish
 EOF
@@ -70,6 +70,8 @@ echo "alias ironfish4='docker exec ironfish ./bin/run'" >> ~/.profile
 echo "alias ironfish5='docker exec ironfish ./bin/run'" >> ~/.profile
 
 source ~/.profile
+
+docker-compose -f docker-compose-multi-5.yaml up -d
 
 echo "Взаимодействие с нодами идет через команды ironfish1-5"
 echo "Пример:"
