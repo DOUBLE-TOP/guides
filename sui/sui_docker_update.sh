@@ -37,22 +37,42 @@ function run_docker {
   docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
 }
 
+function stop_docker {
+  docker-compose -f ${HOME}/sui/docker-compose.yaml down
+  docker-compose -f ${HOME}/sui/docker-compose.yaml up -d
+}
+
+function repalce_image {
+IMAGE="mysten/sui-node:6fa859ba7590deb6db72aad42ca689efd69d5329"
+sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
+}
+
+function peers {
+sudo tee -a $HOME/sui/fullnode-template.yaml  >/dev/null <<EOF
+
+p2p-config:
+  seed-peers:
+    - address: "/ip4/65.109.32.171/udp/8084"
+    - address: "/ip4/65.108.44.149/udp/8084"
+    - address: "/ip4/95.214.54.28/udp/8080"
+    - address: "/ip4/136.243.40.38/udp/8080"
+    - address: "/ip4/84.46.255.11/udp/8084"
+EOF
+}
+
 colors
 line
 logo
 line
-echo "installing tools...."
+echo "updating docker image"
 line
-main_tools
-docker
-line
-echo "prepare directory and docker files"
-line
-prepare
+stop_docker
+repalce_image
+peers
 line
 echo "starting docker-compose"
 line
 run_docker
 line
-echo "installation complete, check logs by command:"
+echo "update complete, check logs by command:"
 echo "docker-compose -f $HOME/sui/docker-compose.yaml logs -f --tail=100"
