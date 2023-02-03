@@ -8,13 +8,13 @@ echo "Выполняем обновление"
 echo "-----------------------------------------------------------------------------"
 sudo systemctl stop sui
 rm -rf $HOME/.sui/db
-wget -qO $HOME/.sui/genesis.blob https://github.com/SuiExternal/sui-external/raw/main/genesis.blob
+wget -qO $HOME/.sui/genesis.blob wget -qO $HOME/.sui/genesis.blob https://github.com/MystenLabs/sui-genesis/raw/main/testnet/genesis.blob
 
 rm -rf sui
 git clone https://github.com/MystenLabs/sui.git
 cd $HOME/sui
 git fetch
-git checkout testnet
+git checkout -B testnet --track upstream/testnet
 mkdir -p $HOME/sui/target/release/
 # cd $HOME/sui
 # git remote add upstream https://github.com/MystenLabs/sui
@@ -23,14 +23,14 @@ mkdir -p $HOME/sui/target/release/
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем обновление"
 echo "-----------------------------------------------------------------------------"
-# cargo build --release
+cargo build --release
 
-version=testnet
-wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
-wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
-wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
-sudo chmod +x $HOME/sui/target/release/{sui,sui-node,sui-faucet}
-sudo mv $HOME/sui/target/release/{sui,sui-node,sui-faucet} /usr/bin/
+#version=testnet
+#wget -O $HOME/sui/target/release/sui https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui
+#wget -O $HOME/sui/target/release/sui-node https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-node
+#wget -O $HOME/sui/target/release/sui-faucet https://doubletop-bin.ams3.digitaloceanspaces.com/sui/$version/sui-faucet
+#sudo chmod +x $HOME/sui/target/release/{sui,sui-node,sui-faucet}
+#sudo mv $HOME/sui/target/release/{sui,sui-node,sui-faucet} /usr/bin/
 sudo systemctl restart sui
 echo "-----------------------------------------------------------------------------"
 echo "Обновление завершено"
