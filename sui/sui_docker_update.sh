@@ -42,7 +42,7 @@ function stop_docker {
 }
 
 function repalce_image {
-IMAGE="mysten/sui-node:6fa859ba7590deb6db72aad42ca689efd69d5329"
+IMAGE="mysten/sui-node:336ffb7803672e889444a1b411877986637ca345"
 sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
 }
 
@@ -67,7 +67,7 @@ echo "updating docker image"
 line
 stop_docker
 repalce_image
-peers
+#peers
 line
 echo "starting docker-compose"
 line
