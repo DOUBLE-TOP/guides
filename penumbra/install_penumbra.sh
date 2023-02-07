@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="042-adraste"
+export version="043-leda"
 line
 logo
 line
