@@ -27,7 +27,7 @@ function prepare {
   cd $HOME/sui
   wget -O $HOME/sui/fullnode-template.yaml https://github.com/MystenLabs/sui/raw/main/crates/sui-config/data/fullnode-template.yaml
   wget -O $HOME/sui/genesis.blob  https://github.com/MystenLabs/sui-genesis/raw/main/testnet/genesis.blob
-  IMAGE="mysten/sui-node:6fa859ba7590deb6db72aad42ca689efd69d5329"
+  IMAGE="mysten/sui-node:92b4c0671b746a14cac658e2283c0ce01c6a98f3"
   wget -O $HOME/sui/docker-compose.yaml https://raw.githubusercontent.com/MystenLabs/sui/main/docker/fullnode/docker-compose.yaml
   sed -i.bak "s|image:.*|image: $IMAGE|" $HOME/sui/docker-compose.yaml
 }
