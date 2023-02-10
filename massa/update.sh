@@ -37,8 +37,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.19.2/massa_TEST.19.2_release_linux.tar.gz
-  tar zxvf massa_TEST.19.2_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.19.3/massa_TEST.19.3_release_linux.tar.gz
+  tar zxvf massa_TEST.19.3_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
