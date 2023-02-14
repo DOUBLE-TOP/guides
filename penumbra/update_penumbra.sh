@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="043-leda"
+export version="044-ananke"
 line
 logo
 line
