@@ -95,4 +95,4 @@ echo "Восстанавливаемся из бекапа"
 keys_from_backup
 line
 sudo systemctl start massa
-echo "Обновление завершено"
+echo "Обновление завершено."
