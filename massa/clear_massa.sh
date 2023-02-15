@@ -16,6 +16,7 @@ function line {
 
 function delete {
   sudo systemctl stop massa
+  rm -rf massa_TEST.1*
   rm -rf $HOME/massa
 }
 
