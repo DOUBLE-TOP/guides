@@ -16,9 +16,9 @@ function colors {
 
 function install_tools {
   curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
-  source ~/.cargo/env
-  rustup default nightly
+  # curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
+  # source ~/.cargo/env
+  # rustup default nightly
   sleep 1
 }
 
@@ -31,18 +31,18 @@ function source_git {
   git checkout $version && cargo update
 }
 
-function build_penumbra {
-  if [ ! -d $HOME/penumbra/ ]; then
-    cd $HOME/penumbra/
-    cargo build --release --bin pcli
-    sudo cp target/release/pcli /usr/bin/pcli
-  else
-    source_git
-    cd $HOME/penumbra/
-    cargo build --release --bin pcli
-    sudo cp target/release/pcli /usr/bin/pcli
-  fi
-}
+# function build_penumbra {
+#   if [ ! -d $HOME/penumbra/ ]; then
+#     cd $HOME/penumbra/
+#     cargo build --release --bin pcli
+#     sudo cp target/release/pcli /usr/bin/pcli
+#   else
+#     source_git
+#     cd $HOME/penumbra/
+#     cargo build --release --bin pcli
+#     sudo cp target/release/pcli /usr/bin/pcli
+#   fi
+# }
 
 function wget_bin_pcli {
   mkdir -p $HOME/penumbra/target/release/
