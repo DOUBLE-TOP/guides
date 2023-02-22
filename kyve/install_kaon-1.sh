@@ -25,8 +25,8 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 wget https://files.kyve.network/chain/v1.0.0-rc0/kyved_linux_amd64.tar.gz
 tar -xvzf kyved_linux_amd64.tar.gz &>/dev/null
-sudo mv chaind kyved
 sudo chmod +x kyved
+mkdir -p $HOME/go/bin
 sudo mv kyved $HOME/go/bin/kyved
 rm kyved_linux_amd64.tar.gz
 echo "Репозиторий успешно склонирован, начинаем билд"
