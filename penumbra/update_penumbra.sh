@@ -72,7 +72,7 @@ function rust_update {
 
 
 colors
-export version="044-ananke"
+export version="045-metis"
 line
 logo
 line

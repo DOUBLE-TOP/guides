@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="044-ananke"
+export version="045-metis"
 line
 logo
 line
