@@ -57,10 +57,12 @@ sed -i "s/gear-node/gear/" "/etc/systemd/system/gear.service"
 sudo systemctl daemon-reload
 sudo systemctl stop gear
 cd /root/.local/share/gear/chains
-mkdir -p gear_stable_testnet/network/ gear_staging_testnet_v4/network/ gear_staging_testnet_v5/network/
-sudo cp gear_staging_testnet_v3/network/secret_ed25519 gear_staging_testnet_v4/network/secret_ed25519  &>/dev/null
-sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_stable_testnet/network/secret_ed25519  &>/dev/null
-sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_staging_testnet_v5/network/secret_ed25519  &>/dev/null
+mkdir -p gear_staging_testnet_v6/network/
+# sudo cp gear_staging_testnet_v3/network/secret_ed25519 gear_staging_testnet_v4/network/secret_ed25519  &>/dev/null
+# sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_stable_testnet/network/secret_ed25519  &>/dev/null
+# sudo cp gear_staging_testnet_v4/network/secret_ed25519 gear_staging_testnet_v5/network/secret_ed25519  &>/dev/null
+sudo cp gear_staging_testnet_v5/network/secret_ed25519 gear_staging_testnet_v6/network/secret_ed25519  &>/dev/null
+
 
 sudo systemctl daemon-reload
 sudo systemctl restart gear
