@@ -20,9 +20,9 @@ LimitNOFILE=2024000
 Environment="SOLANA_METRICS_CONFIG=host=https://metrics.solana.com:8086,db=mainnet-beta,u=mainnet-beta_write,p=password"
 ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator \
 --no-snapshot-fetch \
---wait-for-supermajority 179526408 \
---expected-shred-version 12743 \
---expected-bank-hash JCfD7vqjQWKV8Vusx7degWczh55WkQ2cEifGTzCkXdKk \
+--wait-for-supermajority 179526403 \
+--expected-shred-version 21514 \
+--expected-bank-hash 69p75jzzT1P2vJwVn3wbTVutxHDcWKAgcbjqXvwCVUDE \
 --known-validator CMPSSdrTnRQBiBGTyFpdCc3VMNuLWYWaSkE8Zh5z6gbd \
 --known-validator 6WgdYhhGE53WrZ7ywJA15hBVkw7CRbQ8yDBBTwmBtAHN \
 --known-validator 7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2 \
@@ -62,6 +62,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-wget -O $HOME/ledger/snapshot-179526408-9kUTC2pYALrYD8rb93E1mY2vG4QG8jCX132Z4CEhBHgJ.tar.zst wget https://dn4xk96mcxun5.cloudfront.net/snapshot-179526408-9kUTC2pYALrYD8rb93E1mY2vG4QG8jCX132Z4CEhBHgJ.tar.zst
+wget -O $HOME/ledger/snapshot-179526403-FUdrVxEUnbp4AzZ5qNPgYB3viRQEGo2n1xq5n382Y8sC.tar.zst wget https://d1fe19ei6b1nmi.cloudfront.net/snapshot-179526403-FUdrVxEUnbp4AzZ5qNPgYB3viRQEGo2n1xq5n382Y8sC.tar.zst
 
 sudo systemctl restart solana
