@@ -19,9 +19,10 @@ RestartSec=1
 LimitNOFILE=2024000
 Environment="SOLANA_METRICS_CONFIG=host=https://metrics.solana.com:8086,db=mainnet-beta,u=mainnet-beta_write,p=password"
 ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator \
+--expected-genesis-hash 5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d \
 --no-snapshot-fetch \
 --wait-for-supermajority 179526403 \
---expected-shred-version 21514 \
+--expected-shred-version 56177 \
 --expected-bank-hash 69p75jzzT1P2vJwVn3wbTVutxHDcWKAgcbjqXvwCVUDE \
 --known-validator DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ \
 --known-validator GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ \
