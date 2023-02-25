@@ -30,6 +30,9 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --known-validator Ninja1spj6n9t5hVYgF3PdnYz2PLnkt7rvaw3firmjs \
 --known-validator PUmpKiNnSVAZ3w4KaFX6jKSjXUNHFShGkXbERo54xjb \
 --known-validator DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ \
+--entrypoint 3.15.228.179:11000 \
+--entrypoint 34.148.228.133:11000 \
+--entrypoint 63.251.232.254:21610 \
 --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
