@@ -55,6 +55,10 @@ EOF"
 
 sudo systemctl daemon-reload
 
+source $HOME/solana-snapshot-finder/venv/bin/activate
+
+python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger
+
 # wget -O $HOME/ledger/snapshot-179526403-FUdrVxEUnbp4AzZ5qNPgYB3viRQEGo2n1xq5n382Y8sC.tar.zst https://d1fe19ei6b1nmi.cloudfront.net/snapshot-179526403-FUdrVxEUnbp4AzZ5qNPgYB3viRQEGo2n1xq5n382Y8sC.tar.zst
 
 sudo systemctl restart solana
