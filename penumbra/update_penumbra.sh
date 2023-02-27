@@ -32,20 +32,20 @@ function source_git {
   git checkout $version && cargo update
 }
 
-function build_penumbra {
-  if [ ! -d $HOME/penumbra/ ]; then
-    cd $HOME/penumbra/
-    cargo build --release --bin pcli
-    sudo rm -f /usr/bin/pcli
-    sudo cp target/release/pcli /usr/bin/pcli
-  else
-    source_git
-    cd $HOME/penumbra/
-    cargo build --release --bin pcli
-    sudo rm -f /usr/bin/pcli
-    sudo cp target/release/pcli /usr/bin/pcli
-  fi
-}
+# function build_penumbra {
+#   if [ ! -d $HOME/penumbra/ ]; then
+#     cd $HOME/penumbra/
+#     cargo build --release --bin pcli
+#     sudo rm -f /usr/bin/pcli
+#     sudo cp target/release/pcli /usr/bin/pcli
+#   else
+#     source_git
+#     cd $HOME/penumbra/
+#     cargo build --release --bin pcli
+#     sudo rm -f /usr/bin/pcli
+#     sudo cp target/release/pcli /usr/bin/pcli
+#   fi
+# }
 
 function wget_bin_pcli {
   mkdir -p $HOME/penumbra/target/release/
@@ -64,11 +64,11 @@ function reset_wallet {
   pcli view reset
 }
 
-function rust_update {
-  source ~/.cargo/env
-  rustup update
-  rustup default nightly
-}
+# function rust_update {
+#   source ~/.cargo/env
+#   rustup update
+#   rustup default nightly
+# }
 
 
 colors
@@ -82,7 +82,7 @@ echo -e "${GREEN}1/2 Обновляем репозиторий ${NORMAL}"
 source_git
 line
 echo -e "${GREEN}2/2 Начинаем билд ${NORMAL}"
-rust_update
+# rust_update
 line
 # build_penumbra
 wget_bin_pcli
