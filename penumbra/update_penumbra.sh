@@ -72,7 +72,7 @@ function reset_wallet {
 
 
 colors
-export version="045-metis"
+export version="046-lysithea"
 line
 logo
 line
