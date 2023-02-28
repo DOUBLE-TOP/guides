@@ -73,19 +73,10 @@ function reset_wallet {
 
 colors
 export version="046-lysithea"
-line
-logo
-line
-echo -e "${RED}Начинаем обновление ${NORMAL}"
-line
-echo -e "${GREEN}1/2 Обновляем репозиторий ${NORMAL}"
 source_git
-line
-echo -e "${GREEN}2/2 Начинаем билд ${NORMAL}"
 # rust_update
-line
+
 # build_penumbra
 wget_bin_pcli
 reset_wallet
-line
-echo -e "${RED}Скрипт завершил свою работу ${NORMAL}"
+
