@@ -4,7 +4,7 @@ install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/bundlr/install
 update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/bundlr/update_bundler.sh"
 healthcheck="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/bundlr/health.sh"
 
-if [ "$language" = "uk" ]; then
+if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити ноду" "Оновити ноду" "Запустити хелс-чек для автоматичної перевірки статусу ноди" "Вийти з меню")
 	selected="Ви вибрали опцію"

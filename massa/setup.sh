@@ -4,7 +4,7 @@ install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/clear_ma
 update="curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/update.sh"
 auto_buy_rolls="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/rolls.sh"
 
-if [ "$language" = "uk" ]; then
+if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити ноду" "Запустити хелс-чек для автоматичної перевірки статусу ноди" "Вийти з меню")
 	selected="Ви вибрали опцію"

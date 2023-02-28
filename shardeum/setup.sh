@@ -3,7 +3,7 @@
 install="https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh"
 healthcheck="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/shardeum/health.sh"
 
-if [ "$language" = "uk" ]; then
+if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити ноду" "Запустити хелс-чек для автоматичної перевірки статусу ноди" "Вийти з меню")
 	selected="Ви вибрали опцію"

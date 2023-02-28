@@ -3,7 +3,7 @@
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/penumbra/install_penumbra.sh"
 update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/penumbra/update_penumbra.sh"
 
-if [ "$language" = "uk" ]; then
+if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити ноду" "Оновити ноду" "Вийти з меню")
 	selected="Ви вибрали опцію"
