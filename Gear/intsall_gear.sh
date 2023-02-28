@@ -1,17 +1,11 @@
 #!/bin/bash
 
-echo "-----------------------------------------------------------------------------"
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
-echo "-----------------------------------------------------------------------------"
-if [ -z $NODENAME_GEAR ]; then
-        read -p "Введите ваше имя ноды (придумайте, без спецсимволов - только буквы и цифры): " NODENAME_GEAR
-        echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
-fi
-echo 'Ваше имя ноды: ' $NODENAME_GEAR
+# if [ -z $NODENAME_GEAR ]; then
+#         read -p "Enter your node name: " NODENAME_GEAR
+#         echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
+# fi
+# echo 'your node name: ' $NODENAME_GEAR
 sleep 1
-echo "-----------------------------------------------------------------------------"
-echo "Устанавливаем софт"
-echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
 sudo apt install --fix-broken -y &>/dev/null
@@ -20,16 +14,14 @@ source $HOME/.profile &>/dev/null
 source $HOME/.bashrc &>/dev/null
 source $HOME/.cargo/env &>/dev/null
 sleep 1
-echo "Весь необходимый софт установлен"
-echo "-----------------------------------------------------------------------------"
+
 
 
 wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz &>/dev/null
 tar xvf gear-nightly-linux-x86_64.tar.xz &>/dev/null
 rm gear-nightly-linux-x86_64.tar.xz &>/dev/null
 chmod +x $HOME/gear &>/dev/null
-echo "Билд завершен успешно"
-echo "-----------------------------------------------------------------------------"
+
 
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
@@ -60,12 +52,7 @@ WantedBy=multi-user.target
 EOF
 
 
-echo "Сервисные файлы созданы успешно"
-echo "-----------------------------------------------------------------------------"
 sudo systemctl restart systemd-journald &>/dev/null
 sudo systemctl daemon-reload &>/dev/null
 sudo systemctl enable gear &>/dev/null
 sudo systemctl restart gear &>/dev/null
-
-echo "Нода добавлена в автозагрузку на сервере, запущена"
-echo "-----------------------------------------------------------------------------"
