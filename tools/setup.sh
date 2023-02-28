@@ -12,10 +12,14 @@ if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити основні програми" "Встановити моніторинг" "Встановити Docker" "Встановити Rust" "Встановити GO" "Встановити NodeJS" "Встановити проксі для використання в антидетекті" "Вийти з меню")
 	selected="Ви вибрали опцію"
+    preinstall_message_1="Введіть свій телеграм юзернейм без @"
+    preinstall_message_2="Введіть назву сервера без спец символів"
 else
     PS3='Enter your option: '
     options=("Install main tools" "Install monitoring" "Install Docker" "Install Rust" "Install GO" "Install NodeJS" "Install 3Proxy" "Quit")
     selected="You choose the option"
+    preinstall_message_1="Enter telegram username without @"
+    preinstall_message_2="Enter server name without special symbols"
 fi
 
 select opt in "${options[@]}"
@@ -30,6 +34,12 @@ do
         "${options[1]}")
             echo "$selected $opt"
             sleep 1
+            if [ ! $OWNER ]; then
+                read -p "$preinstall_message_1: " OWNER
+            fi
+            if [ ! $HOSTNAME ]; then
+                read -p "$preinstall_message_2: " HOSTNAME
+            fi
             . <(wget -qO- $monitoring)
             break
             ;;
