@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# if [ -z $NODENAME_GEAR ]; then
-#         read -p "Enter your node name: " NODENAME_GEAR
-#         echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
-# fi
-# echo 'your node name: ' $NODENAME_GEAR
+if [ -z $NODENAME_GEAR ]; then
+        read -p "Enter your node name: " NODENAME_GEAR
+        echo 'export NODENAME='$NODENAME_GEAR >> $HOME/.profile
+fi
+echo 'your node name: ' $NODENAME_GEAR
 sleep 1
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
