@@ -16,20 +16,20 @@ fi
 select opt in "${options[@]}"
 do
     case $opt in
-        "${options[1]}")
+        "${options[0]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $install)
             break
             ;;
-        "${options[2]}")
+        "${options[1]}")
             echo "$selected $opt"
             . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
             . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
             tmux new-session -d -s shardeum_healthcheck '. <(wget -qO- $healthcheck)'
             break
             ;;
-        "${options[3]}")
+        "${options[2]}")
 			echo "$selected $opt"
             break
             ;;

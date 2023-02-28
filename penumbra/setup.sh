@@ -16,19 +16,19 @@ fi
 select opt in "${options[@]}"
 do
     case $opt in
-        "${options[1]}")
+        "${options[0]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $install)
             break
             ;;
-        "${options[2]}")
+        "${options[1]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $update)
             break
             ;;
-        "${options[3]}")
+        "${options[2]}")
 			echo "$selected $opt"
             break
             ;;

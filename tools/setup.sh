@@ -21,49 +21,49 @@ fi
 select opt in "${options[@]}"
 do
     case $opt in
-        "${options[1]}")
+        "${options[0]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $main)
             break
             ;;
-        "${options[2]}")
+        "${options[1]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $monitoring)
             break
             ;;
-        "${options[3]}")
+        "${options[2]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $docker)
             break
             ;;    
-        "${options[4]}")
+        "${options[3]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $rust)
             break
             ;;    
-        "${options[5]}")
+        "${options[4]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $go)
             break
             ;;    
-        "${options[6]}")
+        "${options[5]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $nodejs)
             break
             ;;    
-        "${options[7]}")
+        "${options[6]}")
             echo "$selected $opt"
             sleep 1
             . <(wget -qO- $proxy)
             break
             ;;    
-        "${options[8]}")
+        "${options[7]}")
 			echo "$selected $opt"
             break
             ;;
