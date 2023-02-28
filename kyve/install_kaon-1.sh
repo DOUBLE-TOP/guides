@@ -51,6 +51,12 @@ sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every
 sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.kyve/config/app.toml
 sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0tkyve\"/" $HOME/.kyve/config/app.toml
 sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.kyve/config/config.toml
+
+sed -i.bak -e "s%^proxy_app = \"tcp://127.0.0.1:26658\"%proxy_app = \"tcp://127.0.0.1:10658\"%; s%^laddr = \"tcp://127.0.0.1:26657\"%laddr = \"tcp://127.0.0.1:10657\"%; s%^pprof_laddr = \"localhost:6060\"%pprof_laddr = \"localhost:10060\"%; s%^laddr = \"tcp://0.0.0.0:26656\"%laddr = \"tcp://0.0.0.0:10656\"%; s%^prometheus_listen_addr = \":26660\"%prometheus_listen_addr = \":10660\"%" $HOME/.kyve/config/config.toml
+
+sed -i.bak -e "s%^address = \"tcp://0.0.0.0:1317\"%address = \"tcp://0.0.0.0:10317\"%; s%^address = \":8080\"%address = \":10080\"%; s%^address = \"0.0.0.0:9090\"%address = \"0.0.0.0:10090\"%; s%^address = \"0.0.0.0:9091\"%address = \"0.0.0.0:10091\"%; s%^address = \"0.0.0.0:8545\"%address = \"0.0.0.0:10545\"%; s%^ws-address = \"0.0.0.0:8546\"%ws-address = \"0.0.0.0:10546\"%" $HOME/.kyve/config/app.toml
+
+
 echo "Билд закончен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
