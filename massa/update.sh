@@ -76,24 +76,17 @@ function alias {
 }
 
 colors
-line
-logo
-line
-echo "Читаем переменные, делаем бекап"
-line
+
+
 get_env
 massa_backup
-echo "Удаляем старые файлы"
 delete
-line
-echo "Скачиваем новую версию и переписываем конфиг"
+
 install
 routable_ip
 #replace_bootstraps
 # alias
-line
-echo "Восстанавливаемся из бекапа"
+
 keys_from_backup
-line
+
 sudo systemctl start massa
-echo "Обновление завершено."

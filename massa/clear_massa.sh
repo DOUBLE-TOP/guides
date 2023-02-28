@@ -87,17 +87,10 @@ function alias {
 }
 
 colors
-line
-logo
-line
 massa_pass
 delete
 install
 routable_ip
-line
 #replace_bootstraps
-line
 systemd
-line
 alias
-echo "Готово, ваш пароль от клиента - $massa_pass"
