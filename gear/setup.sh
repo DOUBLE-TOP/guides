@@ -1,7 +1,7 @@
 #!/bin/bash
 
-install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/gear/intsall_gear.sh"
-update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/gear/update_gear.sh"
+install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/Gear/intsall_gear.sh"
+update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/Gear/update_gear.sh"
 
 if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
