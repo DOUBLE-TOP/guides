@@ -53,9 +53,9 @@ function massa_pass {
   echo "Введите свой пароль для клиента(придумайте)"
   line
   read massa_pass
-  fi
   echo "export massa_pass=$massa_pass" >> $HOME/.profile
-  source $HOME/.profile
+  source $HOME/.profile  
+  fi
 }
 
 function systemd {
