@@ -8,7 +8,7 @@ go="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh"
 nodejs="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/node.sh"
 proxy="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/3proxy.sh"
 
-if [ "$language" = "uk" ]; then
+if [ "$language" = "ukr" ]; then
 	PS3='Виберіть опцію: '
 	options=("Встановити основні програми" "Встановити моніторинг" "Встановити Docker" "Встановити Rust" "Встановити GO" "Встановити NodeJS" "Встановити проксі для використання в антидетекті" "Вийти з меню")
 	selected="Ви вибрали опцію"
