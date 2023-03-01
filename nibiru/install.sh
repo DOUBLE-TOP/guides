@@ -34,6 +34,7 @@ echo "--------------------------------------------------------------------------
 nibid config chain-id $NIBIRU_CHAIN_ID
 nibid config keyring-backend file
 nibid init $NIBIRU_NODENAME --chain-id $NIBIRU_CHAIN_ID &>/dev/null
+nibid config node tcp://127.0.0.1:11657
 wget -O $HOME/.nibid/config/genesis.json https://networks.itn.nibiru.fi/nibiru-itn-1/genesis
 wget -qO $HOME/.nibid/config/addrbook.json https://snapshot.yeksin.net/nibiru/addrbook.json &>/dev/null
 sed -i -e "s%^moniker *=.*%moniker = \"$NIBIRU_NODENAME\"%; "\
