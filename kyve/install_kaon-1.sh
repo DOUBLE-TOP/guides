@@ -31,9 +31,9 @@ sudo mv kyved $HOME/go/bin/kyved
 rm kyved_linux_amd64.tar.gz
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
-kyved config chain-id $KYVE_CHAIN_ID
+kyved config chain-id $KYVE_CHAIN
 kyved config keyring-backend file
-kyved init $KYVE_NODENAME --chain-id $KYVE_CHAIN_ID &>/dev/null
+kyved init $KYVE_NODENAME --chain-id $KYVE_CHAIN &>/dev/null
 wget -O $HOME/.kyve/config/genesis.json https://snapshot.yeksin.net/kyve/genesis.json
 wget -qO $HOME/.kyve/config/addrbook.json https://snapshot.yeksin.net/kyve/addrbook.json &>/dev/null
 sed -i -e "s%^moniker *=.*%moniker = \"$KYVE_NODENAME\"%; "\
