@@ -21,8 +21,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.19.3/massa_TEST.19.3_release_linux.tar.gz
-  tar zxvf massa_TEST.19.3_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.20.0/massa_TEST.20.0_release_linux.tar.gz
+  tar zxvf massa_TEST.20.0_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -54,7 +54,7 @@ function massa_pass {
   line
   read massa_pass
   echo "export massa_pass=$massa_pass" >> $HOME/.profile
-  source $HOME/.profile  
+  source $HOME/.profile
   fi
 }
 

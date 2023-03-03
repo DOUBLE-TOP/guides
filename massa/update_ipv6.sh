@@ -21,13 +21,13 @@ function get_env {
 
 function massa_backup {
 	cd $HOME
-	if [ ! -d $HOME/massa_backup17/ ]; then
-		mkdir -p $HOME/massa_backup17
-		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup17/
-		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup17/
+	if [ ! -d $HOME/massa_backup19/ ]; then
+		mkdir -p $HOME/massa_backup19
+		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup19/
+		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup19/
 	fi
-	if [ ! -e $HOME/massa_backup17.tar.gz ]; then
-		tar cvzf massa_backup.tar17.gz massa_backup17
+	if [ ! -e $HOME/massa_backup19.tar.gz ]; then
+		tar cvzf massa_backup.tar19.gz massa_backup19
 	fi
 }
 
@@ -38,8 +38,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.19.3/massa_TEST.19.3_release_linux.tar.gz
-  tar zxvf massa_TEST.19.3_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.20.0/massa_TEST.20.0_release_linux.tar.gz
+  tar zxvf massa_TEST.20.0_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -93,7 +93,7 @@ routable_ip
 # alias
 line
 echo "Восстанавливаемся из бекапа"
-keys_from_backup
+#keys_from_backup
 line
 sudo systemctl start massa
 echo "Обновление завершено"
