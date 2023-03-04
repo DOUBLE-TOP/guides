@@ -36,7 +36,7 @@ nibid config keyring-backend file
 nibid init $NIBIRU_NODENAME --chain-id $NIBIRU_CHAIN_ID &>/dev/null
 nibid config node tcp://127.0.0.1:11657
 wget -O $HOME/.nibid/config/genesis.json https://networks.itn.nibiru.fi/nibiru-itn-1/genesis
-wget -qO $HOME/.nibid/config/addrbook.json https://snapshot.yeksin.net/nibiru/addrbook.json &>/dev/null
+#wget -qO $HOME/.nibid/config/addrbook.json https://snapshot.yeksin.net/nibiru/addrbook.json &>/dev/null
 sed -i -e "s%^moniker *=.*%moniker = \"$NIBIRU_NODENAME\"%; "\
 "s%^external_address *=.*%external_address = \"`wget -qO- eth0.me`:26656\"%; " $HOME/.nibid/config/config.toml
 SEEDS="a431d3d1b451629a21799963d9eb10d83e261d2c@seed-1.itn-1.nibiru.fi:26656,6a78a2a5f19c93661a493ecbe69afc72b5c54117@seed-2.itn-1.nibiru.fi:26656"
