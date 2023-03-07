@@ -72,7 +72,7 @@ function reset_wallet {
 
 
 colors
-export version="046-lysithea"
+export version="047-sinope.1"
 source_git
 # rust_update
 
