@@ -60,7 +60,7 @@ function generate_wallet {
 colors
 export version="047-sinope.1"
 install_tools
-source_git
+# source_git
 # build_penumbra
 wget_bin_pcli
 # generate_wallet
