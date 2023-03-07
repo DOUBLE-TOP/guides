@@ -42,7 +42,7 @@ BRANCH="1.0.20" \
     && rm -rf "wabt-${BRANCH}"
 
 cd ~
-git clone git://github.com/CasperLabs/casper-node.git
+git clone https://github.com/casper-network/casper-node
 cd casper-node/
 git checkout release-1.0.0
 make setup-rs
