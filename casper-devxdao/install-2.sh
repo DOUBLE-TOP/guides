@@ -14,7 +14,7 @@ IFS=' ' read -r KNOWN_VALIDATOR_IP _REST <<< "$KNOWN_VALIDATOR_IPS"
 
 echo $KNOWN_VALIDATOR_IP
 
-TRUSTED_HASH=$(curl -s $KNOWN_VALIDATOR_IP:8888/status | jq -r .last_added_block_info.hash | tr -d '\n')
+TRUSTED_HASH=$(curl -s 94.130.10.55:8888/status | jq -r .last_added_block_info.hash | tr -d '\n')
 if [ "$TRUSTED_HASH" != "null" ]; then sudo -u casper sed -i "/trusted_hash =/c\trusted_hash = '$TRUSTED_HASH'" /etc/casper/$CASPER_VERSION/config.toml; fi
 
 sudo -u casper /etc/casper/node_util.py stage_protocols casper-test.conf
