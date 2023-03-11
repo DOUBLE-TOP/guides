@@ -38,8 +38,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.20.0/massa_TEST.20.0_release_linux.tar.gz
-  tar zxvf massa_TEST.20.0_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.20.1/massa_TEST.20.1_release_linux.tar.gz
+  tar zxvf massa_TEST.20.1_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -66,8 +66,8 @@ function replace_bootstraps {
 }
 
 function keys_from_backup {
-	cp $HOME/massa_backup17/wallet.dat $HOME/massa/massa-client/wallet.dat
-	cp $HOME/massa_backup17/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
+	cp $HOME/massa_backup19/wallet.dat $HOME/massa/massa-client/wallet.dat
+	cp $HOME/massa_backup19/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
 }
 
 function alias {
