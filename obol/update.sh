@@ -1,4 +1,9 @@
 #!/bin/bash
+
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+echo "--------------------------------------------------"
+echo "Начинаем обновление"
+echo "--------------------------------------------------"
 docker-compose -f $HOME/charon-distributed-validator-node/docker-compose.yml down
 cd $HOME/charon-distributed-validator-node
 git reset --hard
