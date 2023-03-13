@@ -1,38 +1,30 @@
 #!/bin/bash
 
+node=$1
+option=$2
+
 install="https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh"
 healthcheck="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/shardeum/health.sh"
 
-if [ "$language" = "ukr" ]; then
-	PS3='Виберіть опцію: '
-	options=("Встановити ноду" "Запустити хелс-чек для автоматичної перевірки статусу ноди" "Вийти з меню")
-	selected="Ви вибрали опцію"
+if [ "$?" -eq 0 ]; then
+    confirm=1
 else
-    PS3='Enter your option: '
-    options=("Install node" "Start healthcheck" "Quit")
-    selected="You choose the option"
+    confirm=0
 fi
 
-select opt in "${options[@]}"
-do
-    case $opt in
-        "${options[0]}")
-            echo "$selected $opt"
-            sleep 1
-            . <(wget -qO- $install)
-            break
-            ;;
-        "${options[1]}")
-            echo "$selected $opt"
-            . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
-            . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
-            tmux new-session -d -s shardeum_healthcheck '. <(wget -qO- $healthcheck)'
-            break
-            ;;
-        "${options[2]}")
-			echo "$selected $opt"
-            break
-            ;;
-        *) echo "unknown option $REPLY";;
-    esac
-done
+# Show the main menu
+if [ "$option" = "install" ]; then
+    if [ "$confirm" != "0" ]; then
+        . <(wget -qO- $install)
+        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful!" 0 0
+    fi
+elif [ "$option" = "healthcheck" ]; then
+    if [ "$confirm" != "0" ]; then
+        . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
+        . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
+        tmux new-session -d -s shardeum_healthcheck '. <(wget -qO- $healthcheck)'
+        dialog --title "Healthcheck enabled" --msgbox "Healthcheck enabled for $node was successful!" 0 0
+    fi
+else
+    dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
+fi

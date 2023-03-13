@@ -1,50 +1,37 @@
 #!/bin/bash
 
+node=$1
+option=$2
+
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/clear_massa.sh"
 update="curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/update.sh"
 auto_buy_rolls="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/rolls.sh"
 
-if [ "$language" = "ukr" ]; then
-	PS3='Виберіть опцію: '
-	options=("Встановити ноду" "Запустити хелс-чек для автоматичної перевірки статусу ноди" "Вийти з меню")
-	selected="Ви вибрали опцію"
-    preinstall_message="Введіть пароль для ноди(без спец символів)"
+confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
+
+if [ "$?" -eq 0 ]; then
+    confirm=1
 else
-    PS3='Enter your option: '
-    options=("Install node" "Start healthcheck" "Quit")
-    selected="You choose the option"
-    preinstall_message="Enter password for node(without special symbols)"
+    confirm=0
 fi
 
-select opt in "${options[@]}"
-do
-    case $opt in
-        "${options[0]}")
-            echo "$selected $opt"
-            sleep 1
-            if [ ! ${massa_pass} ]; then
-                read -p "$preinstall_message: " massa_pass
-                echo "export massa_pass=$massa_pass" >> $HOME/.profile
-                source $HOME/.profile
-            fi
-            . <(wget -qO- $install)
-            break
-            ;;
-        "${options[1]}")
-            echo "$selected $opt"
-            sleep 1
-            . <(wget -qO- $update)
-            break
-            ;;
-        "${options[2]}")
-            echo "$selected $opt"
-            tmux new-session -d -s rolls '. <(wget -qO- $auto_buy_rolls)'
-            break
-            ;;
-        "${options[3]}")
-			echo "$selected $opt"
-            break
-            ;;
-        *) echo "unknown option $REPLY";;
-    esac
-done
+# Show the main menu
+if [ "$option" = "install" ]; then
+    if [ "$confirm" != "0" ]; then
+        massa_pass=$(dialog --inputbox "Enter password for node(without special symbols):" 0 0 "qwerty12345" --stdout)
+        . <(wget -qO- $install)
+        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful!" 0 0
+    fi
+elif [ "$option" = "update" ]; then
+    if [ "$confirm" != "0" ]; then
+        . <(wget -qO- $update)
+        dialog --title "Update complete" --msgbox "The updating of $node was successful!" 0 0
+    fi
+elif [ "$option" = "rolls" ]; then
+    if [ "$confirm" != "0" ]; then
+        . <(wget -qO- $auto_buy_rolls)
+        dialog --title "Auto buy rolls enabled" --msgbox "Auto buy rolls enabled for $node !" 0 0
+    fi
+else
+    dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
+fi
