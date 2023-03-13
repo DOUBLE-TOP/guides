@@ -29,7 +29,7 @@ elif [ "$option" = "update" ]; then
     fi
 elif [ "$option" = "rolls" ]; then
     if [ "$confirm" != "0" ]; then
-        . <(wget -qO- $auto_buy_rolls)
+        tmux new-session -d -s rolls '. <(wget -qO- $auto_buy_rolls)'
         dialog --title "Auto buy rolls enabled" --msgbox "Auto buy rolls enabled for $node !" 0 0
     fi
 else
