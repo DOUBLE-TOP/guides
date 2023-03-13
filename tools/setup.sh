@@ -1,7 +1,7 @@
 #!/bin/bash
 
 node=$1
-$option=$2
+option=$2
 
 main="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh"
 monitoring="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/monitoring/monitor.sh"
