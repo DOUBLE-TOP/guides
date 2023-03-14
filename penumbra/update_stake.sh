@@ -68,6 +68,9 @@ function stake {
   curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/penumbra/autostake.sh | bash
 }
 
+function view {
+  pcli view staked
+}
 # function rust_update {
 #   source ~/.cargo/env
 #   rustup update
@@ -84,3 +87,4 @@ source_git
 wget_bin_pcli
 reset_wallet
 stake
+view
