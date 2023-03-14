@@ -52,7 +52,7 @@ function eof_docker_compose {
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:gemini-2a-2022-oct-06
+      image: ghcr.io/subspace/node:gemini-3c-2023-mar-14
       volumes:
         - node-data:/var/subspace:rw
       ports:
@@ -81,7 +81,7 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:gemini-2a-2022-oct-06
+      image: ghcr.io/subspace/farmer:gemini-3c-2023-mar-14
       volumes:
         - farmer-data:/var/subspace:rw
       restart: unless-stopped
@@ -138,15 +138,6 @@ install_ufw
 install_docker
 delete_old
 line_1
-# echo -e "Скачиваем репозиторий"
-# source_git
-# line_1
-# echo -e "Билдим образ ноды"
-# build_image_node
-# line_1
-# echo -e "Билдим образ фармера"
-# build_image_farmer
-# line_1
 echo -e "Создаем docker-compose файл"
 line_1
 eof_docker_compose
