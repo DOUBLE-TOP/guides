@@ -72,11 +72,10 @@ function reset_wallet {
 
 
 colors
-export version="047-sinope.1"
+export version="048-carme"
 source_git
 # rust_update
 
 # build_penumbra
 wget_bin_pcli
 reset_wallet
-
