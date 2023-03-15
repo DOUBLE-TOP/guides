@@ -3,7 +3,7 @@
 #curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 #echo "-----------------------------------------------------------------------------"
 
-validator=$(pcli query validator list 2>&1 | grep penumbra | tail -n 1 | awk '{print $6}')
+validator=$(pcli query validator list 2>&1 | grep penumbra | tail -n 1 | awk '{print $6}' | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g")
 echo "-----------------------------------------------------------------------------"
 echo "Прописываем валидатора"
 echo $validator
