@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="048-carme"
+export version="048-carme.1"
 install_tools
 # source_git
 # build_penumbra

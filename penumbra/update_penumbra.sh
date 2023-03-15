@@ -72,7 +72,7 @@ function reset_wallet {
 
 
 colors
-export version="048-carme"
+export version="048-carme.1"
 source_git
 # rust_update
 
