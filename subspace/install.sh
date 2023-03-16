@@ -46,20 +46,25 @@ function read_wallet {
   fi
 }
 
+function get_vars {
+  export CHAIN="gemini-3c"
+  export RELEASE="gemini-3c-2023-mar-15"
+}
+
 function eof_docker_compose {
   mkdir -p $HOME/subspace_docker/
   sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:gemini-3c-2023-mar-15
+      image: ghcr.io/subspace/farmer:$RELEASE
       volumes:
         - node-data:/var/subspace:rw
       ports:
         - "0.0.0.0:30333:30333"
       restart: unless-stopped
       command: [
-        "--chain", "gemini-2a",
+        "--chain", "$CHAIN",
         "--base-path", "/var/subspace",
         "--execution", "wasm",
         "--pruning", "1024",
@@ -81,7 +86,7 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:gemini-3c-2023-mar-15
+      image: ghcr.io/subspace/farmer:$RELEASE
       volumes:
         - farmer-data:/var/subspace:rw
       restart: unless-stopped
@@ -89,7 +94,6 @@ function eof_docker_compose {
         "--base-path", "/var/subspace",
         "farm",
         "--node-rpc-url", "ws://node:9944",
-        "--ws-server-listen-addr", "0.0.0.0:9955",
         "--reward-address", "$WALLET_ADDRESS",
         "--plot-size", "100G"
       ]
@@ -119,7 +123,7 @@ function echo_info {
 }
 
 function delete_old {
-  docker-compose -f $HOME/subspace_docker/docker-compose.yml down &>/dev/null
+  docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v &>/dev/null
   docker volume rm subspace_docker_subspace-farmer subspace_docker_subspace-node &>/dev/null
 }
 
@@ -136,6 +140,7 @@ line_1
 install_tools
 install_ufw
 install_docker
+get_vars
 delete_old
 line_1
 echo -e "Создаем docker-compose файл"
