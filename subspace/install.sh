@@ -57,7 +57,7 @@ function eof_docker_compose {
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/farmer:$RELEASE
+      image: ghcr.io/subspace/node:$RELEASE
       volumes:
         - node-data:/var/subspace:rw
       ports:
