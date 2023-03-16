@@ -48,7 +48,7 @@ function read_wallet {
 
 function get_vars {
   export CHAIN="gemini-3c"
-  export RELEASE="gemini-3c-2023-mar-15"
+  export RELEASE="gemini-3c-2023-mar-14"
 }
 
 function eof_docker_compose {
@@ -67,12 +67,15 @@ function eof_docker_compose {
         "--chain", "$CHAIN",
         "--base-path", "/var/subspace",
         "--execution", "wasm",
-        "--pruning", "1024",
-        "--keep-blocks", "1024",
+        "--blocks-pruning", "archive",
+        "--state-pruning", "archive",
         "--port", "30333",
+        "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
         "--rpc-cors", "all",
         "--rpc-methods", "safe",
         "--unsafe-ws-external",
+        "--dsn-disable-private-ips",
+        "--no-private-ipv4",
         "--validator",
         "--name", "$SUBSPACE_NODENAME",
         "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
@@ -93,7 +96,9 @@ function eof_docker_compose {
       command: [
         "--base-path", "/var/subspace",
         "farm",
+        "--disable-private-ips",
         "--node-rpc-url", "ws://node:9944",
+        "--listen-on", "/ip4/0.0.0.0/tcp/30533",
         "--reward-address", "$WALLET_ADDRESS",
         "--plot-size", "100G"
       ]
