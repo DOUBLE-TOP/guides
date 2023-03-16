@@ -52,7 +52,7 @@ function eof_docker_compose {
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:gemini-3c-2023-mar-14
+      image: ghcr.io/subspace/node:gemini-3c-2023-mar-15
       volumes:
         - node-data:/var/subspace:rw
       ports:
@@ -81,7 +81,7 @@ function eof_docker_compose {
     farmer:
       depends_on:
         - node
-      image: ghcr.io/subspace/farmer:gemini-3c-2023-mar-14
+      image: ghcr.io/subspace/farmer:gemini-3c-2023-mar-15
       volumes:
         - farmer-data:/var/subspace:rw
       restart: unless-stopped
