@@ -23,6 +23,7 @@ mkdir -p gear_staging_testnet_v6/network/
 
 sudo cp gear_staging_testnet_v6/network/secret_ed25519 gear_staging_testnet_v7/network/secret_ed25519  &>/dev/null
 
+sudo sed -i 's/telemetry\.postcapitalist\.io/telemetry.doubletop.io/g' /etc/systemd/system/gear.service
 
 sudo systemctl daemon-reload
 sudo systemctl restart gear
