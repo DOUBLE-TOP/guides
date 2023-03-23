@@ -79,7 +79,8 @@ function eof_docker_compose {
         "--validator",
         "--name", "$SUBSPACE_NODENAME",
         "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0"
+        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0",
+        "--out-peers", "100"
       ]
       healthcheck:
         timeout: 5s
