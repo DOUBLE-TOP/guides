@@ -21,25 +21,25 @@ function get_env {
 
 function massa_backup {
 	cd $HOME
-	if [ ! -d $HOME/massa_backup19/ ]; then
-		mkdir -p $HOME/massa_backup19
-		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup19/
-		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup19/
+	if [ ! -d $HOME/massa_backup20/ ]; then
+		mkdir -p $HOME/massa_backup20
+		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup20/
+		cp $HOME/massa/massa-client/wallet.dat $HOME/massa_backup20/
 	fi
-	if [ ! -e $HOME/massa_backup19.tar.gz ]; then
-		tar cvzf massa_backup.tar19.gz massa_backup19
+	if [ ! -e $HOME/massa_backup20.tar.gz ]; then
+		tar cvzf massa_backup.tar20.gz massa_backup20
 	fi
 }
 
 function delete {
   sudo systemctl stop massa
-  rm -rf massa_TEST.1*
+  rm -rf massa_TEST.2*
   rm -rf $HOME/massa
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.20.1/massa_TEST.20.1_release_linux.tar.gz
-  tar zxvf massa_TEST.20.1_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.20.2/massa_TEST.20.2_release_linux.tar.gz
+  tar zxvf massa_TEST.20.2_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -66,8 +66,8 @@ function replace_bootstraps {
 }
 
 function keys_from_backup {
-	cp $HOME/massa_backup19/wallet.dat $HOME/massa/massa-client/wallet.dat
-	cp $HOME/massa_backup19/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
+	cp $HOME/massa_backup20/wallet.dat $HOME/massa/massa-client/wallet.dat
+	cp $HOME/massa_backup20/node_privkey.key $HOME/massa/massa-node/config/node_privkey.key
 }
 
 function alias {
