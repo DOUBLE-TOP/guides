@@ -5,25 +5,21 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 if [ ! $ALCHEMY_HTTP ]; then
 	read -p "Введите ваш HTTP (ПРИМЕР: https://eth-sepolia.g.alchemy.com/v2/xZXxxxxxxxxxxc2q_bzxxxxxxxxxxWTN): " ALCHEMY_HTTP
-
 fi
 echo 'Ваш ключ: ' $ALCHEMY_KEY
 sleep 1
-
+echo 'export ALCHEMY_KEY='$ALCHEMY_KEY >> $HOME/.bash_profile
 if [ ! $ALCHEMY_WS ]; then
 	read -p "Введите ваш WS (ПРИМЕР: wss://eth-sepolia.g.alchemy.com/v2/xZXxxxxxxxxxxc2q_bzxxxxxxxxxxWTN): " ALCHEMY_WS
 fi
 echo 'Ваш ключ: ' $ALCHEMY_WS
 sleep 1
-
+echo 'export ALCHEMY_KEY='$ALCHEMY_WS >> $HOME/.bash_profile
 if [ ! $TAIKO_KEY ]; then
 	read -p "Введите ваш приватный ключ от кошелька мм (ПРИМЕР: 0xaxxxcf5429bxxx9b66f9d973xxxxxxx151d93dff25550484c0efxxxxxadc): " TAIKO_KEY
 fi
-sleep 1
-
 echo 'Ваш ключ: ' $TAIKO_KEY
-echo 'export ALCHEMY_KEY='$ALCHEMY_KEY >> $HOME/.bash_profile
-echo 'export ALCHEMY_KEY='$ALCHEMY_WS >> $HOME/.bash_profile
+sleep 1
 echo 'export ALCHEMY_KEY='$TAIKO_KEY >> $HOME/.bash_profile
 source $HOME/.profile
 source $HOME/.bash_profile
