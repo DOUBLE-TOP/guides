@@ -31,7 +31,8 @@ function eof_docker_compose {
       volumes:
         - node-data:/var/subspace:rw
       ports:
-        - "0.0.0.0:39333:30333"
+        - "0.0.0.0:32333:30333"
+        - "0.0.0.0:32433:30433"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
@@ -49,7 +50,8 @@ function eof_docker_compose {
         "--validator",
         "--name", "$SUBSPACE_NODENAME",
         "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0"
+        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0",
+        "--out-peers", "100"
       ]
       healthcheck:
         timeout: 5s
@@ -62,6 +64,8 @@ function eof_docker_compose {
       image: ghcr.io/subspace/farmer:$RELEASE
       volumes:
         - farmer-data:/var/subspace:rw
+      ports:
+        - "0.0.0.0:32533:30533"
       restart: unless-stopped
       command: [
         "--base-path", "/var/subspace",

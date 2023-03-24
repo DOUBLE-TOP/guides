@@ -61,7 +61,8 @@ function eof_docker_compose {
       volumes:
         - node-data:/var/subspace:rw
       ports:
-        - "0.0.0.0:30333:30333"
+        - "0.0.0.0:32333:30333"
+        - "0.0.0.0:32433:30433"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
@@ -93,6 +94,8 @@ function eof_docker_compose {
       image: ghcr.io/subspace/farmer:$RELEASE
       volumes:
         - farmer-data:/var/subspace:rw
+      ports:
+        - "0.0.0.0:32533:30533"
       restart: unless-stopped
       command: [
         "--base-path", "/var/subspace",
