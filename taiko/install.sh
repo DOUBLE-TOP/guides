@@ -18,7 +18,7 @@ echo 'Ваш ключ: ' $ALCHEMY_WS
 sleep 1
 echo 'export ALCHEMY_KEY='$ALCHEMY_WS >> $HOME/.bash_profile
 # Запрос и запись значения переменной TAIKO_KEY
-read -p "Введите ваш приватный ключ от кошелька мм (ПРИМЕР: 0xaxxxcf5429bxxx9b66f9d973xxxxxxx151d93dff25550484c0efxxxxxadc): " TAIKO_KEY
+read -p "Введите ваш приватный ключ от кошелька мм !ВАЖНО! без 0х!(ПРИМЕР: axxxcf5429bxxx9b66f9d973xxxxxxx151d93dff25550484c0efxxxxxadc): " TAIKO_KEY
 echo 'Ваш ключ: ' $TAIKO_KEY
 sleep 1
 echo 'export ALCHEMY_KEY='$TAIKO_KEY >> $HOME/.bash_profile
