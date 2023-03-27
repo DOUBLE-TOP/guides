@@ -60,7 +60,7 @@ TAIKO_L1_ADDRESS=0xAC9251ee97Ed8beF31706354310C6b020C35d87b
 TAIKO_L2_ADDRESS=0x0000777700000000000000000000000000000001
 
 # A L2 account private key for building throw-away L2 blocks, for more detailed information, please
-# see whitepaper's `5.5.1 Invalid Blocks`.
+# see whitepaper's 5.5.1 Invalid Blocks.
 L2_THROWAWAY_BLOCK_BUILDER_PRIVATE_KEY=92954368afd3caa1f3ce3ead0069c1af414054aefe1ef9aeacc1bf426222ce38 # LibAnchorSignature.K_GOLDEN_TOUCH_PRIVATEKEY
 
 ############################### REQUIRED #####################################
@@ -70,7 +70,7 @@ L1_ENDPOINT_WS=$ALCHEMY_WS
 
 ############################### OPTIONAL #####################################
 # If you want to be a prover who generates and submits zero knowledge proofs of proposed L2 blocks, you need to change
-# `ENABLE_PROVER` to true and set `L1_PROVER_PRIVATE_KEY`.
+# ENABLE_PROVER to true and set L1_PROVER_PRIVATE_KEY.
 ENABLE_PROVER=true
 # An L1 account (with balance) private key which will send the TaikoL1.proveBlock transactions.
 L1_PROVER_PRIVATE_KEY=$TAIKO_KEY
