@@ -18,6 +18,7 @@ if [ "$option" = "install" ]; then
     if [ "$confirm" != "0" ]; then
         NIBIRU_NODENAME=$(dialog --inputbox "Enter node name(without special symbols):" 0 0 "randomnoderunner" --stdout)
         . <(wget -qO- $install)
+        cd $HOME
         dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful!" 0 0
     fi
 elif [ "$option" = "delete" ]; then

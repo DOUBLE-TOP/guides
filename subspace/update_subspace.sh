@@ -135,3 +135,4 @@ line
 # check_verif
 # line
 echo -e "${GREEN}=== Обновление завершено ===${NORMAL}"
+cd $HOME

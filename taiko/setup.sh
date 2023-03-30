@@ -20,6 +20,7 @@ if [ "$option" = "install" ]; then
         ALCHEMY_WS=$(dialog --inputbox "Enter your wss url:" 0 0 "wss://eth-sepolia.g.alchemy.com/v2/xZXxxxxxxxxxxc2q_bzxxxxxxxxxxWTN" --stdout)
         TAIKO_KEY=$(dialog --inputbox "Enter your private key from Metamask:" 0 0 "axxxcf5429bxxx9b66f9d973xxxxxxx151d93dff25550484c0efxxxxxadc" --stdout)
         . <(wget -qO- $install)
+        cd $HOME
         dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Check your status of node in Grafana: http://$(curl -s https://api.ipify.org):13000/d/L2ExecutionEngine/l2-execution-engine-overview?orgId=1&refresh=10s" 0 0
     fi
 elif [ "$option" = "delete" ]; then

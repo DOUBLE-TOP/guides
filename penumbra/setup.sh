@@ -19,16 +19,19 @@ fi
 if [ "$option" = "install" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- $install)
+        cd $HOME
         dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful!" 0 0
     fi
 elif [ "$option" = "update" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- $update)
+        cd $HOME
         dialog --title "Update complete" --msgbox "The updating of $node was successful!" 0 0
     fi
 elif [ "$option" = "update_stake" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- $update)
+        cd $HOME
         dialog --title "Update complete" --msgbox "The updating and stake of $node was successful!" 0 0
     fi
 elif [ "$option" = "delete" ]; then
