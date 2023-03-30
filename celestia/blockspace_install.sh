@@ -1,14 +1,18 @@
 #!/bin/bash
 
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
-source $HOME/.profile
+
 
 function get_nodename {
     if [ -z $NODENAME_BLOCKSPACE ]; then
         read -p "Enter your node name: " NODENAME_BLOCKSPACE
         echo 'export NODENAME_BLOCKSPACE='$NODENAME_BLOCKSPACE >> $HOME/.profile
     fi
+}
+
+function install_dependencies {
+    bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
+    bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
+    source $HOME/.profile
 }
 
 function source_build_code {
@@ -53,6 +57,7 @@ EOF
 
 
 get_nodename
+install_dependencies
 source_build_code
 create_key_for_node
 initialize_node
