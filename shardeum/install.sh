@@ -4,34 +4,6 @@ set -e
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-docker() {
-  if ! command -v docker &>/dev/null; then
-    echo "docker is not installed on this machine"
-    exit 1
-  fi
-
-  if ! docker $@; then
-    echo "Trying again with sudo..."
-    sudo docker $@
-  fi
-}
-
-docker-compose-safe() {
-  if command -v docker-compose &>/dev/null; then
-    cmd="docker-compose"
-  elif docker --help | grep -q "compose"; then
-    cmd="docker compose"
-  else
-    echo "docker-compose or docker compose is not installed on this machine"
-    exit 1
-  fi
-
-  if ! $cmd $@; then
-    echo "Trying again with sudo..."
-    sudo $cmd $@
-  fi
-}
-
 get_ip() {
   local ip
   if command -v ip >/dev/null; then
@@ -88,79 +60,6 @@ cat << EOF
 #########################
 
 EOF
-
-# read -p "Do you want to run the web based Dashboard? (y/n): " RUNDASHBOARD
-# RUNDASHBOARD=${RUNDASHBOARD:-y}
-
-# unset CHARCOUNT
-# echo -n "Set the password to access the Dashboard: "
-# CHARCOUNT=0
-# while IFS= read -p "$PROMPT" -r -s -n 1 CHAR
-# do
-#   # Enter - accept password
-#   if [[ $CHAR == $'\0' ]] ; then
-#     if [ $CHARCOUNT -gt 0 ] ; then # Make sure password character length is greater than 0.
-#       break
-#     else
-#       echo
-#       echo -n "Invalid password input. Enter a password with character length greater than 0:"
-#       continue
-#     fi
-#   fi
-#   # Backspace
-#   if [[ $CHAR == $'\177' ]] ; then
-#     if [ $CHARCOUNT -gt 0 ] ; then
-#       CHARCOUNT=$((CHARCOUNT-1))
-#       PROMPT=$'\b \b'
-#       DASHPASS="${DASHPASS%?}"
-#     else
-#       PROMPT=''
-#     fi
-#   else
-#     CHARCOUNT=$((CHARCOUNT+1))
-#     PROMPT='*'
-#     DASHPASS+="$CHAR"
-#   fi
-# done
-
-echo # New line after inputs.
-# echo "Password saved as:" $DASHPASS #DEBUG: TEST PASSWORD WAS RECORDED AFTER ENTERED.
-
-# while :; do
-#   read -p "Enter the port (1025-65536) to access the web based Dashboard (default 8080): " DASHPORT
-#   DASHPORT=${DASHPORT:-8080}
-#   [[ $DASHPORT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
-#   if ((DASHPORT >= 1025 && DASHPORT <= 65536)); then
-#     DASHPORT=${DASHPORT:-8080}
-#     break
-#   else
-#     echo "Port out of range, try again"
-#   fi
-# done
-
-# while :; do
-#   echo "To run a validator on the Sphinx network, you will need to open two ports in your firewall."
-#   read -p "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication (default 9001): " SHMEXT
-#   SHMEXT=${SHMEXT:-9001}
-#   [[ $SHMEXT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
-#   if ((SHMEXT >= 1025 && SHMEXT <= 65536)); then
-#     SHMEXT=${SHMEXT:-9001}
-#   else
-#     echo "Port out of range, try again"
-#   fi
-#   read -p "Enter the second port (1025-65536) for p2p communication (default 10001): " SHMINT
-#   SHMINT=${SHMINT:-10001}
-#   [[ $SHMINT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
-#   if ((SHMINT >= 1025 && SHMINT <= 65536)); then
-#     SHMINT=${SHMINT:-10001}
-#     break
-#   else
-#     echo "Port out of range, try again"
-#   fi
-# done
-
-# read -p "What base directory should the node use (defaults to ~/.shardeum): " NODEHOME
-# NODEHOME=${NODEHOME:-~/.shardeum}
 
 APPSEEDLIST="archiver-sphinx.shardeum.org"
 APPMONITOR="monitor-sphinx.shardeum.org"
