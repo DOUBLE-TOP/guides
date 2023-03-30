@@ -43,19 +43,19 @@ function create_service {
 [Unit]
 Description=celestia-lightd Light Node
 After=network-online.target
-
+ 
 [Service]
 User=$USER
 ExecStart=/usr/local/bin/celestia light start --rpc.port 46658 \
---core.ip https://rpc-blockspacerace.pops.one/ \
---core.rpc.port 49090 \
+--core.ip https://grpc-blockspacerace.pops.one/ \
+--core.grpc.port 49090 \
 --gateway --gateway.addr localhost --gateway.port 46659 \
 --p2p.network blockspacerace \
 --metrics.tls=false --metrics --metrics.endpoint otel.celestia.tools:4318
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
-
+ 
 [Install]
 WantedBy=multi-user.target
 EOF
