@@ -26,7 +26,7 @@ if [ "$option" = "install" ]; then
         NODEHOME=$(dialog --inputbox "What base directory should the node use:" 0 0 "$HOME/.shardeum" --stdout)
         . <(wget -qO- $install)
         cd $HOME
-        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Stake your tokens in node: https://$(curl -s https://api.ipify.org):8080/maintenance" 0 0
+        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Stake your tokens in node: https://$(curl -s https://api.ipify.org):$DASHPORT/maintenance" 0 0
     fi
 elif [ "$option" = "healthcheck" ]; then
     if [ "$confirm" != "0" ]; then
