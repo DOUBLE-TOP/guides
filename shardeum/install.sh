@@ -252,10 +252,7 @@ else
   sed -i "s/- '9001-9010:9001-9010'/- '$SHMEXT:$SHMEXT'/" docker-compose.yml
   sed -i "s/- '10001-10010:10001-10010'/- '$SHMINT:$SHMINT'/" docker-compose.yml
 fi
-./docker-up.sh
+docker-compose up -d
 
 echo "Starting image. This could take a while..."
-(docker-safe logs -f shardeum-dashboard &) | grep -q 'done'
-
-
-
+(docker logs -f shardeum-dashboard &) | grep -q 'done'
