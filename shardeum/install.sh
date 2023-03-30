@@ -2,34 +2,6 @@
 set -e
 
 
-
-# read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
-# This is only temporary and will be discontinued as we get closer to mainnet.
-# Thanks for running a node and helping to make Shardeum better.
-
-# By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
-# WARNING_AGREE=${WARNING_AGREE:-y}
-
-# if [ $WARNING_AGREE != "y" ];
-# then
-#   echo "Diagnostic data collection agreement not accepted. Exiting installer."
-#   exit
-# fi
-
-
-# Check all things that will be needed for this script to succeed like access to docker and docker-compose
-# If any check fails exit with a message on what the user needs to do to fix the problem
-# command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
-# command -v docker >/dev/null 2>&1 || { echo >&2 "'docker' is required but not installed. See https://gitlab.com/shardeum/validator/dashboard/-/tree/dashboard-gui-nextjs#how-to for details."; exit 1; }
-# if command -v docker-compose &>/dev/null; then
-#   echo "docker-compose is installed on this machine"
-# elif docker --help | grep -q "compose"; then
-#   echo "docker compose subcommand is installed on this machine"
-# else
-#   echo "docker-compose or docker compose is not installed on this machine"
-#   exit 1
-# fi
-
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 docker-safe() {
@@ -279,30 +251,6 @@ else
 fi
 ./docker-up.sh
 
-echo "Starting image. This could take a while..."
-(docker-safe logs -f shardeum-dashboard &) | grep -q 'done'
+sleep 30
 
-# #Do not indent
-# if [ $RUNDASHBOARD = "y" ]
-# then
-# cat <<EOF
-#   To use the Web Dashboard:
-#     1. Note the IP address that you used to connect to the node. This could be an external IP, LAN IP or localhost.
-#     2. Open a web browser and navigate to the web dashboard at https://<Node IP address>:$DASHPORT
-#     3. Go to the Settings tab and connect a wallet.
-#     4. Go to the Maintenance tab and click the Start Node button.
-
-#   If this validator is on the cloud and you need to reach the dashboard over the internet,
-#   please set a strong password and use the external IP instead of localhost.
-# EOF
-# fi
-
-# cat <<EOF
-
-# To use the Command Line Interface:
-# 	1. Navigate to the Shardeum home directory ($NODEHOME).
-# 	2. Enter the validator container with ./shell.sh.
-# 	3. Run "operator-cli --help" for commands
-
-# EOF
 
