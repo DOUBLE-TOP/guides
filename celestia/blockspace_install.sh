@@ -17,9 +17,10 @@ function install_dependencies {
 
 function source_build_code {
     cd $HOME
-    if [ -d $HOME/celestia-node / ]; then
-        rm -rf $HOME/celestia-node
+    if [ -d "$HOME/celestia-node" ]; then
+        rm -rf "$HOME/celestia-node"
     fi
+
     git clone https://github.com/celestiaorg/celestia-node.git 
     cd $HOME/celestia-node 
     git checkout tags/v0.8.0
