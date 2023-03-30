@@ -31,6 +31,12 @@ elif [ "$option" = "healthcheck" ]; then
         tmux new-session -d -s bundlr_healthcheck '. <(wget -qO- $healthcheck)'
         dialog --title "Healthcheck enabled" --msgbox "Healthcheck enabled for $node !" 0 0
     fi
+elif [ "$option" = "delete" ]; then
+    if [ "$confirm" != "0" ]; then
+        docker-compose -f $HOME/bundlr/validator-rust/docker-compose.yml down -v
+        rm -rf $HOME/bundlr
+        dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
+    fi
 else
     dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
 fi

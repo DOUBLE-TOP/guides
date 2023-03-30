@@ -29,8 +29,15 @@ elif [ "$option" = "update" ]; then
     fi
 elif [ "$option" = "rolls" ]; then
     if [ "$confirm" != "0" ]; then
+        tmux kill-session -t rolls
         tmux new-session -d -s rolls '. <(wget -qO- $auto_buy_rolls)'
         dialog --title "Auto buy rolls enabled" --msgbox "Auto buy rolls enabled for $node !" 0 0
+    fi
+elif [ "$option" = "delete" ]; then
+    if [ "$confirm" != "0" ]; then
+        sudo systemctl stop massa
+        rm -rf $HOME/massa
+        dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
 else
     dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0

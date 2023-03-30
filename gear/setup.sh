@@ -26,6 +26,13 @@ elif [ "$option" = "update" ]; then
         . <(wget -qO- $update)
         dialog --title "Update complete" --msgbox "The updating of $node was successful!" 0 0
     fi
+elif [ "$option" = "delete" ]; then
+    if [ "$confirm" != "0" ]; then
+        sudo systemctl stop gear
+        sudo systemctl disable gear
+        rm -rf $HOME/.local/share/gear/chains/*/db
+        dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
+    fi
 else
     dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
 fi

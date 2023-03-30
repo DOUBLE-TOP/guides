@@ -21,9 +21,14 @@ if [ "$option" = "install" ]; then
 elif [ "$option" = "healthcheck" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
-        . <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
         tmux new-session -d -s shardeum_healthcheck '. <(wget -qO- $healthcheck)'
         dialog --title "Healthcheck enabled" --msgbox "Healthcheck enabled for $node was successful!" 0 0
+    fi
+elif [ "$option" = "delete" ]; then
+    if [ "$confirm" != "0" ]; then
+        cd $HOME/.shardeum && ./cleanup.sh
+        cd $HOME && rm -rf $HOME/.shardeum/
+        dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
 else
     dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
