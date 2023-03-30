@@ -46,13 +46,6 @@ get_external_ip() {
   echo $external_ip
 }
 
-if [[ $(docker info 2>&1) == *"Cannot connect to the Docker daemon"* ]]; then
-    echo "Docker daemon is not running"
-    exit 1
-else
-    echo "Docker daemon is running"
-fi
-
 cat << EOF
 
 #########################
