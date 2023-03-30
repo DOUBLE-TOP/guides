@@ -46,7 +46,12 @@ After=network-online.target
  
 [Service]
 User=$USER
-ExecStart=/usr/local/bin/celestia light start --core.ip https://grpc-blockspacerace.pops.one/ --core.grpc.port 9090 --gateway --gateway.addr localhost --gateway.port 26659 --p2p.network blockspacerace --metrics.tls=false --metrics --metrics.endpoint otel.celestia.tools:4318
+ExecStart=/usr/local/bin/celestia light start --rpc.port 46658 \
+--core.ip https://grpc-blockspacerace.pops.one/ \
+--core.grpc.port 49090 \
+--gateway --gateway.addr localhost --gateway.port 46659 \
+--p2p.network blockspacerace \
+--metrics.tls=false --metrics --metrics.endpoint otel.celestia.tools:4318
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
@@ -65,4 +70,4 @@ initialize_node
 create_service
 
 sudo systemctl enable celestia-lightd
-sudo systemctl start celestia-lightd
+sudo systemctl restart celestia-lightd
