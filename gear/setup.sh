@@ -19,12 +19,12 @@ if [ "$option" = "install" ]; then
     if [ "$confirm" != "0" ]; then
         NODENAME_GEAR=$(dialog --inputbox "Enter node name(without special symbols):" 0 0 "randomnoderunner" --stdout)
         . <(wget -qO- $install)
-        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful!" 0 0
+        dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Check your status of node in https://telemetry.doubletop.io/" 0 0
     fi
 elif [ "$option" = "update" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- $update)
-        dialog --title "Update complete" --msgbox "The updating of $node was successful!" 0 0
+        dialog --title "Update complete" --msgbox "The updating of $node was successful! Check your status of node in https://telemetry.doubletop.io/" 0 0
     fi
 elif [ "$option" = "delete" ]; then
     if [ "$confirm" != "0" ]; then
