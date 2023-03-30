@@ -4,7 +4,7 @@ set -e
 
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-docker-safe() {
+docker() {
   if ! command -v docker &>/dev/null; then
     echo "docker is not installed on this machine"
     exit 1
@@ -74,7 +74,7 @@ get_external_ip() {
   echo $external_ip
 }
 
-if [[ $(docker-safe info 2>&1) == *"Cannot connect to the Docker daemon"* ]]; then
+if [[ $(docker info 2>&1) == *"Cannot connect to the Docker daemon"* ]]; then
     echo "Docker daemon is not running"
     exit 1
 else
@@ -218,7 +218,10 @@ cat <<EOF
 
 EOF
 
-./cleanup.sh
+docker-compose down -v
+docker rmi -f test-dashboard
+docker rmi -f local-dashboard
+docker rmi -f registry.gitlab.com/shardeum/server
 
 cat <<EOF
 
@@ -229,7 +232,7 @@ cat <<EOF
 EOF
 
 cd ${NODEHOME} &&
-docker-safe build --no-cache -t local-dashboard -f Dockerfile --build-arg RUNDASHBOARD=${RUNDASHBOARD} .
+docker build --no-cache -t local-dashboard -f Dockerfile --build-arg RUNDASHBOARD=${RUNDASHBOARD} .
 
 cat <<EOF
 
@@ -251,6 +254,8 @@ else
 fi
 ./docker-up.sh
 
-sleep 30
+echo "Starting image. This could take a while..."
+(docker-safe logs -f shardeum-dashboard &) | grep -q 'done'
+
 
 
