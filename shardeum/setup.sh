@@ -6,6 +6,8 @@ option=$2
 install="https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh"
 healthcheck="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/shardeum/health.sh"
 
+confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
+
 if [ "$?" -eq 0 ]; then
     confirm=1
 else

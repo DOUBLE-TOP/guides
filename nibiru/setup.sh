@@ -5,6 +5,8 @@ option=$2
 
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nibiru/install.sh"
 
+confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
+
 if [ "$?" -eq 0 ]; then
     confirm=1
 else
