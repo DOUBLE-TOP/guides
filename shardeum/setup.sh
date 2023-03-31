@@ -21,8 +21,8 @@ if [ "$option" = "install" ]; then
         RUNDASHBOARD=y
         DASHPASS=$(dialog --inputbox "Set the password to access the Dashboard(without spec symbols):" 0 0 "qwerty123" --stdout)
         DASHPORT=$(dialog --inputbox "Enter the port (1025-65536) to access the web based Dashboard:" 0 0 "38080" --stdout)
-        SHMEXT=$(dialog --inputbox "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication:" 0 0 "19001" --stdout)
-        SHMINT=$(dialog --inputbox "Enter the second port (1025-65536) for p2p communication:" 0 0 "20001" --stdout)
+        SHMEXT=$(dialog --inputbox "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication:" 0 0 "29001" --stdout)
+        SHMINT=$(dialog --inputbox "Enter the second port (1025-65536) for p2p communication:" 0 0 "30001" --stdout)
         NODEHOME=$(dialog --inputbox "What base directory should the node use:" 0 0 "$HOME/.shardeum" --stdout)
         . <(wget -qO- $install)
         cd $HOME
