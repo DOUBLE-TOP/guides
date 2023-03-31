@@ -20,9 +20,33 @@ if [ "$option" = "install" ]; then
         WARNING_AGREE=y
         RUNDASHBOARD=y
         DASHPASS=$(dialog --inputbox "Set the password to access the Dashboard(without spec symbols):" 0 0 "qwerty123" --stdout)
-        DASHPORT=$(dialog --inputbox "Enter the port (1025-65536) to access the web based Dashboard:" 0 0 "38080" --stdout)
-        SHMEXT=$(dialog --inputbox "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication:" 0 0 "29001" --stdout)
-        SHMINT=$(dialog --inputbox "Enter the second port (1025-65536) for p2p communication:" 0 0 "30001" --stdout)
+        while true; do
+            DASHPORT=$(dialog --inputbox "Enter the port (1025-65536) to access the web based Dashboard:" 0 0 "38080" --stdout)
+            # Проверка, что порт свободен
+            if ! nc -z localhost "$DASHPORT"; then
+                break
+            else
+                dialog --msgbox "Port $DASHPORT is already in use. Please choose another port." 0 0
+            fi
+        done
+        while true; do
+            SHMEXT=$(dialog --inputbox "This allows p2p communication between nodes. Enter the first port (1025-65536) for p2p communication:" 0 0 "29001" --stdout)
+            # Проверка, что порт свободен
+            if ! nc -z localhost "$SHMEXT"; then
+                break
+            else
+                dialog --msgbox "Port $SHMEXT is already in use. Please choose another port." 0 0
+            fi
+        done
+        while true; do
+            SHMINT=$(dialog --inputbox "Enter the second port (1025-65536) for p2p communication:" 0 0 "30001" --stdout)
+            # Проверка, что порт свободен
+            if ! nc -z localhost "$SHMINT"; then
+                break
+            else
+                dialog --msgbox "Port $SHMINT is already in use. Please choose another port." 0 0
+            fi
+        done
         NODEHOME=$(dialog --inputbox "What base directory should the node use:" 0 0 "$HOME/.shardeum" --stdout)
         . <(wget -qO- $install)
         cd $HOME

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
+bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh)
+
 if [ -d "$NODEHOME" ]; then
   if [ "$NODEHOME" != "$(pwd)" ]; then
     echo "Removing existing directory $NODEHOME..."
