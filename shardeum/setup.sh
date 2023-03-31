@@ -48,7 +48,7 @@ if [ "$option" = "install" ]; then
             fi
         done
         NODEHOME=$(dialog --inputbox "What base directory should the node use:" 0 0 "$HOME/.shardeum" --stdout)
-        . <(wget -qO- $install)
+        . <(wget -qO- $install) &>/dev/null
         cd $HOME
         dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Stake your tokens in node: https://$(curl -s https://api.ipify.org):$DASHPORT/maintenance" 0 0
     fi
@@ -61,7 +61,7 @@ elif [ "$option" = "healthcheck" ]; then
     fi
 elif [ "$option" = "delete" ]; then
     if [ "$confirm" != "0" ]; then
-        cd $HOME/.shardeum && ./cleanup.sh
+        cd $HOME/.shardeum && ./cleanup.sh &>/dev/null
         cd $HOME && rm -rf $HOME/.shardeum/
         dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
