@@ -9,9 +9,7 @@ get_ip() {
   if command -v ip >/dev/null; then
     ip=$(ip addr show $(ip route | awk '/default/ {print $5}') | awk '/inet/ {print $2}' | cut -d/ -f1 | head -n1)
   elif command -v netstat >/dev/null; then
-    # Get the default route interface
     interface=$(netstat -rn | awk '/default/{print $4}' | head -n1)
-    # Get the IP address for the default interface
     ip=$(ifconfig "$interface" | awk '/inet /{print $2}')
   else
     echo "Error: neither 'ip' nor 'ifconfig' command found. Submit a bug for your OS."
@@ -46,24 +44,8 @@ get_external_ip() {
   echo $external_ip
 }
 
-cat << EOF
-
-#########################
-# 0. GET INFO FROM USER #
-#########################
-
-EOF
-
 APPSEEDLIST="archiver-sphinx.shardeum.org"
 APPMONITOR="monitor-sphinx.shardeum.org"
-
-cat <<EOF
-
-###########################
-# 1. Pull Compose Project #
-###########################
-
-EOF
 
 if [ -d "$NODEHOME" ]; then
   if [ "$NODEHOME" != "$(pwd)" ]; then
@@ -77,14 +59,6 @@ fi
 git clone https://gitlab.com/shardeum/validator/dashboard.git ${NODEHOME} &&
   cd ${NODEHOME} &&
   chmod a+x ./*.sh
-
-cat <<EOF
-
-###############################
-# 2. Create and Set .env File #
-###############################
-
-EOF
 
 SERVERIP=$(get_external_ip)
 LOCALLANIP=$(get_ip)
@@ -102,37 +76,13 @@ SHMEXT=${SHMEXT}
 SHMINT=${SHMINT}
 EOL
 
-cat <<EOF
-
-##########################
-# 3. Clearing Old Images #
-##########################
-
-EOF
-
 docker-compose down -v
 docker rmi -f test-dashboard
 docker rmi -f local-dashboard
 docker rmi -f registry.gitlab.com/shardeum/server
 
-cat <<EOF
-
-##########################
-# 4. Building base image #
-##########################
-
-EOF
-
 cd ${NODEHOME} &&
 docker build --no-cache -t local-dashboard -f Dockerfile --build-arg RUNDASHBOARD=${RUNDASHBOARD} .
-
-cat <<EOF
-
-############################
-# 5. Start Compose Project #
-############################
-
-EOF
 
 cd ${NODEHOME}
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -146,5 +96,5 @@ else
 fi
 docker-compose up -d
 
-echo "Starting image. This could take a while..."
-(docker logs -f shardeum-dashboard &) | grep -q 'done'
+# echo "Starting image. This could take a while..."
+# (docker logs -f shardeum-dashboard &) | grep -q 'done'
