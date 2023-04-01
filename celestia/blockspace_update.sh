@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $HOME/.profile
+
 sudo systemctl stop celestia-lightd
 
 cd $HOME/celestia-node
