@@ -47,6 +47,7 @@ elif [ "$option" = "monitoring" ]; then
         . <(wget -qO- $monitoring) &>/dev/null
         unset OWNER NODENAME
         text="Monitoring installed! Your link in Grafana is: \nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
+        dialog_text
     fi
 elif [ "$option" = "docker" ]; then
     if [ "$confirm" != "0" ]; then
