@@ -83,3 +83,4 @@ elif [ "$option" = "proxy" ]; then
 else
     dialog --title "Installation cancelled" --msgbox "The installation was cancelled." 0 0
 fi
+unset force
