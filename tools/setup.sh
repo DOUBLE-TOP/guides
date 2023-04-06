@@ -41,8 +41,8 @@ elif [ "$option" = "monitoring" ]; then
         if [ ! $OWNER ]; then
             OWNER=$(dialog --inputbox "Enter telegram username without @:" 0 0 "John" --stdout)
         fi
-        if [ ! $HOSTNAME ]; then
-        HOSTNAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
+        if [ ! $NODENAME ]; then
+            NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
         text="Monitoring installed! Your link in Grafana is - https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?orgId=1&var-origin_prometheus=&var-job=node_exporter&var-owner=$OWNER&var-hostname=All&var-node=$HOSTNAME&var-device=All&var-interval=2m&var-maxmount=%2F&var-show_hostname=subq&var-total=3"
