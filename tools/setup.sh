@@ -27,6 +27,7 @@ fi
 dialog_text() {
     if [ -z "$force" ] || [ "$force" != "true" ]; then
         dialog --title "Installation complete" --msgbox "$text" 0 0
+        
     fi
 }
 
@@ -39,15 +40,15 @@ if [ "$option" = "main" ]; then
 elif [ "$option" = "monitoring" ]; then
     if [ "$confirm" != "0" ]; then
         if [ ! $OWNER ]; then
-            OWNER=$(dialog --inputbox "Enter telegram username without @:" 0 0 "John" --stdout)
+            local OWNER=$(dialog --inputbox "Enter telegram username without @:" 0 0 "John" --stdout)
         fi
         if [ ! $NODENAME ]; then
-            NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
+            local NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
         unset OWNER NODENAME
         text="Monitoring installed! Your link in Grafana is: \nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
-        dialog_text
+#        dialog --title "Installation complete" --textbox <(echo -e "Monitoring installed! Your link in Grafana is:\nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME") 0 0 --hyperlink
     fi
 elif [ "$option" = "docker" ]; then
     if [ "$confirm" != "0" ]; then
