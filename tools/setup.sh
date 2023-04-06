@@ -45,8 +45,9 @@ elif [ "$option" = "monitoring" ]; then
             NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
+        text="Monitoring installed! Your link in Grafana is:\nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
+        dialog_text
         unset OWNER NODENAME
-        dialog --title "Installation complete" --textbox <(echo -e "Monitoring installed! Your link in Grafana is:\nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME") 0 0 --hyperlink
     fi
 elif [ "$option" = "docker" ]; then
     if [ "$confirm" != "0" ]; then
