@@ -13,6 +13,8 @@ proxy="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/3proxy.sh"
 
 confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
 
+text="The installation was successful!"
+
 if [ "$?" -eq 0 ]; then
     confirm=1
 else
@@ -26,7 +28,7 @@ fi
 
 dialog_text() {
     if [ -z "$force" ] || [ "$force" != "true" ]; then
-        dialog --title "Installation complete" --msgbox "The installation was successful!" 0 0
+        dialog --title "Installation complete" --msgbox "$text" 0 0
     fi
 }
 
@@ -45,7 +47,9 @@ elif [ "$option" = "monitoring" ]; then
             NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
-        dialog --title "Installation complete" --msgbox "Monitoring installed! Your link in Grafana is:\nhttps://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME" 0 0
+        text="Monitoring installed! Your link in Grafana is: https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
+        dialog_text
+        # dialog --title "Installation complete" --msgbox "Monitoring installed! Your link in Grafana is: https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME" 0 0
         unset OWNER NODENAME
     fi
 elif [ "$option" = "docker" ]; then
