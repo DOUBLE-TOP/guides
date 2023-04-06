@@ -11,7 +11,7 @@ go="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh"
 nodejs="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/node.sh"
 proxy="https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/3proxy.sh"
 
-confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
+
 
 text="The installation was successful!"
 
@@ -24,6 +24,10 @@ if [[ $# -eq 3 ]]; then
   if [ "$3" == "--force" ]; then
     force="true"
   fi
+fi
+
+if [ -z "$force" ] || [ "$force" != "true" ]; then
+    confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
 fi
 
 dialog_text() {
@@ -49,7 +53,6 @@ elif [ "$option" = "monitoring" ]; then
         . <(wget -qO- $monitoring) &>/dev/null
         text="Monitoring installed! Your link in Grafana is: https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
         dialog_text
-        # dialog --title "Installation complete" --msgbox "Monitoring installed! Your link in Grafana is: https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME" 0 0
         unset OWNER NODENAME
     fi
 elif [ "$option" = "docker" ]; then
