@@ -5,7 +5,6 @@ option=$2
 
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/clear_massa.sh"
 update="curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/update.sh"
-auto_buy_rolls="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/rolls.sh"
 
 confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
 
@@ -30,7 +29,7 @@ elif [ "$option" = "update" ]; then
 elif [ "$option" = "rolls" ]; then
     if [ "$confirm" != "0" ]; then
         tmux kill-session -t rolls
-        tmux new-session -d -s rolls '. <(wget -qO- $auto_buy_rolls)'
+        tmux new-session -d -s rolls '. <(wget -qO- https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/rolls.sh)'
         dialog --title "Auto buy rolls enabled" --msgbox "Auto buy rolls enabled for $node !" 0 0
     fi
 elif [ "$option" = "delete" ]; then
