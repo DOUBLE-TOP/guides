@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="049-pasiphae.1"
+export version="050-thebe"
 install_tools
 # source_git
 # build_penumbra

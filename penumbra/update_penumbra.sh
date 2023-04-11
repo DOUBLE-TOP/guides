@@ -72,7 +72,7 @@ function reset_wallet {
 
 
 colors
-export version="049-pasiphae.1"
+export version="050-thebe"
 source_git
 # rust_update
 
