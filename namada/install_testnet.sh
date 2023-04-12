@@ -88,6 +88,7 @@ function join_network {
   tar xvzf "$HOME/$CHAIN_ID.tar.gz"
   mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
   wget -O $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json https://github.com/McDaan/general/raw/main/namada/addrbook.json
+  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' /root/.namada/public-testnet*/config.toml
 }
 
 function systemd_namada {
