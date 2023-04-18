@@ -47,7 +47,7 @@ function read_wallet {
 }
 
 function get_vars {
-  export CHAIN="gemini-3c"
+  export CHAIN="gemini-3d"
   export RELEASE="gemini-3c-2023-mar-23"
 }
 
