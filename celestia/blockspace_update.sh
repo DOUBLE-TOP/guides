@@ -2,6 +2,8 @@
 
 source $HOME/.profile
 
+bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
+
 sudo systemctl stop celestia-lightd
 
 cd $HOME/celestia-node
