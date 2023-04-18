@@ -1,18 +1,18 @@
 #!/bin/bash
 
 
-# source $HOME/.profile
-# sudo systemctl stop gear
-# /root/gear purge-chain -y
+source $HOME/.profile
+sudo systemctl stop gear
+/root/gear purge-chain -y
 
-# wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz
-# sudo tar -xvf gear-nightly-linux-x86_64.tar.xz -C /root
-# rm gear-nightly-linux-x86_64.tar.xz
+wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz
+sudo tar -xvf gear-nightly-linux-x86_64.tar.xz -C /root
+rm gear-nightly-linux-x86_64.tar.xz
 
 
-# sudo systemctl start gear
+sudo systemctl start gear
 
-# sleep 15
+sleep 15
 
 NODENAME_GEAR=$(grep -Po '(?<=--name\s)\S+(?=\s*--execution)' /etc/systemd/system/gear.service)
 
@@ -28,9 +28,9 @@ WorkingDirectory=$HOME
 ExecStart=$HOME/gear \
         --name $NODENAME_GEAR \
         --execution wasm \
-	    --port 31333 \
+	--port 31333 \
         --telemetry-url 'ws://telemetry-backend-shard.gear-tech.io:32001/submit 0' \
-	    --telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
+	--telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
         --reserved-nodes \
         "/dns4/testnet-validator-node1.gear-tech.io/tcp/30333/p2p/12D3KooWFqktBAWLLvdySqG5QMcxHnpsDi8vjR9rjCxHotXyXn5R" \
         "/dns4/testnet-validator-node2.gear-tech.io/tcp/30333/p2p/12D3KooWN2Rv9aLGqJ1RohQ9HoYe1nf88Np1M56SZvyWi8rGon36" \
