@@ -1,298 +1,292 @@
 {
     "priorPeers": [
         {
-            "address": "38.242.220.60",
+            "address": "209.105.243.122",
             "port": 9033,
-            "identity": "TuByVpZj570EIJFlcLGjhf3JYiSvPe2QN4CdyCw5lgU=",
-            "name": "Alexis"
-        },
-        {
-            "address": "185.209.230.191",
-            "port": 9033,
-            "identity": "gmIcm/uvjFzNhl8LpC+muY0S14y+kp7uuDnHskXZOH0=",
-            "name": "draggelm"
-        },
-        {
-            "address": "46.101.86.6",
-            "port": 9033,
-            "identity": "vHuXUZK7vz8bQr1S4WEbENPmpW+yQC9KbPkuuD/+pgo=",
-            "name": "Nac"
-        },
-        {
-            "address": "65.108.13.213",
-            "port": 9033,
-            "identity": "ijtssEMQJvhHohHu6sr615JKyofebQ3CixaG+8Nu6gE=",
-            "name": "Bakasa"
-        },
-        {
-            "address": "198.27.81.169",
-            "port": 9033,
-            "identity": "39TnTwbn7NT8HXhzc8JUSTkk7rlwygIuJ6ZnCX8TJEU=",
-            "name": "Ginger"
-        },
-        {
-            "address": "43.153.208.251",
-            "port": 9033,
-            "identity": "sXceJqT9Rxa6KhsIy8dp99kJN2a1QXGV/gCMHQworAA=",
+            "identity": "IQF8SPjINn4Kp8hEwRFWeAM/nxwlHKwhuQ3EIIhh1ko=",
             "name": ""
         },
         {
-            "address": "81.0.218.51",
+            "address": "173.212.230.202",
             "port": 9033,
-            "identity": "Zo6nPJNJUkUK1RnGirQdaPhWQD4SGTgxkFqZp0P1jEg=",
-            "name": "DanieL_39999_7"
-        },
-        {
-            "address": "34.92.24.144",
-            "port": 9033,
-            "identity": "mVJlgFbH+GZ5KJSR6xgtbt0QjmFAtgAahginfUL7fHY=",
-            "name": "baseyezebqwa@hotmail.com"
-        },
-        {
-            "address": "161.97.142.41",
-            "port": 9033,
-            "identity": "ZDpr+4qM/YqppifTnWyAYNg2SHlZ0i1ix0r0bD6j7gc=",
-            "name": "_ROG"
-        },
-        {
-            "address": "95.216.204.100",
-            "port": 9033,
-            "identity": "KZ5eRpMiJPKwRZDItnNMaa/Djs/UlZXjuGbkvyQwVGs=",
-            "name": "m5e60"
-        },
-        {
-            "address": "64.225.24.22",
-            "port": 9033,
-            "identity": "tFoqRV6yqSHWnXZtn975THjjy0f6Y7Tfo6QhgjQ7R1g=",
-            "name": "pyppysmys11"
-        },
-        {
-            "address": "65.21.232.160",
-            "port": 9033,
-            "identity": "JiKoHgdemJwti9XpPWbHEA5MxaDKin4Fs6YikB5saAU=",
-            "name": "OS-UA"
-        },
-        {
-            "address": "84.46.246.1",
-            "port": 9033,
-            "identity": "Yox1wFVCzUy54KppTJ47ZJPIu9BHMoR5rIbEeH+B3jI=",
+            "identity": "6uI+1Ky424c6q4/sURNyAlhDDGOU4piKD5+X4OEGsTQ=",
             "name": ""
         },
         {
-            "address": "161.97.83.192",
+            "address": "62.171.144.167",
             "port": 9033,
-            "identity": "Q9hrEosnXgzF1rSWCmcn2gwhu+cKJQwdmgyyfhbB9jY=",
-            "name": "lisenkoa087"
-        },
-        {
-            "address": "194.180.176.188",
-            "port": 9033,
-            "identity": "xgxgCQAG4BXr7lO4+6UDKT7uwvsg80qpx5VJAiNTtgw=",
+            "identity": "tiDWGRul6t7crnuko4uPn6aL5/GvSsIIFHSiz3eQRWk=",
             "name": ""
         },
         {
-            "address": "62.210.252.224",
-            "port": 9033,
-            "identity": "QrkQtlo2wgDISDdai7K55i2bgYNaNpsibRrWYjWROis=",
-            "name": "BenjPirate"
+            "address": null,
+            "port": null,
+            "identity": "SZbRMXiPFX+ytXeoqinhG9hhzfKA+HPYl8xj2AzVxj4=",
+            "name": "api-node"
         },
         {
-            "address": "94.198.50.178",
+            "address": "65.108.226.236",
             "port": 9033,
-            "identity": "kzCZ/aYiaYdDXGy/HssyEPbvNDh6R3eskjkrHAqs9AY=",
-            "name": "Ivangulivan"
-        },
-        {
-            "address": "64.44.171.203",
-            "port": 9033,
-            "identity": "wfcvgnrchgPkivPAPmPlQ5Xp2qTz8MQVEG0PYajgW08=",
+            "identity": "jpaHXQzrZv8Zm51jh2tZrA0knyyf65bhqk6tXvwQuVM=",
             "name": ""
         },
         {
-            "address": "135.181.116.241",
-            "port": 9033,
-            "identity": "h/91uUWperJ1Y9jAerqEPdv0sr6Og+MjK92CNAgiDH4=",
-            "name": "SlavaCrypto"
-        },
-        {
-            "address": "194.61.28.220",
-            "port": 9033,
-            "identity": "z4zi2V0W9ebzjlqo/AWHY5pN5JlMZG0/rikxudNJoEc=",
-            "name": "petrov08n"
-        },
-        {
-            "address": "65.109.171.125",
-            "port": 9033,
-            "identity": "I9W2OJUasBMHblEZAMxtdw7M/fw0tv8w1wmmErbwuws=",
-            "name": "node-lex-2022"
-        },
-        {
-            "address": "65.109.206.138",
-            "port": 9033,
-            "identity": "MjC11dSucY+5tyLIt1RWhhUidF/miihP7fEukRBVLFo=",
-            "name": "coinhunters"
-        },
-        {
-            "address": "149.102.141.201",
-            "port": 9033,
-            "identity": "yi2L3uc+ocAYWIHFIphBu3LrsAobHV7kbCfJoaUQEh4=",
-            "name": "Vitalyc69"
-        },
-        {
-            "address": "65.109.220.252",
-            "port": 9033,
-            "identity": "BO1ZL+mUZTDTqJx+7UUZrs4wE26S5//upZFNqGCyUiE=",
-            "name": "shl111"
-        },
-        {
-            "address": "185.196.21.92",
-            "port": 9033,
-            "identity": "R3NPDN7KfVifQYVtFhQNOWZ9uc//t4WNYLmH0X3ChEo=",
-            "name": "obsyd"
-        },
-        {
-            "address": "95.216.7.216",
-            "port": 9033,
-            "identity": "aurME2XEKFKmnSWpBXxkZx/9VoGKNZFzUEp8YZvHE0c=",
-            "name": "mortycat"
-        },
-        {
-            "address": "161.97.149.248",
-            "port": 9033,
-            "identity": "IMiudQ4rf4o2xPt9YYTEyAcoE1Irdl2IU/R2ixWO/To=",
-            "name": "alinger001"
-        },
-        {
-            "address": "109.123.253.124",
-            "port": 9033,
-            "identity": "BZu8QH2ijGulFYiTUlvPIe5PoHKdLzpD7Rl84to8TxY=",
-            "name": "Philippabh"
-        },
-        {
-            "address": "75.119.131.88",
-            "port": 9033,
-            "identity": "7LQcdRZcxdpi0pO+C4LySxIqtuym7L/nT9PKoWxvXQY=",
-            "name": "Chegevara103"
-        },
-        {
-            "address": "65.109.216.217",
-            "port": 9033,
-            "identity": "ppsJuPh6fi8iwGnGrrmkg4UmqCVKOzUyP70bFFPZBVg=",
-            "name": "johnwisk"
-        },
-        {
-            "address": "69.57.163.242",
-            "port": 9033,
-            "identity": "hsZeBBsPjUhBgm4nyziMF5Rv7B1my4uyhHzPRyCZYCc=",
-            "name": "probeautycare"
-        },
-        {
-            "address": "66.94.116.23",
-            "port": 9033,
-            "identity": "vcC0uudq30PFeQ8oMksvYgBI5tADGxP2OHW0oy74zik=",
-            "name": "scitec"
-        },
-        {
-            "address": "159.69.119.195",
-            "port": 9033,
-            "identity": "APsTdBF0ewH6bnZyk04l3pioHyZ4+8dbPQ0aK3GyjEc=",
-            "name": "davendestern"
-        },
-        {
-            "address": "65.109.197.49",
-            "port": 9033,
-            "identity": "Bp9KMelkJVNYJan0H7pRyzizz90wllyhAycnGKUMyWI=",
-            "name": "Polina"
-        },
-        {
-            "address": "185.234.247.123",
-            "port": 9033,
-            "identity": "daED+FgJB48UJ5j1KZqh450b4/bypvZmYlAzcP20h1M=",
-            "name": "slavrikova"
-        },
-        {
-            "address": "2.58.82.141",
-            "port": 9033,
-            "identity": "cynIJyPZdc1XEo85hMMPSLcrA/S+v5TDGTq0RsUVgSA=",
-            "name": "HunterIF"
-        },
-        {
-            "address": "205.198.106.42",
-            "port": 9033,
-            "identity": "zgdp+EscidHs/r+37NeFwQe7Oou1P/6dcGmXCFRnyww=",
-            "name": "dinglei1218"
-        },
-        {
-            "address": "146.190.154.31",
-            "port": 9033,
-            "identity": "HvXP3CC0u8oivbKblVq8rriWQ6Lvi87eZtPSvzWOqg8=",
-            "name": "lailaverse"
-        },
-        {
-            "address": "43.156.30.106",
-            "port": 9033,
-            "identity": "UXMUB65Em+4Ek8Z1lQ3ih64LYyYcsdA2HrXiiV/0GVI=",
+            "address": null,
+            "port": null,
+            "identity": "wfnuK2iYKtPOAVkND9K+hw50ZmmMmUlO6B9lC59dUVs=",
             "name": ""
         },
         {
-            "address": "217.76.49.198",
+            "address": "146.19.24.252",
             "port": 9033,
-            "identity": "LCCrFJpP6jMvPkcs1C8Nb+X1ow8n/zS68/Jm9Y5e3Hg=",
-            "name": "kimchi7843"
+            "identity": "a7/tHIJO4Ec/YpocdPKKr8Loa5zb6LompQqWqCQfv2A=",
+            "name": "Arti4M"
         },
         {
-            "address": "43.156.123.235",
+            "address": "126.92.75.131",
             "port": 9033,
-            "identity": "fyd7YUop4xU+h0y+NyHvg7PBm3lFsM0f+Q52s7yf/EQ=",
-            "name": "KzMLhEThsMK"
-        },
-        {
-            "address": "188.119.112.191",
-            "port": 9033,
-            "identity": "qpHuJ1Qv1/WRoLWxP2CLINR7JonXgIotg0LJVSyOwn0=",
-            "name": "annbuuu"
-        },
-        {
-            "address": "43.153.209.216",
-            "port": 9033,
-            "identity": "FNq408FFELZ3gHodgWkNdwLiaoa7FvnlAnXSUPBvJXo=",
-            "name": "aWEd3oKhEeG"
-        },
-        {
-            "address": "142.93.246.102",
-            "port": 9033,
-            "identity": "RynbZEI5jcIOrFAGw2PO+EpLf8F5HQEXoEM++PxK0Tw=",
+            "identity": "7DgJCDHYF7RmuV30wSV+hcBt9mc5MJklwaF55Fsfuk0=",
             "name": ""
         },
         {
-            "address": "217.76.62.75",
+            "address": "65.21.195.207",
             "port": 9033,
-            "identity": "bclRQeQG20ebzkVvgptMFObYjXJcbcuDJJb/dV0RbBs=",
-            "name": "878654node"
+            "identity": "4AMEt3b2sPvfNV66guAZ1rkIRcfljSEyZbBsuPK1Kzg=",
+            "name": ""
         },
         {
-            "address": "47.242.155.152",
-            "port": 9033,
-            "identity": "TVHVaJ54SA7/lAO9PJHiMMioMUJK+T+O/U2SAiOiQDo=",
-            "name": "dressyyd"
+            "address": null,
+            "port": null,
+            "identity": "FfPv2azlRc7SaJqHp3aVKnxtc8e1Cy2p0pW8j8MoZnQ=",
+            "name": ""
         },
         {
-            "address": "43.155.136.87",
+            "address": "149.102.153.223",
             "port": 9033,
-            "identity": "jYC0U4mVU83KN3Wqdr3kadK5uDiJp11JDS7mVre4vRQ=",
-            "name": "HWzrTn3TZBtg9u"
+            "identity": "f/+cKbuZpki31pR7Um/W4EWjrSL0BYyMs+uW+tNnono=",
+            "name": ""
         },
         {
-            "address": "173.212.192.46",
-            "port": 9033,
-            "identity": "2qXkBfnZwjumeHaJVY+6GZuo26wB5ymTTN1+h32/WUE=",
-            "name": "4monr4"
+            "address": "185.154.157.7",
+            "port": 40703,
+            "identity": "bprpnz+HYXx5nlDuB+eMnGMKusKNno4x2+n3VPs0SAY=",
+            "name": "ironfish-12"
         },
         {
-            "address": "89.117.54.30",
+            "address": "5.189.150.215",
             "port": 9033,
-            "identity": "EnjgjRz6SuEHniDErr5IFPyRTSI0+Zf/Yil2tFVpaxs=",
-            "name": "563214node"
+            "identity": "9mDD1XI4LyKuQoKxs+knXaptVPioRBYGzyr2okq1lAU=",
+            "name": ""
+        },
+        {
+            "address": "202.45.128.209",
+            "port": 9033,
+            "identity": "SuyuH6oH6rO4QDqz5sFbNZ98/ZD4r+KmdHcRqQXX6jw=",
+            "name": ""
+        },
+        {
+            "address": "109.123.250.27",
+            "port": 9033,
+            "identity": "F6tka6TFUKs9DASAaUeHAFSlFbemYkeuj3ifTmG1UxU=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "oViMNr151Ivce6iSJOlyGfpf448wCzZbezwTR51GVSM=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "/gdzP7X+k+Owg6J8QeEzVANBCLgxtLgAbQROa8NYoiE=",
+            "name": ""
+        },
+        {
+            "address": "24.211.246.42",
+            "port": 9033,
+            "identity": "Zu2Ebw3r2BpHgdw02g4cMxMce3BqYiTqoGyeeJbxUAc=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "36/U9/fJh5ETRYavFv06Ly+i5WYwQCfh2KHz1Zt9nxM=",
+            "name": ""
+        },
+        {
+            "address": "89.252.21.37",
+            "port": 9033,
+            "identity": "EfNqD4E3nO2JUx01ZlDjgePw/5Qw8cnUllmeewFa/C8=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "jdiIBddlKfmYiIXRaszzbbbyLg/dw3Qg620Tk2sxPV8=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "ECLXHltzx86ttnlVsDlz4S9LefEcjFtFEhwKwTBIVHY=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "6Z4HcGQxUcFTsKWDzYQPUu5cp9fAvtNx1HX1NTG5vS4=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "blmEoxe8pj/RdN/zk0xpsq07uqIlQjoi0j758jp9NQ4=",
+            "name": ""
+        },
+        {
+            "address": "109.123.251.81",
+            "port": 9033,
+            "identity": "pumzrtgTfCxmwCPmck221sh2XqgwBJZqJMIRMIBItB0=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "mP7QV1TokbbV2zw8UN17SAirSx1vr/YT/2rDxuOOXWo=",
+            "name": ""
+        },
+        {
+            "address": "115.73.213.74",
+            "port": 9033,
+            "identity": "NzzFfVISWAH8TVE51GuJA+ev5lFdWqjAifvGxtMfwW8=",
+            "name": "sunnyduongmd"
+        },
+        {
+            "address": "92.101.121.233",
+            "port": 9033,
+            "identity": "5pLZqaClDq7ItuR79A4nloduzL4mS+y4iKc5JjYlbUk=",
+            "name": ""
+        },
+        {
+            "address": "128.140.84.148",
+            "port": 9033,
+            "identity": "ZmaIh3tdHphyOSDjQJYNfQxF8QBK4iuhRczLl8DRZQs=",
+            "name": ""
+        },
+        {
+            "address": "128.140.59.14",
+            "port": 9033,
+            "identity": "qBADZQ2KsUBJMkJljqgz+unsZbqOM8DEbgWtqz8DW2w=",
+            "name": ""
+        },
+        {
+            "address": "88.198.8.154",
+            "port": 9033,
+            "identity": "S2rKAsobGHXniIBg/Mf10+dWH5j20zWlPgy3aExW5V0=",
+            "name": ""
+        },
+        {
+            "address": "144.91.95.41",
+            "port": 9033,
+            "identity": "vtx4w16eUZuo6ZkaLr4vprjBjO3FcELrlMPcNSh32RU=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "+Gq5nYz+AeX7EMAGEDbJ60TU/nG1mETWSQpafbLbpAM=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "H51eKqi75E3JKe42e0E+KfDtUhicUHRSOw+Y0ACuSl4=",
+            "name": "MIRKOM"
+        },
+        {
+            "address": "135.181.111.221",
+            "port": 9033,
+            "identity": "0KvFS/WlMUAMhw558UzNyuVvL61/kQjeu7GnvKnzKQs=",
+            "name": "elenkakaramelka90"
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "cuNarnyWlXOoT8pHrFkSXfCrYCKjxnxbwHSk/CcUyTQ=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "NOJwIcIb3mHrgafxJFRI6ig8x8Vh2p7WDasUhg+PkCg=",
+            "name": ""
+        },
+        {
+            "address": "89.117.58.243",
+            "port": 9033,
+            "identity": "7thgNiR7Q8mp/aht22teLxfpan8tWYg7qFBZDBeG7RA=",
+            "name": ""
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "pfL5m0CWS5Dp+g+TUc+D18T4ZOojuCfA82F4KJVmVXw=",
+            "name": ""
+        },
+        {
+            "address": "5.9.58.125",
+            "port": 9033,
+            "identity": "HBWGZOi22ffs7wz9uJuy+pjG9pL+sxw+KbO3rJzK1lE=",
+            "name": ""
+        },
+        {
+            "address": "45.87.104.133",
+            "port": 9033,
+            "identity": "6YG8AVLur3ki6suI/ek5B7N7cx04DM4utGAYSgJWHU8=",
+            "name": ""
+        },
+        {
+            "address": "173.249.44.68",
+            "port": 9033,
+            "identity": "7mlcLu37M4ZYR4rJF+xWevAnCahbjuv0h36BUN99iyk=",
+            "name": ""
+        },
+        {
+            "address": "65.108.239.51",
+            "port": 9033,
+            "identity": "98enD6aLnaB9lLWRk5ogd1rCPTgQCxo+JzNGksrDp3o=",
+            "name": ""
+        },
+        {
+            "address": "23.88.97.57",
+            "port": 9033,
+            "identity": "6Su2DtGIb3lJbztvk2G/zAckB3mD0yt4djmEQZ+3NV0=",
+            "name": ""
+        },
+        {
+            "address": "167.86.122.164",
+            "port": 9033,
+            "identity": "MR1JIHKKINYdzPk2dwxlYUtMewtVD6exUIMHzcdaAm4=",
+            "name": ""
+        },
+        {
+            "address": "185.211.6.145",
+            "port": 9033,
+            "identity": "skBaSw+c7BoJITDy7YO/5Peuv9e5StsDa64kA4KK/j4=",
+            "name": "timothy_godsey2000"
+        },
+        {
+            "address": "185.252.232.65",
+            "port": 9033,
+            "identity": "g/yyJeYOPNL1pfVpYkFfJ1CKM/aJqB7aielT0FnUOFw=",
+            "name": "5EN"
+        },
+        {
+            "address": null,
+            "port": null,
+            "identity": "xaeYexJuwmgiKiEJflltmd76iPkl/X7DniSJ5HkwIzw=",
+            "name": ""
         }
     ]
 }
