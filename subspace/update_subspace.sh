@@ -82,39 +82,10 @@ function eof_docker_compose {
 EOF
 }
 
-function check_fork {
-  sleep 30
-  check_fork=`docker logs --tail 100  subspace_docker_node_1 2>&1 | grep "Node is running on non-canonical fork"`
-  if [ -z "$check_fork" ]
-  then
-    echo -e "${GREEN}Нода не в форке - все ок${NORMAL}"
-  else
-    echo -e "${RED}Нода была в форке, выполняем сброс и перезапускаем${NORMAL}"
-    cd $HOME/subspace_docker/
-    docker-compose down
-    docker volume rm subspace_docker_farmer-data subspace_docker_node-data subspace_docker_subspace-farmer subspace_docker_subspace-node
-    docker-compose up -d
-  fi
-}
-
-function check_verif {
-  sleep 30
-  check_verif=`docker logs --tail 100  subspace_docker_node_1 2>&1 | grep "Verification failed for block"`
-  if [ -z "$check_verif" ]
-  then
-    echo -e "${GREEN}Ошибок верификации нет - все ок${NORMAL}"
-  else
-    echo -e "${RED}Есть ошибки верификации блоков, выполняем сброс и перезапускаем${NORMAL}"
-    cd $HOME/subspace_docker/
-    docker-compose down
-    docker volume rm subspace_docker_farmer-data subspace_docker_node-data subspace_docker_subspace-farmer subspace_docker_subspace-node
-    docker-compose up -d
-  fi
-}
 
 function update_subspace {
   cd $HOME/subspace_docker/
-  docker-compose down -v
+  docker-compose down
   eof_docker_compose
   docker-compose pull
   docker-compose up -d
@@ -127,9 +98,7 @@ line
 get_vars
 update_subspace
 line
-check_fork
 line
-# check_verif
 # line
 echo -e "${GREEN}=== Обновление завершено ===${NORMAL}"
 cd $HOME
