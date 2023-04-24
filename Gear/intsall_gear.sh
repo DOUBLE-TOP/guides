@@ -42,9 +42,7 @@ ExecStart=$HOME/gear \
         --execution wasm \
 	--port 31333 \
         --telemetry-url 'ws://telemetry-backend-shard.gear-tech.io:32001/submit 0' \
-	--telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
-        --in-peers 200 \
-        --out-peers 200
+	--telemetry-url 'wss://telemetry.doubletop.io/submit 0' 
 
 
 Restart=always
