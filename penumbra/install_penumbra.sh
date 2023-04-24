@@ -58,7 +58,7 @@ function generate_wallet {
 }
 
 colors
-export version="050-thebe"
+export version="v0.51.0"
 install_tools
 # source_git
 # build_penumbra
