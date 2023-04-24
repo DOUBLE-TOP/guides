@@ -79,7 +79,7 @@ function view {
 
 
 colors
-export version="049-pasiphae.1"
+export version="v0.51.0"
 source_git
 # rust_update
 
