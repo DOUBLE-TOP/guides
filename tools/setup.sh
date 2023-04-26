@@ -48,10 +48,10 @@ elif [ "$option" = "monitoring" ]; then
             OWNER=$(dialog --inputbox "Enter telegram username without @:" 0 0 "John" --stdout)
         fi
         if [ ! $NODENAME ]; then
-            NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "server" --stdout)
+            NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "$HOSTNAME" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
-        text="Monitoring installed! Your link in Grafana is: https://grafana.razumv.tech/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
+        text="Monitoring installed! Your link in Grafana is: https://grafana.doubletop.io/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
         dialog_text
         unset OWNER NODENAME
     fi
