@@ -51,7 +51,7 @@ elif [ "$option" = "monitoring" ]; then
             NODENAME=$(dialog --inputbox "Enter server name without special symbols:" 0 0 "$HOSTNAME" --stdout)
         fi
         . <(wget -qO- $monitoring) &>/dev/null
-        text="Monitoring installed! Your link in Grafana is: https://grafana.doubletop.io/d/xfpJB9FGz123/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
+        text="Monitoring installed! Your link in Grafana is: https://grafana.doubletop.io/d/xfpJB9FGz1231/nodes-doubletop?var-owner=$OWNER&var-node=$NODENAME"
         dialog_text
         unset OWNER NODENAME
     fi
