@@ -3,8 +3,8 @@
 node=$1
 option=$2
 
-install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/namada/install.sh"
-update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/namada/update.sh"
+install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/namada/install_testnet.sh"
+update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/namada/update_testnet.sh"
 
 confirm=$(dialog --clear --stdout --yesno "Do you want to apply $option to  $node?" 0 0)
 
