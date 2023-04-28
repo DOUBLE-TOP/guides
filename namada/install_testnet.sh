@@ -137,7 +137,6 @@ vars
 # build_tendermint
 # copy_bin
 wget_bin
-go install github.com/cosmos/gex@latest
 line
 echo "run fullnode"
 join_network
