@@ -23,7 +23,7 @@ function source_build_code {
 
     git clone https://github.com/celestiaorg/celestia-node.git
     cd $HOME/celestia-node
-    git checkout tags/v0.9.1
+    git checkout tags/v0.9.2
     make build
     make install
     make cel-key
