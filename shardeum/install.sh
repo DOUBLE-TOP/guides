@@ -48,4 +48,4 @@ docker-compose up -d
 echo "Starting image. This could take a while..."
 (docker logs -f shardeum-dashboard &) | grep -q 'done'
 
-docker exec -it shardeum-dashboard operator-cli gui set password $DASHPASS
+# docker exec -it shardeum-dashboard operator-cli gui set password $DASHPASS
