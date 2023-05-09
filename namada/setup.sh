@@ -32,7 +32,7 @@ elif [ "$option" = "update" ]; then
 elif [ "$option" = "delete" ]; then
     if [ "$confirm" != "0" ]; then
         sudo systemctl stop namada && sudo systemctl disable namada
-        rm -rf /etc/systemd/system/namadad* $HOME/tendermint $HOME/.namada/*/tendermint/data/ $HOME/namada
+        rm -rf /etc/systemd/system/namadad* $HOME/tendermint $HOME/.namada/*/tendermint/data/ $HOME/namada $HOME/.namada/public-testnet-7.0.3c5a38dc983/db/
         dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
 else
