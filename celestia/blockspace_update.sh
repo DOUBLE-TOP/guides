@@ -13,7 +13,7 @@ sudo systemctl stop celestia-lightd
 
 cd $HOME/celestia-node
 git fetch
-git checkout v0.9.3
+git checkout v0.9.4
 make build
 sudo make install
 
