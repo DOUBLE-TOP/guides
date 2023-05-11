@@ -7,6 +7,7 @@
 #   chmod +x $HOME/massa/massa-client/massa-client
 # fi
 # #
+source $HOME/.profile
 cd $HOME/massa/massa-client
 massa_wallet_address=$(./massa-client --pwd $massa_pass wallet_info | grep Address | awk '{ print $2 }')
 while true
