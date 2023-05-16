@@ -20,7 +20,7 @@ function get_env {
 }
 
 function massa_backup {
-	cd $HOME22.1
+	cd $HOME
 	if [ ! -d $HOME/massa_backup21/ ]; then
 		mkdir -p $HOME/massa_backup21
 		cp $HOME/massa/massa-node/config/node_privkey.key $HOME/massa_backup21/
@@ -38,8 +38,8 @@ function delete {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.22.1/massa_TEST.22.1_release_linux.tar.gz
-  tar zxvf massa_TEST.22.1_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.22.2/massa_TEST.22.2_release_linux.tar.gz
+  tar zxvf massa_TEST.22.2_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
