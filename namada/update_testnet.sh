@@ -23,7 +23,7 @@ function colors {
 # }
 
 function update_bin {
-  NEWTAG=v0.15.1
+  NEWTAG=v0.15.3
   sudo systemctl stop namada
   sudo rm /usr/local/bin/{namada,namadac,namadan,namadaw}
   sudo wget -O /usr/local/bin/namada https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NEWTAG/namada
