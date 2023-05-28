@@ -1,6 +1,6 @@
 #!/bin/bash
 
-solana-install init v1.14.7
+solana-install init v1.14.18
 
 sudo systemctl stop solana
 
@@ -19,24 +19,19 @@ RestartSec=1
 LimitNOFILE=1024000
 Environment="SOLANA_METRICS_CONFIG=host=https://metrics.solana.com:8086,db=tds,u=testnet_write,p=c4fa841aa918bf8274e3e2a44d77568d9861b3ea"
 ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator \
---wait-for-supermajority 161660256 \
---expected-shred-version 6995 \
 --entrypoint entrypoint.testnet.solana.sergo.dev:8001 \
---entrypoint tsolv.im-0.net:8000 \
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
---expected-bank-hash GjU2DYkVVcd4LD3Yew1xSL8XibvVnhVse2U6b5JdNDhN \
---known-validator eoKpUABi59aT4rR9HGS3LcMecfut9x7zJyodWWP43YQ \
---known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
---known-validator td2GGWDsCJ6LvjN89oLJvmrDwE14neNrbqQ9s3tVkPy \
---known-validator td3n5NGhP7JKWrL638gzau3NY7mF4K3ztZww3GkpywJ  \
---known-validator FnpP7TK6F2hZFVnqSUJagZefwRJ4fmnb1StS1NokpLZM \
---known-validator BFquPCAYdjN9QyLVfuGrQdJTF9Ct7Z85FDxhFeLcpFqR \
 --no-snapshot-fetch \
---no-genesis-fetch \
---only-known-rpc \
+--wait-for-supermajority 199641374 \
+--expected-shred-version 28353 \
+--expected-bank-hash 7qKeiLLRxvxkD2hZx1Ai1RABKMg7x2n4GVJFcrEh3js2 \
+--expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
+--known-validator eoKpUABi59aT4rR9HGS3LcMecfut9x7zJyodWWP43YQ \
+--known-validator GAPNvBD6MXboQmxP9XTCC4CMsT5gUpdFZWbnj4Tz2s7i \
+--known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
+--known-validator BFquPCAYdjN9QyLVfuGrQdJTF9Ct7Z85FDxhFeLcpFqR \
 --wal-recovery-mode skip_any_corrupted_record \
 --identity $HOME/validator-keypair.json \
 --vote-account $HOME/vote-account-keypair.json \
@@ -60,12 +55,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-# source $HOME/solana-snapshot-finder/venv/bin/activate
-#
-# python3 $HOME/solana-snapshot-finder/snapshot-finder.py --snapshot_path $HOME/ledger -r https://api.testnet.solana.com
-
-wget -O $HOME/ledger/snapshot-161660256-6makAMJ9P4eVnFLUVTrn8zY5N2YWxSXDRGutL7caR4uy.tar.zst http://tsolv.im-0.net:13899/snapshot-161660256-6makAMJ9P4eVnFLUVTrn8zY5N2YWxSXDRGutL7caR4uy.tar.zst
-
-wget -O $HOME/ledger/genesis.tar.bz2  wget http://api.testnet.solana.com/genesis.tar.bz2
+wget --trust-server-names http://69.197.4.3:6969/snapshot-199641374-njbdgtFvyDqiaCXRsgddu3J5uEtG6zPH81cmArcQSxS.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
