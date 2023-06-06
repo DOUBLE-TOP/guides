@@ -4,7 +4,7 @@ node=$1
 option=$2
 
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/clear_massa.sh"
-update="curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/update.sh"
+update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/update.sh"
 
 confirm=$(dialog --clear --stdout --yesno "Do you want to use option $option for node $node?" 0 0)
 
