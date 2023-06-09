@@ -72,7 +72,7 @@ function reset_wallet {
 
 
 colors
-export version="v0.54.0"
+export version="v0.54.1"
 source_git
 # rust_update
 
