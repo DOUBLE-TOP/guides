@@ -15,13 +15,13 @@ function install_sys_tuner {
 }
 
 function create_sys_tuner_service {
-    sudo cat > /etc/systemd/system/sys_tuner.service <<EOF
+    sudo bash -c "cat > /etc/systemd/system/sys_tuner.service<<EOF
 [Unit]
 Description=Solana Sys Tuner
 After=network-online.target
 
 [Service]
-User=$USER
+User=root
 ExecStart=$HOME/solana-sys-tuner/bin/solana-sys-tuner --user $USER
 Restart=always
 RestartSec=3
@@ -29,7 +29,7 @@ LimitNOFILE=65535
 
 [Install]
 WantedBy=multi-user.target
-EOF
+EOF"
 }
 
 function enable_sys_tuner_service {
@@ -38,7 +38,7 @@ function enable_sys_tuner_service {
 }
 
 function start_sys_tuner_service {
-    sudo systemctl start sys_tuner
+    sudo systemctl restart sys_tuner
 }
 
 
