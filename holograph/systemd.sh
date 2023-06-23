@@ -21,6 +21,7 @@ sudo systemctl enable holographd &>/dev/null
 sudo systemctl restart holographd
 }
 
+sudo apt install dialog -y
 password=$(dialog --inputbox "Enter your password from wallet:" 0 0 "your_wallet_pass" --stdout)
 echo "creating systemd file, adding to autostart, starting"
 systemd_holograph
