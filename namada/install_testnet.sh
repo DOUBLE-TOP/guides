@@ -84,11 +84,9 @@ function wget_bin {
 function join_network {
   cd $HOME
   namada client utils join-network --chain-id $CHAIN_ID
-  # wget https://github.com/heliaxdev/anoma-network-config/releases/download/${CHAIN_ID}/${CHAIN_ID}.tar.gz
-  # tar xvzf "$HOME/$CHAIN_ID.tar.gz"
   # mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
   # wget -O $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json https://github.com/McDaan/general/raw/main/namada/addrbook.json
-  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' /root/.namada/public-testnet*/config.toml
+  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' $HOME/.local/share/namada/.namada/public-testnet*/config.toml
 }
 
 function systemd_namada {
@@ -99,7 +97,7 @@ After=network-online.target
 
 [Service]
 User=root
-WorkingDirectory=$HOME/.namada
+WorkingDirectory=$HOME/.local/share/namada
 Environment=TM_LOG_LEVEL=p2p:none,pex:error
 Environment=NAMADA_CMT_STDOUT=true
 ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run
