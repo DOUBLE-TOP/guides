@@ -100,7 +100,7 @@ User=root
 WorkingDirectory=$HOME/.local/share/namada
 Environment=TM_LOG_LEVEL=p2p:none,pex:error
 Environment=NAMADA_CMT_STDOUT=true
-ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run
+ExecStart=/usr/local/bin/namada node ledger run
 StandardOutput=syslog
 StandardError=syslog
 Restart=on-failure
