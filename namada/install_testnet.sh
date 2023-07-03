@@ -43,9 +43,8 @@ function NAMADA_NAME {
 }
 
 function vars {
-  echo "export NAMADA_TAG=v0.15.3" >> ~/.bash_profile
-  echo "export TM_HASH=v0.1.4-abciplus" >> ~/.bash_profile
-  echo "export CHAIN_ID=public-testnet-8.0.b92ef72b820" >> ~/.bash_profile
+  echo "export NAMADA_TAG=v0.17.5" >> ~/.bash_profile
+  echo "export CHAIN_ID=public-testnet-10.3718993c3648" >> ~/.bash_profile
   echo "export VALIDATOR_ALIAS=$NAMADA_NAME" >> ~/.bash_profile
   echo "export WALLET=$NAMADA_NAME" >> ~/.bash_profile
   source ~/.bash_profile
@@ -64,7 +63,6 @@ function vars {
 #     cd $HOME
 #     git clone https://github.com/heliaxdev/tendermint
 #     cd tendermint
-#     git checkout $TM_HASH
 #     make build
 # }
 #
