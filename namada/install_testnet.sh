@@ -77,16 +77,17 @@ function wget_bin {
   sudo wget -O /usr/local/bin/namadan https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadan
   sudo wget -O /usr/local/bin/namadaw https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadaw
   sudo wget -O /usr/local/bin/tendermint https://doubletop-bin.ams3.digitaloceanspaces.com/namada/tendermint
-  sudo chmod +x /usr/local/bin/{tendermint,namada,namadac,namadan,namadaw}
+  sudo wget -O /usr/local/bin/cometbft https://doubletop-bin.ams3.digitaloceanspaces.com/namada/cometbft
+  sudo chmod +x /usr/local/bin/{tendermint,namada,namadac,namadan,namadaw,cometbft}
 }
 
 function join_network {
   cd $HOME
   namada client utils join-network --chain-id $CHAIN_ID
-  wget https://github.com/heliaxdev/anoma-network-config/releases/download/${CHAIN_ID}/${CHAIN_ID}.tar.gz
-  tar xvzf "$HOME/$CHAIN_ID.tar.gz"
-  mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
-  wget -O $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json https://github.com/McDaan/general/raw/main/namada/addrbook.json
+  # wget https://github.com/heliaxdev/anoma-network-config/releases/download/${CHAIN_ID}/${CHAIN_ID}.tar.gz
+  # tar xvzf "$HOME/$CHAIN_ID.tar.gz"
+  # mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
+  # wget -O $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json https://github.com/McDaan/general/raw/main/namada/addrbook.json
   sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' /root/.namada/public-testnet*/config.toml
 }
 
@@ -99,8 +100,8 @@ After=network-online.target
 [Service]
 User=root
 WorkingDirectory=$HOME/.namada
-Environment=NAMADA_LOG=debug
-Environment=NAMADA_TM_STDOUT=true
+Environment=TM_LOG_LEVEL=p2p:none,pex:error
+Environment=NAMADA_CMT_STDOUT=true
 ExecStart=/usr/local/bin/namada --base-dir=$HOME/.namada node ledger run
 StandardOutput=syslog
 StandardError=syslog
