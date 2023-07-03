@@ -86,7 +86,7 @@ function join_network {
   namada client utils join-network --chain-id $CHAIN_ID
   # mkdir -p $HOME/.namada/${CHAIN_ID}/tendermint/config/
   # wget -O $HOME/.namada/${CHAIN_ID}/tendermint/config/addrbook.json https://github.com/McDaan/general/raw/main/namada/addrbook.json
-  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' $HOME/.local/share/namada/.namada/public-testnet*/config.toml
+  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' $HOME/.local/share/namada/public-testnet*/config.toml
 }
 
 function systemd_namada {
