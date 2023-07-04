@@ -33,6 +33,23 @@ function go {
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
 }
 
+function delete_old_dirs {
+  rm -rf $HOME/namada
+  rm -rf $HOME/cometbft
+  rm -rf $HOME/.masp-params
+  rm -rf $HOME/.local/share/namada
+
+}
+
+function protoc {
+  cd $HOME && rustup update
+  PROTOC_ZIP=protoc-23.3-linux-x86_64.zip
+  curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v23.3/$PROTOC_ZIP
+  sudo unzip -o $PROTOC_ZIP -d /usr/local bin/protoc
+  sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
+  rm -f $PROTOC_ZIP
+}
+
 function NAMADA_NAME {
   source $HOME/.bash_profile
   if [ ! ${NAMADA_NAME} ]; then
@@ -56,14 +73,22 @@ function vars {
   source ~/.bash_profile
 }
 
+function cometbft {
+  cd $HOME
+  git clone https://github.com/cometbft/cometbft.git
+  cd cometbft
+  git checkout $CBFT
+  make build
+  cp $HOME/cometbft/build/cometbft /usr/local/bin/cometbft
+}
+
 function wget_bin {
   sudo wget -O /usr/local/bin/namada https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namada
   sudo wget -O /usr/local/bin/namadac https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadac
   sudo wget -O /usr/local/bin/namadan https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadan
   sudo wget -O /usr/local/bin/namadaw https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namadaw
   sudo wget -O /usr/local/bin/tendermint https://doubletop-bin.ams3.digitaloceanspaces.com/namada/tendermint
-  sudo wget -O /usr/local/bin/cometbft https://doubletop-bin.ams3.digitaloceanspaces.com/namada/cometbft
-  sudo chmod +x /usr/local/bin/{tendermint,namada,namadac,namadan,namadaw,cometbft}
+  sudo chmod +x /usr/local/bin/{tendermint,namada,namadac,namadan,namadaw}
 }
 
 function join_network {
@@ -71,7 +96,7 @@ function join_network {
   namada client utils join-network --chain-id $CHAIN_ID
   # mkdir -p $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/
   # wget -O $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/addrbook.json https://raw.githubusercontent.com/McDaan/general/main/namada/addrbook.json
-  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' $HOME/.local/share/namada/public-testnet*/config.toml
+  sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g; s/127\.0\.0\.1:26658/127\.0\.0\.1:51658/g' $HOME/.local/share/namada/public-testnet*/config.toml
 }
 
 function systemd_namada {
@@ -111,6 +136,8 @@ main_tools
 rust
 nodejs
 go
+protoc
+delete_old_dirs
 line
 echo "set vars, build bin files"
 vars
