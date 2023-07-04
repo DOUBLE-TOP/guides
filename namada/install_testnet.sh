@@ -141,6 +141,7 @@ delete_old_dirs
 line
 echo "set vars, build bin files"
 vars
+cometbft
 wget_bin
 line
 echo "run fullnode"
