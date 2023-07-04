@@ -43,33 +43,18 @@ function NAMADA_NAME {
 }
 
 function vars {
-  echo "export NAMADA_TAG=v0.18.0" >> ~/.bash_profile
+  sed -i '/public-testnet/d' "$HOME/.bash_profile"
+  sed -i '/NAMADA_TAG/d' "$HOME/.bash_profile"
+  sed -i '/WALLET_ADDRESS/d' "$HOME/.bash_profile"
+  sed -i '/CBFT/d' "$HOME/.bash_profile"
+  echo "export NAMADA_TAG=v0.17.5" >> ~/.bash_profile
   echo "export CHAIN_ID=public-testnet-10.3718993c3648" >> ~/.bash_profile
+  echo "export CBFT=v0.37.2" >> ~/.bash_profile
   echo "export VALIDATOR_ALIAS=$NAMADA_NAME" >> ~/.bash_profile
   echo "export WALLET=$NAMADA_NAME" >> ~/.bash_profile
+  echo "export BASE_DIR=$HOME/.local/share/namada" >> ~/.bash_profile
   source ~/.bash_profile
 }
-
-# function build_namada {
-#   cd $HOME
-#   git clone https://github.com/anoma/namada
-#   cd namada
-#   git checkout $NAMADA_TAG
-#   make build-release
-#
-# }
-#
-# function build_tendermint {
-#     cd $HOME
-#     git clone https://github.com/heliaxdev/tendermint
-#     cd tendermint
-#     make build
-# }
-#
-# function copy_bin {
-#   sudo cp "$HOME/tendermint/build/tendermint" /usr/local/bin/tendermint
-#   sudo cp $HOME/namada/target/release/{namada,namadac,namadan,namadaw} /usr/local/bin/
-# }
 
 function wget_bin {
   sudo wget -O /usr/local/bin/namada https://doubletop-bin.ams3.digitaloceanspaces.com/namada/$NAMADA_TAG/namada
@@ -84,8 +69,8 @@ function wget_bin {
 function join_network {
   cd $HOME
   namada client utils join-network --chain-id $CHAIN_ID
-  mkdir -p $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/
-  wget -O $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/addrbook.json https://raw.githubusercontent.com/McDaan/general/main/namada/addrbook.json
+  # mkdir -p $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/
+  # wget -O $HOME/.local/share/namada/${CHAIN_ID}/tendermint/config/addrbook.json https://raw.githubusercontent.com/McDaan/general/main/namada/addrbook.json
   sudo sed -i 's/0\.0\.0\.0:26656/0\.0\.0\.0:51656/g; s/127\.0\.0\.1:26657/127\.0\.0\.1:51657/g' $HOME/.local/share/namada/public-testnet*/config.toml
 }
 
@@ -94,19 +79,17 @@ function systemd_namada {
 [Unit]
 Description=namada
 After=network-online.target
-
 [Service]
-User=root
+User=$USER
 WorkingDirectory=$HOME/.local/share/namada
 Environment=TM_LOG_LEVEL=p2p:none,pex:error
 Environment=NAMADA_CMT_STDOUT=true
-ExecStart=/usr/local/bin/namada node ledger run
+ExecStart=/usr/local/bin/namada node ledger run 
 StandardOutput=syslog
 StandardError=syslog
-Restart=on-failure
-RestartSec=3
+Restart=always
+RestartSec=10
 LimitNOFILE=65535
-
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -131,9 +114,6 @@ go
 line
 echo "set vars, build bin files"
 vars
-# build_namada
-# build_tendermint
-# copy_bin
 wget_bin
 line
 echo "run fullnode"
