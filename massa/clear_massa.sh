@@ -25,8 +25,8 @@ function version {
 }
 
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.{$version}/massa_TEST.{$version}_release_linux.tar.gz
-  tar zxvf massa_TEST.{$version}_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST."$version"/massa_TEST."$version"_release_linux.tar.gz
+  tar zxvf massa_TEST."$version"_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
