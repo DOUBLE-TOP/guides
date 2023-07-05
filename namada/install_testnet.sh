@@ -74,6 +74,7 @@ function vars {
 }
 
 function cometbft {
+  source $HOME/.profile
   cd $HOME
   git clone https://github.com/cometbft/cometbft.git
   cd cometbft
