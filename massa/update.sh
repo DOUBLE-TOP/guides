@@ -38,9 +38,13 @@ function delete {
   rm -rf $HOME/massa
 }
 
+function get_version {
+  bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/version.sh)
+}
+
 function install {
-  wget https://github.com/massalabs/massa/releases/download/TEST.24.0/massa_TEST.24.0_release_linux.tar.gz
-  tar zxvf massa_TEST.24.0_release_linux.tar.gz -C $HOME/
+  wget https://github.com/massalabs/massa/releases/download/TEST.{$version}/massa_TEST.{$version}_release_linux.tar.gz
+  tar zxvf massa_TEST.{$version}_release_linux.tar.gz -C $HOME/
 }
 
 function routable_ip {
@@ -55,7 +59,7 @@ function keys_from_backup {
 
 colors
 
-
+get_version
 get_env
 massa_backup
 delete
