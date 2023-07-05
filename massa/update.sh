@@ -38,8 +38,8 @@ function delete {
   rm -rf $HOME/massa
 }
 
-function get_version {
-  bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/massa/version.sh)
+function version {
+  version="24.1"
 }
 
 function install {
@@ -59,7 +59,7 @@ function keys_from_backup {
 
 colors
 
-get_version
+version
 get_env
 massa_backup
 delete
