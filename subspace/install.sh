@@ -63,6 +63,7 @@ function eof_docker_compose {
       ports:
         - "0.0.0.0:32333:30333"
         - "0.0.0.0:32433:30433"
+        - "0.0.0.0:19944:9944"
       restart: unless-stopped
       command: [
         "--chain", "$CHAIN",
@@ -74,7 +75,6 @@ function eof_docker_compose {
         "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
         "--rpc-cors", "all",
         "--rpc-methods", "safe",
-        "--unsafe-ws-external",
         "--dsn-disable-private-ips",
         "--no-private-ipv4",
         "--validator",
