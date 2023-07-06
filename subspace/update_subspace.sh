@@ -96,6 +96,7 @@ line
 logo
 line
 get_vars
+eof_docker_compose
 update_subspace
 line
 line
