@@ -23,6 +23,7 @@ function get_vars {
 }
 
 function eof_docker_compose {
+  mkdir -p $HOME/subspace_docker/
   sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
   version: "3.7"
   services:
