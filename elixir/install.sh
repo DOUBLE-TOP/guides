@@ -46,8 +46,8 @@ function build_and_start {
 function main {
     env
     install_docker
-    prepare_docker_image
     delete_old
+    prepare_docker_image
     build_and_start
 }
 
