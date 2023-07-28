@@ -50,3 +50,5 @@ function main {
     delete_old
     build_and_start
 }
+
+main
