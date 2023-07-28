@@ -26,8 +26,8 @@ function prepare_docker_image {
     FROM elixirprotocol/validator:testnet-2
 
     ENV ADDRESS=$wallet
-    ENV PRIVATE_KEY=$private_key
-    ENV VALIDATOR_NAME=0x$validator_name
+    ENV PRIVATE_KEY=0x$private_key
+    ENV VALIDATOR_NAME=$validator_name
 EOF
 }
 
