@@ -11,6 +11,9 @@ function env {
 
     if [ ! $private_key ]; then
         read -p "Введите приватник от ММ: " private_key
+        if [[ ! $private_key == 0x* ]]; then
+            private_key="0x$private_key"
+        fi
     fi
 }
 
