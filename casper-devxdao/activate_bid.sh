@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt update && sudo apt upgrade -y
+# sudo apt update && sudo apt upgrade -y
 sudo cp $HOME/casper-node/target/wasm32-unknown-unknown/release/activate_bid.wasm /opt
 sudo chown casper.casper /opt/activate_bid.wasm
 
