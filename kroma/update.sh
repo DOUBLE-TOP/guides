@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $HOME/kroma-up/.env
+
 cd $HOME/kroma-up
 
 git checkout -- docker-compose.yml
