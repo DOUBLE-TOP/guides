@@ -39,7 +39,7 @@ function delete {
 }
 
 function version {
-  version="25.1"
+  version="25.2"
 }
 
 function install {
