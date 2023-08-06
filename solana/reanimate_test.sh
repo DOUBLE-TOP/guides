@@ -1,10 +1,10 @@
 #!/bin/bash
 
-solana-install init v1.14.18
+solana-install init v1.14.23
 
 sudo systemctl stop solana
 
-sudo rm -rf $HOME/ledger/*
+# sudo rm -rf $HOME/ledger/*
 
 bash -c "cat > $HOME/solana.service<<EOF
 [Unit]
@@ -23,15 +23,12 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---no-snapshot-fetch \
---wait-for-supermajority 199641374 \
---expected-shred-version 28353 \
---expected-bank-hash 7qKeiLLRxvxkD2hZx1Ai1RABKMg7x2n4GVJFcrEh3js2 \
+--wait-for-supermajority 213932256 \
+--expected-shred-version 61807 \
+--no-incremental-snapshots \
+--expected-bank-hash 4cyHLxMPCJH4pq9v6eVDFBKKNwrVw8ww78yYUSJNDvjU \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
---known-validator eoKpUABi59aT4rR9HGS3LcMecfut9x7zJyodWWP43YQ \
---known-validator GAPNvBD6MXboQmxP9XTCC4CMsT5gUpdFZWbnj4Tz2s7i \
 --known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
---known-validator BFquPCAYdjN9QyLVfuGrQdJTF9Ct7Z85FDxhFeLcpFqR \
 --wal-recovery-mode skip_any_corrupted_record \
 --identity $HOME/validator-keypair.json \
 --vote-account $HOME/vote-account-keypair.json \
@@ -55,6 +52,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-wget --trust-server-names http://69.197.4.3:6969/snapshot-199641374-njbdgtFvyDqiaCXRsgddu3J5uEtG6zPH81cmArcQSxS.tar.zst -P $HOME/ledger
+# wget --trust-server-names http://69.197.4.3:6969/snapshot-199641374-njbdgtFvyDqiaCXRsgddu3J5uEtG6zPH81cmArcQSxS.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
