@@ -2,7 +2,7 @@
 
 docker-compose -f $HOME/kroma-up/docker-compose.yml --profile validator down
 
-sed -i 's#L1_RPC_ENDPOINT=https://rpc.sepolia.org#L1_RPC_ENDPOINT=http://sepolia.doubletop.tech:8545#' $HOME/kroma-up/.env
+# sed -i 's#L1_RPC_ENDPOINT=https://rpc.sepolia.org#L1_RPC_ENDPOINT=http://sepolia.doubletop.tech:8545#' $HOME/kroma-up/.env
 
 source $HOME/kroma-up/.env
 
