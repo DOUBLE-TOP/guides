@@ -59,6 +59,10 @@ KROMA_VALIDATOR__CHALLENGER_DISABLED=true
 KROMA_VALIDATOR__GUARDIAN_ENABLED=false
 KROMA_VALIDATOR__PROVER_GRPC=
 EOF
+
+ip_addr=$(curl -s ifconfig.me)
+sed -i "s/L1_RPC_ENDPOINT=.*/L1_RPC_ENDPOINT=http:\/\/$ip_addr:58545/" $HOME/kroma-up/.env
+
 source $HOME/kroma-up/.env
 sleep 1
 echo "-----------------------------------------------------------------------------"
