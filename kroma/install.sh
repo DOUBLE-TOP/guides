@@ -150,6 +150,7 @@ docker_compose_version=`wget -qO- https://api.github.com/repos/docker/compose/re
 sudo wget -O /usr/bin/docker-compose "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-`uname -s`-`uname -m`"
 sudo chmod +x /usr/bin/docker-compose
 
+cd $HOME
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/sepolia.sh)
 
 docker-compose --profile validator up -d
