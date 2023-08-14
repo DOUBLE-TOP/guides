@@ -1,5 +1,10 @@
 #!/bin/bash
 
+sed -i '/CHAIN_ID/d' $HOME/.profile
+sed -i '/CHAIN_ID/d' $HOME/.bash_profile
+unset CHAIN_ID
+ufw disable
+
 docker-compose -f $HOME/kroma-up/docker-compose.yml --profile validator down
 
 ip_addr=$(curl -s ifconfig.me)
