@@ -154,6 +154,9 @@ cd $HOME
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/sepolia.sh)
 
 docker-compose --profile validator up -d
+
+cd $HOME/kroma-up && bash $HOME/kroma-up/sync_block.sh
+
 echo "-----------------------------------------------------------------------------"
 echo "Нода запущена. Переходите к следующему разделу для депозита в своего валидатора"
 echo "-----------------------------------------------------------------------------"
