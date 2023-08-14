@@ -153,7 +153,7 @@ sudo chmod +x /usr/bin/docker-compose
 cd $HOME
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/sepolia.sh)
 
-docker-compose --profile validator up -d
+cd $HOME/kroma-up/ && docker-compose --profile validator up -d
 
 bash $HOME/kroma-up/sync_block.sh
 
