@@ -1,4 +1,5 @@
 #! /bin/bash
+#thanks for https://raw.githubusercontent.com/ipohosov/public-node-scripts/main/shardeum/shardeum_healthcheck.sh
 
 function login() {
     DASHPORT=${1}
@@ -24,6 +25,8 @@ function start_node() {
 }
 
 function check_container_alive() {
+    printf "Checking if shardeum-dashboard container is alive...\n"
+
     CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' shardeum-dashboard)
     if [[ "${CONTAINER_STATUS}" != "running" ]]; then
         printf "Container is not running. Restarting shardeum-dashboard...\n"
@@ -33,6 +36,7 @@ function check_container_alive() {
     else
         printf "Container is running normally.\n"
     fi
+
 }
 
 cd "$HOME" || exit
@@ -42,6 +46,7 @@ DASHPASS=$(cat "$HOME"/.shardeum/.env | grep DASHPASS | cut -d= -f2)
 DASHPORT=$(cat "$HOME"/.shardeum/.env | grep DASHPORT | cut -d= -f2)
 while true
 do
+    check_container_alive
     printf "Check shardeum node status \n"
     NODE_STATUS=$(get_status)
     printf "Current status: ${NODE_STATUS}\n"
@@ -57,9 +62,4 @@ do
         printf "Sleep 15 minutes\n"
         sleep 15m
     fi
-
-    printf "Checking if shardeum-dashboard container is alive...\n"
-    check_container_alive
-    printf "Sleep for 30 minutes before next container check...\n"
-    sleep 30m
 done
