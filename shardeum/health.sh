@@ -1,5 +1,3 @@
-#thanks for https://raw.githubusercontent.com/ipohosov/public-node-scripts/main/shardeum/shardeum_healthcheck.sh
-
 #! /bin/bash
 
 function login() {
@@ -12,12 +10,10 @@ function login() {
     echo "${access_token}"
 }
 
-
 function get_status() {
     STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }')
     echo "${STATUS}"
 }
-
 
 function start_node() {
     TOKEN=${1}
@@ -25,6 +21,18 @@ function start_node() {
     curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/api/node/start" \
     --header 'Content-Type: application/json' \
     --header "X-Api-Token: ${TOKEN}"
+}
+
+function check_container_alive() {
+    CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' shardeum-dashboard)
+    if [[ "${CONTAINER_STATUS}" != "running" ]]; then
+        printf "Container is not running. Restarting shardeum-dashboard...\n"
+        docker restart shardeum-dashboard
+        sleep 5m
+        start_node
+    else
+        printf "Container is running normally.\n"
+    fi
 }
 
 cd "$HOME" || exit
@@ -49,4 +57,9 @@ do
         printf "Sleep 15 minutes\n"
         sleep 15m
     fi
+
+    printf "Checking if shardeum-dashboard container is alive...\n"
+    check_container_alive
+    printf "Sleep for 30 minutes before next container check...\n"
+    sleep 30m
 done
