@@ -22,6 +22,7 @@ bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh
 echo "-----------------------------------------------------------------------------"
 echo "Клонируем репозиторий"
 echo "-----------------------------------------------------------------------------"
+ufw disable
 git clone https://github.com/kroma-network/kroma-up.git
 git pull origin main
 cd kroma-up && ./startup.sh
