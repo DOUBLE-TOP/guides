@@ -12,4 +12,4 @@ sleep 180m
 cd /root/kroma-up && docker compose --profile validator up -d
 bash $HOME/kroma-up/sync_block.sh
 sleep 30m
-docker exec kroma-validator kroma-validator deposit --amount 800000000000000000
+docker exec kroma-validator kroma-validator deposit --amount 600000000000000000
