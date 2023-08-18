@@ -24,8 +24,9 @@ echo "Клонируем репозиторий"
 echo "-----------------------------------------------------------------------------"
 ufw disable
 git clone https://github.com/kroma-network/kroma-up.git
+cd $HOME/kroma-up
 git pull origin main
-cd kroma-up && ./startup.sh
+./startup.sh
 echo "-----------------------------------------------------------------------------"
 echo "Создаем env файл"
 echo "-----------------------------------------------------------------------------"
