@@ -11,10 +11,12 @@ function login() {
     echo "${access_token}"
 }
 
+
 function get_status() {
     STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }')
     echo "${STATUS}"
 }
+
 
 function start_node() {
     TOKEN=${1}
@@ -24,21 +26,6 @@ function start_node() {
     --header "X-Api-Token: ${TOKEN}"
 }
 
-function check_container_alive() {
-    printf "Checking if shardeum-dashboard container is alive...\n"
-
-    CONTAINER_STATUS=$(docker inspect --format='{{.State.Status}}' shardeum-dashboard)
-    if [[ "${CONTAINER_STATUS}" != "running" ]]; then
-        printf "Container is not running. Restarting shardeum-dashboard...\n"
-        docker restart shardeum-dashboard
-        sleep 5m
-        start_node
-    else
-        printf "Container is running normally.\n"
-    fi
-
-}
-
 cd "$HOME" || exit
 source .profile
 IP_ADDRESS=$(wget -qO- http://ipecho.net/plain | xargs echo)
@@ -46,7 +33,6 @@ DASHPASS=$(cat "$HOME"/.shardeum/.env | grep DASHPASS | cut -d= -f2)
 DASHPORT=$(cat "$HOME"/.shardeum/.env | grep DASHPORT | cut -d= -f2)
 while true
 do
-    check_container_alive
     printf "Check shardeum node status \n"
     NODE_STATUS=$(get_status)
     printf "Current status: ${NODE_STATUS}\n"
