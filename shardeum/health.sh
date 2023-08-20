@@ -11,6 +11,16 @@ function login() {
     echo "${access_token}"
 }
 
+function check_and_restart_dashboard() {
+    # Проверяем, запущен ли контейнер
+    DASHBOARD_STATUS=$(docker ps | grep "shardeum-dashboard")
+    if [ -z "${DASHBOARD_STATUS}" ]; then
+        printf "shardeum-dashboard контейнер не запущен. Перезапуск...\n"
+        docker restart shardeum-dashboard
+    else
+        printf "shardeum-dashboard контейнер работает нормально\n"
+    fi
+}
 
 function get_status() {
     STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }')
@@ -36,6 +46,8 @@ do
     printf "Check shardeum node status \n"
     NODE_STATUS=$(get_status)
     printf "Current status: ${NODE_STATUS}\n"
+    # Добавляем вызов функции проверки контейнера
+    check_and_restart_dashboard
     sleep 5s
     if [[ "${NODE_STATUS}" =~ "stopped" ]]; then
         printf "Start shardeum node and wait 5 minutes\n"
