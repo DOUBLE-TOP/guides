@@ -51,7 +51,6 @@ function eof_docker_compose {
         "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
         "--rpc-cors", "all",
         "--rpc-methods", "safe",
-        "--dsn-disable-private-ips",
         "--no-private-ipv4",
         "--validator",
         "--name", "$SUBSPACE_NODENAME",
