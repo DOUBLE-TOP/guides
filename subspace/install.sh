@@ -47,8 +47,8 @@ function read_wallet {
 }
 
 function get_vars {
-  export CHAIN="gemini-3e"
-  export RELEASE="gemini-3e-2023-jul-03"
+  export CHAIN="gemini-3f"
+  export RELEASE="gemini-3f-2023-aug-22"
 }
 
 function eof_docker_compose {
