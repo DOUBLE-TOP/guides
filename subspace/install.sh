@@ -97,9 +97,8 @@ function eof_docker_compose {
         - "0.0.0.0:32533:30533"
       restart: unless-stopped
       command: [
-        "--base-path", "/var/subspace",
+        # "--base-path", "/var/subspace",
         "farm",
-        "--disable-private-ips",
         "--node-rpc-url", "ws://node:9944",
         "--listen-on", "/ip4/0.0.0.0/tcp/30533",
         "--reward-address", "$WALLET_ADDRESS",
