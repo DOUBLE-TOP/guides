@@ -5,9 +5,9 @@ source $HOME/.profile
 sudo systemctl stop gear
 /root/gear purge-chain -y
 
-wget https://get.gear.rs/gear-nightly-linux-x86_64.tar.xz
-sudo tar -xvf gear-nightly-linux-x86_64.tar.xz -C /root
-rm gear-nightly-linux-x86_64.tar.xz
+wget https://get.gear.rs/gear-v0.3.1-x86_64-unknown-linux-gnu.tar.xz
+sudo tar -xvf gear-v0.3.1-x86_64-unknown-linux-gnu.tar.xz -C /root
+rm gear-v0.3.1-x86_64-unknown-linux-gnu.tar.xz
 
 
 sudo systemctl start gear
