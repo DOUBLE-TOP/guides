@@ -19,6 +19,8 @@ if [ "$option" = "install" ]; then
     if [ "$confirm" != "0" ]; then
         SUBSPACE_NODENAME=$(dialog --inputbox "Enter node name(without special symbols):" 0 0 "randomnoderunner" --stdout)
         WALLET_ADDRESS=$(dialog --inputbox "Enter your polkadot.js extension address:" 0 0 "st9XHxxxFBxXCExxxxxxxxxyuZgTYjixxxxxxxCpcUq9j" --stdout)
+        export SUBSPACE_NODENAME
+        export WALLET_ADDRESS
         . <(wget -qO- $install)
         cd $HOME
         dialog --title "Installation complete" --msgbox "The installation of $node with option $option was successful! Check your status of node in https://telemetry.subspace.network/#list/0x92e91e657747c41eeabed5129ff51689d2e935b9f6abfbd5dfcb2e1d0d035095" 0 0
