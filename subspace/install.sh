@@ -58,7 +58,7 @@ User=$USER
 Type=simple
 ExecStart=/usr/local/bin/pulsar farm --verbose
 Restart=on-failure
-LimitNOFILE=1048576
+LimitNOFILE=2048576
 
 [Install]
 WantedBy=multi-user.target
