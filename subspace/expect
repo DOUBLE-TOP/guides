@@ -32,10 +32,10 @@ expect "*node name*"
 send "$SUBSPACE_NODENAME\r"
 
 expect "*path for storing farm files*"
-send "/root/.local/share/pulsar/farms\r"
+send "\r"
 
 expect "*path for storing node files*"
-send "/root/.local/share/pulsar/node\r"
+send "\r"
 
 expect "*farm size*"
 send "100.0 GB\r"
