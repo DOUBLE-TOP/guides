@@ -14,12 +14,13 @@ function line {
   echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
 }
 
+function install_tools {
+  sudo apt update && sudo apt install mc wget htop jq git ocl-icd-opencl-dev libopencl-clang-dev libgomp1 expect -y
+}
+
 function get_vars {
-  export CHAIN="gemini-3f"
-  export RELEASE="gemini-3f-2023-aug-25-2"
   export SUBSPACE_NODENAME=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-name" | awk -F\" '{print $4}')
   export WALLET_ADDRESS=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-reward-address" | awk -F\" '{print $4}')
-  export PLOT_SIZE=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-plot-size" | awk -F\" '{print $4}')
 }
 
 function delete_old {
@@ -27,84 +28,56 @@ function delete_old {
   docker volume rm subspace_docker_subspace-farmer subspace_docker_subspace-node &>/dev/null
 }
 
-function eof_docker_compose {
-  mkdir -p $HOME/subspace_docker/
-  sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
-  version: "3.7"
-  services:
-    node:
-      image: ghcr.io/subspace/node:$RELEASE
-      volumes:
-        - node-data:/var/subspace:rw
-      ports:
-        - "0.0.0.0:32333:30333"
-        - "0.0.0.0:32433:30433"
-      restart: unless-stopped
-      command: [
-        "--chain", "$CHAIN",
-        "--base-path", "/var/subspace",
-        "--execution", "wasm",
-        "--blocks-pruning", "archive",
-        "--state-pruning", "archive",
-        "--port", "30333",
-        "--unsafe-rpc-external",
-        "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-        "--rpc-cors", "all",
-        "--rpc-methods", "safe",
-        "--no-private-ipv4",
-        "--validator",
-        "--name", "$SUBSPACE_NODENAME",
-        "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0",
-        "--out-peers", "100"
-      ]
-      healthcheck:
-        timeout: 5s
-        interval: 30s
-        retries: 5
+function init_expect {
+    sudo rm -rf $HOME/.config/pulsar
+    expect <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/expect)
+}
 
-    farmer:
-      depends_on:
-        - node
-      image: ghcr.io/subspace/farmer:$RELEASE
-      volumes:
-        - farmer-data:/var/subspace:rw
-      ports:
-        - "0.0.0.0:32533:30533"
-      restart: unless-stopped
-      command: [
-        # "--base-path", "/var/subspace",
-        "farm",
-        "--node-rpc-url", "ws://node:9944",
-        "--listen-on", "/ip4/0.0.0.0/tcp/30533",
-        "--reward-address", "$WALLET_ADDRESS",
-        "--plot-size", "100G"
-      ]
-  volumes:
-    node-data:
-    farmer-data:
+function systemd {
+  sudo tee <<EOF >/dev/null /etc/systemd/system/subspace.service
+[Unit]
+Description=Subspace Node
+After=network.target
+
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/local/bin/pulsar farm --verbose
+Restart=on-failure
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
 EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable subspace
+sudo systemctl restart subspace
 }
 
-
-function update_subspace {
-  cd $HOME/subspace_docker/
-  docker-compose down -v
-  eof_docker_compose
-  docker-compose pull
-  docker-compose up -d
+function output_after_install {
+    echo -e '\n\e[42mCheck node status\e[0m\n' && sleep 5
+    if [[ `service subspace status | grep active` =~ "running" ]]; then
+        echo -e "Your Subspace node \e[32minstalled and works\e[39m!"
+        echo -e "You can check node status by the command \e[7mservice subspace status\e[0m"
+        echo -e "Press \e[7mQ\e[0m for exit from status menu"
+    else
+        echo -e "Your Subspace node \e[31mwas not installed correctly\e[39m, please reinstall."
+    fi
 }
 
-colors
-line
-logo
-line
-get_vars
-delete_old
-eof_docker_compose
-update_subspace
-line
-line
-# line
-echo -e "${GREEN}=== Обновление завершено ===${NORMAL}"
-cd $HOME
+function main {
+  colors
+  line
+  logo
+  line
+  install_tools
+  get_vars
+  delete_old
+  init_expect
+  systemd
+  output_after_install
+  line
+}
+
+main

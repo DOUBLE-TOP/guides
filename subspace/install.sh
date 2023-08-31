@@ -10,24 +10,12 @@ function logo {
   curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 }
 
-function line_1 {
-  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
-}
-
-function line_2 {
-  echo -e "${RED}##############################################################################${NORMAL}"
+function line {
+  echo -e "\e[39m##############################################################################\e[0m"
 }
 
 function install_tools {
-  sudo apt update && sudo apt install mc wget htop jq git -y
-}
-
-function install_docker {
-  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash
-}
-
-function install_ufw {
-  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash
+  sudo apt update && sudo apt install mc wget htop jq git ocl-icd-opencl-dev libopencl-clang-dev libgomp1 expect -y
 }
 
 function read_nodename {
@@ -46,117 +34,55 @@ function read_wallet {
   fi
 }
 
-function get_vars {
-  export CHAIN="gemini-3f"
-  export RELEASE="gemini-3f-2023-aug-25-2"
+function init_expect {
+    sudo rm -rf $HOME/.config/pulsar
+    expect <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/expect)
 }
 
-function eof_docker_compose {
-  mkdir -p $HOME/subspace_docker/
-  sudo tee <<EOF >/dev/null $HOME/subspace_docker/docker-compose.yml
-  version: "3.7"
-  services:
-    node:
-      image: ghcr.io/subspace/node:$RELEASE
-      volumes:
-        - node-data:/var/subspace:rw
-      ports:
-        - "0.0.0.0:32333:30333"
-        - "0.0.0.0:32433:30433"
-      restart: unless-stopped
-      command: [
-        "--chain", "$CHAIN",
-        "--base-path", "/var/subspace",
-        "--execution", "wasm",
-        "--blocks-pruning", "archive",
-        "--state-pruning", "archive",
-        "--port", "30333",
-        "--unsafe-rpc-external",
-        "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-        "--rpc-cors", "all",
-        "--rpc-methods", "safe",
-        "--no-private-ipv4",
-        "--validator",
-        "--name", "$SUBSPACE_NODENAME",
-        "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0",
-        "--out-peers", "100"
-      ]
-      healthcheck:
-        timeout: 5s
-        interval: 30s
-        retries: 5
+function systemd {
+  sudo tee <<EOF >/dev/null /etc/systemd/system/subspace.service
+[Unit]
+Description=Subspace Node
+After=network.target
 
-    farmer:
-      depends_on:
-        - node
-      image: ghcr.io/subspace/farmer:$RELEASE
-      volumes:
-        - farmer-data:/var/subspace:rw
-      ports:
-        - "0.0.0.0:32533:30533"
-      restart: unless-stopped
-      command: [
-        # "--base-path", "/var/subspace",
-        "farm",
-        "--node-rpc-url", "ws://node:9944",
-        "--listen-on", "/ip4/0.0.0.0/tcp/30533",
-        "--reward-address", "$WALLET_ADDRESS",
-        "--plot-size", "100G"
-      ]
-  volumes:
-    node-data:
-    farmer-data:
+[Service]
+User=$USER
+Type=simple
+ExecStart=/usr/local/bin/pulsar farm --verbose
+Restart=on-failure
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
 EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable subspace
+sudo systemctl restart subspace
 }
 
-function docker_compose_up {
-  docker-compose -f $HOME/subspace_docker/docker-compose.yml up -d
+function output_after_install {
+    echo -e '\n\e[42mCheck node status\e[0m\n' && sleep 5
+    if [[ `service subspace status | grep active` =~ "running" ]]; then
+        echo -e "Your Subspace node \e[32minstalled and works\e[39m!"
+        echo -e "You can check node status by the command \e[7mservice subspace status\e[0m"
+        echo -e "Press \e[7mQ\e[0m for exit from status menu"
+    else
+        echo -e "Your Subspace node \e[31mwas not installed correctly\e[39m, please reinstall."
+    fi
 }
 
-function echo_info {
-  echo -e "${GREEN}Для остановки ноды и фармера subspace: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml down \n ${NORMAL}"
-  echo -e "${GREEN}Для запуска ноды и фармера subspace: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml up -d \n ${NORMAL}"
-  echo -e "${GREEN}Для перезагрузки ноды subspace: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml restart node \n ${NORMAL}"
-  echo -e "${GREEN}Для перезагрузки фармера subspace: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml restart farmer \n ${NORMAL}"
-  echo -e "${GREEN}Для проверки логов ноды выполняем команду: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml logs -f --tail=100 node \n ${NORMAL}"
-  echo -e "${GREEN}Для проверки логов фармера выполняем команду: ${NORMAL}"
-  echo -e "${RED}   docker-compose -f $HOME/subspace_docker/docker-compose.yml logs -f --tail=100 farmer \n ${NORMAL}"
+function main {
+    colors
+    line
+    logo
+    line
+    read_nodename
+    read_wallet
+    install_tools
+    init_expect
+    systemd
+    output_after_install
 }
 
-function delete_old {
-  docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v &>/dev/null
-  docker volume rm subspace_docker_subspace-farmer subspace_docker_subspace-node &>/dev/null
-}
-
-colors
-line_1
-logo
-line_2
-read_nodename
-line_2
-read_wallet
-line_2
-echo -e "Установка tools, ufw, docker"
-line_1
-install_tools
-install_ufw
-install_docker
-get_vars
-delete_old
-line_1
-echo -e "Создаем docker-compose файл"
-line_1
-eof_docker_compose
-line_1
-echo -e "Запускаем docker контейнеры для node and farmer Subspace"
-line_1
-docker_compose_up
-line_2
-echo_info
-line_2
+main

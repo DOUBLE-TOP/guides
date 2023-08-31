@@ -1,0 +1,46 @@
+#!/usr/bin/expect
+
+# Установка переменных
+set timeout -1
+
+# Извлечение значений из переменных окружения
+set WALLET_ADDRESS [exec env | grep WALLET_ADDRESS | cut -d= -f2]
+set SUBSPACE_NODENAME [exec env | grep SUBSPACE_NODENAME | cut -d= -f2]
+
+# Проверка, установлены ли переменные
+if { $WALLET_ADDRESS == "" } {
+    puts "Ошибка: SUBSPACE_WALLET не установлена"
+    exit 1
+}
+
+if { $SUBSPACE_NODENAME == "" } {
+    puts "Ошибка: SUBSPACE_NODENAME не установлена"
+    exit 1
+}
+
+# Запуск команды
+spawn /usr/local/bin/pulsar init
+
+# Ответы на вопросы
+expect "*farmer/reward address*"
+send "y\r"
+
+expect "*your farmer/reward address:*"
+send "$WALLET_ADDRESS\r"
+
+expect "*node name*"
+send "$SUBSPACE_NODENAME\r"
+
+expect "*path for storing farm files*"
+send "/root/.local/share/pulsar/farms\r"
+
+expect "*path for storing node files*"
+send "/root/.local/share/pulsar/node\r"
+
+expect "*farm size*"
+send "100.0 GB\r"
+
+expect "*Specify the chain to farm*"
+send "Gemini3f\r"
+
+expect eof
