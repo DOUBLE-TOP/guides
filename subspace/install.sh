@@ -18,11 +18,18 @@ function install_tools {
   sudo apt update && sudo apt install mc wget htop jq git ocl-icd-opencl-dev libopencl-clang-dev libgomp1 expect -y
 }
 
+function wget_pulsar {
+    wget -O pulsar https://github.com/subspace/pulsar/releases/download/v0.6.4-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.4-alpha 
+    sudo chmod +x pulsar
+    sudo mv pulsar /usr/local/bin/
+}
+
 function read_nodename {
   if [ ! $SUBSPACE_NODENAME ]; then
   echo -e "Enter your node name(random name for telemetry)"
   line
   read SUBSPACE_NODENAME
+  export SUBSPACE_NODENAME
   fi
 }
 
@@ -31,6 +38,7 @@ function read_wallet {
   echo -e "Enter your polkadot.js extension address"
   line
   read WALLET_ADDRESS
+  export WALLET_ADDRESS
   fi
 }
 
@@ -80,6 +88,7 @@ function main {
     read_nodename
     read_wallet
     install_tools
+    wget_pulsar
     init_expect
     systemd
     output_after_install

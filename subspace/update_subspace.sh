@@ -18,6 +18,12 @@ function install_tools {
   sudo apt update && sudo apt install mc wget htop jq git ocl-icd-opencl-dev libopencl-clang-dev libgomp1 expect -y
 }
 
+function wget_pulsar {
+    wget -O pulsar https://github.com/subspace/pulsar/releases/download/v0.6.4-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.4-alpha 
+    sudo chmod +x pulsar
+    sudo mv pulsar /usr/local/bin/
+}
+
 function get_vars {
   export SUBSPACE_NODENAME=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-name" | awk -F\" '{print $4}')
   export WALLET_ADDRESS=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-reward-address" | awk -F\" '{print $4}')
@@ -72,6 +78,7 @@ function main {
   logo
   line
   install_tools
+  wget_pulsar
   get_vars
   delete_old
   init_expect
