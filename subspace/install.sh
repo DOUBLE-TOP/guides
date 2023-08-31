@@ -21,7 +21,7 @@ function install_tools {
 function read_nodename {
   if [ ! $SUBSPACE_NODENAME ]; then
   echo -e "Enter your node name(random name for telemetry)"
-  line_1
+  line
   read SUBSPACE_NODENAME
   fi
 }
@@ -29,7 +29,7 @@ function read_nodename {
 function read_wallet {
   if [ ! $WALLET_ADDRESS ]; then
   echo -e "Enter your polkadot.js extension address"
-  line_1
+  line
   read WALLET_ADDRESS
   fi
 }
