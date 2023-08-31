@@ -30,7 +30,8 @@ cd $HOME
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/sepolia.sh)
 
 ip_addr=$(curl -s ifconfig.me)
-sed -i "s/L1_RPC_ENDPOINT=.*/L1_RPC_ENDPOINT=http:\/\/$ip_addr:58545/" $HOME/kroma-up/.env
+sed -i "s|KROMA_NODE__L1_RPC_ENDPOINT=.*|KROMA_NODE__L1_RPC_ENDPOINT=http:\/\/$ip_addr:58545|" $HOME/kroma-up/.env
+sed -i "s|KROMA_VALIDATOR__L1_RPC_ENDPOINT=.*|KROMA_VALIDATOR__L1_RPC_ENDPOINT=ws:\/\/$ip_addr:58546|" $HOME/kroma-up/.env
 sed -i "s|KROMA_VALIDATOR__PRIVATE_KEY=.*|KROMA_VALIDATOR__PRIVATE_KEY=$KROMA_KEY|" $HOME/kroma-up/.env
 sed -i 's/--circuitparams.maxtxs = 0 \\/--circuitparams.maxtxs=0 \\/' $HOME/kroma-up/scripts/entrypoint.sh
 sed -i '/- kroma-geth/!b;n;/user: root/!a\    user: root' $HOME/kroma-up/docker-compose.yml
