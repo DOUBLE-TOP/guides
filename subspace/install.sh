@@ -22,6 +22,7 @@ function wget_pulsar {
     wget -O pulsar https://github.com/subspace/pulsar/releases/download/v0.6.4-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.4-alpha 
     sudo chmod +x pulsar
     sudo mv pulsar /usr/local/bin/
+    sleep 1
 }
 
 function read_nodename {
@@ -30,6 +31,7 @@ function read_nodename {
   line
   read SUBSPACE_NODENAME
   export SUBSPACE_NODENAME
+  sleep 1
   fi
 }
 
@@ -39,6 +41,7 @@ function read_wallet {
   line
   read WALLET_ADDRESS
   export WALLET_ADDRESS
+  sleep 1
   fi
 }
 
