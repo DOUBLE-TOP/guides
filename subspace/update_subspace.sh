@@ -57,9 +57,9 @@ sudo systemctl restart subspace
 
 function output_after_install {
     echo -e '\n\e[42mCheck node status\e[0m\n' && sleep 5
-    if [[ `service subspace status | grep active` =~ "running" ]]; then
+    if [[ `systemctl status subspace | grep active` =~ "running" ]]; then
         echo -e "Your Subspace node \e[32minstalled and works\e[39m!"
-        echo -e "You can check node status by the command \e[7mservice subspace status\e[0m"
+        echo -e "You can check node status by the command \e[7msystemctl status subspace\e[0m"
         echo -e "Press \e[7mQ\e[0m for exit from status menu"
     else
         echo -e "Your Subspace node \e[31mwas not installed correctly\e[39m, please reinstall."
