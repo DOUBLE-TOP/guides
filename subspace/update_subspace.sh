@@ -32,6 +32,7 @@ function get_vars {
 function delete_old {
   docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v &>/dev/null
   docker volume rm subspace_docker_subspace-farmer subspace_docker_subspace-node &>/dev/null
+  rm -rf $HOME/subspace_docker
 }
 
 function init_expect {
