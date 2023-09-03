@@ -21,7 +21,7 @@ case $LEVEL in
     URL="https://github.com/subspace/pulsar/releases/download/v0.6.5-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.5-alpha"
     ;;
   *)
-    echo "https://github.com/subspace/pulsar/releases/download/v0.6.5-alpha/pulsar-ubuntu-x86_64-v2-v0.6.5-alpha"
+    URL="https://github.com/subspace/pulsar/releases/download/v0.6.5-alpha/pulsar-ubuntu-x86_64-v2-v0.6.5-alpha"
     ;;
 esac
 
@@ -30,4 +30,4 @@ wget -O pulsar $URL
 sudo chmod +x pulsar
 sudo mv pulsar /usr/local/bin/
 
-sudo systemctl start subspace
+sudo systemctl restart subspace
