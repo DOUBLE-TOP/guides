@@ -3,7 +3,7 @@
 # Останавливаем сервис subspace
 sudo systemctl stop subspace
 
-# Определение уровня поддержки процессора
+# Определение уровня поддержки процессора. Спасибо за кусочек кода https://raw.githubusercontent.com/yurally/subspace/main/subspace_cli.sh
 LEVEL=$(awk '
 BEGIN {
     while (!/flags/) if (getline < "/proc/cpuinfo" != 1) exit 1
