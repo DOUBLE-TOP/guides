@@ -5,6 +5,7 @@ option=$2
 
 install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/install.sh"
 update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/update_subspace.sh"
+update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/migrate.sh"
 
 confirm=$(dialog --clear --stdout --yesno "Do you want to install $node with option $option?" 0 0)
 
@@ -31,10 +32,19 @@ elif [ "$option" = "update" ]; then
         cd $HOME
         dialog --title "Update complete" --msgbox "The updating of $node was successful! Check your status of node in https://telemetry.subspace.network/#list/0x92e91e657747c41eeabed5129ff51689d2e935b9f6abfbd5dfcb2e1d0d035095" 0 0
     fi
+elif [ "$option" = "migrate" ]; then
+    if [ "$confirm" != "0" ]; then
+        . <(wget -qO- $update)
+        cd $HOME
+        dialog --title "Update complete" --msgbox "The updating of $node was successful! Check your status of node in https://telemetry.subspace.network/#list/0x92e91e657747c41eeabed5129ff51689d2e935b9f6abfbd5dfcb2e1d0d035095" 0 0
+    fi
 elif [ "$option" = "delete" ]; then
     if [ "$confirm" != "0" ]; then
-        docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v
-        rm -rf $HOME/subspace*
+        sudo systemctl stop subspace
+        sudo systemctl disable subspace
+        rm -rf $HOME/.local/share/pulsar/farms
+        rm -rf $HOME/.local/share/pulsar/node
+        rm -rf $HOME/.config/pulsar/
         dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
 else
