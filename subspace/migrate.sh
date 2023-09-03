@@ -11,7 +11,7 @@ function logo {
 }
 
 function line {
-  echo -e "\e[39m##############################################################################\e[0m"
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
 }
 
 function install_tools {
@@ -22,27 +22,17 @@ function wget_pulsar {
     wget -O pulsar https://github.com/subspace/pulsar/releases/download/v0.6.5-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.5-alpha 
     sudo chmod +x pulsar
     sudo mv pulsar /usr/local/bin/
-    sleep 1
 }
 
-function read_nodename {
-  if [ ! $SUBSPACE_NODENAME ]; then
-  echo -e "Enter your node name(random name for telemetry)"
-  line
-  read SUBSPACE_NODENAME
-  export SUBSPACE_NODENAME
-  sleep 1
-  fi
+function get_vars {
+  export SUBSPACE_NODENAME=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-name" | awk -F\" '{print $4}')
+  export WALLET_ADDRESS=$(cat $HOME/subspace_docker/docker-compose.yml | grep "\-\-reward-address" | awk -F\" '{print $4}')
 }
 
-function read_wallet {
-  if [ ! $WALLET_ADDRESS ]; then
-  echo -e "Enter your polkadot.js extension address"
-  line
-  read WALLET_ADDRESS
-  export WALLET_ADDRESS
-  sleep 1
-  fi
+function delete_old {
+  docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v &>/dev/null
+  docker volume rm subspace_docker_subspace-farmer subspace_docker_subspace-node &>/dev/null
+  rm -rf $HOME/subspace_docker
 }
 
 function init_expect {
@@ -61,7 +51,7 @@ User=$USER
 Type=simple
 ExecStart=/usr/local/bin/pulsar farm --verbose
 Restart=on-failure
-LimitNOFILE=548576:1048576
+LimitNOFILE=1048576
 
 [Install]
 WantedBy=multi-user.target
@@ -84,17 +74,18 @@ function output_after_install {
 }
 
 function main {
-    colors
-    line
-    logo
-    line
-    read_nodename
-    read_wallet
-    install_tools
-    wget_pulsar
-    init_expect
-    systemd
-    output_after_install
+  colors
+  line
+  logo
+  line
+  install_tools
+  wget_pulsar
+  get_vars
+  delete_old
+  init_expect
+  systemd
+  output_after_install
+  line
 }
 
 main
