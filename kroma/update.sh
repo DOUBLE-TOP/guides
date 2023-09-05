@@ -29,3 +29,4 @@ sed -i 's/--circuitparams.maxtxs = 0 \\/--circuitparams.maxtxs=0 \\/' $HOME/krom
 sed -i '/- kroma-geth/!b;n;/user: root/!a\    user: root' $HOME/kroma-up/docker-compose.yml
 
 docker-compose --profile validator up -d
+bash $HOME/kroma-up/sync_block.sh sepolia &
