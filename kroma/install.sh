@@ -28,7 +28,7 @@ sudo wget -O /usr/bin/docker-compose "https://github.com/docker/compose/releases
 sudo chmod +x /usr/bin/docker-compose
 cd $HOME
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/sepolia.sh)
-
+cp .env.sepolia .env
 ip_addr=$(curl -s ifconfig.me)
 sed -i "s|KROMA_NODE__L1_RPC_ENDPOINT=.*|KROMA_NODE__L1_RPC_ENDPOINT=http:\/\/$ip_addr:58545|" $HOME/kroma-up/.env
 sed -i "s|KROMA_VALIDATOR__L1_RPC_ENDPOINT=.*|KROMA_VALIDATOR__L1_RPC_ENDPOINT=ws:\/\/$ip_addr:58546|" $HOME/kroma-up/.env
@@ -39,7 +39,7 @@ sed -i '/- kroma-geth/!b;n;/user: root/!a\    user: root' $HOME/kroma-up/docker-
 source $HOME/kroma-up/.env
 cd $HOME/kroma-up/ && docker-compose --profile validator up -d
 
-bash $HOME/kroma-up/sync_block.sh
+bash $HOME/kroma-up/sync_block.sh sepolia
 
 echo "-----------------------------------------------------------------------------"
 echo "Нода запущена. Переходите к следующему разделу для депозита в своего валидатора"
