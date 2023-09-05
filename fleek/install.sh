@@ -46,6 +46,9 @@ StandardError=append:/var/log/lightning/diagnostic.log
 WantedBy=multi-user.target
 EOF
 
+
+mkdir -p /var/log/lightning/
+
 sudo systemctl daemon-reload
 sudo systemctl enable lgtn
 sudo systemctl restart lgtn
