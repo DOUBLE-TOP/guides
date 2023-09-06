@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Defaults
-defaultName="lgnt"
+defaultName="lgtn"
 defaultLightningLogPath="/var/log/lightning"
 defaultLightningDiagnosticFilename="diagnostic.log"
 defaultLightningOutputFilename="output.log"

@@ -10,7 +10,7 @@ function install_rust {
 # function source_lightning {
 #   git clone -b testnet-alpha-0 https://github.com/fleek-network/lightning.git
 #   cd $HOME/lightning
-#   cargo clean
+#   cargo clean && cargo update && cargo build
 #   cargo update
 #   cargo build
 # }
