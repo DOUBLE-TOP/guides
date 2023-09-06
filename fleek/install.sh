@@ -7,20 +7,29 @@ function install_rust {
   sleep 1
 }
 
-function source_lightning {
-  git clone -b testnet-alpha-0 https://github.com/fleek-network/lightning.git
-  cd $HOME/lightning
-  cargo clean
-  cargo update
-  cargo build
-}
+# function source_lightning {
+#   git clone -b testnet-alpha-0 https://github.com/fleek-network/lightning.git
+#   cd $HOME/lightning
+#   cargo clean
+#   cargo update
+#   cargo build
+# }
 
-function symlink {
-  sudo ln -sf "$HOME/lightning/target/debug/lightning-node" /usr/local/bin/lgtn
+# function symlink {
+#   sudo ln -sf "$HOME/lightning/target/debug/lightning-node" /usr/local/bin/lgtn
+# }
+
+function wget_bin {
+  wget -O /usr/local/bin/lgtn https://doubletop-bin.ams3.digitaloceanspaces.com/fleek/testnet-alpha-0/lightning-node
+  chmod +x /usr/local/bin/lgtn
 }
 
 function generate_keys {
-  lgtn keys generate
+  if [ ! -d "$HOME/.lightning/keystore/" ]; then
+    lgtn keys generate
+  else
+    echo "Keys already generated. Skipping key generation."
+  fi
 }
 
 function config {
@@ -56,8 +65,9 @@ sudo systemctl restart lgtn
 
 function main {
   install_rust
-  source_lightning
-  symlink
+  # source_lightning
+  # symlink
+  wget_bin
   generate_keys
   config
   systemd
