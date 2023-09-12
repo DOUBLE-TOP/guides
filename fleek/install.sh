@@ -56,6 +56,7 @@ Restart=always
 ExecStart=lgtn -c $HOME/lightning/lightning.toml run
 StandardOutput=append:/var/log/lightning/output.log
 StandardError=append:/var/log/lightning/diagnostic.log
+Environment=TMPDIR=/var/tmp
 
 [Install]
 WantedBy=multi-user.target
