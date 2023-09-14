@@ -29,6 +29,7 @@ if [ "$option" = "install" ]; then
 elif [ "$option" = "update" ]; then
     if [ "$confirm" != "0" ]; then
         . <(wget -qO- $update)
+        truncate -s 0 $HOME/.local/share/pulsar/logs/*.log*
         cd $HOME
         dialog --title "Update complete" --msgbox "The updating of $node was successful! Check your status of node in https://telemetry.subspace.network/#list/0x92e91e657747c41eeabed5129ff51689d2e935b9f6abfbd5dfcb2e1d0d035095" 0 0
     fi
