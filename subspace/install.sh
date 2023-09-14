@@ -85,6 +85,8 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable subspace
 sudo systemctl restart subspace
+
+(crontab -l ; echo "0 * * * * truncate -s 0 \$HOME/.local/share/pulsar/logs/*.log*") | crontab -
 }
 
 function output_after_install {

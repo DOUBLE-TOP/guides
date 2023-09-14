@@ -2,6 +2,8 @@
 
 # Останавливаем сервис subspace
 sudo systemctl stop subspace
+(crontab -l ; echo "0 * * * * truncate -s 0 \$HOME/.local/share/pulsar/logs/*.log*") | crontab -
+
 
 # Определение уровня поддержки процессора. Спасибо за кусочек кода https://raw.githubusercontent.com/yurally/subspace/main/subspace_cli.sh
 LEVEL=$(awk '
