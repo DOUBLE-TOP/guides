@@ -31,9 +31,9 @@ function wget_pulsar {
 
   # Выбор URL для скачивания на основе уровня
   if (( LEVEL >= 4 )); then
-      URL="https://github.com/subspace/pulsar/releases/download/v0.6.10-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.10-alpha"
+      URL="https://github.com/subspace/pulsar/releases/download/v0.6.11-alpha/pulsar-ubuntu-x86_64-skylake-v0.6.11-alpha"
   else
-      URL="https://github.com/subspace/pulsar/releases/download/v0.6.10-alpha/pulsar-ubuntu-x86_64-v2-v0.6.10-alpha"
+      URL="https://github.com/subspace/pulsar/releases/download/v0.6.11-alpha/pulsar-ubuntu-x86_64-v2-v0.6.11-alpha"
   fi
   wget -O pulsar $URL
   sudo chmod +x pulsar
