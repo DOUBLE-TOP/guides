@@ -10,4 +10,5 @@ sudo -u casper casper-client put-deploy \
 --chain-name "$CHAIN_NAME" \
 --session-path /opt/activate_bid.wasm \
 --payment-amount 30000000000 \
---session-arg "validator_public_key:public_key='$(cat /etc/casper/validator_keys/public_key_hex)'"
+--session-arg "validator_public_key:public_key='$(cat /etc/casper/validator_keys/public_key_hex)'" \
+--node-address "http://127.0.0.1:7777/"
