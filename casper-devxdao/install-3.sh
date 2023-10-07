@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sudo apt update && sudo apt upgrade -y
+sudo cp $HOME/casper-node/target/wasm32-unknown-unknown/release/add_bid.wasm /opt
+sudo chown casper.casper /opt/add_bid.wasm
 
 PUBLIC_KEY_HEX=$(sudo -u casper cat /etc/casper/validator_keys/public_key_hex)
 STATE_ROOT_HASH=$(casper-client get-state-root-hash --node-address http://127.0.0.1:7777 | jq -r '.result | .state_root_hash')
@@ -16,7 +17,6 @@ sudo -u casper casper-client put-deploy \
     --secret-key "/etc/casper/validator_keys/secret_key.pem" \
     --session-path "/opt/add_bid.wasm" \
     --payment-amount 10000000000 \
-    --gas-price=1 \
     --session-arg=public_key:"public_key='$PUBLIC_KEY_HEX'" \
-    --session-arg=amount:"u512='900000000000'" \
+    --session-arg=amount:"u512='800000000000'" \
     --session-arg=delegation_rate:"u8='10'"
