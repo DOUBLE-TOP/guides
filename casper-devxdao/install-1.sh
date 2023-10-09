@@ -44,7 +44,7 @@ BRANCH="1.0.20" \
 cd ~
 git clone https://github.com/casper-network/casper-node
 cd casper-node/
-git checkout release-1.4.13
+git checkout release-1.5.2
 make setup-rs
 make build-client-contracts -j
 
