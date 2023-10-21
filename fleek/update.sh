@@ -25,6 +25,7 @@ function migrate_data {
     sudo systemctl stop docker-lightning
     rm -rf "$destination_dir/keystore"
     cp -r "$source_dir" "$destination_dir"
+    sudo systemctl start docker-lightning
   fi
 }
 
