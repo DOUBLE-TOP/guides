@@ -41,7 +41,6 @@ function main {
   add_user
   install_docker
   migrate_data
-  chown -R $user.$group /home/
 }
 
 main
