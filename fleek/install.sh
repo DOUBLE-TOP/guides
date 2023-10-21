@@ -1,84 +1,46 @@
 #!/bin/bash
-function install_rust {
-  sudo apt-get update
-  sudo apt-get install build-essential cmake clang pkg-config libssl-dev gcc-multilib protobuf-compiler -y
-  bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh)
-  source ~/.cargo/env
-  sleep 1
+
+function stop_old {
+  sudo systemctl stop lgtn && sudo systemctl disable lgtn && docker rm -f lightning-node  &>/dev/null
 }
 
-# function source_lightning {
-#   git clone -b testnet-alpha-0 https://github.com/fleek-network/lightning.git
-#   cd $HOME/lightning
-#   cargo clean && cargo update && cargo build
-#   cargo update
-#   cargo build
-# }
-
-# function symlink {
-#   sudo ln -sf "$HOME/lightning/target/debug/lightning-node" /usr/local/bin/lgtn
-# }
-
-function libssl {
-  wget http://nz2.archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
-  sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
-  rm -f libssl1.1_1.1.1f-1ubuntu2.19_amd64.deb
+function env {
+  user="lgtn"
+  group="lgtn"
+  source_dir="$HOME/.lightning/keystore"
+  destination_dir="/home/lgtn/.lightning/"
 }
 
-function wget_bin {
-  wget -O /usr/local/bin/lgtn https://doubletop-bin.ams3.digitaloceanspaces.com/fleek/testnet-alpha-0/lightning-node
-  chmod +x /usr/local/bin/lgtn
+function add_user {
+  useradd -m $user -s /bin/bash &>/dev/null
+  sudo usermod -aG docker $user &>/dev/null
+  sudo usermod -aG sudo $user &>/dev/null
+  echo "$user ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers  &>/dev/null
+
 }
 
-function generate_keys {
-  if [ ! -d "$HOME/.lightning/keystore/" ]; then
-    lgtn keys generate
-  else
-    echo "Keys already generated. Skipping key generation."
+function migrate_data {
+  if [ -d "$source_dir" ]; then
+    echo "✨ Wait 2 minutes after start"
+    sudo systemctl stop docker-lightning
+    rm -rf "$destination_dir/keystore"
+    cp -r "$source_dir" "$destination_dir"
+    chown -R $user.$group $destination_dir
+    sudo systemctl start docker-lightning
   fi
 }
 
-function config {
-  sed -i 's/testnet = .*/testnet = true/' $HOME/.lightning/config.toml
-}
 
-function systemd {
-  sudo tee <<EOF >/dev/null /etc/systemd/system/lgtn.service
-[Unit]
-Description=Fleek Network Node lightning service
-
-[Service]
-User=$USER
-Type=simple
-MemoryHigh=32G
-RestartSec=15s
-Restart=always
-ExecStart=lgtn -c $HOME/lightning/lightning.toml run
-StandardOutput=append:/var/log/lightning/output.log
-StandardError=append:/var/log/lightning/diagnostic.log
-Environment=TMPDIR=/var/tmp
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-
-mkdir -p /var/log/lightning/
-
-sudo systemctl daemon-reload
-sudo systemctl enable lgtn
-sudo systemctl restart lgtn
+function install_docker {
+  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/fleek-network/get.fleek.network/main/scripts/install_docker)'
 }
 
 function main {
-  install_rust
-  # source_lightning
-  # symlink
-  libssl
-  wget_bin
-  generate_keys
-  config
-  systemd
+  env
+  stop_old
+  add_user
+  install_docker
+  migrate_data
 }
 
 main
