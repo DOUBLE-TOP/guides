@@ -25,9 +25,9 @@ function migrate_data {
     sudo systemctl stop docker-lightning
     rm -rf "$destination_dir/keystore"
     cp -r "$source_dir" "$destination_dir"
-    chown -R $user.$group $destination_dir
     sudo systemctl start docker-lightning
   fi
+  chown -R $user.$group $destination_dir
 }
 
 
@@ -41,6 +41,7 @@ function main {
   add_user
   install_docker
   migrate_data
+  chown -R $user.$group /home/
 }
 
 main
