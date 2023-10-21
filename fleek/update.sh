@@ -1,37 +1,46 @@
 #!/bin/bash
 
-function systemd {
-  sudo tee <<EOF >/dev/null /etc/systemd/system/lgtn.service
-[Unit]
-Description=Fleek Network Node lightning service
-
-[Service]
-User=$USER
-Type=simple
-MemoryHigh=32G
-RestartSec=15s
-Restart=always
-ExecStart=lgtn -c $HOME/lightning/lightning.toml run
-StandardOutput=append:/var/log/lightning/output.log
-StandardError=append:/var/log/lightning/diagnostic.log
-Environment=TMPDIR=/var/tmp
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-
-mkdir -p /var/log/lightning/
-
-sudo systemctl daemon-reload
-sudo systemctl enable lgtn
-sudo systemctl restart lgtn
+function stop_old {
+  sudo systemctl stop lgtn && sudo systemctl disable lgtn && docker rm -f lightning-node  &>/dev/null
 }
 
-sudo systemctl stop lgtn
+function env {
+  user="lgtn"
+  group="lgtn"
+  source_dir="$HOME/.lightning/keystore"
+  destination_dir="/home/lgtn/.lightning/"
+}
 
-wget -O /usr/local/bin/lgtn https://doubletop-bin.ams3.digitaloceanspaces.com/fleek/testnet-alpha-0/lightning-node
+function add_user {
+  useradd -m $user -s /bin/bash &>/dev/null
+  sudo usermod -aG docker $user &>/dev/null
+  sudo usermod -aG sudo $user &>/dev/null
+  echo "$user ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers  &>/dev/null
 
-chmod +x /usr/local/bin/lgtn
+}
 
-systemd
+function migrate_data {
+  if [ -d "$source_dir" ]; then
+    echo "✨ Wait 2 minutes after start"
+    sudo systemctl stop docker-lightning
+    rm -rf "$destination_dir/keystore"
+    cp -r "$source_dir" "$destination_dir"
+    chown -R $user.$group $destination_dir
+    sudo systemctl start docker-lightning
+  fi
+}
+
+
+function install_docker {
+  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/fleek-network/get.fleek.network/main/scripts/install_docker)'
+}
+
+function main {
+  env
+  stop_old
+  add_user
+  install_docker
+  migrate_data
+}
+
+main
