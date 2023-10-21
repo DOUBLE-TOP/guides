@@ -25,14 +25,13 @@ function migrate_data {
     sudo systemctl stop docker-lightning
     rm -rf "$destination_dir/keystore"
     cp -r "$source_dir" "$destination_dir"
-    sudo systemctl start docker-lightning
   fi
-  chown -R $user.$group $destination_dir
 }
 
 
 function install_docker {
   sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/fleek-network/get.fleek.network/main/scripts/install_docker)'
+  sleep 10
 }
 
 function main {
