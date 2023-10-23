@@ -286,7 +286,7 @@ hasFreePortRange() {
   echo
 
   # Check if system has recommended resources (disk space and memory)
-  checkSystemHasRecommendedResources "$os"
+#   checkSystemHasRecommendedResources "$os"
 
   # Warning for root users
   if [[ "$EUID" -eq 0 ]]; then
