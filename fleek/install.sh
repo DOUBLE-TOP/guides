@@ -31,7 +31,7 @@ function migrate_data {
 
 
 function install_docker {
-  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/fleek-network/get.fleek.network/main/scripts/install_docker)'
+  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/fleek/install_docker.sh)'
   sleep 10
 }
 
