@@ -1,13 +1,15 @@
 #!/bin/bash
 
 function stop_old {
-  sudo systemctl stop lgtn && sudo systemctl disable lgtn && docker rm -f lightning-node  &>/dev/null
+  sudo systemctl stop lgtn  &>/dev/null
+  sudo systemctl disable lgtn  &>/dev/null
+  docker rm -f lightning-node  &>/dev/null
 }
 
 function env {
   user="lgtn"
   group="lgtn"
-  source_dir="$HOME/.lightning/keystore"
+  source_dir="$HOME/.lightning/"
   destination_dir="/home/lgtn/.lightning/"
 }
 
@@ -23,7 +25,7 @@ function migrate_data {
   if [ -d "$source_dir" ]; then
     echo "✨ Wait 2 minutes...migrating data"
     sudo systemctl stop docker-lightning
-    rm -rf "$destination_dir/keystore"
+    rm -rf "$destination_dir"
     cp -r "$source_dir" "$destination_dir"
   fi
   sudo systemctl restart docker-lightning
@@ -31,7 +33,7 @@ function migrate_data {
 
 
 function install_docker {
-  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/fleek-network/get.fleek.network/main/scripts/install_docker)'
+  sudo -u $user bash -c 'bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/fleek/install_docker.sh)'
   sleep 10
 }
 
