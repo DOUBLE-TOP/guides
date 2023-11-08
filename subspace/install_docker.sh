@@ -153,6 +153,8 @@ read_nodename
 line_2
 read_wallet
 line_2
+plot_size
+line_2
 echo -e "Установка tools, ufw, docker"
 line_1
 install_tools
