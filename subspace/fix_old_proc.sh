@@ -7,6 +7,7 @@ FILE="$HOME/subspace_docker/docker-compose.yml"
 if [ -f "$FILE" ]; then
     # Используем awk для обработки файла
     awk '/gemini-3g-2023-nov-07/ && !/-aarch64/ {print $0 "-aarch64"} !/gemini-3g-2023-nov-07/ || /-aarch64/ {print}' "$FILE" > temp.yml && mv temp.yml "$FILE"
+    docker-compose -f $FILE up -d
     echo "Обновления были применены."
 else
     echo "Файл $FILE не существует."
