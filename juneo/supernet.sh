@@ -27,6 +27,8 @@ node_id=$(curl -s -X POST --data '{
 sed -i "s/const nodeId: string = 'NodeID-B2GHMQ8GF6FyrvmPUX6miaGeuVLH9UwHr'/const nodeId: string = '$node_id'/g" ./src/supernet/addSupernetValidator.ts
 sed -i "s/const supernetId: string = 'ZxTjijy4iNthRzuFFzMH5RS2BgJemYxwgZbzqzEhZJWqSnwhP'/const supernetId: string = '$supernet_id'/g" ./src/supernet/addSupernetValidator.ts
 
+npx ts-node ./src/supernet/addSupernetValidator.ts
+
 sudo tee <<EOF >/dev/null $HOME/.juneogo/supernet_config.json
 {
  "track-supernets":"$supernet_id"
