@@ -3,7 +3,7 @@
 node=$1
 option=$2
 
-install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/install.sh"
+install="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/install_docker.sh"
 update="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/update_subspace.sh"
 migrate="https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/migrate.sh"
 
