@@ -88,7 +88,7 @@ function eof_docker_compose {
           "--rpc-external",
           "--no-private-ipv4",
           "--validator",
-          "--name", "subspace"
+          "--name", "$SUBSPACE_NODENAME"
         ]
       healthcheck:
         timeout: 5s
