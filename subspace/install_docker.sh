@@ -46,9 +46,17 @@ function read_wallet {
   fi
 }
 
+function plot_size {
+  if [ ! $PLOT_SIZE ]; then
+  echo -e "Enter your plot size(default is 100G)"
+  line_1
+  read PLOT_SIZE
+  fi
+}
+
 function get_vars {
-  export CHAIN="gemini-3f"
-  export RELEASE="gemini-3f-2023-aug-25-2"
+  export CHAIN="gemini-3g"
+  export RELEASE="gemini-3g-2023-nov-07"
 }
 
 function eof_docker_compose {
@@ -61,52 +69,55 @@ function eof_docker_compose {
       volumes:
         - node-data:/var/subspace:rw
       ports:
-        - "0.0.0.0:32333:30333"
-        - "0.0.0.0:32433:30433"
+        - "0.0.0.0:32333:30333/udp"
+        - "0.0.0.0:32333:30333/tcp"
+        - "0.0.0.0:32433:30433/udp"
+        - "0.0.0.0:32433:30433/tcp"
       restart: unless-stopped
-      command: [
-        "--chain", "$CHAIN",
-        "--base-path", "/var/subspace",
-        "--execution", "wasm",
-        "--blocks-pruning", "archive",
-        "--state-pruning", "archive",
-        "--port", "30333",
-        "--unsafe-rpc-external",
-        "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-        "--rpc-cors", "all",
-        "--rpc-methods", "safe",
-        "--no-private-ipv4",
-        "--validator",
-        "--name", "$SUBSPACE_NODENAME",
-        "--telemetry-url", "wss://telemetry.subspace.network/submit 0",
-        "--telemetry-url", "wss://telemetry.doubletop.io/submit 0",
-        "--out-peers", "100"
-      ]
+      command:
+        [
+          "--chain", "$CHAIN",
+          "--base-path", "/var/subspace",
+          "--blocks-pruning", "256",
+          "--state-pruning", "archive-canonical",
+          "--port", "30333",
+          "--dsn-listen-on", "/ip4/0.0.0.0/udp/30433/quic-v1",
+          "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
+          "--rpc-cors", "all",
+          "--rpc-methods", "unsafe",
+          "--rpc-external",
+          "--no-private-ipv4",
+          "--validator",
+          "--name", "subspace"
+        ]
       healthcheck:
         timeout: 5s
         interval: 30s
-        retries: 5
+        retries: 60
 
     farmer:
       depends_on:
-        - node
+        node:
+          condition: service_healthy
       image: ghcr.io/subspace/farmer:$RELEASE
       volumes:
         - farmer-data:/var/subspace:rw
       ports:
-        - "0.0.0.0:32533:30533"
+        - "0.0.0.0:32533:30533/udp"
+        - "0.0.0.0:32533:30533/tcp"
       restart: unless-stopped
-      command: [
-        # "--base-path", "/var/subspace",
-        "farm",
-        "--node-rpc-url", "ws://node:9944",
-        "--listen-on", "/ip4/0.0.0.0/tcp/30533",
-        "--reward-address", "$WALLET_ADDRESS",
-        "--plot-size", "100G"
-      ]
+      command:
+        [
+          "farm",
+          "--node-rpc-url", "ws://node:9944",
+          "--listen-on", "/ip4/0.0.0.0/udp/30533/quic-v1",
+          "--listen-on", "/ip4/0.0.0.0/tcp/30533",
+          "--reward-address", "$WALLET_ADDRESS",
+          "path=/var/subspace,size=$PLOT_SIZE"
+        ]
   volumes:
     node-data:
-    farmer-data:
+    farmer-data:            
 EOF
 }
 
