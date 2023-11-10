@@ -23,7 +23,7 @@ git clone https://github.com/subspace/subspace
 cd $HOME/subspace
 git checkout d4eba1046a85915bd0481c8d5518c0a3d8ac2449
 
-docker build -t ghcr.io/subspace/node:gemini-3g-2023-nov-09 -f Dockerfile-node.aarch64 .
+docker build -t ghcr.io/subspace/node:gemini-3g-2023-nov-09 -f Dockerfile-node .
 docker build -t ghcr.io/subspace/farmer:gemini-3g-2023-nov-09 -f Dockerfile-farmer .
 
 docker-compose -f $FILE up -d 
