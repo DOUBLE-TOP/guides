@@ -604,8 +604,8 @@ export function registerNodeCommands(program: Command) {
         try {
         gasPrice = await walletWithProvider.getGasPrice();
         } catch (error) {
-        console.error('Error fetching gas price, defaulting to 300');
-        gasPrice = ethers.utils.parseUnits('300', 'gwei');
+        console.error('Error fetching gas price, defaulting to 700');
+        gasPrice = ethers.utils.parseUnits('700', 'gwei');
         }
 
         const [from, nonce] = await Promise.all([
