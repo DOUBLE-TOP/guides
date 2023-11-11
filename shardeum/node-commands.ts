@@ -569,13 +569,17 @@ export function registerNodeCommands(program: Command) {
       }
 
       // Take input from user for PRIVATE KEY
-      let privateKey = await getUserInput('Please enter your private key: ');
+      let privateKey = process.env.PRIVATE_KEY;
       while (
+        !privateKey ||
         privateKey.length !== 64 ||
         !isValidPrivate(Buffer.from(privateKey, 'hex'))
       ) {
-        console.log('Invalid private key entered.');
-        privateKey = await getUserInput('Please enter your private key: ');
+        console.log('Invalid or missing private key in environment variable.');
+        // Here, you should decide how to handle the error.
+        // You might want to exit the program or ask for user input as a fallback.
+        // For now, let's just exit.
+        process.exit(1);
       }
 
       const provider = new ethers.providers.JsonRpcProvider(rpcServer.url);
