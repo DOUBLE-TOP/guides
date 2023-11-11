@@ -600,6 +600,14 @@ export function registerNodeCommands(program: Command) {
       }
 
       try {
+        let gasPrice;
+        try {
+        gasPrice = await walletWithProvider.getGasPrice();
+        } catch (error) {
+        console.error('Error fetching gas price, defaulting to 300');
+        gasPrice = ethers.utils.parseUnits('300', 'gwei');
+        }
+
         const [from, nonce] = await Promise.all([
           walletWithProvider.getAddress(),
           walletWithProvider.getTransactionCount(),
@@ -619,7 +627,7 @@ export function registerNodeCommands(program: Command) {
         const txDetails = {
           from,
           to: '0x0000000000000000000000000000000000000001',
-          gasPrice: 300,
+          gasPrice,
           gasLimit: 30000000,
           value,
           data: ethers.utils.hexlify(
@@ -670,7 +678,8 @@ export function registerNodeCommands(program: Command) {
         return;
       }
 
-      const [from, nonce] = await Promise.all([
+      const [gasPrice, from, nonce] = await Promise.all([
+        walletWithProvider.getGasPrice(),
         walletWithProvider.getAddress(),
         walletWithProvider.getTransactionCount(),
       ]);
@@ -688,7 +697,7 @@ export function registerNodeCommands(program: Command) {
       const txDetails = {
         from,
         to: '0x0000000000000000000000000000000000000001',
-        gasPrice: 300,
+        gasPrice,
         gasLimit: 30000000,
         data: ethers.utils.hexlify(
           ethers.utils.toUtf8Bytes(JSON.stringify(unstakeData))
