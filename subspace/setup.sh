@@ -47,6 +47,8 @@ elif [ "$option" = "delete" ]; then
         rm -rf $HOME/.local/share/pulsar/farms
         rm -rf $HOME/.local/share/pulsar/node
         rm -rf $HOME/.config/pulsar/
+        docker-compose -f $HOME/subspace_docker/docker-compose.yml down -v
+        rm -rf $HOME/subspace_docker/
         dialog --title "delete" --msgbox "$node was successful deleted!" 0 0
     fi
 else
