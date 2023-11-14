@@ -40,7 +40,8 @@ function wget_bin {
 function wget_chainspec {
     echo -e "${GREEN}Скачивание конфигурции сети:${NORMAL}"
     mkdir -p $HOME/.avail && cd $HOME/.avail
-    wget -O $HOME/.avail/config.yaml "https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/avail/config.yaml"
+    wget -O $HOME/.avail/chainspec.raw.json "https://kate.avail.tools/chainspec.raw.json"
+    chmod 744 ~/.avail/chainspec.raw.json
 }
 
 function create_systemd {
@@ -56,8 +57,14 @@ Restart=always
 RestartSec=3
 LimitNOFILE=65535
 ExecStart=/usr/bin/avail \
---config $HOME/.avail/config.yaml \
---network goldberg
+--base-path $HOME/.avail/data/ \
+--chain $HOME/.avail/chainspec.raw.json \
+--port 40333 \
+--rpc-port 49933 \
+--prometheus-port 49615 \
+--validator \
+--name '$AVAIL_NODENAME' \
+--telemetry-url 'wss://telemetry.doubletop.io/submit 0' 
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -68,11 +75,11 @@ sudo systemctl restart avail
 }
 
 function output {
-    # echo -e "${GREEN}Нода установлена, идем проверять себя в телеметрии:${NORMAL}"
-    # echo -e "https://telemetry.doubletop.io/#list/0x44d8eb5c9a339f12e7e453d1c96c9da352b55a6b611eb24cddf6d70e32c36a2b"
+    echo -e "${GREEN}Нода установлена, идем проверять себя в телеметрии:${NORMAL}"
+    echo -e "https://telemetry.doubletop.io/#list/0x44d8eb5c9a339f12e7e453d1c96c9da352b55a6b611eb24cddf6d70e32c36a2b"
     echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "journalctl -n 100 -f -u avail -o cat"
-    echo -e "${GREEN}Для перезапуска выполняем команду:${NORMAL}"
+    echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "sudo systemctl restart avail"
 }
 
