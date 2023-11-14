@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pcli view sync
+pcli view sync &>/dev/null
 
 current_balance=$(pcli view balance | grep penumbra | awk '{ print $2 }' | tr -d 'penumbra' | head -1) &>/dev/null
 dif=10
