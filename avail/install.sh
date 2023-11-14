@@ -86,9 +86,9 @@ function main {
     colors
     logo
     line
-    install_main_tools
-    line
     get_nodename
+    line
+    install_main_tools
     line
     wget_bin
     line
