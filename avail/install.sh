@@ -33,6 +33,7 @@ function wget_bin {
     wget https://github.com/availproject/avail/releases/download/v1.8.0.0/data-avail-linux-amd64.tar.gz
     tar -xvf data-avail-linux-amd64.tar.gz
     sudo mv data-avail-linux-amd64.tar.gz /usr/bin/avail
+    sudo chmod +x /usr/bin/avail
 }
 
 function wget_chainspec {
