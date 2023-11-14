@@ -39,7 +39,7 @@ function wget_bin {
 
 function wget_chainspec {
     echo -e "${GREEN}Скачивание конфигурции сети:${NORMAL}"
-    mkdir -p $HOME/.avail && cd $HOME/.avail
+    mkdir -p $HOME/.avail
     wget -O $HOME/.avail/config.yaml "https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/avail/config.yaml"
 }
 
