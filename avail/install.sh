@@ -75,7 +75,7 @@ sudo systemctl restart avail
 
 function output {
     echo -e "${GREEN}Нода установлена, идем проверять себя в телеметрии:${NORMAL}"
-    echo -e "https://telemetry.avail.tools/#list/0x6f09966420b2608d1947ccfb0f2a362450d1fc7fd902c29b67c906eaa965a7ae"
+    echo -e "https://telemetry.doubletop.io/#list/0x44d8eb5c9a339f12e7e453d1c96c9da352b55a6b611eb24cddf6d70e32c36a2b"
     echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "journalctl -n 100 -f -u avail -o cat"
     echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
