@@ -44,7 +44,7 @@ function wget_chainspec {
 
 function create_systemd {
     echo -e "${GREEN}Создание сервиса systemd:${NORMAL}"
-    sudo tee <<EOF >/dev/null  /etc/systemd/system/avail.service > /dev/null << EOF
+    sudo tee <<EOF >/dev/null /etc/systemd/system/avail.service
 [Unit]
 Description=Avail Node
 After=network-online.target
