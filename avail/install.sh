@@ -63,8 +63,7 @@ ExecStart=/usr/bin/avail \
 --prometheus-port 49615 \
 --validator \
 --name '$AVAIL_NODENAME' \
---telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
---telemetry-url 'wss://telemetry.avail.tools/submit 0' 
+--telemetry-url 'wss://telemetry.doubletop.io/submit 0' 
 [Install]
 WantedBy=multi-user.target
 EOF
