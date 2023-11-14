@@ -30,8 +30,9 @@ function install_main_tools {
 
 function wget_bin {
     echo -e "${GREEN}Скачивание бинарников:${NORMAL}"
-    wget https://github.com/availproject/avail/releases/download/v1.8.0.0/data-avail-linux-amd64.tar.gz
+    wget https://github.com/availproject/avail-light/releases/download/v1.7.3/avail-light-linux-amd64.tar.gz
     tar -xvf data-avail-linux-amd64.tar.gz
+    rm -f data-avail-linux-amd64.tar.gz
     sudo mv data-avail-linux-amd64 /usr/bin/avail
     sudo chmod +x /usr/bin/avail
 }
