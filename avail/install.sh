@@ -30,11 +30,25 @@ function install_main_tools {
 
 function wget_bin {
     echo -e "${GREEN}Скачивание бинарников:${NORMAL}"
-    wget https://github.com/availproject/avail-light/releases/download/v1.7.3/avail-light-linux-amd64.tar.gz
-    tar -xvf avail-light-linux-amd64.tar.gz
-    rm -f avail-light-linux-amd64.tar.gz*
-    sudo mv avail-light-linux-amd64 /usr/bin/avail
-    sudo chmod +x /usr/bin/avail
+    # Проверить версию и выполнить соответствующие действия
+    if [ "$ubuntu_version" == "20.04" ]; then
+        # Версия Ubuntu 20.04
+        echo "Установка на Ubuntu 20.04"
+        wget https://doubletop-bin.ams3.digitaloceanspaces.com/avail/v1.7.3/avail-light -O /usr/bin/avail
+        chmod +x /usr/bin/avail
+    elif [ "$ubuntu_version" == "22.04" ]; then
+        # Версия Ubuntu 22.04
+        echo "Установка на Ubuntu 22.04"
+        wget https://github.com/availproject/avail-light/releases/download/v1.7.3/avail-light-linux-amd64.tar.gz
+        tar -xvf avail-light-linux-amd64.tar.gz
+        rm -f avail-light-linux-amd64.tar.gz*
+        sudo mv avail-light-linux-amd64 /usr/bin/avail
+        sudo chmod +x /usr/bin/avail
+    else
+        # Другая версия Ubuntu
+        echo "Данная версия Ubuntu ($ubuntu_version) не поддерживается"
+    fi
+
 }
 
 function wget_chainspec {
