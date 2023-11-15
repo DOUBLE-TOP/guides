@@ -30,6 +30,7 @@ function install_main_tools {
 
 function wget_bin {
     echo -e "${GREEN}Скачивание бинарников:${NORMAL}"
+    ubuntu_version=$(lsb_release -rs)
     # Проверить версию и выполнить соответствующие действия
     if [ "$ubuntu_version" == "20.04" ]; then
         # Версия Ubuntu 20.04
