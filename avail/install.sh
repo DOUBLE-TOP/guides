@@ -25,7 +25,7 @@ function get_nodename {
 
 function install_main_tools {
     echo -e "${GREEN}Установка основных зависимостей:${NORMAL}"
-    bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh)
+    bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
 }
 
 function wget_bin {
@@ -35,12 +35,12 @@ function wget_bin {
     if [ "$ubuntu_version" == "20.04" ]; then
         # Версия Ubuntu 20.04
         echo "Установка на Ubuntu 20.04"
-        wget https://doubletop-bin.ams3.digitaloceanspaces.com/avail/v1.7.3/avail-light -O /usr/bin/avail
+        wget https://doubletop-bin.ams3.digitaloceanspaces.com/avail/v1.7.3/avail-light -O /usr/bin/avail &>/dev/null
         chmod +x /usr/bin/avail
     elif [ "$ubuntu_version" == "22.04" ]; then
         # Версия Ubuntu 22.04
         echo "Установка на Ubuntu 22.04"
-        wget https://github.com/availproject/avail-light/releases/download/v1.7.3/avail-light-linux-amd64.tar.gz
+        wget https://github.com/availproject/avail-light/releases/download/v1.7.3/avail-light-linux-amd64.tar.gz &>/dev/null
         tar -xvf avail-light-linux-amd64.tar.gz
         rm -f avail-light-linux-amd64.tar.gz*
         sudo mv avail-light-linux-amd64 /usr/bin/avail
@@ -55,7 +55,7 @@ function wget_bin {
 function wget_chainspec {
     echo -e "${GREEN}Скачивание конфигурции сети:${NORMAL}"
     mkdir -p $HOME/.avail
-    wget -O $HOME/.avail/config.yaml "https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/avail/config.yaml"
+    wget -O $HOME/.avail/config.yaml "https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/avail/config.yaml" &>/dev/null
 }
 
 function create_systemd {
