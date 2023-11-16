@@ -35,7 +35,6 @@ function wget_bin {
     # Проверить версию и выполнить соответствующие действия
     if [ "$ubuntu_version" == "20.04" ]; then
         # Версия Ubuntu 20.04
-        echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
         wget https://github.com/availproject/avail/releases/download/v1.8.0.2/amd64-ubuntu-2004-data-avail.tar.gz
         tar -xvf amd64-ubuntu-2004-data-avail.tar.gz
         rm -f amd64-ubuntu-2004-data-avail.tar.gz*
@@ -43,7 +42,6 @@ function wget_bin {
         sudo chmod +x /usr/bin/avail-full
     elif [ "$ubuntu_version" == "22.04" ]; then
         # Версия Ubuntu 22.04
-        echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
         wget https://github.com/availproject/avail/releases/download/v1.8.0.2/amd64-ubuntu-2204-data-avail.tar.gz
         tar -xvf amd64-ubuntu-2204-data-avail.tar.gz
         rm -f amd64-ubuntu-2204-data-avail.tar.gz*
