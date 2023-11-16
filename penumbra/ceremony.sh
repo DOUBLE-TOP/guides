@@ -2,7 +2,7 @@
 
 pcli view sync &>/dev/null
 
-current_balance=$(pcli view balance | grep -v delegation | grep penumbra | awk '{ print $2 }' | awk -F. '{print $1}' | tr -d 'penumbra' | head -1) &>/dev/null
+current_balance=$(pcli view balance 2>&1 | grep -Eo '[0-9]+\.?[0-9]*penumbra' | awk -Fpenumbra '{print $1}' | awk -F. '{print $1}' | tail -1)
 dif=1
 sleep 1
 ceremony_bid=$(($current_balance-$dif))
