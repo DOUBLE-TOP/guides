@@ -52,9 +52,9 @@ function run_docker {
 
 
 function output {
-    echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
+    echo -e "${YELLOW}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "docker logs -f frame --tail=100"
-    echo -e "${GREEN}Для перезапуска выполняем команду:${NORMAL}"
+    echo -e "${YELLOW}Для перезапуска выполняем команду:${NORMAL}"
     echo -e "docker restart frame"
 }
 
