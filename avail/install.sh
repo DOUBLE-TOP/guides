@@ -3,6 +3,7 @@
 function colors {
   GREEN="\e[32m"
   RED="\e[39m"
+  YELLOW="\e[33m"
   NORMAL="\e[0m"
 }
 
@@ -24,12 +25,12 @@ function get_nodename {
 }
 
 function install_main_tools {
-    echo -e "${GREEN}Установка основных зависимостей:${NORMAL}"
+    echo -e "${YELLOW}Установка основных зависимостей:${NORMAL}"
     bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
 }
 
 function wget_bin {
-    echo -e "${GREEN}Скачивание бинарников:${NORMAL}"
+    echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
     ubuntu_version=$(lsb_release -rs)
     # Проверить версию и выполнить соответствующие действия
     if [ "$ubuntu_version" == "20.04" ]; then
@@ -53,13 +54,13 @@ function wget_bin {
 }
 
 function wget_chainspec {
-    echo -e "${GREEN}Скачивание конфигурции сети:${NORMAL}"
+    echo -e "${YELLOW}Скачивание конфигурции сети:${NORMAL}"
     mkdir -p $HOME/.avail
     wget -O $HOME/.avail/config.yaml "https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/avail/config.yaml" &>/dev/null
 }
 
 function create_systemd {
-    echo -e "${GREEN}Создание сервиса systemd:${NORMAL}"
+    echo -e "${YELLOW}Создание сервиса systemd:${NORMAL}"
     sudo tee <<EOF >/dev/null /etc/systemd/system/avail.service
 [Unit]
 Description=Avail Node
@@ -83,11 +84,9 @@ sudo systemctl restart avail
 }
 
 function output {
-    # echo -e "${GREEN}Нода установлена, идем проверять себя в телеметрии:${NORMAL}"
-    # echo -e "https://telemetry.doubletop.io/#list/0x44d8eb5c9a339f12e7e453d1c96c9da352b55a6b611eb24cddf6d70e32c36a2b"
-    echo -e "${GREEN}Для проверки логов выполняем команду:${NORMAL}"
+    echo -e "${YELLOW}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "journalctl -n 100 -f -u avail -o cat"
-    echo -e "${GREEN}Для перезапуска выполняем команду:${NORMAL}"
+    echo -e "${YELLOW}Для перезапуска выполняем команду:${NORMAL}"
     echo -e "sudo systemctl restart avail"
 }
 
@@ -95,8 +94,6 @@ function main {
     colors
     logo
     line
-    # get_nodename
-    # line
     install_main_tools
     line
     wget_bin
