@@ -108,8 +108,8 @@ function main {
     install_main_tools
     line
     wget_bin
-    line
-    wget_chainspec
+    # line
+    # wget_chainspec
     line
     create_systemd
     line
