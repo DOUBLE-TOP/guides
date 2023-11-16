@@ -17,7 +17,7 @@ function line {
 
 function get_nodename {
     if [ ! ${AVAIL_NODENAME} ]; then
-    echo -e "${RED}Введите имя ноды(придумайте)${NORMAL}"
+    echo -e "${YELLOW}Введите имя ноды(придумайте)${NORMAL}"
     line
     read AVAIL_NODENAME
     source $HOME/.profile
