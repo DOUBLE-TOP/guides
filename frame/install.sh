@@ -31,13 +31,13 @@ function prepare_files {
         if [ ! -d "$HOME/frame-validator/node-config" ]; then
             git clone https://github.com/frame-network/node-config.git
             sed -i 's|"url":.*|"url": "https://ethereum-sepolia.publicnode.com"|' node-config/testnet.json
-        else
-            rm -rf $HOME/frame-validator/node-config
-            git clone https://github.com/frame-network/node-config.git
-            sed -i 's|"url":.*|"url": "https://ethereum-sepolia.publicnode.com"|' node-config/testnet.json
         fi
     else
         echo -e "${YELLOW}Вероятно, нода на сервере уже была установлена ранее. Переходим на следующий шаг${NORMAL}"
+        cd $HOME/frame-validator
+        rm -rf $HOME/frame-validator/node-config
+        git clone https://github.com/frame-network/node-config.git
+        sed -i 's|"url":.*|"url": "https://ethereum-sepolia.publicnode.com"|' node-config/testnet.json
     fi
 
 }
