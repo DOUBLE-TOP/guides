@@ -35,6 +35,7 @@ function prepare_files {
     else
         echo -e "${YELLOW}Вероятно, нода на сервере уже была установлена ранее. Переходим на следующий шаг${NORMAL}"
         cd $HOME/frame-validator
+        docker rm -f frame
         rm -rf $HOME/frame-validator/node-config
         git clone https://github.com/frame-network/node-config.git
         sed -i 's|"url":.*|"url": "https://ethereum-sepolia.publicnode.com"|' node-config/testnet.json
