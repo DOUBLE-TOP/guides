@@ -38,7 +38,7 @@ function domain_id {
   if [ ! $DOMAIN_ID ]; then
   echo -e "Enter your domain id"
   line_1
-  read PLOT_SIZE
+  read DOMAIN_ID
   fi
 }
 
@@ -111,9 +111,7 @@ logo
 line_2
 read_nodename
 line_2
-read_wallet
-line_2
-plot_size
+domain_id
 line_2
 echo -e "Установка tools, ufw, docker"
 line_1
@@ -125,7 +123,7 @@ echo -e "Создаем docker-compose файл"
 line_1
 eof_docker_compose
 line_1
-echo -e "Запускаем docker контейнеры для node and farmer Subspace"
+echo -e "Запускаем docker контейнеры для оператора Subspace"
 line_1
 docker_compose_up
 line_2
