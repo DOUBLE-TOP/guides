@@ -4,7 +4,7 @@ solana-install init v1.16.20
 
 sudo systemctl stop solana
 
-# sudo rm -rf $HOME/ledger/*
+sudo rm -rf $HOME/ledger/*
 
 bash -c "cat > $HOME/solana.service<<EOF
 [Unit]
@@ -43,7 +43,8 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --rpc-bind-address 127.0.0.1 \
 --rpc-port 8899 \
 --accounts-db-caching-enabled \
---full-rpc-api
+--full-rpc-api \
+--no-snapshot-fetch
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s QUIT $MAINPID
 [Install]
@@ -52,6 +53,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-# wget --trust-server-names http://69.197.4.3:6969/snapshot-199641374-njbdgtFvyDqiaCXRsgddu3J5uEtG6zPH81cmArcQSxS.tar.zst -P $HOME/ledger
+wget --trust-server-names http://69.197.42.30:8000/snapshot-237692256-73LMDbUr3tMzuHgzacFwkjchHfTQF8jvDSaiprq3owTR.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
