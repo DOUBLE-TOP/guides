@@ -1,6 +1,6 @@
 #!/bin/bash
 
-solana-install init v1.14.23
+solana-install init v1.16.20
 
 sudo systemctl stop solana
 
@@ -23,10 +23,10 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---wait-for-supermajority 213932256 \
---expected-shred-version 61807 \
+--wait-for-supermajority 237692256 \
+--expected-shred-version 5106 \
 --no-incremental-snapshots \
---expected-bank-hash 4cyHLxMPCJH4pq9v6eVDFBKKNwrVw8ww78yYUSJNDvjU \
+--expected-bank-hash 5F6SxymLj1v88JcupVgSHwiCBvtsu8ekA82E1ntaCPqh \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
 --known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
 --wal-recovery-mode skip_any_corrupted_record \
