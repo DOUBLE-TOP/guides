@@ -5,19 +5,22 @@ read -p "Введите приватный ключ от кошелька: " pri
 
 # Записываем ключ в файл .env
 echo "PRIVATE_KEY=$private_key" > $HOME/xai/.env
+echo "HOME=$HOME" >> $HOME/xai/.env
 
 # Создаем папку xai в домашней директории
 mkdir -p $HOME/xai
 
 # Создаем скрипт start.sh
-cat << 'EOF' > $HOME/xai/start.sh
+cat << EOF > $HOME/xai/start.sh
 #!/usr/bin/expect
 
+set HOME ${HOME}
+
 # Загрузка переменных окружения из файла .env
-set env_file [open "$HOME/xai/.env" r]
-while {[gets $env_file line] >= 0} {
-    if {[regexp {^\s*([^#]+?)\s*=\s*(.+)\s*$} $line -> key value]} {
-        set ::env($key) $value
+set env_file [open "\$HOME/xai/.env" r]
+while {[gets \$env_file line] >= 0} {
+    if {[regexp {^\s*([^#]+?)\s*=\s*(.+)\s*$} \$line -> key value]} {
+        set ::env(\$key) \$value
     }
 }
 
@@ -71,8 +74,7 @@ rm -f sentry-node-cli-linux.zip
 EOF
 
 # Даем права на выполнение скриптам
-chmod +x $HOME/xai/start.sh
-chmod +x $HOME/xai/update.sh
+chmod +x $HOME/xai/*.sh
 
 # Создаем systemd unit файл
 cat << EOF > /etc/systemd/system/xai.service
@@ -82,9 +84,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=your_username
-WorkingDirectory=$HOME/xai
-ExecStart=$HOME/xai/start.sh
+User=$USER
+ExecStart=/bin/bash -c '$HOME/xai/start.sh >> $HOME/xai/stdout.log 2>&1'
 ExecStop=/usr/bin/pkill -f start.sh
 Restart=always
 RestartSec=3
@@ -93,6 +94,7 @@ ExecStartPre=$HOME/xai/update.sh
 [Install]
 WantedBy=multi-user.target
 EOF
+
 
 # Перезагружаем конфигурацию systemd и включаем сервис
 systemctl daemon-reload
