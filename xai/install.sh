@@ -4,6 +4,7 @@
 read -p "Введите приватный ключ от кошелька: " private_key
 
 # Записываем ключ в файл .env
+touch $HOME/xai/.env
 echo "PRIVATE_KEY=$private_key" > $HOME/xai/.env
 echo "HOME=$HOME" >> $HOME/xai/.env
 
