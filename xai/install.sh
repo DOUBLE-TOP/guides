@@ -3,6 +3,10 @@
 # Запрашиваем приватный ключ
 read -p "Введите приватный ключ от кошелька: " private_key
 
+sudo apt update 
+
+sudo apt install -y expect curl wget zip unzip jq
+
 # Записываем ключ в файл .env
 touch $HOME/xai/.env
 echo "PRIVATE_KEY=$private_key" > $HOME/xai/.env
