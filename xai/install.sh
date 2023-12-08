@@ -60,17 +60,8 @@ EOF
 cat << 'EOF' > $HOME/xai/update.sh
 #!/bin/bash
 
-# Получение URL последнего релиза с помощью GitHub API и jq
-release_url=$(curl -s https://api.github.com/repos/xai-foundation/sentry/releases/latest | jq -r '.assets[] | select(.name == "sentry-node-cli-linux.zip").browser_download_url')
-
-# Проверка, что URL найден
-if [ -z "$release_url" ]; then
-    echo "Не удалось найти URL релиза."
-    exit 1
-fi
-
 # Скачивание файла с помощью wget
-wget "$release_url"
+wget https://github.com/xai-foundation/sentry/releases/latest/download/sentry-node-cli-linux.zip
 
 unzip sentry-node-cli-linux.zip
 
