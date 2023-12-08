@@ -48,8 +48,9 @@ while {1} {
             send "$::env(PRIVATE_KEY)\r"
         }
         "Error: missing revert data" {
-            send_user "Error detected, exiting...\n"
-            exit 0
+            send_user "Error detected, initiating service restart...\n"
+            exec systemctl restart xai
+            exit
         }
     }
 }
