@@ -7,13 +7,15 @@ sudo apt update
 
 sudo apt install -y expect curl wget zip unzip jq
 
+# Создаем папку xai в домашней директории
+mkdir -p $HOME/xai
+
 # Записываем ключ в файл .env
 touch $HOME/xai/.env
 echo "PRIVATE_KEY=$private_key" > $HOME/xai/.env
 echo "HOME=$HOME" >> $HOME/xai/.env
 
-# Создаем папку xai в домашней директории
-mkdir -p $HOME/xai
+
 
 # Создаем скрипт start.sh
 cat << EOF > $HOME/xai/start.sh
