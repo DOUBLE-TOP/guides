@@ -76,6 +76,20 @@ EOF
 # Даем права на выполнение скриптам
 chmod +x $HOME/xai/*.sh
 
+cat << EOF > /etc/logrotate.d/xai
+$HOME/xai/stdout.log {
+    daily
+    rotate 6
+    compress
+    missingok
+    notifempty
+    create 640 $USER $USER
+}
+EOF
+
+# Перезагружаем конфигурацию logrotate
+logrotate --force /etc/logrotate.d/xai
+
 # Создаем systemd unit файл
 cat << EOF > /etc/systemd/system/xai.service
 [Unit]
@@ -103,16 +117,3 @@ systemctl enable xai.service
 # Запускаем сервис
 systemctl restart xai.service
 
-cat << EOF > /etc/logrotate.d/xai
-$HOME/xai/stdout.log {
-    daily
-    rotate 6
-    compress
-    missingok
-    notifempty
-    create 640 $USER $USER
-}
-EOF
-
-# Перезагружаем конфигурацию logrotate
-logrotate --force /etc/logrotate.d/xai
