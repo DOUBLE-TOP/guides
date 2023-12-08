@@ -58,29 +58,15 @@ EOF
 
 # Создаем скрипт update.sh
 cat << 'EOF' > $HOME/xai/update.sh
-# Путь к локальному файлу
-local_file="$HOME/xai/sentry-node-cli-linux.zip"
-remote_file="https://github.com/xai-foundation/sentry/releases/latest/download/sentry-node-cli-linux.zip"
+#!/bin/bash
 
-# Проверка наличия локального файла и вычисление его MD5
-if [ -f "$local_file" ]; then
-    local_md5=$(md5sum "$local_file" | awk '{ print $1 }')
-else
-    local_md5=""
-fi
+# Скачивание файла с помощью wget
+wget https://github.com/xai-foundation/sentry/releases/latest/download/sentry-node-cli-linux.zip
 
-# Получение MD5 удаленного файла
-remote_md5=$(curl -sL "$remote_file" | md5sum | awk '{ print $1 }')
+unzip sentry-node-cli-linux.zip
 
-# Сравнение MD5
-if [ "$local_md5" != "$remote_md5" ]; then
-    # MD5 различаются, нужно скачать файл
-    wget -O "$local_file" "$remote_file"
-    unzip -o "$local_file" -d /usr/local/bin/
-else
-    # Файлы идентичны, обновление не требуется
-    echo "Обновление не требуется. Файл уже обновлен."
-fi
+mv sentry-node-cli-linux /usr/local/bin/sentry-node-cli-linux
+rm -f sentry-node-cli-linux.zip
 EOF
 
 # Даем права на выполнение скриптам
