@@ -111,6 +111,8 @@ function main {
     line
     logo
     line
+    get_nodename
+    line
     install_go
     source_build_git
     line
