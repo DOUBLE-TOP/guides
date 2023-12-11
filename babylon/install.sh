@@ -1,7 +1,19 @@
 #!/bin/bash
 
+function colors {
+  GREEN="\e[32m"
+  RED="\e[39m"
+  YELLOW="\e[33m"
+  NORMAL="\e[0m"
+}
 
+function logo {
+  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+}
 
+function line {
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+}
 function install_go {
     bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
     source $HOME/.profile
@@ -86,11 +98,19 @@ function start {
 }
 
 function main {
+    colors
+    line
+    logo
+    line
     install_go
     source_build_git
+    line
     systemd
+    line
     init_chain
+    line
     download_snapshot
+    line
     start
 }
 
