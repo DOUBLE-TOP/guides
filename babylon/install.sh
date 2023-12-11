@@ -14,6 +14,15 @@ function logo {
 function line {
   echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
 }
+
+function get_nodename {
+    if [ ! ${MONIKER} ]; then
+    echo -e "${YELLOW}Введите имя ноды(придумайте)${NORMAL}"
+    line
+    read MONIKER
+    fi
+}
+
 function install_go {
     bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
     source $HOME/.profile
