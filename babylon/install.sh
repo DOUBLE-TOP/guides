@@ -18,17 +18,18 @@ function line {
 function get_nodename {
     source $HOME/.profile
     sleep 1
-    if [ ! ${BABYLON_MONIKER} ]; then
+    # if [ ! ${BABYLON_MONIKER} ]; then
     echo -e "${YELLOW}Введите имя ноды(придумайте)${NORMAL}"
     line
     read BABYLON_MONIKER
     echo 'export BABYLON_MONIKER='$BABYLON_MONIKER >> $HOME/.profile
-    fi
+    # fi
 }
 
 function install_go {
     bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
     source $HOME/.profile
+    sleep 1
 }
 
 function source_build_git {
