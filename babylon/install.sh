@@ -17,6 +17,7 @@ function line {
 
 function get_nodename {
     source $HOME/.profile
+    sleep 1
     if [ ! ${BABYLON_MONIKER} ]; then
     echo -e "${YELLOW}Введите имя ноды(придумайте)${NORMAL}"
     line
