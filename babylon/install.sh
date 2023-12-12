@@ -16,10 +16,12 @@ function line {
 }
 
 function get_nodename {
-    if [ ! ${MONIKER} ]; then
+    source $HOME/.profile
+    if [ ! ${BABYLON_MONIKER} ]; then
     echo -e "${YELLOW}Введите имя ноды(придумайте)${NORMAL}"
     line
-    read MONIKER
+    read BABYLON_MONIKER
+    echo 'export BABYLON_MONIKER='$BABYLON_MONIKER >> $HOME/.profile
     fi
 }
 
@@ -77,7 +79,7 @@ function init_chain {
     babylond config keyring-backend test
     babylond config node tcp://localhost:16457
 
-    babylond init $MONIKER --chain-id bbn-test-2
+    babylond init $BABYLON_MONIKER --chain-id bbn-test-2
 
     curl -Ls https://snapshots.kjnodes.com/babylon-testnet/genesis.json > $HOME/.babylond/config/genesis.json
     curl -Ls https://snapshots.kjnodes.com/babylon-testnet/addrbook.json > $HOME/.babylond/config/addrbook.json
