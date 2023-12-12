@@ -16,6 +16,8 @@ function line {
 }
 
 function get_nodename {
+    sed -i '/alias client/d' $HOME/.profile
+
     # source $HOME/.profile
     # sleep 1
     # if [ ! ${BABYLON_MONIKER} ]; then
