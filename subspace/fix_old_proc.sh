@@ -14,15 +14,15 @@ fi
 
 docker-compose -f $FILE down
 
-docker rmi -f ghcr.io/subspace/node:gemini-3g-2023-dec-01
-docker rmi -f ghcr.io/subspace/farmer:gemini-3g-2023-dec-01
+docker rmi -f ghcr.io/subspace/node:gemini-3g-2023-dec-15
+docker rmi -f ghcr.io/subspace/farmer:gemini-3g-2023-dec-15
 docker image prune -a -f
 
 cd $HOME
 rm -rf $HOME/subspace
 git clone https://github.com/subspace/subspace
 cd $HOME/subspace
-git checkout 69ac2b4e217d7020e2688744a6d38df61b3885da
+git checkout 9bda3d7a42aa5709fef8f8b509685769dad9dae5
 
 docker build -t ghcr.io/subspace/node:gemini-3g-2023-dec-15 -f Dockerfile-node .
 docker build -t ghcr.io/subspace/farmer:gemini-3g-2023-dec-15 -f Dockerfile-farmer .
