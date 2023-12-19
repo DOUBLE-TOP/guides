@@ -2,6 +2,7 @@
 
 function go {
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh)
+  sudo apt install libudev-dev -y
 }
 
 function rust {
