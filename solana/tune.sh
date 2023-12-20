@@ -18,8 +18,6 @@ set_param() {
 
 # Устанавливаем параметры
 set_param "vm.max_map_count" "1000000"
-set_param "net.core.optmem_max" "0"
-set_param "net.core.netdev_max_backlog" "0"
 set_param "net.core.wmem_default" "134217728"
 set_param "net.core.rmem_default" "134217728"
 set_param "net.core.wmem_max" "134217728"
