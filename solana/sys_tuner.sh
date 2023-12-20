@@ -11,7 +11,7 @@ function install_rust {
 }
 
 function install_sys_tuner {
-    cargo install solana-sys-tuner --root $HOME/solana-sys-tuner
+    cargo install solana-sys-tuner --root $HOME/solana-sys-tuner --force
 }
 
 function create_sys_tuner_service {
