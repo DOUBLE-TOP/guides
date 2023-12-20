@@ -22,6 +22,7 @@ set_param "net.core.wmem_default" "134217728"
 set_param "net.core.rmem_default" "134217728"
 set_param "net.core.wmem_max" "134217728"
 set_param "net.core.rmem_max" "134217728"
+set_param "fs.nr_open" "1000000"
 
 # Применяем изменения
 sudo sysctl -p
