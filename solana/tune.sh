@@ -27,3 +27,5 @@ set_param "net.core.rmem_max" "134217728"
 
 # Применяем изменения
 sudo sysctl -p
+
+bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/solana/sys_tuner.sh)
