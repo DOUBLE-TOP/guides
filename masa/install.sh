@@ -53,6 +53,7 @@ After=network.target
 [Service]
 Type=simple
 User=$USER
+Environment="PORT=28080"
 WorkingDirectory=$HOME/masa-oracle-go-testnet/
 ExecStart=$HOME/masa-oracle-go-testnet/masa-node \
         --port=28081 \
