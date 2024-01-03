@@ -53,6 +53,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-wget --trust-server-names http://69.197.42.30:6969/snapshot-244604256-G8h6stNYLsCia1NVC3fLGnsEMgQPR5wGCgSNEu2PZA6D.tar.zst -P $HOME/ledger
+sudo wget --trust-server-names http://69.197.42.30:6969/snapshot-244604256-G8h6stNYLsCia1NVC3fLGnsEMgQPR5wGCgSNEu2PZA6D.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
