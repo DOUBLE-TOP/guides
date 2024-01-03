@@ -1,6 +1,6 @@
 #!/bin/bash
 
-solana-install init v1.16.20
+solana-install init v1.16.24
 
 sudo systemctl stop solana
 
@@ -23,10 +23,10 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---wait-for-supermajority 237692256 \
---expected-shred-version 5106 \
+--wait-for-supermajority 244604256 \
+--expected-shred-version 14676 \
 --no-incremental-snapshots \
---expected-bank-hash 5F6SxymLj1v88JcupVgSHwiCBvtsu8ekA82E1ntaCPqh \
+--expected-bank-hash 2ZHZpzSpBhkbfqsENGybfLbXSZ2hZiTq79qHCM4TWBpi \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
 --known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
 --wal-recovery-mode skip_any_corrupted_record \
@@ -53,6 +53,6 @@ EOF"
 
 sudo systemctl daemon-reload
 
-wget --trust-server-names http://69.197.42.30:8000/snapshot-237692256-73LMDbUr3tMzuHgzacFwkjchHfTQF8jvDSaiprq3owTR.tar.zst -P $HOME/ledger
+wget --trust-server-names http://69.197.42.30:6969/snapshot-244604256-G8h6stNYLsCia1NVC3fLGnsEMgQPR5wGCgSNEu2PZA6D.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
