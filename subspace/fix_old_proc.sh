@@ -31,4 +31,4 @@ docker-compose -f $FILE up -d
 
 # docker tag ghcr.io/subspace/node:gemini-3g-2024-jan-08 razumv95/node:gemini-3g-2024-jan-08
 # docker tag ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 razumv95/farmer:gemini-3g-2024-jan-08
-# docker pull razumv95/node:gemini-3g-2024-jan-08 && docker pull razumv95/farmer:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 && docker tag razumv95/node:gemini-3g-2024-jan-08 ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker tag razumv95/farmer:gemini-3g-2024-jan-08 ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 
+# docker pull razumv95/node:gemini-3g-2024-jan-08 && docker pull razumv95/farmer:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 && docker tag razumv95/node:gemini-3g-2024-jan-08 ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker tag razumv95/farmer:gemini-3g-2024-jan-08 ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 && docker-compose -f /home/user/subspace_docker/docker-compose.yml up -d 
