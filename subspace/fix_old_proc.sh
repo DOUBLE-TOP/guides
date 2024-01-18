@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 # Путь к файлу docker-compose.yml
 FILE="$HOME/subspace_docker/docker-compose.yml"
@@ -28,3 +28,7 @@ docker build -t ghcr.io/subspace/node:gemini-3g-2024-jan-08 -f Dockerfile-node .
 docker build -t ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 -f Dockerfile-farmer .
 
 docker-compose -f $FILE up -d 
+
+# docker tag ghcr.io/subspace/node:gemini-3g-2024-jan-08 razumv95/node:gemini-3g-2024-jan-08
+# docker tag ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 razumv95/farmer:gemini-3g-2024-jan-08
+# docker pull razumv95/node:gemini-3g-2024-jan-08 && docker pull razumv95/farmer:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker rmi -f ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 && docker tag razumv95/node:gemini-3g-2024-jan-08 ghcr.io/subspace/node:gemini-3g-2024-jan-08 && docker tag razumv95/farmer:gemini-3g-2024-jan-08 ghcr.io/subspace/farmer:gemini-3g-2024-jan-08 
