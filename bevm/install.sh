@@ -50,7 +50,7 @@ ExecStart=/usr/bin/bevm \
 --bootnodes="/ip4/84.247.174.227/tcp/30333/ws/p2p/12D3KooWBrCnzUjgEkT3VZuLUJ8JPxHmwRq8nZ5CwbL6LG8oNF98" \
 --bootnodes="/ip4/84.247.170.13/tcp/30333/ws/p2p/12D3KooWL1VtfpTyqLsWpxYi6HVfNAHUjqyiXfLG2hwCf6BHtgUR" \
 --bootnodes="/ip4/103.171.85.19/tcp/30333/ws/p2p/12D3KooWSb18ru71zhZ71qxoSnHR7PSi2hNPx3UFtadvZisG3aEQ" \
---bootnodes="/ip4/18.222.166.234/tcp/10000/ws/p2p/12D3KooWR1DNEVVWMaRJVfAkXTyZAZgnN159hNcPTooCSwMv4zbx
+--bootnodes="/ip4/18.222.166.234/tcp/10000/ws/p2p/12D3KooWR1DNEVVWMaRJVfAkXTyZAZgnN159hNcPTooCSwMv4zbx"
 
 [Install]
 WantedBy=multi-user.target
