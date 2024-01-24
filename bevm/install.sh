@@ -42,6 +42,7 @@ ExecStart=/usr/bin/bevm \
 --chain=testnet --name="$BEVM_NAME" \
 --pruning=archive \
 --telemetry-url "wss://telemetry.bevm.io/submit 0" \
+--telemetry-url "wss://telemetry.doubletop.io/submit 0" \
 --bootnodes="/ip4/159.89.206.4/tcp/30333/ws/p2p/12D3KooWC1try3KoM3WeKMRjSiKMRxE9a4uws9S6tiy2anfKWTpi" \
 --bootnodes="/ip4/84.247.142.25/tcp/30333/ws/p2p/12D3KooWPYFTMtVr12v7YWjVVoedhnpkktYVPG26U4hbD8vyfQpK" \
 --bootnodes="/ip4/159.89.206.4/tcp/30333/ws/p2p/12D3KooWC1try3KoM3WeKMRjSiKMRxE9a4uws9S6tiy2anfKWTpi" \
