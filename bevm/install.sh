@@ -7,7 +7,6 @@ echo "Устанавливаем переменные"
 echo "-----------------------------------------------------------------------------" 
 if [ ! ${BEVM_NAME} ]; then
     echo -e "${YELLOW}Введите адрес EVM кошелька (MM)${NORMAL}"
-    line
     read BEVM_NAME
     source $HOME/.profile
     echo "Ваш ник в телеметрии: $BEVM_NAME"
