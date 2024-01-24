@@ -12,7 +12,7 @@ read -p "Введите адрес EVM кошелька (MM): " BEVM_NAME
     fi
     echo "Ваш ник в телеметрии: $BEVM_NAME"
 sleep 1
-echo 'export BEVM_NAME='$BEVM_NAME >> $HOME/.profile
+# echo 'export BEVM_NAME='$BEVM_NAME >> $HOME/.profile
 source $HOME/.profile
 echo "-----------------------------------------------------------------------------"
 echo "Обновляем пакеты и устанавливаем зависимости"
