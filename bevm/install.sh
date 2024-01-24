@@ -17,7 +17,7 @@ source $HOME/.profile
 echo "-----------------------------------------------------------------------------"
 echo "Обновляем пакеты и устанавливаем зависимости"
 echo "-----------------------------------------------------------------------------"
-sudo apt update && apt upgrade -y
+# sudo apt update && apt upgrade -y
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
 bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh) &>/dev/null
 echo "-----------------------------------------------------------------------------"
