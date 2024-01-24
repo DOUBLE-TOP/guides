@@ -26,7 +26,7 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем ноду"
 echo "-----------------------------------------------------------------------------"
 wget -O bevm https://github.com/btclayer2/BEVM/releases/download/testnet-v0.1.1/bevm-v0.1.1-ubuntu20.04 && chmod +x bevm
-cp bevm /usr/bin/
+sudo cp bevm /usr/bin/
 sudo tee /etc/systemd/system/bevmd.service > /dev/null << EOF
 [Unit]
 Description=BTClayer2 Node
