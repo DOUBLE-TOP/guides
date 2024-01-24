@@ -5,12 +5,17 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем переменные"
 echo "-----------------------------------------------------------------------------" 
-read -p "Введите адрес EVM кошелька (MM): " BEVM_NAME
-    if [ ! ${BEVM_NAME} ]; then
+if [ ! ${BEVM_NAME} ]; then
+    echo -e "${YELLOW}Введите адрес EVM кошелька (MM)${NORMAL}"
+    line
+    read BEVM_NAME
+    source $HOME/.profile
+    echo "Ваш ник в телеметрии: $BEVM_NAME"
+else
     echo "Адрес кошелька не введён, повторите запуск!"
     exit 1
-    fi
-    echo "Ваш ник в телеметрии: $BEVM_NAME"
+fi
+
 sleep 1
 # echo 'export BEVM_NAME='$BEVM_NAME >> $HOME/.profile
 source $HOME/.profile
