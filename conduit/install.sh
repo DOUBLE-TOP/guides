@@ -46,7 +46,6 @@ function source_configure_conduit {
     echo -e "${GREEN}Conduit is already installed${NORMAL}"
     echo -e "${GREEN}Updating Conduit${NORMAL}"
     cd $HOME/conduit_node
-    git pull
   else
     git clone https://github.com/conduitxyz/node.git $HOME/conduit_node
     cd $HOME/conduit_node
