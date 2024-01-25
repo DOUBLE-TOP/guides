@@ -47,18 +47,15 @@ function source_configure_conduit {
     echo -e "${GREEN}Updating Conduit${NORMAL}"
     cd $HOME/conduit_node
     git pull
-    export CONDUIT_NETWORK=zora-mainnet-0
-    cp .env.example .env
-    sed -i 's/OP_NODE_L1_ETH_RPC=.*/OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'/g' .env
-    docker compose up -d
   else
     git clone https://github.com/conduitxyz/node.git $HOME/conduit_node
     cd $HOME/conduit_node
+  fi
+    ./download-config.py zora-mainnet-0
     export CONDUIT_NETWORK=zora-mainnet-0
     cp .env.example .env
     sed -i 's/OP_NODE_L1_ETH_RPC=.*/OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'/g' .env
     docker compose up -d
-  fi
 }
 
 function main {
