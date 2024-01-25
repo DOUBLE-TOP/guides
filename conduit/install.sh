@@ -17,7 +17,7 @@ function line {
 
 function set_rpc {
   #default is https://ethereum.publicnode.com
-  read -p "Enter your ETHEREUM RPC in https:// format" OP_NODE_L1_ETH_RPC
+  read -p "Enter your ETHEREUM RPC in https:// format: " OP_NODE_L1_ETH_RPC
     if [ -z "$OP_NODE_L1_ETH_RPC" ]; then
     echo "Please enter your ETHEREUM RPC"
     exit 1
