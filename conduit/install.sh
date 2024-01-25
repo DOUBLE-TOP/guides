@@ -27,38 +27,50 @@ function set_rpc {
 }
 
 function install_docker {
-    if [ -x "$(command -v docker)" ]; then
-        echo -e "${YELLOW}Docker is already installed${NORMAL}"
-    else
-        echo -e "${YELLOW}Installing Docker${NORMAL}"
-        curl -fsSL https://get.docker.com -o get-docker.sh
-        sudo sh get-docker.sh
-        sudo usermod -aG docker $USER
-        sudo systemctl enable docker
-        sudo systemctl start docker
-        sudo rm get-docker.sh
-    fi
+  if [ -x "$(command -v docker)" ]; then
+      echo -e "${GREEN}Docker is already installed${NORMAL}"
+  else
+      echo -e "${GREEN}Installing Docker${NORMAL}"
+      curl -fsSL https://get.docker.com -o get-docker.sh
+      sudo sh get-docker.sh
+      sudo usermod -aG docker $USER
+      sudo systemctl enable docker
+      sudo systemctl start docker
+      sudo rm get-docker.sh
+  fi
 }
 
 function source_configure_conduit {
-    git clone https://github.com/conduitxyz/node.git
-    cd $HOME/node
+  #check if conduit is already installed
+  if [ -d "$HOME/node" ]; then
+    echo -e "${GREEN}Conduit is already installed${NORMAL}"
+    echo -e "${GREEN}Updating Conduit${NORMAL}"
+    cd $HOME/conduit_node
+    git pull
     export CONDUIT_NETWORK=zora-mainnet-0
     cp .env.example .env
-    sed -i 's/OP_NODE_L1_ETH_RPC=.*/OP_NODE_L1_ETH_RPC=https:\/\/ethereum.publicnode.com/g' .env
+    sed -i 's/OP_NODE_L1_ETH_RPC=.*/OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'/g' .env
     docker compose up -d
+  else
+    git clone https://github.com/conduitxyz/node.git $HOME/conduit_node
+    cd $HOME/conduit_node
+    export CONDUIT_NETWORK=zora-mainnet-0
+    cp .env.example .env
+    sed -i 's/OP_NODE_L1_ETH_RPC=.*/OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'/g' .env
+    docker compose up -d
+  fi
 }
 
 function main {
-    colors
-    logo
-    line
-    set_rpc
-    line
-    install_docker
-    line
-    source_configure_conduit
-    line
+  colors
+  logo
+  line
+  set_rpc
+  line
+  install_docker
+  line
+  source_configure_conduit
+  line
 }
 
 main
