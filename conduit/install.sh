@@ -42,7 +42,7 @@ function install_docker {
 
 function source_configure_conduit {
   #check if conduit is already installed
-  if [ -d "$HOME/node" ]; then
+  if [ -d "$HOME/conduit_node" ]; then
     echo -e "${GREEN}Conduit is already installed${NORMAL}"
     echo -e "${GREEN}Updating Conduit${NORMAL}"
     cd $HOME/conduit_node
