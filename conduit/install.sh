@@ -66,8 +66,10 @@ function source_configure_conduit {
   if [ -d "$HOME/conduit_node" ]; then
     echo -e "${GREEN}Conduit is already installed${NORMAL}"
     echo -e "${GREEN}Updating Conduit${NORMAL}"
+    CONDUIT_NETWORK=zora-mainnet-0 docker compose -f $HOME/conduit_node/docker-compose.yml down
     cd $HOME/conduit_node
     git pull
+    
   else
     git clone https://github.com/conduitxyz/node.git $HOME/conduit_node
     cd $HOME/conduit_node
@@ -77,7 +79,7 @@ function source_configure_conduit {
     cp .env.example .env
     seds
     env_zora
-    docker compose up -d
+    CONDUIT_NETWORK=zora-mainnet-0 docker compose -f $HOME/conduit_node/docker-compose.yml up -d
 }
 
 function main {
