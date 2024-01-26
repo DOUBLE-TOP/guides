@@ -75,8 +75,8 @@ function source_configure_conduit {
     git clone https://github.com/conduitxyz/node.git $HOME/conduit_node
     cd $HOME/conduit_node
   fi
-    ./download-config.py zora-mainnet-0
-    export CONDUIT_NETWORK=zora-mainnet-0 || env_zora
+    ./download-config.py zora-mainnet-0 || env_zora
+    export CONDUIT_NETWORK=zora-mainnet-0
     cp .env.example .env
     seds
     CONDUIT_NETWORK=zora-mainnet-0 docker compose -f $HOME/conduit_node/docker-compose.yml up -d
