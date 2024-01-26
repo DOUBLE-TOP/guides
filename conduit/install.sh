@@ -50,7 +50,8 @@ function seds {
   sed -i 's|- .*9222:9222|- 19222:9222|g' $file
   sed -i 's|- .*7300:7300|- 17300:7300|g' $file
   sed -i 's|- .*6060:6060|- 16060:6060|g' $file
-  sed -i 's|OP_NODE_L1_ETH_RPC=.*|OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'|g' .env
+  sed -i 's|OP_NODE_L1_ETH_RPC=.*|OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'|g' $HOME/conduit_node/.env
+  sed -i '/OP_NODE_L1_TRUST_RPC=true/s/^#//' $HOME/conduit_node/.env.default
 }
 
 function env_zora {
