@@ -27,7 +27,7 @@ function set_rpc {
 }
 
 function install_docker {
-  if [ -x "$(command -v 'docker compose')" ]; then
+  if [ -x "$(command -v 'docker')" ]; then
       echo -e "${GREEN}Docker is already installed${NORMAL}"
   else
       echo -e "${GREEN}Installing Docker${NORMAL}"
