@@ -41,7 +41,6 @@ function install_docker {
 }
 
 function seds {
-  file=$HOME/conduit_node/docker-compose.yml
   sed -i 's|- .*8545:8545|- 1545:8545|g' $file
   sed -i 's|- .*8546:8546|- 1546:8546|g' $file
   sed -i 's|- .*30303:30303|- 10303:30303|g' $file
@@ -50,6 +49,7 @@ function seds {
   sed -i 's|- .*9222:9222|- 19222:9222|g' $file
   sed -i 's|- .*7300:7300|- 17300:7300|g' $file
   sed -i 's|- .*6060:6060|- 16060:6060|g' $file
+  sed -i '/- \.\/geth-data\/:/s/^[ \t]*#/\ \ \ \ \ \ /' $file
   sed -i 's|OP_NODE_L1_ETH_RPC=.*|OP_NODE_L1_ETH_RPC='$OP_NODE_L1_ETH_RPC'|g' $HOME/conduit_node/.env
   sed -i '/OP_NODE_L1_TRUST_RPC=true/s/^#//' $HOME/conduit_node/.env.default
 }
@@ -69,6 +69,7 @@ function source_configure_conduit {
     echo -e "${GREEN}Updating Conduit${NORMAL}"
     CONDUIT_NETWORK=zora-mainnet-0 docker compose -f $HOME/conduit_node/docker-compose.yml down
     cd $HOME/conduit_node
+    git checkout -- $file
     git pull
     
   else
@@ -83,6 +84,7 @@ function source_configure_conduit {
 }
 
 function main {
+  file=$HOME/conduit_node/docker-compose.yml
   colors
   logo
   line
