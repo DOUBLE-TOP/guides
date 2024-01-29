@@ -33,24 +33,11 @@ function wget_bin {
     echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
     ubuntu_version=$(lsb_release -rs)
     # Проверить версию и выполнить соответствующие действия
-    if [ "$ubuntu_version" == "20.04" ]; then
-        # Версия Ubuntu 20.04
-        wget https://github.com/availproject/avail/releases/download/v1.8.0.2/amd64-ubuntu-2004-data-avail.tar.gz
-        tar -xvf amd64-ubuntu-2004-data-avail.tar.gz
-        rm -f amd64-ubuntu-2004-data-avail.tar.gz*
-        sudo mv amd64-ubuntu-2004-data-avail /usr/bin/avail-full
-        sudo chmod +x /usr/bin/avail-full
-    elif [ "$ubuntu_version" == "22.04" ]; then
-        # Версия Ubuntu 22.04
-        wget https://github.com/availproject/avail/releases/download/v1.8.0.2/amd64-ubuntu-2204-data-avail.tar.gz
-        tar -xvf amd64-ubuntu-2204-data-avail.tar.gz
-        rm -f amd64-ubuntu-2204-data-avail.tar.gz*
-        sudo mv amd64-ubuntu-2204-data-avail /usr/bin/avail-full
-        sudo chmod +x /usr/bin/avail-full
-    else
-        # Другая версия Ubuntu
-        echo -e "${RED}Данная версия Ubuntu ($ubuntu_version) не поддерживается${NORMAL}"
-    fi
+    wget https://github.com/availproject/avail/releases/download/v1.9.0.3/x86_64-ubuntu-2004-data-avail.tar.gz
+    tar -xvf x86_64-ubuntu-2004-data-avail.tar.gz
+    rm -f x86_64-ubuntu-2004-data-avail.tar.gz*
+    sudo mv data-avail /usr/bin/avail-full
+    sudo chmod +x /usr/bin/avail-full
 }
 
 function wget_chainspec {

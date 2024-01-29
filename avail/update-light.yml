@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function colors {
+  GREEN="\e[32m"
+  RED="\e[39m"
+  YELLOW="\e[33m"
+  NORMAL="\e[0m"
+}
+
+function logo {
+  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+}
+
+function line {
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+}
+
+function output {
+  echo -e "${YELLOW}$1${NORMAL}"
+}
+
+function update {
+  sudo systemctl stop avail
+  sudo wget https://github.com/availproject/avail-light/releases/download/v1.7.5/avail-light-linux-amd64.tar.gz &>/dev/null
+  tar -xvf avail-light-linux-amd64.tar.gz
+  rm -f avail-light-linux-amd64.tar.gz*
+  sudo mv avail-light-linux-amd64 /usr/bin/avail
+  sudo chmod +x /usr/bin/avail
+  sudo systemctl stop avail
+}
+
+function main {
+  colors
+  line
+  logo
+  line
+  update
+  line
+  output "Обновление завершено"
+}
