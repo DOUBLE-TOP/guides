@@ -38,3 +38,5 @@ function main {
   line
   output "Обновление завершено"
 }
+
+main
