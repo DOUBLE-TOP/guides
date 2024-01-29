@@ -26,7 +26,7 @@ function update {
   rm -f x86_64-ubuntu-2004-data-avail.tar.gz*
   sudo mv data-avail /usr/bin/avail-full
   sudo chmod +x /usr/bin/avail-full
-  sudo systemctl stop avail-full
+  sudo systemctl restart avail-full
 }
 
 function main {

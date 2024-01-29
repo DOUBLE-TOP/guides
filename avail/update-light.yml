@@ -20,13 +20,31 @@ function output {
 }
 
 function update {
+  sudo tee <<EOF >/dev/null /etc/systemd/system/avail.service
+[Unit]
+Description=Avail Node
+After=network-online.target
+StartLimitIntervalSec=0
+[Service]
+User=$USER
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+ExecStart=/usr/bin/avail \
+--network goldberg
+[Install]
+WantedBy=multi-user.target
+EOF
+
+  sudo systemctl daemon-reload
+
   sudo systemctl stop avail
   sudo wget https://github.com/availproject/avail-light/releases/download/v1.7.5/avail-light-linux-amd64.tar.gz &>/dev/null
   tar -xvf avail-light-linux-amd64.tar.gz
   rm -f avail-light-linux-amd64.tar.gz*
   sudo mv avail-light-linux-amd64 /usr/bin/avail
   sudo chmod +x /usr/bin/avail
-  sudo systemctl stop avail
+  sudo systemctl restart avail
 }
 
 function main {
