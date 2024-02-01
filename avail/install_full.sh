@@ -72,6 +72,7 @@ ExecStart=/usr/bin/avail-full \
 --validator \
 --name '$AVAIL_NODENAME' \
 --telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
+--telemetry-url 'ws://telemetry.avail.tools:8001/submit/ 0'
 --reserved-nodes \
 "/dns/bootnode-001.goldberg.avail.tools/tcp/30333/p2p/12D3KooWCVqFvrP3UJ1S338Gb8SHvEQ1xpENLb45Dbynk4hu1XGN" \
 "/dns/bootnode-002.goldberg.avail.tools/tcp/30333/p2p/12D3KooWD6sWeWCG5Z1qhejhkPk9Rob5h75wYmPB6MUoPo7br58m" \
