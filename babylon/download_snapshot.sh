@@ -25,7 +25,7 @@ function source_profile {
 }
 
 function unsafe-reset-all {
-    babylond tendermint unsafe-reset-all
+    babylond tendermint unsafe-reset-all --keep-addr-book
 }
 
 function download_snapshot {
