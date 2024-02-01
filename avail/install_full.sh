@@ -31,11 +31,15 @@ function install_main_tools {
 
 function wget_bin {
     echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
-    ubuntu_version=$(lsb_release -rs)
-    # Проверить версию и выполнить соответствующие действия
-    wget https://github.com/availproject/avail/releases/download/v1.9.0.3/x86_64-ubuntu-2004-data-avail.tar.gz
-    tar -xvf x86_64-ubuntu-2004-data-avail.tar.gz
-    rm -f x86_64-ubuntu-2004-data-avail.tar.gz*
+    if [[ $(lsb_release -rs) == "22.04" ]]; then
+        wget https://github.com/availproject/avail/releases/download/v1.10.0.0/x86_64-ubuntu-2204-data-avail.tar.gz
+        tar xvf x86_64-ubuntu-2204-data-avail.tar.gz
+        rm -f x86_64-ubuntu-2204-data-avail.tar.gz
+    else
+        wget https://github.com/availproject/avail/releases/download/v1.10.0.0/x86_64-ubuntu-2004-data-avail.tar.gz
+        tar xvf x86_64-ubuntu-2004-data-avail.tar.gz
+        rm -f x86_64-ubuntu-2004-data-avail.tar.gz
+    fi
     sudo mv data-avail /usr/bin/avail-full
     sudo chmod +x /usr/bin/avail-full
 }
@@ -67,7 +71,15 @@ ExecStart=/usr/bin/avail-full \
 --prometheus-port 49615 \
 --validator \
 --name '$AVAIL_NODENAME' \
---telemetry-url 'wss://telemetry.doubletop.io/submit 0' 
+--telemetry-url 'wss://telemetry.doubletop.io/submit 0' \
+--reserved-nodes \
+"/dns/bootnode-001.goldberg.avail.tools/tcp/30333/p2p/12D3KooWCVqFvrP3UJ1S338Gb8SHvEQ1xpENLb45Dbynk4hu1XGN" \
+"/dns/bootnode-002.goldberg.avail.tools/tcp/30333/p2p/12D3KooWD6sWeWCG5Z1qhejhkPk9Rob5h75wYmPB6MUoPo7br58m" \
+"/dns/bootnode-003.goldberg.avail.tools/tcp/30333/p2p/12D3KooWMR9ZoAVWJv6ahraVzUCfacNbFKk7ABoWxVL3fJ3XXGDw" \
+"/dns/bootnode-004.goldberg.avail.tools/tcp/30333/p2p/12D3KooWMuyLE3aPQ82HTWuPUCjiP764ebQrZvGUzxrYGuXWZJZV" \
+"/dns/bootnode-005.goldberg.avail.tools/tcp/30333/p2p/12D3KooWKJwbdcZ7QWcPLHy3EJ1UiffaLGnNBMffeK8AqRVWBZA1" \
+"/dns/bootnode-006.goldberg.avail.tools/tcp/30333/p2p/12D3KooWM8AaHDH8SJvg6bq4CGQyHvW2LH7DCHbdv633dsrti7i5" \
+--reserved-only 
 [Install]
 WantedBy=multi-user.target
 EOF
