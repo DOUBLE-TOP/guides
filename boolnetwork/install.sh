@@ -43,7 +43,7 @@ function install {
     echo -e "${YELLOW}Запуск ноды boolnetwork в докере:${NORMAL}"
     mkdir -p $HOME/.boolnetwork/
     chown -R 1000:1000 .boolnetwork/
-    docker run -d -v $HOME/.boolnetwork:/bool/.local/share/bnk-node --restart unless-stopped --name boolnetwork boolnetwork/bnk-node:release --validator --chain=tee --name $BOOL_NODENAME 
+    docker run -d -v $HOME/.boolnetwork:/bool/.local/share/bnk-node --restart unless-stopped --name boolnetwork boolnetwork/bnk-node:release --validator --chain=tee --name $BOOL_NODENAME --telemetry-url "wss://telemetry.doubletop.io/submit 0"
 }
 
 function output {
