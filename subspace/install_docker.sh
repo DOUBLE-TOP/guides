@@ -82,6 +82,9 @@ function eof_docker_compose {
           "--blocks-pruning", "256",
           "--state-pruning", "archive-canonical",
           "--farmer",
+          "--rpc-listen-on", "0.0.0.0:9944",
+          "--rpc-cors", "all",
+          "--rpc-methods", "unsafe",
           "--name", "$SUBSPACE_NODENAME"
         ]
       healthcheck:
@@ -104,8 +107,6 @@ function eof_docker_compose {
         [
           "farm",
           "--node-rpc-url", "ws://node:9944",
-          "--listen-on", "/ip4/0.0.0.0/udp/30533/quic-v1",
-          "--listen-on", "/ip4/0.0.0.0/tcp/30533",
           "--reward-address", "$WALLET_ADDRESS",
           "path=/var/subspace,size=$PLOT_SIZE"
         ]
