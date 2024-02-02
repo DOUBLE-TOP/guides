@@ -87,7 +87,7 @@ function eof_docker_compose {
           "--rpc-methods", "unsafe",
           "--rpc-external",
           "--no-private-ipv4",
-          "--validator",
+          "--farmer",
           "--name", "$SUBSPACE_NODENAME",
           "--out-peers", "100"
         ]
