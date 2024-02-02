@@ -76,20 +76,17 @@ function eof_docker_compose {
       restart: unless-stopped
       command:
         [
-          "--chain", "$CHAIN",
-          "--base-path", "/var/subspace",
+          "run",
           "--blocks-pruning", "256",
           "--state-pruning", "archive-canonical",
-          "--port", "30333",
+          "--listen-on", "/ip4/0.0.0.0/tcp/30333",
           "--dsn-listen-on", "/ip4/0.0.0.0/udp/30433/quic-v1",
           "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
           "--rpc-cors", "all",
           "--rpc-methods", "unsafe",
-          "--rpc-external",
-          "--no-private-ipv4",
+          "--rpc-listen-on", "0.0.0.0:9944",
           "--farmer",
-          "--name", "$SUBSPACE_NODENAME",
-          "--out-peers", "100"
+          "--name", "subspace"
         ]
       healthcheck:
         timeout: 5s
