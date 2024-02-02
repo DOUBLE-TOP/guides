@@ -56,7 +56,7 @@ function plot_size {
 
 function get_vars {
   export CHAIN="gemini-3g"
-  export RELEASE="gemini-3h-2024-feb-01"
+  export RELEASE="gemini-3h-2024-jan-31-2"
 }
 
 function eof_docker_compose {
@@ -77,16 +77,12 @@ function eof_docker_compose {
       command:
         [
           "run",
+          "--base-path", "/var/subspace",
+          "--chain", "gemini-3h",
           "--blocks-pruning", "256",
           "--state-pruning", "archive-canonical",
-          "--listen-on", "/ip4/0.0.0.0/tcp/30333",
-          "--dsn-listen-on", "/ip4/0.0.0.0/udp/30433/quic-v1",
-          "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-          "--rpc-cors", "all",
-          "--rpc-methods", "unsafe",
-          "--rpc-listen-on", "0.0.0.0:9944",
           "--farmer",
-          "--name", "subspace"
+          "--name", "$SUBSPACE_NODENAME"
         ]
       healthcheck:
         timeout: 5s
