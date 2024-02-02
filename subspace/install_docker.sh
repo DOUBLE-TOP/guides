@@ -56,7 +56,7 @@ function plot_size {
 
 function get_vars {
   export CHAIN="gemini-3g"
-  export RELEASE="gemini-3g-2024-jan-31"
+  export RELEASE="gemini-3h-2024-jan-31-2"
 }
 
 function eof_docker_compose {
@@ -76,20 +76,16 @@ function eof_docker_compose {
       restart: unless-stopped
       command:
         [
-          "--chain", "$CHAIN",
+          "run",
           "--base-path", "/var/subspace",
+          "--chain", "gemini-3h",
           "--blocks-pruning", "256",
           "--state-pruning", "archive-canonical",
-          "--port", "30333",
-          "--dsn-listen-on", "/ip4/0.0.0.0/udp/30433/quic-v1",
-          "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
+          "--farmer",
+          "--rpc-listen-on", "0.0.0.0:9944",
           "--rpc-cors", "all",
           "--rpc-methods", "unsafe",
-          "--rpc-external",
-          "--no-private-ipv4",
-          "--validator",
-          "--name", "$SUBSPACE_NODENAME",
-          "--out-peers", "100"
+          "--name", "$SUBSPACE_NODENAME"
         ]
       healthcheck:
         timeout: 5s
@@ -111,8 +107,6 @@ function eof_docker_compose {
         [
           "farm",
           "--node-rpc-url", "ws://node:9944",
-          "--listen-on", "/ip4/0.0.0.0/udp/30533/quic-v1",
-          "--listen-on", "/ip4/0.0.0.0/tcp/30533",
           "--reward-address", "$WALLET_ADDRESS",
           "path=/var/subspace,size=$PLOT_SIZE"
         ]
