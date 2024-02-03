@@ -60,7 +60,7 @@ function main {
     get_nodename
     line
     install_main_tools
-    install_rust
+    # install_rust
     install_docker
     line
     install
