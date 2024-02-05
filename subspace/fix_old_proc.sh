@@ -22,7 +22,7 @@ cd $HOME
 rm -rf $HOME/subspace
 git clone https://github.com/subspace/subspace
 cd $HOME/subspace
-git checkout e8ed377ecee4e1992ffb731d67cd04bf444e6382
+git checkout 6c2302f7e30a4e29e0b75b66545884b9176420d6
 
 docker build -t ghcr.io/subspace/node:gemini-3h-2024-feb-05 -f Dockerfile-node .
 docker build -t ghcr.io/subspace/farmer:gemini-3h-2024-feb-05 -f Dockerfile-farmer .
