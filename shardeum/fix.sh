@@ -10,6 +10,11 @@ RUN echo "deb http://ftp.de.debian.org/debian stable main" > /etc/apt/sources.li
     echo "deb-src http://ftp.de.debian.org/debian stable main" >> /etc/apt/sources.list && \
     apt-get update
 
+RUN cd /tmp && apt download libcrypt1 && \
+    dpkg-deb -x libcrypt1_1%3a4.4.33-2_amd64.deb  . && \
+    cp -av lib/x86_64-linux-gnu/* /lib/x86_64-linux-gnu/ && \
+    apt --fix-broken install -y
+
 RUN apt-get install -y sudo
 RUN apt-get install -y logrotate
 
