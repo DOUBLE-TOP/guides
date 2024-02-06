@@ -4,7 +4,7 @@ solana-install init v1.17.20
 
 sudo systemctl stop solana
 
-sudo rm -rf $HOME/ledger/*
+
 
 bash -c "cat > /etc/systemd/system/solana.service<<EOF
 [Unit]
@@ -30,7 +30,7 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/solana-validator 
 --known-validator CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S \
 --only-known-rpc \
 --no-snapshot-fetch \
---no-genesis-fetch \
+--no-skip-initial-accounts-db-clean \
 --wait-for-supermajority 246464040 \
 --expected-shred-version 50093 \
 --expected-bank-hash 2QEvYhBgeWPJbC84fMTTK9NgntqiUAWiBEBf21rtTmng \
