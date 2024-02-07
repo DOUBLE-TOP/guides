@@ -1,37 +1,54 @@
-#!/bin/bash
+#!/usr/bin/expect
 
-sudo tee <<EOF >/dev/null $HOME/.shardeum/Dockerfile
-FROM registry.gitlab.com/shardeum/server:latest                                                                                                                                         
-                                                                                                                                                                                        
-ARG RUNDASHBOARD=y
-ENV RUNDASHBOARD=${RUNDASHBOARD}
+# Проверяем, передан ли пароль как аргумент
+if {$argc < 1} {
+    puts "Usage: $argv0 <password>"
+    exit 1
+}
 
-RUN echo "deb http://ftp.de.debian.org/debian stable main" > /etc/apt/sources.list && \
-    echo "deb-src http://ftp.de.debian.org/debian stable main" >> /etc/apt/sources.list && \
-    apt-get update
+# Сохраняем переданный пароль в переменную
+set password [lindex $argv 0]
 
-RUN cd /tmp && apt download libcrypt1 && \
-    dpkg-deb -x libcrypt1_1%3a4.4.33-2_amd64.deb  . && \
-    cp -av lib/x86_64-linux-gnu/* /lib/x86_64-linux-gnu/ && \
-    apt --fix-broken install -y
+# Задайте таймаут ожидания ответа от скрипта
+set timeout -1
 
-RUN apt-get install -y sudo
-RUN apt-get install -y logrotate
+# Запуск скрипта установки
+spawn bash -c "exec bash <(curl -s https://gitlab.com/shardeum/validator/dashboard/-/raw/main/installer.sh)"
 
-# Create node user
-RUN usermod -aG sudo node && \
- echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
- chown -R node /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
-USER node
+proc safe_send {cmd} {
+    catch {send "$cmd"}
+}
 
-# Copy cli src files as regular user
-WORKDIR /home/node/app
-COPY --chown=node:node . .
+# Ожидание вопросов и автоматический ответ на них
+expect "By running this installer, you agree to allow the Shardeum team to collect this data. (Y/n)?:"
+safe_send "Y\r"
 
-# RUN ln -s /usr/src/app /home/node/app/validator
+expect "What base directory should the node use (default ~/.shardeum):"
+safe_send "\r"
 
-# Start entrypoint script as regular user
-CMD ["./entrypoint.sh"]
-EOF
+expect "Do you want to run the web based Dashboard? (Y/n):"
+safe_send "Y\r"
 
-docker-compose -f $HOME/.shardeum/docker-compose.yml up -d --build
+expect "Set the password to access the Dashboard:"
+safe_send "$password\r"
+
+expect "Enter the port (1025-65536) to access the web based Dashboard (default 8080):"
+safe_send "\r"
+
+expect "If you wish to set an explicit external IP, enter an IPv4 address (default=auto):"
+safe_send "\r"
+
+expect "If you wish to set an explicit internal IP, enter an IPv4 address (default=auto):"
+safe_send "\r"
+
+expect "Enter the first port (1025-65536) for p2p communication (default 9001):"
+safe_send "\r"
+
+expect "Enter the second port (1025-65536) for p2p communication (default 10001):"
+safe_send "\r"
+
+expect "Do you want to change the password for the Dashboard? (y/N):"
+safe_send "N\r"
+
+# Ожидание завершения скрипта
+expect eof
