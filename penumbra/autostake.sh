@@ -9,8 +9,8 @@ echo "Прописываем валидатора"
 echo $validator
 echo "-----------------------------------------------------------------------------"
 
-current_balance=$(pcli view balance | grep penumbra | awk '{ print $2 }' | tr -d 'penumbra' | head -1) &>/dev/null
-dif=10
+current_balance=$(pcli view balance | grep penumbra | awk '{ print $3 }' | tr -d 'penumbra' | head -1) &>/dev/null
+dif=1
 sleep 15
 stake_balance=$(($current_balance-$dif))
 echo "-----------------------------------------------------------------------------"
