@@ -45,10 +45,11 @@ function source_git {
 # }
 
 function wget_bin_pcli {
-  mkdir -p $HOME/penumbra/target/release/
-  wget -O  $HOME/penumbra/target/release/pcli https://doubletop-bin.ams3.digitaloceanspaces.com/penumbra/$version/pcli
-  sudo chmod +x $HOME/penumbra/target/release/pcli
-  sudo cp $HOME/penumbra/target/release/pcli /usr/bin/pcli
+  wget https://github.com/penumbra-zone/penumbra/releases/download/$version/pcli-x86_64-unknown-linux-gnu.tar.xz
+  tar xvf pcli-x86_64-unknown-linux-gnu.tar.xz
+  sudo chmod +x pcli-x86_64-unknown-linux-gnu/pcli
+  rm -rf pcli-x86_64-unknown-linux-gnu.tar.xz chmod +x pcli-x86_64-unknown-linux-gnu
+  sudo cp pcli-x86_64-unknown-linux-gnu/pcli /usr/bin/pcli
 }
 
 function generate_wallet {
@@ -58,7 +59,7 @@ function generate_wallet {
 }
 
 colors
-export version="v0.64.2"
+export version="v0.65.0"
 install_tools
 # source_git
 # build_penumbra
