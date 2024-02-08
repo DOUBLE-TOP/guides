@@ -81,7 +81,7 @@ function view {
 
 colors
 export version="v0.65.0"
-source_git
+# source_git
 # rust_update
 
 # build_penumbra
