@@ -44,8 +44,11 @@ function generate_wallet {
   koii-keygen new --outfile ~/.config/koii/id.json --no-bip39-passphrase >> $HOME/koii_wallet.txt
 }
 
-function stop_w8_coin {
+function koii_addr {
+  echo "Ваш адресс кои, проверьте чтоб совпадал с адрессом который импортировали в Finnie кошелек"
   koii address 
+
+function stop_w8_coin {
   echo "Используя гайд восстановите данный кошелек в расшерении Finnie (!ВАЖНО ПРОВЕРЬТЕ ЧТОБ КОШЕЛЕК СОВПАДАЛ!) выполните все задания на кране и введите |koii| для продолжения работы скрипта."
   while true; do
     read input
@@ -143,6 +146,9 @@ echo -e "Устанавливаем cli и готовим кошелек"
 line_1
 install_cli
 generate_wallet
+line_2
+koii_addr
+line_2
 stop_w8_coin
 line_1
 echo -e "Подготовка фалов для запуска koii"
