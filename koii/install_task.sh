@@ -117,7 +117,7 @@ EOF
 }
 
 function docker_compose_up {
-  docker-compose -f $HOME/VPS-task/docker-compose.yml up -d
+  docker-compose -f $HOME/VPS-task/docker-compose.yaml up -d
 }
 
 function echo_info {
