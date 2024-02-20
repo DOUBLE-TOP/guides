@@ -54,7 +54,7 @@ function read_pass {
   fi
 }
 
-function git {
+function git_clone {
   git clone https://github.com/waku-org/nwaku-compose
   cd nwaku-compose
   cp .env.example .env
@@ -79,7 +79,7 @@ function rnl {
   ./register_rln.sh
 }
 
-function docker { 
+function docker_file { 
   sudo tee <<EOF >/dev/null $HOME/nwaku-compose/docker-compose.yml
 version: "3.7"
 x-logging: &logging
@@ -263,13 +263,13 @@ install_docker
 line_1
 echo -e "Клонируем репозиторий, готовим env и регистрируем rln"
 line_1
-git
+git_clone
 env
 rnl
 line_1
 echo -e "Запускаем docker контейнеры для waku"
 line_1
-docker
+docker_file
 docker_compose_up
 line_2
 echo_info
