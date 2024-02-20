@@ -18,6 +18,21 @@ function line_2 {
   echo -e "${RED}##############################################################################${NORMAL}"
 }
 
+function check_old_installation {
+  if [ -d "$HOME/.dusk/rusk-wallet/cache" ] || [ -f "$HOME/dusk_wallet.txt" ]; then
+    echo "Найдена папка со старым кошельком или файл кошелька. Удалить их для чистой установки? (yes/no)"
+    read confirmation
+    if [ "$confirmation" = "yes" ]; then
+      rm -rf "$HOME/.dusk/rusk-wallet/cache"
+      rm -f "$HOME/dusk_wallet.txt"
+      echo "Старые данные удалены."
+    else
+      echo "Установка прервана пользователем."
+      exit 1
+    fi
+  fi
+}
+
 function install_tools {
   sudo apt update && sudo apt install mc wget htop jq git -y
 }
@@ -113,6 +128,8 @@ line_1
 logo
 line_2
 read_pass
+line_2
+check_old_installation
 line_2
 echo -e "Установка tools, ufw"
 line_1
