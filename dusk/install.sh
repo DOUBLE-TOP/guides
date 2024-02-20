@@ -32,7 +32,7 @@ function read_pass {
   line_1
   read DUSK_PASS
   fi
-  echo "export DUSK_WALLET=123456" >> $HOME/.profile
+  echo "export DUSK_PASS=123456" >> $HOME/.profile
   source $HOME/.profile
 }
 
