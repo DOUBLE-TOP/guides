@@ -32,7 +32,7 @@ function install_ufw {
 
 function read_infura {
   if [ ! $INFURA_KEY ]; then
-  echo -e "Введите ваш ключ infura. Ключ пишется после https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+  echo -e "Введите ваш url infura или alchemy. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
   line_1
   read INFURA_KEY
   fi
@@ -40,7 +40,7 @@ function read_infura {
 
 function read_wallet {
   if [ ! $WAKU_WALLET ]; then
-  echo -e "Введите ваш ETH кошелек на котором есть как минимум 0.1 ETH в сети Sepolia"
+  echo -e "Введите ваш приватник от ETH кошелека на котором есть как минимум 0.1 ETH в сети Sepolia"
   line_1
   read WAKU_WALLET
   fi
@@ -62,7 +62,7 @@ function git {
 
 function env {
   sudo tee <<EOF >/dev/null $HOME/nwaku-compose/.env
-ETH_CLIENT_ADDRESS=https://sepolia.infura.io/v3/$INFURA_KEY     # RPC URL for accessing testnet via HTTP.
+ETH_CLIENT_ADDRESS=$INFURA_KEY                                  # RPC URL for accessing testnet via HTTP.
 ETH_TESTNET_KEY=$WAKU_WALLET                                    # Privatekey of testnet where you have sepolia ETH that would be staked into RLN contract
 RLN_RELAY_CRED_PASSWORD="$WAKU_PASS"                            # Password you would like to use to protect your RLN membership
 
@@ -80,7 +80,7 @@ function rnl {
 }
 
 function docker { 
-  sudo tee <<EOF >/dev/null $HOME/nwaku-compose/.env
+  sudo tee <<EOF >/dev/null $HOME/nwaku-compose/docker-compose.yml
 version: "3.7"
 x-logging: &logging
   logging:
