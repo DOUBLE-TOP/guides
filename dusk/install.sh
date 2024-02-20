@@ -37,7 +37,7 @@ function read_pass {
 }
 
 function install {
-  curl --proto '=https' --tlsv1.2 -sSfL https://github.com/dusk-network/itn-installer/releases/download/v0.1.1/itn-installer.sh | sudo sh
+  curl --proto '=https' --tlsv1.2 -sSfL https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/dusk/itn-installer.sh | sudo sh
 }
 
 function configure {
