@@ -45,7 +45,7 @@ rusk-wallet --password $DUSK_PASS create --seed-file $HOME/dusk_wallet.txt
 sleep 5
 rusk-wallet --password $DUSK_PASS export -d /opt/dusk/conf -n consensus.keys
 sleep 5
-sh /opt/dusk/bin/setup_consensus_pwd.sh
+echo "DUSK_CONSENSUS_KEYS_PASS=$DUSK_PASS" > /opt/dusk/services/dusk.conf
 }
 
 function run { 
@@ -105,7 +105,6 @@ function echo_info {
   echo -e "${RED}"
   echo -e "##############################################################################"
   cat dusk_wallet.txt
-  echo -e "##############################################################################"
   echo -e "${NORMAL}"
 }
 
