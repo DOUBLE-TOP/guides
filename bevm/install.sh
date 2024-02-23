@@ -1,75 +1,125 @@
 #!/bin/bash
 
-echo "-----------------------------------------------------------------------------"
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
-echo "-----------------------------------------------------------------------------"
-echo "Устанавливаем переменные"
-echo "-----------------------------------------------------------------------------" 
-read -p "Введите адрес EVM кошелька (MM): " BEVM_NAME
+function colors {
+  GREEN="\e[32m"
+  RED="\e[39m"
+  YELLOW="\e[33m"
+  NORMAL="\e[0m"
+}
+
+function logo {
+  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+}
+
+function line {
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+}
+
+function output {
+  echo -e "${YELLOW}$1${NORMAL}"
+}
+
+function output_error {
+  echo -e "${RED}$1${NORMAL}"
+}
+
+function output_normal {
+  echo -e "${GREEN}$1${NORMAL}"
+}
+
+function read_bevm_name() {
+    read -p "Enter your EVM wallet address (MM): " BEVM_NAME
     if [ -z "$BEVM_NAME" ]; then
-    echo "Адрес кошелька не введён, повторите запуск!"
-    exit 1
+        echo "Wallet address is not entered, please try again!"
+        exit 1
     fi
-    echo "Ваш ник в телеметрии: $BEVM_NAME"
-sleep 1
-# echo 'export BEVM_NAME='$BEVM_NAME >> $HOME/.profile
-source $HOME/.profile
-echo "-----------------------------------------------------------------------------"
-echo "Обновляем пакеты и устанавливаем зависимости"
-echo "-----------------------------------------------------------------------------"
-# sudo apt update && apt upgrade -y
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh) &>/dev/null
-echo "-----------------------------------------------------------------------------"
-cd $HOME
-echo "-----------------------------------------------------------------------------"
-echo "Устанавливаем ноду"
-echo "-----------------------------------------------------------------------------"
-wget -O bevm https://github.com/btclayer2/BEVM/releases/download/testnet-v0.1.1/bevm-v0.1.1-ubuntu20.04 && chmod +x bevm
-sudo cp bevm /usr/bin/
-sudo tee /etc/systemd/system/bevmd.service > /dev/null << EOF
-[Unit]
-Description=BTClayer2 Node
-After=network-online.target
-StartLimitIntervalSec=0
-[Service]
-User=$USER
-Restart=always
-RestartSec=3
-LimitNOFILE=65535
-ExecStart=/usr/bin/bevm \
---port=20333 \
---chain=testnet --name="$BEVM_NAME" \
---pruning=archive \
---telemetry-url "wss://telemetry.bevm.io/submit 0" \
---telemetry-url "wss://telemetry.doubletop.io/submit 0" \
---bootnodes="/ip4/159.89.206.4/tcp/30333/ws/p2p/12D3KooWC1try3KoM3WeKMRjSiKMRxE9a4uws9S6tiy2anfKWTpi" \
---bootnodes="/ip4/84.247.142.25/tcp/30333/ws/p2p/12D3KooWPYFTMtVr12v7YWjVVoedhnpkktYVPG26U4hbD8vyfQpK" \
---bootnodes="/ip4/159.89.206.4/tcp/30333/ws/p2p/12D3KooWC1try3KoM3WeKMRjSiKMRxE9a4uws9S6tiy2anfKWTpi" \
---bootnodes="/ip4/84.247.177.64/tcp/30333/ws/p2p/12D3KooWKi8miRfBoKz87bKRaUr58QUVFSh2ZA8GqwkL1pxSWuip" \
---bootnodes="/ip4/84.247.174.227/tcp/30333/ws/p2p/12D3KooWBrCnzUjgEkT3VZuLUJ8JPxHmwRq8nZ5CwbL6LG8oNF98" \
---bootnodes="/ip4/84.247.170.13/tcp/30333/ws/p2p/12D3KooWL1VtfpTyqLsWpxYi6HVfNAHUjqyiXfLG2hwCf6BHtgUR" \
---bootnodes="/ip4/103.171.85.19/tcp/30333/ws/p2p/12D3KooWSb18ru71zhZ71qxoSnHR7PSi2hNPx3UFtadvZisG3aEQ" \
---bootnodes="/ip4/18.222.166.234/tcp/10000/ws/p2p/12D3KooWR1DNEVVWMaRJVfAkXTyZAZgnN159hNcPTooCSwMv4zbx"
+    echo "Your nickname in telemetry: $BEVM_NAME"
+    sleep 1
+}
 
-[Install]
-WantedBy=multi-user.target
+function install_docker() {
+    if ! [ -x "$(command -v docker)" ]; then
+        echo "Docker is not installed. Installing Docker..."
+        sudo apt-get update
+        sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        sudo apt-get update
+        sudo apt-get install -y docker-ce
+        sudo usermod -aG docker $USER
+        echo "Docker installed successfully"
+    else
+        echo "Docker is already installed"
+    fi
+}
+
+function prepate_config() {
+    echo "Preparing config file..."
+    mkdir -p $HOME/.bevm/{data/chains/bevm/network,log,keystore}
+    cat > $HOME/.bevm/config.json <<EOF
+{
+  "chain": "testnet",
+  "log-dir": "/log",
+  "enable-console-log": true,
+  "no-mdns": true,
+  "validator": true,
+  "unsafe-rpc-external": true,
+  "offchain-worker": "when-authority",
+  "rpc-methods": "unsafe",
+  "log": "info,runtime=info",
+  "port": 30333,
+  "rpc-port": 8087,
+  "pruning": "archive",
+  "db-cache": 2048,
+  "name": "$nodename",
+  "base-path": "/data",
+  "telemetry-url": "wss://telemetry-testnet.bevm.io/submit 1",
+  "bootnodes": []
+}
 EOF
-echo "-----------------------------------------------------------------------------"
-echo "Запускаем ноду BEVM"
-echo "-----------------------------------------------------------------------------"
-sudo systemctl daemon-reload
-sudo systemctl enable bevmd
-sudo systemctl start bevmd
-echo "-----------------------------------------------------------------------------"
-echo "Нода запущена"
-echo "-----------------------------------------------------------------------------"
+    echo "Config file prepared successfully"
+}
+
+function pull_and_start_docker() {
+    sudo docker pull btclayer2/bevm:testnet-v0.1.3
+    if [[ $(sudo docker ps -q -f name=bevm-node) ]]; then
+        sudo docker stop bevm-node
+        sudo docker rm bevm-node
+    fi
+    sudo docker run -d --restart always --name bevm-node \
+    -p 8087:8087 -p 20333:30333 \
+    -v $HOME/.bevm/config.json:/config.json -v $HOME/.bevm/data:/data \
+    -v $HOME/.bevm/:/log -v $HOME/.bevm/keystore:/keystore \
+    btclayer2/bevm:testnet-v0.1.3 /usr/local/bin/bevm \
+    --config /config.json
+}
 
 
-# Удалить ноду
-# sudo systemctl stop bevmd
-# sudo systemctl disable bevmd
-# rm -rf /etc/systemd/system/bevmd.service
-# sudo systemctl daemon-reload
-# rm -rf /usr/bin/bevm
-# rm -rf .local/share/bevm/
+function main {
+    colors
+    line
+    logo
+    line
+    read_bevm_name
+    line
+    output "Checking Docker installation..."
+    install_docker
+    line
+    output "Preparing BEVM config..."
+    prepate_config
+    line
+    output "Starting BEVM..."
+    pull_and_start_docker
+    line
+    output "BEVM updated successfully"
+    output "To check logs run:"
+    output_normal "sudo docker logs --tail=100 -f bevm-node"
+    output "To restart BEVM run:"
+    output_normal "sudo docker restart bevm-node"
+    output "To check node status visit and find your nodename $nodename:"
+    output_normal "https://telemetry-testnet.bevm.io/#list/0x309a090992035428553a9b85209cc3c1c0aa8e03030aac6ed4a7d75f37f1b362"
+    line
+    output "Wish lifechange case with DOUBLETOP"
+}
+
+main
