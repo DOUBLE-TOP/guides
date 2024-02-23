@@ -71,7 +71,7 @@ function prepate_config() {
   "rpc-port": 8087,
   "pruning": "archive",
   "db-cache": 2048,
-  "name": "$nodename",
+  "name": "$BEVM_NAME",
   "base-path": "/data",
   "telemetry-url": "wss://telemetry-testnet.bevm.io/submit 1",
   "bootnodes": []
