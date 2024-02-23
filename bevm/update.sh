@@ -90,7 +90,7 @@ function pull_and_start_docker() {
         sudo docker rm bevm-node
     fi
     sudo docker run -d --restart always --name bevm-node \
-    -p 8987:8087 -p 39333:30333 \
+    -p 8087:8087 -p 20333:30333 \
     -v $HOME/.bevm/config.json:/config.json -v $HOME/.bevm/data:/data \
     -v $HOME/.bevm/:/log -v $HOME/.bevm/keystore:/keystore \
     btclayer2/bevm:testnet-v0.1.3 /usr/local/bin/bevm \
