@@ -88,6 +88,9 @@ services:
     volumes:
       - rusk-data:/opt/dusk
       - rusk-wallet:/root/.dusk
+    ports:
+      - "9900:9000"
+      - "8980:8080"
 
 volumes:
   rusk-data:
