@@ -33,10 +33,10 @@ mkdir -p /opt/dusk/installer
 mkdir -p /root/.dusk/rusk-wallet
 
 VERIFIER_KEYS_URL="https://nodes.dusk.network/keys"
-INSTALLER_URL="https://github.com/dusk-network/itn-installer/archive/refs/tags/v0.1.1.tar.gz"
+LAST_STATE_URL="https://nodes.dusk.network/state/86920"
+INSTALLER_URL="https://github.com/dusk-network/itn-installer/archive/refs/tags/v0.1.4.tar.gz"
 RUSK_URL=$(curl -s "https://api.github.com/repos/dusk-network/rusk/releases/latest" | jq -r  '.assets[].browser_download_url' | grep linux)
-WALLET_URL=$(curl -s "https://api.github.com/repos/dusk-network/wallet-cli/releases/latest" | jq -r  '.assets[].browser_download_url' | grep linux-x64.tar.gz
-)
+WALLET_URL=$(curl -s "https://api.github.com/repos/dusk-network/wallet-cli/releases/latest" | jq -r  '.assets[].browser_download_url' | grep libssl3)
 
 echo "Downloading installer package for additional scripts and configurations"
 curl -so /opt/dusk/installer/installer.tar.gz -L "$INSTALLER_URL"
@@ -44,16 +44,16 @@ tar xf /opt/dusk/installer/installer.tar.gz --strip-components 1 --directory /op
 
 # Handle scripts, configs, and service definitions
 mv -f /opt/dusk/installer/bin/* /opt/dusk/bin/
-mv -n /opt/dusk/installer/conf/* /opt/dusk/conf/
+mv /opt/dusk/installer/conf/* /opt/dusk/conf/
 mv -n /opt/dusk/installer/services/* /opt/dusk/services/
 
 chmod +x /opt/dusk/bin/*
 
-echo "Downloading the latest Rusk binary..."
-curl -so /opt/dusk/installer/rusk.tar.gz -L "$RUSK_URL"
-mkdir -p /opt/dusk/installer/rusk
-tar xf /opt/dusk/installer/rusk.tar.gz --directory /opt/dusk/installer/rusk
-mv /opt/dusk/installer/rusk/rusk /opt/dusk/bin/
+#echo "Downloading the latest Rusk binary..."
+#curl -so /opt/dusk/installer/rusk.tar.gz -L "$RUSK_URL"
+#mkdir -p /opt/dusk/installer/rusk
+#tar xf /opt/dusk/installer/rusk.tar.gz --directory /opt/dusk/installer/rusk
+#mv /opt/dusk/installer/rusk/rusk /opt/dusk/bin/
 chmod +x /opt/dusk/bin/rusk
 ln -sf /opt/dusk/bin/rusk /usr/bin/rusk
 
@@ -71,41 +71,49 @@ curl -so /opt/dusk/installer/rusk-vd-keys.zip -L "$VERIFIER_KEYS_URL"
 unzip -d /opt/dusk/rusk/ -o /opt/dusk/installer/rusk-vd-keys.zip
 chown -R dusk:dusk /opt/dusk/
 
+echo "Downloading state"
+rm -rf /opt/dusk/rusk/state
+rm -rf /opt/dusk/rusk/chain.db
+curl -so  /opt/dusk/installer/86920.tar.gz -L "$LAST_STATE_URL"
+tar -xvf /opt/dusk/installer/86920.tar.gz -C /opt/dusk/rusk/
+chown -R dusk:dusk /opt/dusk/
+
 echo "Installing services"
 # Overwrite previous service definitions
 mv -f /opt/dusk/services/rusk.service /etc/systemd/system/rusk.service
 
 # Configure logrotate with 644 permissions otherwise configuration is ignored
 mv -f /opt/dusk/services/logrotate.conf /etc/logrotate.d/dusk.conf
+chown root:root /etc/logrotate.d/dusk.conf
 chmod 644 /etc/logrotate.d/dusk.conf
 
-systemctl enable rusk
-systemctl daemon-reload
+# systemctl enable rusk
+# systemctl daemon-reload
 
-echo "Setup local firewall"
-ufw allow 9000:9005/udp
+# echo "Setup local firewall"
+# ufw allow 9000:9005/udp
 
-echo "Dusk node installed"
-echo "-----"
-echo "Prerequisites for launching:"
-echo "1. Provide CONSENSUS_KEYS file (default in /opt/dusk/conf/consensus.keys)"
-echo "Run the following commands:"
-echo "rusk-wallet restore"
-echo "rusk-wallet export -d /opt/dusk/conf -n consensus.keys"
-echo
-echo "2. Set DUSK_CONSENSUS_KEYS_PASS (use /opt/dusk/bin/setup_consensus_pwd.sh)"
-echo "Run the following command:"
-echo "./opt/dusk/bin/setup_consensus_pwd.sh"
-echo
-echo "-----"
-echo "To launch the node: "
-echo "service rusk start"
-echo
-echo "To run the Rusk wallet:"
-echo "rusk-wallet -n local"
-echo 
-echo "To check the logs"
-echo "tail -F /var/log/rusk.{log,err}"
+# echo "Dusk node installed"
+# echo "-----"
+# echo "Prerequisites for launching:"
+# echo "1. Provide CONSENSUS_KEYS file (default in /opt/dusk/conf/consensus.keys)"
+# echo "Run the following commands:"
+# echo "rusk-wallet restore"
+# echo "rusk-wallet export -d /opt/dusk/conf -n consensus.keys"
+# echo
+# echo "2. Set DUSK_CONSENSUS_KEYS_PASS (use /opt/dusk/bin/setup_consensus_pwd.sh)"
+# echo "Run the following command:"
+# echo "./opt/dusk/bin/setup_consensus_pwd.sh"
+# echo
+# echo "-----"
+# echo "To launch the node: "
+# echo "service rusk start"
+# echo
+# echo "To run the Rusk wallet:"
+# echo "rusk-wallet -n local"
+# echo 
+# echo "To check the logs"
+# echo "tail -F /var/log/rusk.{log,err}"
 
 rm -f /opt/dusk/installer/rusk.tar.gz
 rm -f /opt/dusk/installer/installer.tar.gz
