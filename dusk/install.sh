@@ -132,19 +132,19 @@ function main {
   line
   logo
   line
-  output_error "Введите пароль для консенсусных ключей"
+  output_error "Enter your password to continue:"
   request_password
   line
   line
-  output "Установка Dusk Network"
+  output "Installing Dusk Network..."
   line
   install_docker
-  output "Подготовка файлов"
+  output "Preparing files..."
   prepare_files
   build_container
   start_dusk
   line
-  output_normal "Установка завершена"
+  output_normal "Installation complete"
   line
   output "Wish lifechange case with DOUBLETOP"
 }
