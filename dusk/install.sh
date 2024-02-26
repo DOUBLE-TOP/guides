@@ -43,10 +43,12 @@ function install_docker() {
     fi
 }
 
-# Запрос пароля у пользователя
 function request_password() {
-    read -sp "password: " DUSK_PASS
-    echo
+    if [ -z "$DUSK_PASS" ]; then
+        read -sp "password: " DUSK_PASS
+        echo
+        export DUSK_PASS
+    fi
 }
 
 function prepare_files {
