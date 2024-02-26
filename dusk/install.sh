@@ -2,19 +2,17 @@
 
 # Запрос пароля у пользователя
 read -sp "Введите пароль для DUSK: " DUSK_PASS
-echo # Новая строка после ввода пароля
+echo
 
-# Создание каталога
 mkdir -p $HOME/rusk
 cd $HOME/rusk
 
-# Создание start.sh
-cat > start.sh <<'EOF'
+cat > start.sh <<EOF
 #!/bin/bash
 
 DIR="/opt/dusk"
 
-if [ "$(ls -A $DIR)" ]; then
+if [ "\$(ls -A \$DIR)" ]; then
   echo "Cтартуем..."
 else
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/dusk/itn-installer.sh)
@@ -33,8 +31,9 @@ fi
 /opt/dusk/bin/detect_ips.sh > /opt/dusk/services/rusk.conf.default
 
 # Запуск основного процесса
-exec /opt/dusk/bin/rusk --config /opt/dusk/conf/rusk.toml --kadcast-bootstrap bootstrap1.testnet.dusk.network:9000 --kadcast-bootstrap bootstrap2.testnet.dusk.network:9000
+exec /opt/dusk/bin/rusk --config /opt/dusk/conf/rusk.toml --kadcast-bootstrap bootstrap1.testnet.dusk.network:9000 --kadcast-bootstrap bootstrap2.testnet.dusk.network:9000 --http-listen-addr 0.0.0.0:8980 --kadcast-listen-address 0.0.0.0:9900
 EOF
+
 
 # Создание Dockerfile
 cat > Dockerfile <<EOF
@@ -97,8 +96,8 @@ services:
       - ./dusk:/opt/dusk
       - ./.dusk:/root/.dusk
     ports:
-      - "9000:9000"
-      - "8980:8080"
+      - "9900:9900"
+      - "8980:8980"
 
 # volumes:
 #   rusk-data:
