@@ -358,7 +358,7 @@ def main():
             human_readable_time = format_timedelta(time_diff)
             print(f"Recently Mined Blocks: {mined_blocks_count} (Last mined {human_readable_time} ago)")
         else:
-            print(f"Recently Mined Blocks: {mined_blocks_count}")
+            print(f"Recently Mined Blocks: {mined_blocks_count} (none within the last 24 hours)")
 
 
         dusk_network_connect_status()
