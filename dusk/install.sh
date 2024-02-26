@@ -1,13 +1,59 @@
 #!/bin/bash
 
+function colors {
+  GREEN="\e[32m"
+  RED="\e[39m"
+  YELLOW="\e[33m"
+  NORMAL="\e[0m"
+}
+
+function logo {
+  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+}
+
+function line {
+  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
+}
+
+function output {
+  echo -e "${YELLOW}$1${NORMAL}"
+}
+
+function output_error {
+  echo -e "${RED}$1${NORMAL}"
+}
+
+function output_normal {
+  echo -e "${GREEN}$1${NORMAL}"
+}
+
+function install_docker() {
+    if ! [ -x "$(command -v docker)" ]; then
+        echo "Docker is not installed. Installing Docker..."
+        sudo apt-get update
+        sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        sudo apt-get update
+        sudo apt-get install -y docker-ce
+        sudo usermod -aG docker $USER
+        echo "Docker installed successfully"
+    else
+        echo "Docker is already installed"
+    fi
+}
+
 # Запрос пароля у пользователя
-read -sp "Введите пароль для DUSK: " DUSK_PASS
-echo
+function request_password() {
+    read -sp "password: " DUSK_PASS
+    echo
+}
 
-mkdir -p $HOME/rusk
-cd $HOME/rusk
+function prepare_files {
+  mkdir -p $HOME/rusk
+  cd $HOME/rusk
 
-cat > start.sh <<EOF
+  cat > start.sh <<EOF
 #!/bin/bash
 
 DIR="/opt/dusk"
@@ -27,16 +73,12 @@ fi
 # Проверка консенсусных ключей
 /opt/dusk/bin/check_consensus_keys.sh
 
-# Обнаружение IP-адресов и запись в конфиг
-/opt/dusk/bin/detect_ips.sh > /opt/dusk/services/rusk.conf.default
-
 # Запуск основного процесса
-exec /opt/dusk/bin/rusk --config /opt/dusk/conf/rusk.toml --kadcast-bootstrap bootstrap1.testnet.dusk.network:9000 --kadcast-bootstrap bootstrap2.testnet.dusk.network:9000 --http-listen-addr 0.0.0.0:8980 --kadcast-listen-address 0.0.0.0:9900
+exec /opt/dusk/bin/rusk --config /opt/dusk/conf/rusk.toml --kadcast-bootstrap bootstrap1.testnet.dusk.network:9000 --kadcast-bootstrap bootstrap2.testnet.dusk.network:9000 --http-listen-addr 0.0.0.0:8980
 EOF
 
 
-# Создание Dockerfile
-cat > Dockerfile <<EOF
+  cat > Dockerfile <<EOF
 FROM ubuntu:22.04
 
 WORKDIR /opt/dusk
@@ -54,33 +96,54 @@ RUN chmod +x /start.sh
 CMD ["/start.sh"]
 EOF
 
-# Создание docker-compose.yml
-cat > docker-compose.yml <<EOF
+  cat > docker-compose.yml <<EOF
 version: '3'
 services:
   dusk:
+    network_mode: host
     build:
       context: .
     environment:
       - DUSK_CONSENSUS_KEYS_PASS=$DUSK_PASS
+      - KADCAST_PUBLIC_ADDRESS=$IP:9900
+      - KADCAST_LISTEN_ADDRESS=$IP:9900
     volumes:
       - ./dusk:/opt/dusk
       - ./.dusk:/root/.dusk
-    ports:
-      - "9900:9900"
-      - "8980:8980"
-
 EOF
+}
 
-# Сборка контейнера
-docker-compose build
-echo \"DUSK_CONSENSUS_KEYS_PASS=\$DUSK_CONSENSUS_KEYS_PASS\" > ./dusk/services/dusk.conf
+function build_container {
+  docker compose build
+}
 
-# Выполнение команд в контейнере
-docker-compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
-docker-compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS export -d /opt/dusk/conf -n consensus.keys"
+function start_dusk {
+  docker compose up -d
+  sleep 15
+  docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
+  docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS export -d /opt/dusk/conf -n consensus.keys"
+}
 
-# Запуск контейнера
-docker-compose up -d
+function main {
+  IP=$(curl -s ipinfo.io/ip)
+  colors
+  line
+  logo
+  line
+  output_error "Введите пароль для консенсусных ключей"
+  request_password
+  line
+  line
+  output "Установка Dusk Network"
+  line
+  install_docker
+  output "Подготовка файлов"
+  prepare_files
+  build_container
+  start_dusk
+  line
+  output_normal "Установка завершена"
+  line
+}
 
-echo "Установка и запуск завершены."
+main
