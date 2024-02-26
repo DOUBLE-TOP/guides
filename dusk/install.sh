@@ -146,6 +146,7 @@ function main {
   line
   output_normal "Установка завершена"
   line
+  output "Wish lifechange case with DOUBLETOP"
 }
 
 main
