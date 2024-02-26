@@ -6,11 +6,9 @@ import json
 import re
 import os
 
-last_known_global_height_info = (None, datetime.min)
-
 def count_blocks_mined():
     # Run the grep command and capture its output
-    grep_process = subprocess.Popen(["grep", "execute_state_transition", "/var/log/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    grep_process = subprocess.Popen(["grep", "execute_state_transition", "$HOME/rusk/dusk/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, _ = grep_process.communicate()
 
     # Count the number of lines returned by the grep command
@@ -48,7 +46,7 @@ def count_alive_nodes():
 
 def find_most_recent_execution_timestamp():
     lines_to_read = 8000
-    command = f"tail -n {lines_to_read} /var/log/rusk.log | grep -i 'execute_state_transition'"
+    command = f"tail -n {lines_to_read} $HOME/rusk/dusk/rusk.log | grep -i 'execute_state_transition'"
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, _ = process.communicate()
     lines = output.decode().splitlines()
@@ -93,7 +91,7 @@ def check_consensus_keys_password():
     num_lines_to_check = 2000
 
     # Run the tail command to get the last 2000 lines of the log file
-    tail_process = subprocess.Popen(["tail", "-n", str(num_lines_to_check), "/var/log/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    tail_process = subprocess.Popen(["tail", "-n", str(num_lines_to_check), "$HOME/rusk/dusk/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, _ = tail_process.communicate()
 
     # Convert the output from bytes to a string
@@ -170,7 +168,7 @@ def count_block_accepted(log_file_path, intervals):
 
 def dusk_network_connect_status():
     # Run the tail command to get the last 500 lines of the log file
-    #tail_process = subprocess.Popen(["tail", "-n", "200", "/var/log/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    #tail_process = subprocess.Popen(["tail", "-n", "200", "$HOME/rusk/dusk/rusk.log"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     #output, _ = tail_process.communicate()
 
     nodes = count_alive_nodes()
@@ -293,7 +291,7 @@ def localNodeErrorMsg():
      print("LOCAL NODE UNREACHABLE. Service is either not running or firewall rules are broken \nCheck the support-forum or #faq on the Discord Server")
 
 def main():
-    log_file_path = '/var/log/rusk.log'
+    log_file_path = '$HOME/rusk/dusk/rusk.log'
     intervals = [1, 5, 15]  # Minutes
     local_heights = {interval: [] for interval in intervals}
     last_interval_check = {interval: datetime.now() for interval in intervals}
