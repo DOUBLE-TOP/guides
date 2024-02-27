@@ -36,7 +36,7 @@ VERIFIER_KEYS_URL="https://nodes.dusk.network/keys"
 LAST_STATE_URL="https://nodes.dusk.network/state/86920"
 INSTALLER_URL="https://github.com/dusk-network/itn-installer/archive/refs/tags/v0.1.4.tar.gz"
 RUSK_URL=$(curl -s "https://api.github.com/repos/dusk-network/rusk/releases/latest" | jq -r  '.assets[].browser_download_url' | grep linux)
-WALLET_URL=$(curl -s "https://api.github.com/repos/dusk-network/wallet-cli/releases/latest" | jq -r  '.assets[].browser_download_url' | grep libssl3)
+WALLET_URL=$(curl -s "https://api.github.com/repos/dusk-network/wallet-cli/releases/latest" | jq -r  '.assets[].browser_download_url' | grep linux | grep -v libssl3)
 
 echo "Downloading installer package for additional scripts and configurations"
 curl -so /opt/dusk/installer/installer.tar.gz -L "$INSTALLER_URL"

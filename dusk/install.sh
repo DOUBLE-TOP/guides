@@ -135,10 +135,10 @@ function main {
   output_error "Enter your password to continue:"
   request_password
   line
-  line
   output "Installing Dusk Network..."
   line
   install_docker
+  line
   output "Preparing files..."
   prepare_files
   build_container
