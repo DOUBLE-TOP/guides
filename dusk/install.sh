@@ -55,7 +55,7 @@ function prepare_files {
   mkdir -p $HOME/rusk
   cd $HOME/rusk
 
-  cat > start.sh <<EOF
+  cat > prestart.sh <<EOF
 #!/bin/bash
 
 DIR="/opt/dusk"
@@ -65,6 +65,10 @@ if [ "\$(ls -A \$DIR)" ]; then
 else
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/dusk/itn-installer.sh)
 fi
+EOF
+
+  cat > start.sh <<EOF
+#!/bin/bash
 
 # Запись ключей восстановления в лог
 /opt/dusk/bin/rusk recovery-keys >> /var/log/rusk_recovery.log
@@ -92,8 +96,10 @@ ENV RUST_BACKTRACE=full \\
 RUN apt update && apt install -y unzip curl jq net-tools logrotate dnsutils
 
 COPY start.sh /start.sh
+COPY prestart.sh /prestart.sh
 
 RUN chmod +x /start.sh
+RUN chmod +x /prestart.sh
 
 CMD ["/start.sh"]
 EOF
@@ -120,10 +126,10 @@ function build_container {
 }
 
 function start_dusk {
-  docker compose up -d
-  sleep 15
+  docker compose run dusk bash -c "/prestart.sh"
   docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --state http://127.0.0.1:8980 --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
   docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --state http://127.0.0.1:8980 --password \$DUSK_CONSENSUS_KEYS_PASS export -d /opt/dusk/conf -n consensus.keys"
+  docker compose up -d
 }
 
 function main {
