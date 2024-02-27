@@ -62,6 +62,7 @@ function main {
   output "Installing Dusk Network..."
   line
   itn_installer
+  line
   output "Preparing files..."
   prepare_files
   start_dusk
