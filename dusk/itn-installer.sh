@@ -87,33 +87,33 @@ mv -f /opt/dusk/services/logrotate.conf /etc/logrotate.d/dusk.conf
 chown root:root /etc/logrotate.d/dusk.conf
 chmod 644 /etc/logrotate.d/dusk.conf
 
-systemctl enable rusk
-systemctl daemon-reload
+# systemctl enable rusk
+# systemctl daemon-reload
 
-echo "Setup local firewall"
-ufw allow 9000:9005/udp
+# echo "Setup local firewall"
+# ufw allow 9000:9005/udp
 
-echo "Dusk node installed"
-echo "-----"
-echo "Prerequisites for launching:"
-echo "1. Provide CONSENSUS_KEYS file (default in /opt/dusk/conf/consensus.keys)"
-echo "Run the following commands:"
-echo "rusk-wallet restore"
-echo "rusk-wallet export -d /opt/dusk/conf -n consensus.keys"
-echo
-echo "2. Set DUSK_CONSENSUS_KEYS_PASS (use /opt/dusk/bin/setup_consensus_pwd.sh)"
-echo "Run the following command:"
-echo "./opt/dusk/bin/setup_consensus_pwd.sh"
-echo
-echo "-----"
-echo "To launch the node: "
-echo "service rusk start"
-echo
-echo "To run the Rusk wallet:"
-echo "rusk-wallet -n local"
-echo 
-echo "To check the logs"
-echo "tail -F /var/log/rusk.{log,err}"
+# echo "Dusk node installed"
+# echo "-----"
+# echo "Prerequisites for launching:"
+# echo "1. Provide CONSENSUS_KEYS file (default in /opt/dusk/conf/consensus.keys)"
+# echo "Run the following commands:"
+# echo "rusk-wallet restore"
+# echo "rusk-wallet export -d /opt/dusk/conf -n consensus.keys"
+# echo
+# echo "2. Set DUSK_CONSENSUS_KEYS_PASS (use /opt/dusk/bin/setup_consensus_pwd.sh)"
+# echo "Run the following command:"
+# echo "./opt/dusk/bin/setup_consensus_pwd.sh"
+# echo
+# echo "-----"
+# echo "To launch the node: "
+# echo "service rusk start"
+# echo
+# echo "To run the Rusk wallet:"
+# echo "rusk-wallet -n local"
+# echo 
+# echo "To check the logs"
+# echo "tail -F /var/log/rusk.{log,err}"
 
 rm -f /opt/dusk/installer/rusk.tar.gz
 rm -f /opt/dusk/installer/installer.tar.gz
