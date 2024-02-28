@@ -128,6 +128,7 @@ function build_container {
 }
 
 function start_dusk {
+  docker-compose run dusk bash -c "/prestart.sh"
   docker-compose up -d
   sleep 15
   docker-compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
