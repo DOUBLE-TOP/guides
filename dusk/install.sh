@@ -31,12 +31,14 @@ function install_docker() {
     if ! [ -x "$(command -v docker)" ]; then
         echo "Docker is not installed. Installing Docker..."
         sudo apt-get update
-        sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+        sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common 
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
         sudo apt-get update
         sudo apt-get install -y docker-ce
         sudo usermod -aG docker $USER
+        docker_compose_version=v2.16.0
+        sudo wget -O /usr/bin/docker-compose "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-`uname -s`-`uname -m`"
         echo "Docker installed successfully"
     else
         echo "Docker is already installed"
@@ -138,6 +140,7 @@ function main {
   output "Installing Dusk Network..."
   line
   install_docker
+  sudo apt install python3-requests -y
   line
   output "Preparing files..."
   prepare_files
