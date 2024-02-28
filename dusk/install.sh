@@ -118,14 +118,14 @@ EOF
 }
 
 function build_container {
-  docker compose build
+  docker-compose build
 }
 
 function start_dusk {
-  docker compose up -d
+  docker-compose up -d
   sleep 15
-  docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
-  docker compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS export -d /opt/dusk/conf -n consensus.keys"
+  docker-compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS create --seed-file /opt/dusk/seed.txt"
+  docker-compose run dusk bash -c "/opt/dusk/bin/rusk-wallet --password \$DUSK_CONSENSUS_KEYS_PASS export -d /opt/dusk/conf -n consensus.keys"
 }
 
 function main {
