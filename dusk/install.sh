@@ -39,6 +39,7 @@ function install_docker() {
         sudo usermod -aG docker $USER
         docker_compose_version=v2.16.0
         sudo wget -O /usr/bin/docker-compose "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-`uname -s`-`uname -m`"
+        chmod +x /usr/bin/docker-compose
         echo "Docker installed successfully"
     else
         echo "Docker is already installed"
