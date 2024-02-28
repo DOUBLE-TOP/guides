@@ -57,7 +57,7 @@ function prepare_files {
   mkdir -p $HOME/rusk
   cd $HOME/rusk
 
-  cat > start.sh <<EOF
+  cat > prestart.sh <<EOF
 #!/bin/bash
 
 DIR="/opt/dusk"
@@ -67,6 +67,10 @@ if [ "\$(ls -A \$DIR)" ]; then
 else
   bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/dusk/itn-installer.sh)
 fi
+EOF
+
+  cat > start.sh <<EOF
+#!/bin/bash
 
 # Запись ключей восстановления в лог
 /opt/dusk/bin/rusk recovery-keys >> /var/log/rusk_recovery.log
@@ -94,8 +98,10 @@ ENV RUST_BACKTRACE=full \\
 RUN apt update && apt install -y unzip curl jq net-tools logrotate dnsutils
 
 COPY start.sh /start.sh
+COPY prestart.sh /prestart.sh
 
 RUN chmod +x /start.sh
+RUN chmod +x /prestart.sh
 
 CMD ["/start.sh"]
 EOF
