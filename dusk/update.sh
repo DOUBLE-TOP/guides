@@ -44,9 +44,6 @@ EOF
 function fix_hosts {
     grep -q "165.232.95.210 bootstrap1.testnet.dusk.network" /etc/hosts || echo "165.232.95.210 bootstrap1.testnet.dusk.network" >> /etc/hosts
     grep -q "206.189.53.129 bootstrap2.testnet.dusk.network" /etc/hosts || echo "206.189.53.129 bootstrap2.testnet.dusk.network" >> /etc/hosts
-    grep -q "namesever 8.8.8.8" /etc/resolv.conf || echo "namesever 8.8.8.8" >> /etc/resolv.conf
-    grep -q "namesever 8.8.4.4" /etc/resolv.conf || echo "namesever 8.8.4.4" >> /etc/resolv.conf
-    grep -q "namesever 1.1.1.1" /etc/resolv.conf || echo "namesever 1.1.1.1" >> /etc/resolv.conf
 }
 
 # Вызов функции для исполнения
