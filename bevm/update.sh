@@ -84,7 +84,7 @@ EOF
 }
 
 function pull_and_start_docker() {
-    sudo docker pull btclayer2/bevm:testnet-v0.1.3
+    sudo docker pull btclayer2/bevm:testnet-v0.1.4
     if [[ $(sudo docker ps -q -f name=bevm-node) ]]; then
         sudo docker stop bevm-node
         sudo docker rm bevm-node
@@ -93,7 +93,7 @@ function pull_and_start_docker() {
     -p 8087:8087 -p 20333:30333 \
     -v $HOME/.bevm/config.json:/config.json -v $HOME/.bevm/data:/data \
     -v $HOME/.bevm/:/log -v $HOME/.bevm/keystore:/keystore \
-    btclayer2/bevm:testnet-v0.1.3 /usr/local/bin/bevm \
+    btclayer2/bevm:testnet-v0.1.4 /usr/local/bin/bevm \
     --config /config.json
 }
 
@@ -102,18 +102,18 @@ function main {
     colors
     line
     logo
+    # line
+    # output "Checking old BEVM installation..."
+    # stop_service bevmd
+    # migrate_data
+    # line
+    # output "Checking Docker installation..."
+    # install_docker
+    # line
+    # output "Preparing BEVM config..."
+    # prepate_config
     line
-    output "Checking old BEVM installation..."
-    stop_service bevmd
-    migrate_data
-    line
-    output "Checking Docker installation..."
-    install_docker
-    line
-    output "Preparing BEVM config..."
-    prepate_config
-    line
-    output "Starting BEVM..."
+    output "Updating BEVM..."
     pull_and_start_docker
     line
     output "BEVM updated successfully"
