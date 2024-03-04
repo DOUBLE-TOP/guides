@@ -107,7 +107,7 @@ K2_NODE_URL="https://testnet.koii.live"
 # registering with the crete-task-cli. This variable supports a comma separated list:
 # TASKS="id1,id2,id3"
 # TASK_STAKES="1,1,1"
-TASKS="6GbpHRK3duDbo3dCEFXuJ2KD5Hg6Yo4A9LyHozeE7rjN"
+TASKS="5CNWuMPNfzARFyxEcDwGCXgsxZHasNQjP6vQSFxeEyET"
 TASK_STAKES=2
 
 # User can enter as many environment variables as they like below. These can be task
