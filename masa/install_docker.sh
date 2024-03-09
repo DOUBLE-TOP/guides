@@ -33,10 +33,18 @@ function request_rpc() {
         echo "1. https://1rpc.io/sepolia"
         echo "2. https://ethereum-sepolia.publicnode.com/"
         echo "3. https://rpc.ankr.com/eth_sepolia"
+        echo "4. Enter custom RPC URL"
         echo "Or find one on the website: https://chainlist.org/chain/11155111"
         echo
-        read -p "Please enter your Sepolia RPC URL: " SEPOLIA_RPC
-        echo
+        read -p "Please select an option (1-4): " SEPOLIA_RPC_OPTION
+        case $SEPOLIA_RPC_OPTION in
+            1) SEPOLIA_RPC="https://1rpc.io/sepolia" ;;
+            2) SEPOLIA_RPC="https://ethereum-sepolia.publicnode.com/" ;;
+            3) SEPOLIA_RPC="https://rpc.ankr.com/eth_sepolia" ;;
+            4) read -p "Please enter your custom Sepolia RPC URL: " SEPOLIA_RPC ;;
+            *) echo "Invalid option selected. Please run the script again and select a valid option."; exit 1 ;;
+        esac
+        echo "Selected RPC URL: $SEPOLIA_RPC"
         export SEPOLIA_RPC
     fi
 }
@@ -95,6 +103,7 @@ function prepare_env {
 function start_masa {
     mkdir -p $HOME/masa-oracle/.masa-keys/
     sudo chown -R 1000.1000 $HOME/masa-oracle/.masa-keys/
+    sed -i 's/8080:8080/48080:8080/g' $HOME/masa-oracle/docker-compose.yaml
     docker-compose -f $HOME/masa-oracle/docker-compose.yaml up -d --build
 }
 
