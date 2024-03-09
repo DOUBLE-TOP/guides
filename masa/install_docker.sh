@@ -69,14 +69,14 @@ function install_docker() {
 
 function clone_repo {
     if [ ! -d "$HOME/masa-oracle/" ]; then
-        git clone https://github.com/masa-finance/masa-oracle.git "$HOME/masa-finance"
+        git clone https://github.com/masa-finance/masa-oracle.git "$HOME/masa-oracle"
     else
         echo "An old directory was found. Do you want to first remove the node and then reinstall it? (y/n)"
         read -p "" response
         if [[ "$response" == "y" || "$response" == "Y" ]]; then
             docker-compose -f $HOME/masa-oracle/docker-compose.yaml down
-            rm -rf "$HOME/masa-finance/"
-            git clone https://github.com/masa-finance/masa-oracle.git "$HOME/masa-finance"
+            rm -rf "$HOME/masa-oracle/"
+            git clone https://github.com/masa-finance/masa-oracle.git "$HOME/masa-oracle"
             echo "The old directory has been removed and the installation has started anew."
         else
             echo "Installation cancelled. The existing directory was kept."
