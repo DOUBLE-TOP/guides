@@ -32,6 +32,7 @@ function request_rpc() {
         echo "It is recommended to use one of the following RPC URLs for Sepolia:"
         echo "1. https://1rpc.io/sepolia"
         echo "2. https://ethereum-sepolia.publicnode.com/"
+        echo "3. https://rpc.ankr.com/eth_sepolia"
         echo "Or find one on the website: https://chainlist.org/chain/11155111"
         echo
         read -p "Please enter your Sepolia RPC URL: " SEPOLIA_RPC
