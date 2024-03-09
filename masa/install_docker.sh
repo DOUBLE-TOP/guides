@@ -33,8 +33,7 @@ function request_rpc() {
         echo "1. https://1rpc.io/sepolia"
         echo "2. https://ethereum-sepolia.publicnode.com/"
         echo "3. https://rpc.ankr.com/eth_sepolia"
-        echo "4. Enter custom RPC URL"
-        echo "Or find one on the website: https://chainlist.org/chain/11155111"
+        echo "4. Enter custom RPC URL(find one on the website: https://chainlist.org/chain/11155111)"
         echo
         read -p "Please select an option (1-4): " SEPOLIA_RPC_OPTION
         case $SEPOLIA_RPC_OPTION in
