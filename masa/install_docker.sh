@@ -65,7 +65,7 @@ function install_docker() {
         sudo apt-get update
         sudo apt-get install -y docker-ce
         sudo usermod -aG docker $USER
-        docker_compose_version=v2.16.0
+        docker_compose_version=v2.24.6
         sudo wget -O /usr/bin/docker-compose "https://github.com/docker/compose/releases/download/${docker_compose_version}/docker-compose-`uname -s`-`uname -m`"
         chmod +x /usr/bin/docker-compose
         echo "Docker installed successfully"
