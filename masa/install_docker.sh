@@ -74,6 +74,13 @@ function install_docker() {
     fi
 }
 
+function migrate_data {
+    if [ -d "$HOME/.masa/" ]; then
+        echo "Migrating data from the old directory..."
+        cp -r $HOME/.masa/ $HOME/masa-oracle/.masa-keys/
+        echo "Data migration completed successfully"
+    fi
+}
 function clone_repo {
     if [ ! -d "$HOME/masa-oracle/" ]; then
         git clone https://github.com/masa-finance/masa-oracle.git "$HOME/masa-oracle"
@@ -126,6 +133,7 @@ function main {
     line
     output "Starting MASA Oracle..."
     stop_service masa
+    migrate_data
     start_masa
     output "MASA Oracle installed successfully"
     line
