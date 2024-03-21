@@ -18,19 +18,19 @@ function get_status() {
 }
 
 
-function start_node() {
-    TOKEN=${1}
-    DASHPORT=${2}
-    curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/api/node/start" \
-    --header 'Content-Type: application/json' \
-    --header "X-Api-Token: ${TOKEN}"
-}
+# function start_node() {
+#     TOKEN=${1}
+#     DASHPORT=${2}
+#     curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/api/node/start" \
+#     --header 'Content-Type: application/json' \
+#     --header "X-Api-Token: ${TOKEN}"
+# }
 
 cd "$HOME" || exit
 source .profile
-IP_ADDRESS=$(wget -qO- http://ipecho.net/plain | xargs echo)
-DASHPASS=$(cat "$HOME"/.shardeum/.env | grep DASHPASS | cut -d= -f2)
-DASHPORT=$(cat "$HOME"/.shardeum/.env | grep DASHPORT | cut -d= -f2)
+# IP_ADDRESS=$(wget -qO- http://ipecho.net/plain | xargs echo)
+# DASHPASS=$(cat "$HOME"/.shardeum/.env | grep DASHPASS | cut -d= -f2)
+# DASHPORT=$(cat "$HOME"/.shardeum/.env | grep DASHPORT | cut -d= -f2)
 while true
 do
     printf "Check shardeum node status \n"
