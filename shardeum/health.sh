@@ -1,27 +1,19 @@
 #! /bin/bash
 #thanks for https://raw.githubusercontent.com/ipohosov/public-node-scripts/main/shardeum/shardeum_healthcheck.sh
 
-function login() {
-    DASHPORT=${1}
-    DASHPASS=${2}
-    TOKEN=$(curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/auth/login" \
-    --header "Content-Type: application/json" \
-    --data-raw '{"password": "'"${DASHPASS}"'"}')
-    access_token=$(echo "${TOKEN}" | jq -r '.accessToken')
-    echo "${access_token}"
-}
+# function login() {
+#     DASHPORT=${1}
+#     DASHPASS=${2}
+#     TOKEN=$(curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/auth/login" \
+#     --header "Content-Type: application/json" \
+#     --data-raw '{"password": "'"${DASHPASS}"'"}')
+#     access_token=$(echo "${TOKEN}" | jq -r '.accessToken')
+#     echo "${access_token}"
+# }
 
-function check_and_restart_dashboard() {
-    # Проверяем, запущен ли контейнер
-    DASHBOARD_STATUS=$(docker ps | grep "shardeum-dashboard")
-    if [ -z "${DASHBOARD_STATUS}" ]; then
-        printf "shardeum-dashboard контейнер не запущен. Перезапуск...\n"
-        docker restart shardeum-dashboard
-    fi
-}
 
 function get_status() {
-    STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }')
+    STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }' || echo "stopped")
     echo "${STATUS}"
 }
 
@@ -44,13 +36,14 @@ do
     printf "Check shardeum node status \n"
     NODE_STATUS=$(get_status)
     printf "Current status: ${NODE_STATUS}\n"
-    # Добавляем вызов функции проверки контейнера
-    check_and_restart_dashboard
     sleep 5s
     if [[ "${NODE_STATUS}" =~ "stopped" ]]; then
+        docker-compose restart
+        (docker logs -f shardeum-dashboard &) | grep -q 'done' && sleep 20
         printf "Start shardeum node and wait 5 minutes\n"
-        JWT_TOKEN=$(login "${DASHPORT}" "${DASHPASS}")
-        start_node "${JWT_TOKEN}" "${DASHPORT}"
+        # JWT_TOKEN=$(login "${DASHPORT}" "${DASHPASS}")
+        # start_node "${JWT_TOKEN}" "${DASHPORT}"
+        docker exec -it shardeum-dashboard operator-cli start
         sleep 5m
     else
         date=$(date +"%H:%M")
