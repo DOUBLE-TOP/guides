@@ -17,8 +17,6 @@ function check_and_restart_dashboard() {
     if [ -z "${DASHBOARD_STATUS}" ]; then
         printf "shardeum-dashboard контейнер не запущен. Перезапуск...\n"
         docker restart shardeum-dashboard
-    else
-        printf "shardeum-dashboard контейнер работает нормально\n"
     fi
 }
 
