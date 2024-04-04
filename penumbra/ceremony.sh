@@ -9,9 +9,9 @@ ceremony_bid=$(($current_balance-$dif))
 
 # Если ceremony_bid больше нуля, используем её значение. Если равно нулю, используем 1penumbra
 if [ $ceremony_bid -gt 0 ]; then
-    pcli ceremony contribute --phase 1 --bid ${ceremony_bid}penumbra --coordinator-address penumbra1qvqr8cvqyf4pwrl6svw9kj8eypf3fuunrcs83m30zxh57y2ytk94gygmtq5k82cjdq9y3mlaa3fwctwpdjr6fxnwuzrsy4ezm0u2tqpzw0sed82shzcr42sju55en26mavjnw4
+    pcli ceremony contribute --phase 2 --bid ${ceremony_bid}penumbra
 elif [ $ceremony_bid -eq 0 ]; then
-    pcli ceremony contribute --phase 1 --bid 1penumbra --coordinator-address penumbra1qvqr8cvqyf4pwrl6svw9kj8eypf3fuunrcs83m30zxh57y2ytk94gygmtq5k82cjdq9y3mlaa3fwctwpdjr6fxnwuzrsy4ezm0u2tqpzw0sed82shzcr42sju55en26mavjnw4
+    pcli ceremony contribute --phase 2 --bid 1penumbra
 else 
     echo "ERROR: Недостаточный баланс, получите токены с крана в дискорде и повторите попытку"
     exit 1
