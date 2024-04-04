@@ -17,6 +17,8 @@ fi
 
 echo "Создаем новый сервисный файл..."
 
+chmod +x $HOME/.avail/bin/avail-light
+
 cat <<EOF | sudo tee $SERVICE_FILE > /dev/null
 [Unit]
 Description=Avail Light Client
