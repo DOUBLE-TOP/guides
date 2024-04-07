@@ -8,6 +8,11 @@ fi
 
 # Создаём сервисный файл для systemd
 SERVICE_FILE="/etc/systemd/system/avail-light.service"
+CONFIG_FILE="$HOME/.avail/config/config.yml"
+sed -i "/full_node_ws/d" "$CONFIG_FILE"
+sed -i "/confidence/d" "$CONFIG_FILE"
+echo "full_node_ws=['wss://rpc-goldberg.sandbox.avail.tools:443','wss://avail-goldberg.public.blastapi.io:443','wss://lc-rpc-goldberg.avail.tools:443/ws','wss://avail-goldberg-rpc.lgns.xyz:443/ws']" >> "$CONFIG_FILE"
+echo "confidence=80.0" >> "$CONFIG_FILE"
 
 # Проверяем, существует ли уже файл сервиса и удаляем его, если он есть
 if [ -f "$SERVICE_FILE" ]; then
@@ -30,7 +35,7 @@ StartLimitIntervalSec=0
 
 [Service]
 User=$USER
-ExecStart=$HOME/.avail/bin/avail-light --network goldberg --config $HOME/.avail/config/config.yml --identity $HOME/.avail/identity/identity.toml
+ExecStart=$HOME/.avail/bin/avail-light --config $HOME/.avail/config/config.yml --identity $HOME/.avail/identity/identity.toml
 Restart=always
 RestartSec=120
 LimitNOFILE=10000
