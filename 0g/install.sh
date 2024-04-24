@@ -21,17 +21,21 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
-git clone https://github.com/0glabs/0g-evmos.git
-cd 0g-evmos
-git checkout v1.0.0-testnet
-make install 
+# git clone https://github.com/0glabs/0g-evmos.git
+# cd 0g-evmos
+# git checkout v1.0.0-testnet
+# make install 
+wget https://snapshots.doubletop.tech/0g/evmosd
+chmod +x ./evmosd
+mv ./evmosd /usr/local/bin/
+evmosd version
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
 evmosd config chain-id zgtendermint_9000-1
 evmosd config keyring-backend file
 evmosd init $OG_NODENAME --chain-id zgtendermint_9000-1 &>/dev/null
 evmosd config node tcp://127.0.0.1:12657
-wget -O $HOME/.evmosd/config/genesis.json https://github.com/0glabs/0g-evmos/releases/download/v1.0.0-testnet/genesis.json
+wget -O $HOME/.evmosd/config/genesis.json https://snapshots.doubletop.tech/0g/genesis.json
 
 EXTERNAL_IP=$(wget -qO- eth0.me) \
 PROXY_APP_PORT=12658 \
