@@ -33,12 +33,12 @@ function wget_bin {
     echo -e "${YELLOW}Скачивание бинарников:${NORMAL}"
     if [[ $(lsb_release -rs) == "22.04" ]]; then
         wget https://github.com/availproject/avail/releases/download/v2.1.0.0-rc1/x86_64-ubuntu-2204-avail-node.tar.gz
-        tar xvf x86_64-ubuntu-2204-data-avail.tar.gz
-        rm -f x86_64-ubuntu-2204-data-avail.tar.gz
+        tar xvf x86_64-ubuntu-2204-avail-node.tar.gz
+        rm -f x86_64-ubuntu-2204-avail-node.tar.gz
     else
         wget https://github.com/availproject/avail/releases/download/v2.1.0.0-rc1/x86_64-ubuntu-2004-avail-node.tar.gz
-        tar xvf x86_64-ubuntu-2004-data-avail.tar.gz
-        rm -f x86_64-ubuntu-2004-data-avail.tar.gz
+        tar xvf x86_64-ubuntu-2004-avail-node.tar.gz
+        rm -f x86_64-ubuntu-2004-avail-node.tar.gz
     fi
     sudo mv data-avail /usr/bin/avail-full
     sudo chmod +x /usr/bin/avail-full
