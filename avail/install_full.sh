@@ -40,7 +40,7 @@ function wget_bin {
         tar xvf x86_64-ubuntu-2004-avail-node.tar.gz
         rm -f x86_64-ubuntu-2004-avail-node.tar.gz
     fi
-    sudo mv data-avail /usr/bin/avail-full
+    sudo mv avail-node /usr/bin/avail-full
     sudo chmod +x /usr/bin/avail-full
 }
 
@@ -83,7 +83,7 @@ sudo systemctl restart avail-full
 
 function output {
     echo -e "${YELLOW}Нода установлена, идем проверять себя в телеметрии:${NORMAL}"
-    echo -e "https://telemetry.doubletop.io/#list/0x6f09966420b2608d1947ccfb0f2a362450d1fc7fd902c29b67c906eaa965a7ae"
+    echo -e "https://telemetry.doubletop.io/#list/0xd3d2f3a3495dc597434a99d7d449ebad6616db45e4e4f178f31cc6fa14378b70"
     echo -e "${YELLOW}Для проверки логов выполняем команду:${NORMAL}"
     echo -e "journalctl -n 100 -f -u avail-full -o cat"
     echo -e "${YELLOW}Для проверки логов выполняем команду:${NORMAL}"
