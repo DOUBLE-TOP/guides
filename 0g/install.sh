@@ -27,7 +27,7 @@ cd $HOME
 # make install 
 wget https://snapshots.doubletop.tech/0g/evmosd
 chmod +x ./evmosd
-mv ./evmosd /usr/local/bin/
+sudo mv ./evmosd /usr/local/bin/
 evmosd version
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
