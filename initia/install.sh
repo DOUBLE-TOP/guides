@@ -151,6 +151,7 @@ function main {
     logo
     line
     output "Welcome to the Initia installation script"
+    line
     output "Enter your nodename"
     get_nodename
     line
