@@ -106,6 +106,7 @@ function config_node {
         -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.initia/config/app.toml
 
     sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.initia/config/config.toml
+    sed -i -e "s|^node *=.*|node = \"tcp://localhost:14657\"|" $HOME/.initia/config/client.toml
 }
 
 function prepare_node {
