@@ -32,6 +32,7 @@ function get_nodename {
         line
         read INITIA_NODENAME
     fi
+    echo 'export INITIA_NODENAME='$INITIA_NODENAME >> $HOME/.profile
 }
 
 function source_git {
