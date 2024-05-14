@@ -158,9 +158,9 @@ function main {
     output "Installing Initia..."
     line
     install_main_tools
-    source_git
     install_go
     install_cosmovisor
+    source_git
     init_node
     config_node
     prepare_node
