@@ -71,7 +71,7 @@ function config_node {
     pruning="custom"
     pruning_keep_recent="100"
     pruning_keep_every="0"
-    pruning_interval="10"
+    pruning_interval="19"
     EXTERNAL_IP=$(wget -qO- eth0.me)
     PROXY_APP_PORT=14658
     P2P_PORT=14656
@@ -82,11 +82,9 @@ function config_node {
     GRPC_WEB_PORT=14091
     PEERS="6c50666c45e8a86e04af84b0dcef29469ce284be@213.199.40.241:53456,1677252f64d728aa9598cb7365f74af7c862d9df@65.109.57.221:25756,5f934bd7a9d60919ee67968d72405573b7b14ed0@65.21.202.124:29656,04f0d493cb02a43d85b4fcd4bafd171500a433a0@162.55.27.107:46656,31da678c571c34cef11612d1ef166b9ea32829f4@149.50.96.124:39656"
     SEEDS="ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:25756"
-    wget -O genesis.json https://snapshots.polkachu.com/testnet-genesis/initia/genesis.json --inet4-only
-    mv genesis.json $HOME/.initia/config
+    curl -Ls https://snapshots.kjnodes.com/initia-testnet/genesis.json > $HOME/.initia/config/genesis.json
     sed -i 's/seeds = ""/seeds = "ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@testnet-seeds.polkachu.com:25756"/' $HOME/.initia/config/config.toml
-    wget -O addrbook.json https://snapshots.polkachu.com/testnet-addrbook/initia/addrbook.json --inet4-only
-    mv addrbook.json $HOME/.initia/config
+    curl -Ls https://snapshots.kjnodes.com/initia-testnet/addrbook.json > $HOME/.initia/config/addrbook.json
     sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.initia/config/app.toml
     sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.initia/config/app.toml
     sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.initia/config/app.toml
@@ -113,6 +111,11 @@ function prepare_node {
     mkdir -p $HOME/.initia/cosmovisor/genesis/bin
     mkdir -p $HOME/.initia/cosmovisor/upgrades
     cp $HOME/go/bin/initiad $HOME/.initia/cosmovisor/genesis/bin
+}
+
+function snap_node {
+    curl -L https://snapshots.kjnodes.com/initia-testnet/snapshot_latest.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.initia
+### Thanks kjnodes for high-quality snapshots ###
 }
 
 function prepare_systemd {
@@ -147,6 +150,10 @@ EOF
     sudo systemctl restart initia
 }
 
+function check {
+    bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/initia/check.sh)
+}
+
 function main {
     colors
     line
@@ -166,9 +173,14 @@ function main {
     init_node
     config_node
     prepare_node
+    snap_node
     prepare_systemd
     line
     output_normal "Installation complete"
+    line
+    output "Cheking node Initia"
+    line
+    check
     line
     output "Wish lifechange case with DOUBLETOP"
 }
