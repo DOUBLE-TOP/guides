@@ -33,6 +33,8 @@ function src_oracle {
     make build
     mv build/slinky /usr/local/bin/
     rm -rf build
+    sed -i 's/"prometheusServerAddress": "0.0.0.0:8002"/"prometheusServerAddress": "0.0.0.0:8202"/' $HOME/initia-oracle/config/core/oracle.json
+    sed -i 's/"port": "8080"/"port": "8280"/' $HOME/initia-oracle/config/core/oracle.json
 }
 
 function prepare_systemd {
@@ -43,7 +45,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$(which slinky) --oracle-config-path $HOME/initia-oracle/config/core/oracle.json --market-map-endpoint 127.0.0.1:17990
+ExecStart=$(which slinky) --oracle-config-path $HOME/initia-oracle/config/core/oracle.json --market-map-endpoint 127.0.0.1:14090
 Restart=on-failure
 RestartSec=30
 LimitNOFILE=65535
