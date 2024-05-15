@@ -59,6 +59,14 @@ EOF
     sudo systemctl restart initia-oracle
 }
 
+function update_config_initia {
+    sed -i 's/enabled = "false"/enabled = "true"/' $HOME/.initia/config/app.toml
+    sed -i 's/oracle_address = ""/oracle_address = "127.0.0.1:8280"/' $HOME/.initia/config/app.toml
+    sed -i 's/client_timeout = "2s"/client_timeout = "500ms"/' $HOME/.initia/config/app.toml
+    sed -i 's/metrics_enabled = "true"/metrics_enabled = "false"/' $HOME/.initia/config/app.toml
+    sudo systemctl restart initia
+}
+
 function main {
     colors
     line
@@ -68,6 +76,7 @@ function main {
     line
     src_oracle
     prepare_systemd
+    update_config_initia
     line
     output "Oracle installed"
     line
