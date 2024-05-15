@@ -36,7 +36,7 @@ function src_oracle {
 }
 
 function prepare_systemd {
-    sudo tee /etc/systemd/system/slinky.service > /dev/null <<EOF
+    sudo tee /etc/systemd/system/initia-oracle.service > /dev/null <<EOF
 [Unit]
 Description=Initia Slinky Oracle
 After=network-online.target
