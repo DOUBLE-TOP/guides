@@ -38,7 +38,7 @@ function get_nodename {
 function source_git {
     git clone https://github.com/initia-labs/initia $HOME/initia
     cd $HOME/initia
-    git checkout v0.2.11
+    git checkout v0.2.14
     make install
 }
 
