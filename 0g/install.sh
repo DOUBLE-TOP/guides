@@ -21,21 +21,19 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
-# git clone https://github.com/0glabs/0g-evmos.git
-# cd 0g-evmos
-# git checkout v1.0.0-testnet
-# make install 
-wget https://snapshots.doubletop.tech/0g/evmosd
-chmod +x ./evmosd
-sudo mv ./evmosd /usr/local/bin/
-evmosd version
+git clone https://github.com/0glabs/0g-chain.git
+cd 0g-chain
+git checkout v0.1.0
+make install
+0gchaind version
 echo "Репозиторий успешно склонирован, начинаем билд"
 echo "-----------------------------------------------------------------------------"
-evmosd config chain-id zgtendermint_9000-1
-evmosd config keyring-backend file
-evmosd init $OG_NODENAME --chain-id zgtendermint_9000-1 &>/dev/null
-evmosd config node tcp://127.0.0.1:12657
-wget -O $HOME/.evmosd/config/genesis.json https://snapshots.doubletop.tech/0g/genesis.json
+0gchaind config chain-id zgtendermint_16600-1
+0gchaind config keyring-backend file
+0gchaind init $OG_NODENAME --chain-id zgtendermint_9000-1 &>/dev/null
+0gchaind config node tcp://127.0.0.1:12657
+wget https://github.com/0glabs/0g-chain/releases/download/v0.1.0/genesis.json -O $HOME/.0gchain/config/genesis.json
+curl -Ls https://snapshots.liveraven.net/snapshots/testnet/zero-gravity/addrbook.json > $HOME/.0gchain/config/addrbook.json
 
 EXTERNAL_IP=$(wget -qO- eth0.me) \
 PROXY_APP_PORT=12658 \
@@ -52,28 +50,31 @@ sed -i \
     -e "s/\(pprof_laddr = \"\)\([^:]*\):\([0-9]*\).*/\1localhost:$PPROF_PORT\"/" \
     -e "/\[p2p\]/,/^\[/{s/\(laddr = \"tcp:\/\/\)\([^:]*\):\([0-9]*\).*/\1\2:$P2P_PORT\"/}" \
     -e "/\[p2p\]/,/^\[/{s/\(external_address = \"\)\([^:]*\):\([0-9]*\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/; t; s/\(external_address = \"\).*/\1${EXTERNAL_IP}:$P2P_PORT\"/}" \
-    $HOME/.evmosd/config/config.toml
+    $HOME/.0gchain/config/config.toml
 sed -i \
     -e "/\[api\]/,/^\[/{s/\(address = \"tcp:\/\/\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$API_PORT\4/}" \
     -e "/\[grpc\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_PORT\4/}" \
-    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.evmosd/config/app.toml
-PEERS="1248487ea585730cdf5d3c32e0c2a43ad0cda973@peer-zero-gravity-testnet.trusted-point.com:26326" && \
-SEEDS="8c01665f88896bca44e8902a30e4278bed08033f@54.241.167.190:26656,b288e8b37f4b0dbd9a03e8ce926cd9c801aacf27@54.176.175.48:26656,8e20e8e88d504e67c7a3a58c2ea31d965aa2a890@54.193.250.204:26656,e50ac888b35175bfd4f999697bdeb5b7b52bfc06@54.215.187.94:26656" && \
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/; s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.evmosd/config/config.toml
+    -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.0gchain/config/app.toml
+SEEDS="c4d619f6088cb0b24b4ab43a0510bf9251ab5d7f@54.241.167.190:26656,44d11d4ba92a01b520923f51632d2450984d5886@54.176.175.48:26656,f2693dd86766b5bf8fd6ab87e2e970d564d20aff@54.193.250.204:26656,f878d40c538c8c23653a5b70f615f8dccec6fb9f@54.215.187.94:26656" && \
+sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.0gchain/config/config.toml
 
 
 pruning="custom"
 pruning_keep_recent="100"
 pruning_keep_every="0"
 pruning_interval="10"
-sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.evmosd/config/app.toml
-sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.evmosd/config/app.toml
-sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.evmosd/config/app.toml
-sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.evmosd/config/app.toml
-sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00252aevmos\"/" $HOME/.evmosd/config/app.toml
-sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.evmosd/config/config.toml
+sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.0gchain/config/app.toml
+sed -i -e "s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/" $HOME/.0gchain/config/app.toml
+sed -i -e "s/^pruning-keep-every *=.*/pruning-keep-every = \"$pruning_keep_every\"/" $HOME/.0gchain/config/app.toml
+sed -i -e "s/^pruning-interval *=.*/pruning-interval = \"$pruning_interval\"/" $HOME/.0gchain/config/app.toml
+sed -i -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00252ua0gi\"/" $HOME/.0gchain/config/app.toml
+sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.0gchain/config/config.toml
 
-echo "Билд закончен, переходим к инициализации ноды"
+echo "Билд закончен, скачиваем снепшот"
+echo "-----------------------------------------------------------------------------"
+curl -L https://snap0g.aznope.com/downloads/0gchain.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.0gchain
+
+echo "Снепшот скачен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
 sudo tee <<EOF >/dev/null /etc/systemd/journald.conf
 Storage=persistent
@@ -86,7 +87,7 @@ sudo tee <<EOF >/dev/null /etc/systemd/system/0g.service
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=$(which evmosd) start
+  ExecStart=$(which 0gchaind) start --home $HOME/.0gchain
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=65535
@@ -99,4 +100,10 @@ sudo systemctl daemon-reload
 sudo systemctl restart 0g
 
 echo "Validator Node $OG_NODENAME успешно установлена"
+echo "-----------------------------------------------------------------------------"
+echo "Проверяем синхронизацию Validator Node $OG_NODENAME"
+echo "-----------------------------------------------------------------------------"
+bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/0g/check.sh)
+echo "-----------------------------------------------------------------------------"
+echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
