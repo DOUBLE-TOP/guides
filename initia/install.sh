@@ -175,7 +175,7 @@ function main {
     init_node
     config_node
     prepare_node
-    snap_node
+    # snap_node
     prepare_systemd
     line
     output_normal "Installation complete"
