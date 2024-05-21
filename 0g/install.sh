@@ -60,7 +60,7 @@ sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.0gchain/config/config.toml
 
 
 pruning="custom"
-pruning_keep_recent="100"
+pruning_keep_recent="1000"
 pruning_keep_every="0"
 pruning_interval="10"
 sed -i -e "s/^pruning *=.*/pruning = \"$pruning\"/" $HOME/.0gchain/config/app.toml
@@ -72,7 +72,7 @@ sed -i -e "s/prometheus = false/prometheus = true/" $HOME/.0gchain/config/config
 
 echo "Билд закончен, скачиваем снепшот"
 echo "-----------------------------------------------------------------------------"
-curl -L https://snap0g.aznope.com/downloads/0gchain.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.0gchain
+curl -L https://og.snapshot.stavr.tech/og-snap.tar.lz4 | tar -Ilz4 -xf - -C $HOME/.0gchain
 
 echo "Снепшот скачен, переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
