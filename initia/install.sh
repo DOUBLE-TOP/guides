@@ -38,7 +38,7 @@ function get_nodename {
 function source_git {
     git clone https://github.com/initia-labs/initia $HOME/initia
     cd $HOME/initia
-    git checkout v0.2.14
+    git checkout v0.2.15
     make install
 }
 
@@ -177,7 +177,7 @@ function main {
     init_node
     config_node
     prepare_node
-    snap_node
+    # snap_node
     prepare_systemd
     line
     output_normal "Installation complete"
