@@ -58,6 +58,7 @@ source .bashrc
 sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
+cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
 git checkout tags/v0.2.0
