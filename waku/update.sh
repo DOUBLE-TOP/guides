@@ -18,52 +18,26 @@ function line_2 {
   echo -e "${RED}##############################################################################${NORMAL}"
 }
 
-function install_tools {
-  sudo apt update && sudo apt install mc wget htop jq git -y
+function cleanup {
+  docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
+  rm -rf $HOME/nwaku-compose/rln_tree/
+  cd $HOME/nwaku-compose
+  git restore .
 }
 
-function install_docker {
-  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash
-}
+function update {
+  # Выгружаем переменные с .env в среду выполнения
+  source $HOME/nwaku-compose/.env
 
-function install_ufw {
-  curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash
-}
-
-function read_sepolia_rpc {
-  if [ ! $RPC_URL ]; then
-  echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
-  line_1
-  read RPC_URL
-  fi
-}
-
-function read_private_key {
-  if [ ! $WAKU_PRIVATE_KEY ]; then
-  echo -e "Введите ваш приватник от ETH кошелека на котором есть как минимум 0.1 ETH в сети Sepolia"
-  line_1
-  read WAKU_PRIVATE_KEY
-  fi
-}
-
-function read_pass {
-  if [ ! $WAKU_PASS ]; then
-  echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
-  line_1
-  read WAKU_PASS
-  fi
-}
-
-function git_clone {
-  git clone https://github.com/waku-org/nwaku-compose
-  cd nwaku-compose
+  # Удаляем старый .env
+  rm -rf $HOME/nwaku-compose/.env
+  cd $HOME/nwaku-compose
+  git pull
   cp .env.example .env
-}
 
-function setup_env {
-  sed -i 's/ETH_CLIENT_ADDRESS/ETH_CLIENT_ADDRESS=$RPC_URL/g' $HOME/nwaku-compose/.env
-  sed -i 's/ETH_TESTNET_KEY/ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY/g' $HOME/nwaku-compose/.env
-  sed -i 's/RLN_RELAY_CRED_PASSWORD/RLN_RELAY_CRED_PASSWORD=/"$WAKU_PASS/"/g' $HOME/nwaku-compose/.env
+  sed -i 's/ETH_CLIENT_ADDRESS/ETH_CLIENT_ADDRESS=$ETH_CLIENT_ADDRESS/g' $HOME/nwaku-compose/.env
+  sed -i 's/ETH_TESTNET_KEY/ETH_TESTNET_KEY=$ETH_TESTNET_KEY/g' $HOME/nwaku-compose/.env
+  sed -i 's/RLN_RELAY_CRED_PASSWORD/RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD/g' $HOME/nwaku-compose/.env
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
@@ -93,27 +67,13 @@ colors
 line_1
 logo
 line_2
-read_sepolia_rpc
-line_2
-read_wallet
-line_2
-read_pass
-line_2
-echo -e "Установка tools, ufw, docker"
+echo -e "Останавливаем контейнер, чистим ненужные файлы и обновляемся"
 line_1
-install_tools
-install_ufw
-install_docker
-line_1
-echo -e "Клонируем репозиторий, готовим env и регистрируем rln"
-line_1
-git_clone
-setup_env
-rnl
+cleanup
+update
 line_1
 echo -e "Запускаем docker контейнеры для waku"
 line_1
-docker_file
 docker_compose_up
 line_2
 echo_info
