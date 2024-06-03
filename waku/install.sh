@@ -95,7 +95,7 @@ logo
 line_2
 read_sepolia_rpc
 line_2
-read_wallet
+read_private_key
 line_2
 read_pass
 line_2
