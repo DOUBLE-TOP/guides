@@ -62,9 +62,9 @@ function git_clone {
 }
 
 function setup_env {
-  sed -i 's/ETH_CLIENT_ADDRESS/ETH_CLIENT_ADDRESS=$RPC_URL/g' $HOME/nwaku-compose/.env
-  sed -i 's/ETH_TESTNET_KEY/ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY/g' $HOME/nwaku-compose/.env
-  sed -i 's/RLN_RELAY_CRED_PASSWORD/RLN_RELAY_CRED_PASSWORD=/"$WAKU_PASS/"/g' $HOME/nwaku-compose/.env
+  sed -i "s|ETH_CLIENT_ADDRESS=.*|ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
+  sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
+  sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$WAKU_PASS|" $HOME/nwaku-compose/.env
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
