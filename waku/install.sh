@@ -58,7 +58,7 @@ function git_clone {
   git clone https://github.com/waku-org/nwaku-compose
   cd nwaku-compose
   cp .env.example .env
-  ./register_rln.sh
+  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 function setup_env {
@@ -113,7 +113,6 @@ setup_env
 line_1
 echo -e "Запускаем docker контейнеры для waku"
 line_1
-docker_file
 docker_compose_up
 line_2
 echo_info
