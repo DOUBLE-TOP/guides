@@ -56,12 +56,12 @@ function read_pass {
 
 function git_clone {
   git clone https://github.com/waku-org/nwaku-compose
-  cd nwaku-compose
-  cp .env.example .env
-  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 function setup_env {
+  cd nwaku-compose
+  cp .env.example .env
+
   sed -i "s|ETH_CLIENT_ADDRESS=.*|ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$WAKU_PASS|" $HOME/nwaku-compose/.env
@@ -69,6 +69,8 @@ function setup_env {
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
+
+  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 
