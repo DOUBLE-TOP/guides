@@ -23,17 +23,17 @@ sudo apt update && sudo apt upgrade -y && apt install curl -y
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка ноды Nubit
+echo "Установка ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
 curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86.tar
 
 tar -xvf nubit-node-linux-x86.tar
-mv nubit-node-linux-x86 "$HOME/nubit-node"
+mv nubit-node-linux-x86 $HOME/nubit-node
 rm nubit-node-linux-x86.tar
 
-NUBIT_PATH="$HOME/nubit-node"
-CONFIG_FILE="$NUBIT_PATH/config/config.json"
+NUBIT_PATH=$HOME/nubit-node
+CONFIG_FILE=$NUBIT_PATH/config/config.json
 
 NETWORK=$(grep -oP '"network": "\K[^"]+' $CONFIG_FILE)
 NODE_TYPE=$(grep -oP '"node_type": "\K[^"]+' $CONFIG_FILE)
@@ -48,14 +48,15 @@ if [ -z "$NETWORK" ] || [ -z "$NODE_TYPE" ] || [ -z "$PEERS" ] || [ -z "$VALIDAT
   exit 1
 fi
 
-BINARY="$NUBIT_PATH/bin/nubit"
+NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
+
+BINARY=$NUBIT_PATH/bin/nubit
 
 $BINARY $NODE_TYPE init  > $NUBIT_PATH/output.txt
 mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" $NUBIT_PATH/output.txt | tail -n 1)
 echo $mnemonic > $NUBIT_PATH/mnemonic.txt
 rm $NUBIT_PATH/output.txt
 
-export AUTH_TYPE
 $BINARY $NODE_TYPE auth $AUTH_TYPE
 
 sed -i.bak "s/\"times\": 0/\"times\": 1/" $CONFIG_FILE
@@ -95,5 +96,3 @@ echo "journalctl -n 100 -f -u nubit -o cat"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
-
-
