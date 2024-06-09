@@ -49,6 +49,9 @@ if [ -z "$NETWORK" ] || [ -z "$NODE_TYPE" ] || [ -z "$PEERS" ] || [ -z "$VALIDAT
 fi
 
 NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
+echo "export NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}" >> $HOME/.bash_profile
+source .bah_profile
+echo "$NUBIT_CUSTOM"
 
 BINARY=$NUBIT_PATH/bin/nubit
 
@@ -58,9 +61,6 @@ echo $mnemonic > $NUBIT_PATH/mnemonic.txt
 rm $NUBIT_PATH/output.txt
 
 $BINARY $NODE_TYPE auth $AUTH_TYPE
-
-sed -i.bak "s/\"times\": 0/\"times\": 1/" $CONFIG_FILE
-
 
 echo "-----------------------------------------------------------------------------"
 echo "Переходим к инициализации ноды"
@@ -72,11 +72,11 @@ sudo systemctl restart systemd-journald
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/nubit.service
 [Unit]
-  Description=Nubit node
+  Description=Nubit light node 
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=$BINARY $NODE_TYPE start --p2p.network $NETWORK --core.ip $VALIDATOR_IP --rpc.addr 0.0.0.0
+  ExecStart=$BINARY $NODE_TYPE start --metrics --metrics.tls=false --metrics.endpoint otel.nubit-alphatestnet-1.com:4318 --metrics.interval 3600s
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=65535
