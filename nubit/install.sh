@@ -49,8 +49,8 @@ if [ -z "$NETWORK" ] || [ -z "$NODE_TYPE" ] || [ -z "$PEERS" ] || [ -z "$VALIDAT
 fi
 
 NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
-echo "export NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}" >> $HOME/.bash_profile
-source .bah_profile
+echo "export NUBIT_CUSTOM=${NETWORK}:${GENESIS_HASH}:${PEERS}" >> $HOME/.bash_profile
+source .bash_profile
 echo "$NUBIT_CUSTOM"
 
 BINARY=$NUBIT_PATH/bin/nubit
