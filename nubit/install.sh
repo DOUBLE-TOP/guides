@@ -50,17 +50,36 @@ fi
 
 NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
 echo "export NUBIT_CUSTOM=${NETWORK}:${GENESIS_HASH}:${PEERS}" >> $HOME/.bash_profile
+echo "export AUTH_TYPE=${AUTH_TYPE}" >> $HOME/.bash_profile
+
 source .bash_profile
-echo "$NUBIT_CUSTOM"
 
 BINARY=$NUBIT_PATH/bin/nubit
 
-$BINARY $NODE_TYPE init  > $NUBIT_PATH/output.txt
-mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" $NUBIT_PATH/output.txt | tail -n 1)
-echo $mnemonic > $NUBIT_PATH/mnemonic.txt
-rm $NUBIT_PATH/output.txt
+if [ "$START_TIMES" -eq 0 ]; then
+  if [ -d $HOME/.nubit-${NODE_TYPE}-${NETWORK} ]; then
+        echo "╔══════════════════════════════════════════════════════════════════════════════════════════════════════"
+        echo "║  There is already a ${NODE_TYPE} node nubit-key stored for ${NETWORK}                "
+        echo "║                                                                                      "
+        echo "║  Rename \"$HOME/.nubit-${NODE_TYPE}-${NETWORK}\" repo and store the past ${NODE_TYPE}"
+        echo "║  node repo somewhere you feel safe!                                                  "
+        echo "║                                                                                      "
+        echo "║  Come back by running ./start.sh                                                     "
+        echo "╚══════════════════════════════════════════════════════════════════════════════════════════════════════"
+        exit 1
+  fi
+  $BINARY $NODE_TYPE init  > output.txt
+  mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" output.txt | tail -n 1)
+  echo "MNEMONIC (save this somewhere safe!!!):"
+  echo $mnemonic > mnemonic.txt
+  rm output.txt
 
-$BINARY $NODE_TYPE auth $AUTH_TYPE
+  export AUTH_TYPE
+  $BINARY $NODE_TYPE auth $AUTH_TYPE
+fi
+
+NEW_START_TIMES=$((START_TIMES + 1))
+sed -i.bak "s/\"times\": $START_TIMES/\"times\": $NEW_START_TIMES/" $CONFIG_FILE
 
 echo "-----------------------------------------------------------------------------"
 echo "Переходим к инициализации ноды"
