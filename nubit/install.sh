@@ -72,11 +72,11 @@ sudo systemctl restart systemd-journald
 
 sudo tee <<EOF >/dev/null /etc/systemd/system/nubit.service
 [Unit]
-  Description=OG Cosmos daemon
+  Description=Nubit node
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=$BINARY $NODE_TYPE start --metrics --metrics.tls=false --metrics.endpoint otel.nubit-alphatestnet-1.com:4318 --metrics.interval 3600s --p2p.network $NETWORK --core.ip $VALIDATOR_IP --rpc.addr 0.0.0.0
+  ExecStart=$BINARY $NODE_TYPE start --p2p.network $NETWORK --core.ip $VALIDATOR_IP --rpc.addr 0.0.0.0
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=65535
