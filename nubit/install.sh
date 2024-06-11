@@ -18,6 +18,7 @@ mkdir nubit-node && cd nubit-node
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
 
 docker build -t nubit_image . && docker run -d --name nubit nubit_image
+sleep 60
 docker cp nubit:/home/nubit-user/nubit-node/mnemonic.txt $HOME/nubit-node/mnemonic.txt
 docker cp nubit:/home/nubit-user/.nubit-light-nubit-alphatestnet-1/keys $HOME/nubit-node/keys
 
