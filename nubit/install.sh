@@ -34,6 +34,7 @@ rm nubit-node-linux-x86.tar
 
 NUBIT_PATH=$HOME/nubit-node
 CONFIG_FILE=$NUBIT_PATH/config/config.json
+BINARY="$NUBIT_PATH/bin/nubit"
 
 NETWORK=$(grep -oP '"network": "\K[^"]+' $CONFIG_FILE)
 NODE_TYPE=$(grep -oP '"node_type": "\K[^"]+' $CONFIG_FILE)
@@ -48,13 +49,7 @@ if [ -z "$NETWORK" ] || [ -z "$NODE_TYPE" ] || [ -z "$PEERS" ] || [ -z "$VALIDAT
   exit 1
 fi
 
-NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
-echo "export NUBIT_CUSTOM=${NETWORK}:${GENESIS_HASH}:${PEERS}" >> $HOME/.bash_profile
-echo "export AUTH_TYPE=${AUTH_TYPE}" >> $HOME/.bash_profile
-
-source .bash_profile
-
-BINARY=$NUBIT_PATH/bin/nubit
+export NUBIT_CUSTOM="${NETWORK}:${GENESIS_HASH}:${PEERS}"
 
 if [ "$START_TIMES" -eq 0 ]; then
   if [ -d $HOME/.nubit-${NODE_TYPE}-${NETWORK} ]; then
@@ -72,6 +67,7 @@ if [ "$START_TIMES" -eq 0 ]; then
   mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" output.txt | tail -n 1)
   echo "MNEMONIC (save this somewhere safe!!!):"
   echo $mnemonic > mnemonic.txt
+  sleep 1
   rm output.txt
 
   export AUTH_TYPE
@@ -95,7 +91,9 @@ sudo tee <<EOF >/dev/null /etc/systemd/system/nubit.service
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=$BINARY $NODE_TYPE start --metrics --metrics.tls=false --metrics.endpoint otel.nubit-alphatestnet-1.com:4318 --metrics.interval 3600s
+  Environment="NUBIT_CUSTOM=$NUBIT_CUSTOM"
+  Environment="AUTH_TYPE=$AUTH_TYPE"
+  ExecStart=$BINARY $NODE_TYPE start --metrics --metrics.tls=false --metrics.endpoint otel.nubit-alphatestnet-1.com:4318 --metrics.interval 3600s --p2p.network $NETWORK --core.ip $VALIDATOR_IP --rpc.addr 0.0.0.0
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=65535
