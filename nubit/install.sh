@@ -65,8 +65,7 @@ if [ "$START_TIMES" -eq 0 ]; then
   fi
   $BINARY $NODE_TYPE init  > output.txt
   mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" output.txt | tail -n 1)
-  echo "MNEMONIC (save this somewhere safe!!!):"
-  echo $mnemonic > mnemonic.txt
+  echo $mnemonic > $NUBIT_PATH/mnemonic.txt
   sleep 1
   rm output.txt
 
