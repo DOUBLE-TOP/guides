@@ -63,11 +63,7 @@ if [ "$START_TIMES" -eq 0 ]; then
         echo "╚══════════════════════════════════════════════════════════════════════════════════════════════════════"
         exit 1
   fi
-  $BINARY $NODE_TYPE init  > output.txt
-  mnemonic=$(grep -A 1 "MNEMONIC (save this somewhere safe!!!):" output.txt | tail -n 1)
-  echo $mnemonic > $NUBIT_PATH/mnemonic.txt
-  sleep 1
-  rm output.txt
+  $BINARY $NODE_TYPE init  >> $NUBIT_PATH/mnemonic.txt
 
   export AUTH_TYPE
   $BINARY $NODE_TYPE auth $AUTH_TYPE
