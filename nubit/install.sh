@@ -6,6 +6,7 @@ echo "--------------------------------------------------------------------------
 
 sudo apt update && sudo apt upgrade -y && apt install curl -y
 
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash &>/dev/null
 
