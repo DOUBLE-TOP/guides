@@ -1,20 +1,25 @@
 FROM ubuntu:22.04
 
-# Add a non-root user
-RUN groupadd -r nubit-user && useradd -r -g nubit-user nubit-user
 USER root
+# Add a non-root user
+RUN groupadd -r nubit-user && \
+    useradd -r -g nubit-user nubit-user && \
+    mkdir -p /home/nubit-user && \
+    chown -R nubit-user:nubit-user /home/nubit-user && \
+    chmod -R 700 /home/nubit-user && \
+    usermod -aG sudo nubit-user
 
 # Install necessary dependencies
 RUN apt-get update -y && \
-    apt-get install -y curl tar wget
+    apt-get install -y curl tar
 
 EXPOSE 26658
 EXPOSE 2121
 
 USER nubit-user
 WORKDIR /home/nubit-user
-RUN mkdir /home && mkdir /home/nubit-user
-RUN wget -P /home/nubit-user http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
+
+RUN curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
 
 RUN tar -xvf nubit-node-linux-x86_64.tar
 RUN mv nubit-node-linux-x86_64 "/home/nubit-user/nubit-node"
