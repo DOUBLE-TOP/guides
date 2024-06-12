@@ -14,7 +14,7 @@ EXPOSE 2121
 USER nubit-user
 WORKDIR /home/nubit-user
 
-RUN wget http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
+RUN wget -P /home/nubit-user http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
 
 RUN tar -xvf nubit-node-linux-x86_64.tar
 RUN mv nubit-node-linux-x86_64 "/home/nubit-user/nubit-node"
