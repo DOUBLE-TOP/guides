@@ -6,7 +6,7 @@ USER root
 
 # Install necessary dependencies
 RUN apt-get update -y && \
-    apt-get install -y curl tar
+    apt-get install -y curl tar wget
 
 EXPOSE 26658
 EXPOSE 2121
@@ -14,7 +14,7 @@ EXPOSE 2121
 USER nubit-user
 WORKDIR /home/nubit-user
 
-RUN curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
+RUN wget http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
 
 RUN tar -xvf nubit-node-linux-x86_64.tar
 RUN mv nubit-node-linux-x86_64 "/home/nubit-user/nubit-node"
