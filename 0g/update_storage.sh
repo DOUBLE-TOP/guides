@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $HOME/cd 0g-chain
+cd $HOME/0g-chain
 git fetch
 git checkout $1
 sudo systemctl stop 0g_storage
