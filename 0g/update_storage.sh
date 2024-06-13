@@ -6,5 +6,5 @@ cd $HOME/0g-storage-node/
 git fetch
 git checkout $1
 sudo systemctl stop 0g_storage
-make install
+cargo build --release
 sudo systemctl restart 0g_storage
