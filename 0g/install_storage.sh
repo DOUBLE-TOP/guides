@@ -7,7 +7,7 @@ install_0gchaind() {
     cd $HOME
     git clone https://github.com/0glabs/0g-chain.git
     cd 0g-chain
-    git checkout v0.3.0
+    git checkout v0.1.0
     make install
     0gchaind version
 }
@@ -61,7 +61,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
-git checkout tags/v0.2.0
+git checkout tags/v0.3.0
 git submodule update --init
 cargo build --release
 echo "Репозиторий успешно склонирован, начинаем настройку переменных"
