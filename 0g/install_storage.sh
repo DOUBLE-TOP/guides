@@ -61,7 +61,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
-git checkout tags/v0.2.0
+git checkout tags/v0.3.0
 git submodule update --init
 cargo build --release
 echo "Репозиторий успешно склонирован, начинаем настройку переменных"
@@ -88,6 +88,9 @@ sed -i 's|network_boot_nodes = \[\"/ip4/54.219.26.22/udp/1234/p2p/16Uiu2HAmPxGNW
 sed -i 's|# db_dir = "db"|db_dir = "db"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|blockchain_rpc_endpoint = "https://rpc-testnet.0g.ai"|blockchain_rpc_endpoint = "http://127.0.0.1:8545/"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-node/run/config.toml
+
+latest_block=$($HOME/go/bin/0gchaind status | jq -r .sync_info.latest_block_height)
+sed -i 's/log_sync_start_block_number = [0-9]\+/log_sync_start_block_number = '"$latest_block"'/g' $HOME/0g-storage-node/run/config.toml
 
 echo "Переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
