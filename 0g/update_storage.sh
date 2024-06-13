@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $HOME/.profile
+
 cd $HOME/0g-chain
 git fetch
 git checkout $1
