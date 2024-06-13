@@ -29,22 +29,6 @@ echo "--------------------------------------------------------------------------
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
 docker build -t nubit_image . && docker run -d --name nubit nubit_image
+rm -rf .nubit-light-nubit-alphatestnet-1
 
-sleep 60
-docker cp nubit:/home/nubit-user/nubit-node/mnemonic.txt $HOME/nubit-node/mnemonic.txt
-docker cp nubit:/home/nubit-user/.nubit-light-nubit-alphatestnet-1/keys $HOME/nubit-node/keys
-
-echo "-----------------------------------------------------------------------------"
-echo "Light Nubit Node успешно установлена"
-echo "-----------------------------------------------------------------------------"
-echo "Mnemonic"
-echo "cat $HOME/nubit-node/mnemonic.txt"
-echo "-----------------------------------------------------------------------------"
-echo "Backup Keys from folder"
-echo "$HOME/nubit-node/keys"
-echo "-----------------------------------------------------------------------------"
-echo "Проверка логов:"
-echo "docker logs -f --tail=100 nubit"
-echo "-----------------------------------------------------------------------------"
-echo "Wish lifechange case with DOUBLETOP"
-echo "-----------------------------------------------------------------------------"
+docker logs nubit
