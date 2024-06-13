@@ -1,5 +1,13 @@
 FROM ubuntu:22.04
 
+ARG ARCH_STRING="linux-x86_64"
+ARG MD5_NUBIT="650608532ccf622fb633acbd0a754686"
+ARG MD5_NKEY="d474f576ad916a3700644c88c4bc4f6c"
+ARG FOLDER=
+ARG FILE=
+ARG FILE_NUBIT=$FOLDER/bin/nubit
+ARG FILE_NKEY=$FOLDER/bin/nkey
+
 USER root
 # Add a non-root user
 RUN groupadd -r nubit-user && \
@@ -11,13 +19,16 @@ RUN groupadd -r nubit-user && \
 
 # Install necessary dependencies
 RUN apt-get update -y && \
-    apt-get install -y curl tar
+    apt-get install -y curl tar wget ps bash md5sum awk sed
 
 EXPOSE 26658
 EXPOSE 2121
 
 USER nubit-user
 WORKDIR /home/nubit-user
+
+RUN mkdir /home/nubit-user/.nubit-light-nubit-alphatestnet-1
+COPY $HOME/nubit-node /home/nubit-user/.nubit-light-nubit-alphatestnet-1
 
 RUN curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
 
@@ -28,8 +39,8 @@ RUN rm nubit-node-linux-x86_64.tar
 WORKDIR /home/nubit-user/nubit-node
 
 # Make start.sh executable and update it
+RUN wget https://nubit.sh/start.sh
 RUN chmod +x start.sh
-RUN sed -i -e '/\$BINARY \$NODE_TYPE start --metrics --metrics.tls=false --metrics.endpoint otel.nubit-alphatestnet-1.com:4318 --metrics.interval 3600s/{ N; s/\n/ / }' start.sh
 
 # Specify the command to run when the container starts
 CMD ["./start.sh"]
