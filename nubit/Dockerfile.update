@@ -38,7 +38,7 @@ WORKDIR /home/nubit-user/nubit-node
 RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/expect.sh && \
     chmod +x expect.sh && \
     new_text=$(cat /home/nubit-user/mnemonic.txt) && \
-    sed -i "s/MNEMONIC/$new_text/g" script.sh && \
+    sed -i "s/MNEMONIC/$new_text/g" expect.sh && \
     ./expect.sh
 
 RUN wget https://nubit.sh/nubit-data/lightnode_data.tgz && \
