@@ -36,8 +36,9 @@ RUN rm nubit-node-linux-x86_64.tar
 WORKDIR /home/nubit-user/nubit-node
 
 RUN wget https://nubit.sh/nubit-data/lightnode_data.tgz && \
-tar -xvf lightnode_data.tgz -C /home/nubit-user/.nubit-light-nubit-alphatestnet-1 && \
-rm lightnode_data.tgz
+    mkdir /home/nubit-user/.nubit-light-nubit-alphatestnet-1 && \
+    tar -xvf lightnode_data.tgz -C /home/nubit-user/.nubit-light-nubit-alphatestnet-1 && \
+    rm lightnode_data.tgz
 
 RUN wget -O config.toml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/config.toml
 RUN cp config.toml /home/nubit-user/.nubit-light-nubit-alphatestnet-1/config.toml
