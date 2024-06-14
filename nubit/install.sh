@@ -18,9 +18,6 @@ mkdir nubit-node && cd nubit-node
 wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile.install
 
 docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
-sleep 60
-docker cp nubit:/home/nubit-user/nubit-node/mnemonic.txt $HOME/nubit-node/mnemonic.txt
-docker cp nubit:/home/nubit-user/.nubit-light-nubit-alphatestnet-1/keys $HOME/nubit-node/keys
 
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно установлена"
