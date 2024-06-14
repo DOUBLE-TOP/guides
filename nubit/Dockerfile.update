@@ -49,10 +49,11 @@ RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/n
     ./expect.sh
 
 USER nubit-user
+WORKDIR /home/nubit-user/nubit-node
 
 # Make start.sh executable and update it
-RUN sudo wget https://nubit.sh/start.sh
-RUN sudo chmod +x start.sh
+RUN wget https://nubit.sh/start.sh
+RUN chmod +x start.sh
 
 # Specify the command to run when the container starts
 CMD ["./start.sh"]
