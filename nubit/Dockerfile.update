@@ -9,22 +9,17 @@ USER root
 RUN mkdir -p /home/nubit-user
 COPY mnemonic.txt /home/nubit-user/mnemonic.txt
 
+EXPOSE 26658
+EXPOSE 2121
+
 # Add a non-root user
 RUN groupadd -r nubit-user && \
     useradd -r -g nubit-user nubit-user && \
-    mkdir -p /home/nubit-user && \
-    chown -R nubit-user:nubit-user /home/nubit-user && \
-    chmod -R 700 /home/nubit-user && \
     usermod -aG sudo nubit-user
 
 # Install necessary dependencies
 RUN apt-get update -y && \
     apt-get install -y curl tar wget expect nano
-
-EXPOSE 26658
-EXPOSE 2121
-
-WORKDIR /home/nubit-user
 
 RUN curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
 
@@ -37,7 +32,7 @@ WORKDIR /home/nubit-user/nubit-node
 RUN wget https://nubit.sh/nubit-data/lightnode_data.tgz && \
     mkdir /home/nubit-user/.nubit-light-nubit-alphatestnet-1 && \
     tar -xvf lightnode_data.tgz -C /home/nubit-user/.nubit-light-nubit-alphatestnet-1 && \
-    rm lightnode_data.tgz
+    rm -rf lightnode_data.tgz
 
 RUN wget -O config.toml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/config.toml
 RUN cp config.toml /home/nubit-user/.nubit-light-nubit-alphatestnet-1/config.toml
@@ -48,12 +43,15 @@ RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/n
     sed -i "s/MNEMONIC/$new_text/g" expect.sh && \
     ./expect.sh
 
-USER nubit-user
-WORKDIR /home/nubit-user/nubit-node
-
 # Make start.sh executable and update it
 RUN wget https://nubit.sh/start.sh
 RUN chmod +x start.sh
+
+RUN chown -R nubit-user:nubit-user /home/nubit-user && \
+    chmod -R 777 /home/nubit-user
+
+USER nubit-user
+WORKDIR /home/nubit-user/nubit-node
 
 # Specify the command to run when the container starts
 CMD ["./start.sh"]

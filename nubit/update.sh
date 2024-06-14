@@ -31,14 +31,18 @@ echo "--------------------------------------------------------------------------
 wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile.update
 docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
 
+sleep 30
+
+docker exec -it nubit ./expect.sh
+docker restart nubit
+
+sleep 30
+
+echo "-----------------------------------------------------------------------------"
+echo "PUBLIC KEY"
+docker exec -it nubit /home/nubit-user/nubit-node/bin/nkey list --p2p.network nubit-alphatestnet-1 --node.type light | grep -oP '(?<="key":")[^"]*'
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно обновлена"
-echo "-----------------------------------------------------------------------------"
-echo "Mnemonic"
-echo "cat $HOME/nubit-node/mnemonic.txt"
-echo "-----------------------------------------------------------------------------"
-echo "Backup Keys from folder"
-echo "$HOME/nubit-node/keys"
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов:"
 echo "docker logs -f --tail=100 nubit"
