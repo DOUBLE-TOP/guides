@@ -8,6 +8,7 @@ echo "--------------------------------------------------------------------------
 echo "Сохранение данных с ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
+rm -rf .nubit-light-nubit-alphatestnet-1
 docker cp nubit:/home/nubit-user/.nubit-light-nubit-alphatestnet-1 $HOME/nubit-node
 
 echo "-----------------------------------------------------------------------------"
@@ -16,7 +17,6 @@ echo "--------------------------------------------------------------------------
 
 cd $HOME/nubit-node
 rm -rf Dockerfile
-rm -rf .nubit-light-nubit-alphatestnet-1
 
 docker rm -f nubit
 docker images | grep "nubit" | awk '{print $3}' | xargs docker rmi -f
