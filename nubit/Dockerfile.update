@@ -41,7 +41,7 @@ RUN ./expect.sh
 
 RUN wget https://nubit.sh/nubit-data/lightnode_data.tgz && \
 tar -xvf lightnode_data.tgz -C $dataPath && \
-rm lightnode_data.tgz &&
+rm lightnode_data.tgz
 
 RUN wget -O config.toml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/config.toml
 RUN cp config.toml /home/nubit-user/.nubit-light-nubit-alphatestnet-1/config.toml
