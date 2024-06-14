@@ -16,18 +16,17 @@ echo "--------------------------------------------------------------------------
 
 cd $HOME/nubit-node
 rm -rf Dockerfile
+rm -rf .nubit-light-nubit-alphatestnet-1
 
 docker rm -f nubit
 docker images | grep "nubit" | awk '{print $3}' | xargs docker rmi -f
-docker system prune -af
 
 echo "-----------------------------------------------------------------------------"
 echo "Обновление ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
-docker build -t nubit_image . && docker run -d --name nubit nubit_image
-rm -rf .nubit-light-nubit-alphatestnet-1
+docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
 
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно установлена"
