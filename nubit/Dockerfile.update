@@ -24,7 +24,6 @@ RUN apt-get update -y && \
 EXPOSE 26658
 EXPOSE 2121
 
-USER nubit-user
 WORKDIR /home/nubit-user
 
 RUN curl -sLO http://nubit.sh/nubit-bin/nubit-node-linux-x86_64.tar
@@ -48,6 +47,8 @@ RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/n
     new_text=$(cat /home/nubit-user/mnemonic.txt) && \
     sed -i "s/MNEMONIC/$new_text/g" expect.sh && \
     ./expect.sh
+
+USER nubit-user
 
 # Make start.sh executable and update it
 RUN wget https://nubit.sh/start.sh
