@@ -15,8 +15,7 @@ echo "Установка ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
 mkdir nubit-node && cd nubit-node
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
-mkdir -p .nubit-light-nubit-alphatestnet-1
+wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile.install
 
 docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
 sleep 60

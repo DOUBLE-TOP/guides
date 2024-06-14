@@ -25,7 +25,7 @@ echo "--------------------------------------------------------------------------
 echo "Обновление ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
+wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
 docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
 
 echo "-----------------------------------------------------------------------------"
