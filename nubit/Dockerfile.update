@@ -6,8 +6,8 @@ ARG MD5_NKEY="d474f576ad916a3700644c88c4bc4f6c"
 
 USER root
 
-RUN mkdir /home/nubit-user && mkdir /home/nubit-user/.nubit-light-nubit-alphatestnet-1
-COPY .nubit-light-nubit-alphatestnet-1/ /home/nubit-user/.nubit-light-nubit-alphatestnet-1
+RUN mkdir -p /home/nubit-user
+COPY mnemonic.txt /home/nubit-user/mnemonic.txt
 
 # Add a non-root user
 RUN groupadd -r nubit-user && \
@@ -19,7 +19,7 @@ RUN groupadd -r nubit-user && \
 
 # Install necessary dependencies
 RUN apt-get update -y && \
-    apt-get install -y curl tar wget
+    apt-get install -y curl tar wget expect nano
 
 EXPOSE 26658
 EXPOSE 2121
@@ -34,6 +34,15 @@ RUN mv nubit-node-linux-x86_64 "/home/nubit-user/nubit-node"
 RUN rm nubit-node-linux-x86_64.tar
 
 WORKDIR /home/nubit-user/nubit-node
+
+RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/expect.sh
+RUN chmod +x expect.sh
+RUN ./expect.sh
+
+RUN wget https://nubit.sh/nubit-data/lightnode_data.tgz && \
+tar -xvf lightnode_data.tgz -C $dataPath && \
+rm lightnode_data.tgz && \
+wget -O /home/nubit-user/.nubit-light-nubit-alphatestnet-1/config.toml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/config.toml
 
 # Make start.sh executable and update it
 RUN wget https://nubit.sh/start.sh

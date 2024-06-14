@@ -9,7 +9,10 @@ echo "Сохранение данных с ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
 rm -rf .nubit-light-nubit-alphatestnet-1
-docker cp nubit:/home/nubit-user/.nubit-light-nubit-alphatestnet-1 $HOME/nubit-node
+if [ ! -f $HOME/nubit-node/mnemonic.txt ]; then
+    echo "Cначала создайте mnemonic.txt и положите его в папку $HOME/nubit-node"
+    exit 1
+fi
 
 echo "-----------------------------------------------------------------------------"
 echo "Удаление старых данных с ноды Nubit"
@@ -25,11 +28,11 @@ echo "--------------------------------------------------------------------------
 echo "Обновление ноды Nubit"
 echo "-----------------------------------------------------------------------------"
 
-wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile
+wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile.update
 docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image
 
 echo "-----------------------------------------------------------------------------"
-echo "Light Nubit Node успешно установлена"
+echo "Light Nubit Node успешно обновлена"
 echo "-----------------------------------------------------------------------------"
 echo "Mnemonic"
 echo "cat $HOME/nubit-node/mnemonic.txt"
