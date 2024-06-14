@@ -36,11 +36,6 @@ sleep 30
 docker exec -it nubit ./expect.sh
 docker restart nubit
 
-sleep 30
-
-echo "-----------------------------------------------------------------------------"
-echo "PUBLIC KEY"
-docker exec -it nubit /home/nubit-user/nubit-node/bin/nkey list --p2p.network nubit-alphatestnet-1 --node.type light | grep -oP '(?<="key":")[^"]*'
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно обновлена"
 echo "-----------------------------------------------------------------------------"
