@@ -61,7 +61,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
-git checkout tags/v0.3.0
+git checkout tags/v0.3.1
 git submodule update --init
 cargo build --release
 echo "Репозиторий успешно склонирован, начинаем настройку переменных"
