@@ -55,8 +55,8 @@ function plot_size {
 }
 
 function get_vars {
-  export CHAIN="gemini-3g"
-  export RELEASE="gemini-3h-2024-jun-11"
+  export CHAIN="gemini-3h"
+  export RELEASE="gemini-3h-2024-jun-18"
 }
 
 function eof_docker_compose {
