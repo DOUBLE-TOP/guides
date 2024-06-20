@@ -83,7 +83,7 @@ function view {
 
 
 colors
-export version="v0.77.2"
+export version="v0.77.3"
 # source_git
 # rust_update
 
