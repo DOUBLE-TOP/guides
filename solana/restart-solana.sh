@@ -139,7 +139,7 @@ wait_for_new_incremental_snapshot() {
 
 solana_restart() {
     echo -e "Выполняем sudo systemctl restart solana"
-#   sudo systemctl restart solana
+    sudo systemctl restart solana
 }
 
 check_vars
