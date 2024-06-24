@@ -34,7 +34,7 @@ docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart
 sleep 30
 
 docker exec -it nubit ./expect.sh
-docker restart nubit
+docker restart -f nubit
 
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно обновлена"
