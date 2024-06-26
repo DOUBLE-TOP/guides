@@ -38,8 +38,7 @@ RUN cp config.toml /home/nubit-user/.nubit-light-nubit-alphatestnet-1/config.tom
 RUN wget -O expect.sh https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/expect.sh && \
     chmod +x expect.sh && \
     new_text=$(cat /home/nubit-user/mnemonic.txt) && \
-    sed -i "s/MNEMONIC/$new_text/g" expect.sh && \
-    ./expect.sh
+    sed -i "s/MNEMONIC/$new_text/g" expect.sh
 
 # Make start.sh executable and update it
 RUN wget https://nubit.sh/start.sh
