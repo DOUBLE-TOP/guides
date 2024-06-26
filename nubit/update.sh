@@ -30,9 +30,7 @@ echo "--------------------------------------------------------------------------
 
 wget -O Dockerfile https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/nubit/Dockerfile.update
 
-docker build --no-cache -t nubit_image .
-docker run -d --name nubit --restart always nubit_image
-docker exec -it nubit ./expect.sh
+docker build --no-cache -t nubit_image . && docker run -d --name nubit --restart always nubit_image && docker exec -it nubit ./expect.sh
 
 echo "-----------------------------------------------------------------------------"
 echo "Light Nubit Node успешно обновлена"
