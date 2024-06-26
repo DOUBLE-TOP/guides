@@ -1,8 +1,6 @@
 FROM ubuntu:22.04
 
 ARG ARCH_STRING="linux-x86_64"
-ARG MD5_NUBIT="c8ec369419ee0bbb38ac0ebe022f1bc9"
-ARG MD5_NKEY="d767aba44ac22e5b59bad568524156c2"
 
 USER root
 
