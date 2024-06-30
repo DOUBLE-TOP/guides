@@ -9,7 +9,6 @@ echo "Установка Allora Worker"
 echo "-----------------------------------------------------------------------------"
 
 echo "Введите сид фразу от кошелька, который будет использоваться для воркера"
-line
 read seed_phrase
 
 cd $HOME && git clone https://github.com/allora-network/basic-coin-prediction-node
