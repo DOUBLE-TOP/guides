@@ -10,7 +10,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker"
+echo "Установка Allora CLI"
 echo "-----------------------------------------------------------------------------"
 
 source .profile
@@ -38,30 +38,3 @@ git clone https://github.com/allora-network/allora-chain.git && cd allora-chain
 sed -i 's/^go 1.22.2$/go 1.22/' $HOME/allora-chain/go.mod
 make all
 allorad version
-
-OUTPUT=$(allorad keys add testkey)
-
-# Extract the seed phrase and address from the output
-ADDRESS=$(echo "$OUTPUT" | grep -oP 'address: \K.*')
-SEED_PHRASE=$(echo "$OUTPUT" | grep -A 1 "Important" | tail -n 1)
-
-# Optional: Check if the address and seed phrase were successfully extracted
-if [ -z "$ADDRESS" ]; then
-  echo "Address could not be extracted."
-  exit 1
-else
-  echo "Allora Address: $ADDRESS"
-fi
-
-# Optional: Check if the seed phrase was successfully extracted
-if [ -z "$SEED_PHRASE" ]; then
-  echo "Seed phrase could not be extracted."
-  exit 1
-else
-  echo "Seed phrase successfully extracted."
-  echo "Seed Phrase: $SEED_PHRASE"
-fi
-
-echo "-----------------------------------------------------------------------------"
-echo "Wish lifechange case with DOUBLETOP"
-echo "-----------------------------------------------------------------------------"
