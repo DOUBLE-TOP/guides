@@ -44,7 +44,7 @@ function update {
   elif [ -n "$ETH_CLIENT_ADDRESS" ]; then
     SEPOLIA_RPC="$ETH_CLIENT_ADDRESS"
   else
-    echo "Neither RLN_RELAY_ETH_CLIENT_ADDRESS nor ETH_CLIENT_ADDRESS is set."
+    echo "Проверьте .env файл"
     exit 1
   fi
 
