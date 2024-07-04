@@ -24,6 +24,8 @@ sudo docker run -it --entrypoint=bash -v ./head-data:/data alloranetwork/allora-
 
 sudo docker run -it --entrypoint=bash -v ./worker-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
 
+sleep 10
+
 HEAD_ID=$(cat head-data/keys/identity)
 rm -rf docker-compose.yml 
 
