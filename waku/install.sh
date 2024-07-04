@@ -62,7 +62,7 @@ function setup_env {
   cd nwaku-compose
   cp .env.example .env
 
-  sed -i "s|ETH_CLIENT_ADDRESS=.*|ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
+  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$WAKU_PASS|" $HOME/nwaku-compose/.env
 

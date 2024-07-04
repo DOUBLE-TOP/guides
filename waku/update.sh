@@ -20,7 +20,10 @@ function line_2 {
 
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
-  rm -rf $HOME/nwaku-compose/rln_tree/
+  mkdir -p $HOME/nwaku_backups
+  mkdir -p $HOME/nwaku_backups/keystore0.30
+  cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
+  rm -rf $HOME/nwaku-compose/rln_tree/ $HOME/nwaku-compose/keystore/
   cd $HOME/nwaku-compose
   git restore .
 }
@@ -35,13 +38,24 @@ function update {
   git pull
   cp .env.example .env
 
-  sed -i "s|ETH_CLIENT_ADDRESS=.*|ETH_CLIENT_ADDRESS=$ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
+  # Check which variable has a value
+  if [ -n "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+    SEPOLIA_RPC="$RLN_RELAY_ETH_CLIENT_ADDRESS"
+  elif [ -n "$ETH_CLIENT_ADDRESS" ]; then
+    SEPOLIA_RPC="$ETH_CLIENT_ADDRESS"
+  else
+    echo "Проверьте .env файл"
+    exit 1
+  fi
+
+  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$SEPOLIA_RPC|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
+  bash register_rln.sh
 }
 
 
