@@ -38,7 +38,17 @@ function update {
   git pull
   cp .env.example .env
 
-  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
+  # Check which variable has a value
+  if [ -n "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+    SEPOLIA_RPC="$RLN_RELAY_ETH_CLIENT_ADDRESS"
+  elif [ -n "$ETH_CLIENT_ADDRESS" ]; then
+    SEPOLIA_RPC="$ETH_CLIENT_ADDRESS"
+  else
+    echo "Neither RLN_RELAY_ETH_CLIENT_ADDRESS nor ETH_CLIENT_ADDRESS is set."
+    exit 1
+  fi
+
+  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$SEPOLIA_RPC|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
 
