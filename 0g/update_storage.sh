@@ -1,11 +1,5 @@
 #!/bin/bash
 echo "-----------------------------------------------------------------------------"
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
-echo "-----------------------------------------------------------------------------"
-mkdir -p $HOME/storage_backup
-cp -r $HOME/0g-storage-node/run/db storage_backup/db
-cp -r $HOME/0g-storage-node/run/network storage_backup/network
-echo "-----------------------------------------------------------------------------"
 echo "Выполняем обновление"
 echo "-----------------------------------------------------------------------------"
 
@@ -13,7 +7,7 @@ source $HOME/.profile
 
 cd $HOME/0g-storage-node/
 #cp run/config.toml $HOME/config.toml.bak
-#git checkout -- run/config.toml
+git checkout -- run/config.toml
 git fetch --all --tags
 git checkout tags/$1 --force
 git submodule update --init
@@ -21,7 +15,7 @@ sudo systemctl stop 0g_storage
 cargo build --release
 #mv $HOME/config.toml.bak run/config.toml
 echo "-----------------------------------------------------------------------------"
-echo "Storage node успешно обновлена, настраиваем переменные"
+echo "Настраиваем переменные"
 echo "-----------------------------------------------------------------------------"
 # Получение приватного ключа
 PRIVATE_KEY=$($HOME/go/bin/0gchaind keys unsafe-export-eth-key wallet2 --keyring-backend test)
@@ -58,6 +52,5 @@ rm -rf $HOME/0g-storage-node/run/network
 
 sudo systemctl restart 0g_storage
 
-echo "-----------------------------------------------------------------------------"
 echo "0G Storage Node успешно обновлена"
 echo "-----------------------------------------------------------------------------"
