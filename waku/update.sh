@@ -21,9 +21,16 @@ function line_2 {
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
   mkdir -p $HOME/nwaku_backups
-  mkdir -p $HOME/nwaku_backups/keystore0.30
-  cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
-  rm -rf $HOME/nwaku-compose/rln_tree/ $HOME/nwaku-compose/keystore/
+  if [ -d "$HOME/nwaku_backups/keystore0.30" ]; then
+    echo "Бекап уже сделан"
+  else
+    echo "Делаем бекап ключей"
+    mkdir -p $HOME/nwaku_backups/keystore0.30
+    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
+    rm -rf $HOME/nwaku-compose/keystore/
+  fi
+  
+  rm -rf $HOME/nwaku-compose/rln_tree/ 
   cd $HOME/nwaku-compose
   git restore .
 }
