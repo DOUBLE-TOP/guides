@@ -11,7 +11,7 @@ services:
       eth-model-local:
         aliases:
           - inference
-        ipv4_address: 172.22.0.4
+        ipv4_address: 172.100.0.4
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/inference/ETH"]
       interval: 10s
@@ -39,7 +39,7 @@ services:
       eth-model-local:
         aliases:
           - updater
-        ipv4_address: 172.22.0.5
+        ipv4_address: 172.100.0.5
 
   worker:
     container_name: worker-basic-eth-pred
@@ -61,7 +61,7 @@ services:
         fi
         allora-node --role=worker --peer-db=/data/peerdb --function-db=/data/function-db --runtime-path=/app/runtime \
         --runtime-cli=bls-runtime --workspace=/data/workspace --private-key=/data/keys/priv.bin --log-level=info --port=9011 \
-        --boot-nodes=/ip4/172.22.0.100/tcp/9010/p2p/ALLORA_HEAD_ID \
+        --boot-nodes=/ip4/172.100.0.100/tcp/9010/p2p/ALLORA_HEAD_ID \
         --topic=allora-topic-1-worker --allora-chain-key-name=testkey \
         --allora-chain-restore-mnemonic='ALLORA_MNEMONIC' \
         --allora-node-rpc-address=https://allora-rpc.edgenet.allora.network/ --allora-chain-topic-id=1  --allora-chain-initial-stake=1000 \
@@ -76,7 +76,7 @@ services:
       eth-model-local:
         aliases:
           - worker
-        ipv4_address: 172.22.0.10
+        ipv4_address: 172.100.0.10
 
   head:
     container_name: head-basic-eth-pred
@@ -108,14 +108,14 @@ services:
       eth-model-local:
         aliases:
           - head
-        ipv4_address: 172.22.0.100
+        ipv4_address: 172.100.0.100
 
 networks:
   eth-model-local:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.22.0.0/24
+        - subnet: 172.100.0.0/24
 
 volumes:
   inference-data:
