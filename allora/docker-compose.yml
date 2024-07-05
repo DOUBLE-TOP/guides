@@ -24,7 +24,7 @@ services:
     container_name: updater-basic-eth-pred
     build: .
     environment:
-      - INFERENCE_API_ADDRESS=http://inference:18000
+      - INFERENCE_API_ADDRESS=http://inference:8000
     command: >
       sh -c "
       while true; do
@@ -44,7 +44,7 @@ services:
   worker:
     container_name: worker-basic-eth-pred
     environment:
-      - INFERENCE_API_ADDRESS=http://inference:18000
+      - INFERENCE_API_ADDRESS=http://inference:8000
       - HOME=/data
     build:
       context: .
