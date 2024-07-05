@@ -6,7 +6,7 @@ services:
       context: .
     command: python -u /app/app.py
     ports:
-      - "8000:8000"
+      - "18000:8000"
     networks:
       eth-model-local:
         aliases:
@@ -24,7 +24,7 @@ services:
     container_name: updater-basic-eth-pred
     build: .
     environment:
-      - INFERENCE_API_ADDRESS=http://inference:8000
+      - INFERENCE_API_ADDRESS=http://inference:18000
     command: >
       sh -c "
       while true; do
@@ -44,7 +44,7 @@ services:
   worker:
     container_name: worker-basic-eth-pred
     environment:
-      - INFERENCE_API_ADDRESS=http://inference:8000
+      - INFERENCE_API_ADDRESS=http://inference:18000
       - HOME=/data
     build:
       context: .
