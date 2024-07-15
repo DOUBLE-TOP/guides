@@ -65,10 +65,13 @@ function setup_env {
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$WAKU_PASS|" $HOME/nwaku-compose/.env
+  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=-harbor.status.im/wakuorg/nwaku:v0.30.2|" $HOME/nwaku-compose/.env
+
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
+  sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
 
   bash $HOME/nwaku-compose/register_rln.sh
 }
