@@ -64,8 +64,8 @@ services:
         --boot-nodes=/ip4/172.100.0.100/tcp/9010/p2p/ALLORA_HEAD_ID \
         --topic=allora-topic-1-worker --allora-chain-key-name=testkey \
         --allora-chain-restore-mnemonic='ALLORA_MNEMONIC' \
-        --allora-node-rpc-address=https://allora-rpc.edgenet.allora.network/ --allora-chain-topic-id=1  --allora-chain-initial-stake=1000 \
-        --allora-chain-worker-mode=worker
+        --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ --allora-chain-topic-id=1 \
+        --allora-chain-initial-stake=1000 --allora-chain-worker-mode=worker
     volumes:
       - ./worker-data:/data
     working_dir: /data
@@ -97,8 +97,7 @@ services:
         --runtime-cli=bls-runtime --workspace=/data/workspace --private-key=/data/keys/priv.bin --log-level=info --port=9010 \
         --rest-api=:6000 --allora-chain-key-name=testkey \
         --allora-chain-restore-mnemonic='ALLORA_MNEMONIC' \
-        --allora-node-rpc-address=https://allora-rpc.edgenet.allora.network/ \
-        --allora-chain-initial-stake=1000
+        --allora-node-rpc-address=https://allora-rpc.testnet-1.testnet.allora.network/ --allora-chain-initial-stake=1000
     ports:
       - "6000:6000"
     volumes:
