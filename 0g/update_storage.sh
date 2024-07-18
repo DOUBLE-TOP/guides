@@ -36,7 +36,7 @@ sed -i 's|# log_config_file = "log_config"|log_config_file = "'"$ZGS_LOG_CONFIG_
 sed -i 's|# log_directory = "log"|log_directory = "'"$ZGS_LOG_DIR"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^\s*#\?\s*network_enr_address\s*=\s*".*"\s*|network_enr_address = "'"$ENR_ADDR"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# mine_contract_address = ".*"|mine_contract_address = "'"$MINE_CONTRACT"'"|' $HOME/0g-storage-node/run/config.toml
-sed -i 's|# log_sync_start_block_number = 0|log_sync_start_block_number = 802|' $HOME/0g-storage-node/run/config.toml
+#sed -i 's|# log_sync_start_block_number = 0|log_sync_start_block_number = 802|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# log_contract_address = ".*"|log_contract_address = "'"$LOG_CONTRACT_ADDRESS"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# network_dir = "network"|network_dir = "network"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# network_enr_tcp_port = 1234|network_enr_tcp_port = 1234|' $HOME/0g-storage-node/run/config.toml
@@ -50,6 +50,9 @@ sed -i 's|# rpc_enabled = true|rpc_enabled = true|' $HOME/0g-storage-node/run/co
 sed -i 's|# miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# auto_sync_enabled = false|auto_sync_enabled = true|' $HOME/0g-storage-node/run/config.toml
 sed -i 's/debug/info/; s/h2=info/h2=warn/' $HOME/0g-storage-node/run/log_config
+
+latest_block=$($HOME/go/bin/0gchaind status | jq -r .sync_info.latest_block_height)
+sed -i 's/log_sync_start_block_number = [0-9]\+/log_sync_start_block_number = '"$latest_block"'/g' $HOME/0g-storage-node/run/config.toml
 
 rm -rf $HOME/0g-storage-node/run/db
 rm -rf $HOME/0g-storage-node/run/network
