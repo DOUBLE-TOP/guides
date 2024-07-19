@@ -11,9 +11,6 @@ echo "--------------------------------------------------------------------------
 echo "Введите сид фразу от кошелька, который будет использоваться для воркера"
 read WALLET_SEED_PHRASE
 
-echo "Введите ИД топика"
-read TOPIC_ID
-
 cd $HOME
 git clone https://github.com/allora-network/basic-coin-prediction-node
 cd basic-coin-prediction-node
