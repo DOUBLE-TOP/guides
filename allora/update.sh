@@ -20,9 +20,9 @@ docker compose down -v
 cd $HOME
 rm -rf allora-chain/ basic-coin-prediction-node/
 
-sudo apt update -y && sudo apt upgrade -y
-sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 -y
-sudo apt install python3 python3-pip -y
+# sudo apt update -y && sudo apt upgrade -y
+# sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev pkg-config lsb-release libreadline-dev libffi-dev gcc screen unzip lz4 -y
+# sudo apt install python3 python3-pip -y
 
 cd $HOME && git clone https://github.com/allora-network/allora-chain.git
 cd allora-chain && make all
