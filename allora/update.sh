@@ -17,6 +17,7 @@ source .profile
 
 cd basic-coin-prediction-node
 docker compose down -v
+cd $HOME
 rm -rf allora-chain/ basic-coin-prediction-node/
 
 sudo apt update -y && sudo apt upgrade -y
