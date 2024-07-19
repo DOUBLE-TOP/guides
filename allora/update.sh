@@ -61,7 +61,6 @@ rm -rf docker-compose.yml
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/docker-compose.yml
 sed -i "s|HEAD_ID|$HEAD_ID|" $HOME/basic-coin-prediction-node/docker-compose.yml
 sed -i "s|WALLET_SEED_PHRASE|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|TOPIC_ID|$TOPIC_ID|" $HOME/basic-coin-prediction-node/docker-compose.yml
 
 
 docker-compose build
