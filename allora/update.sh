@@ -4,8 +4,39 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
 
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash &>/dev/null
+
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker"
+echo "Обновление Allora CLI"
+echo "-----------------------------------------------------------------------------"
+
+source .profile
+
+cd basic-coin-prediction-node
+docker compose down -v
+rm -rf allora-chain/ basic-coin-prediction-node/
+
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 -y
+sudo apt install python3 python3-pip -y
+
+git clone https://github.com/allora-network/allora-chain.git
+cd allora-chain && make all
+
+source .profile
+allorad version
+
+echo "-----------------------------------------------------------------------------"
+echo "Восстановление кошелька Allora"
+echo "-----------------------------------------------------------------------------"
+
+allorad keys add testkey --recover
+
+echo "-----------------------------------------------------------------------------"
+echo "Установка воркера Allora"
 echo "-----------------------------------------------------------------------------"
 
 echo "Введите сид фразу от кошелька, который будет использоваться для воркера"

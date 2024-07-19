@@ -14,27 +14,13 @@ echo "Установка Allora CLI"
 echo "-----------------------------------------------------------------------------"
 
 source .profile
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install ca-certificates zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev curl git wget make jq build-essential pkg-config lsb-release libssl-dev libreadline-dev libffi-dev gcc screen unzip lz4 -y
+sudo apt install python3 python3-pip -y
 
-# Check go version
-GO_VERSION_OUTPUT=$(go version)
-echo "$GO_VERSION_OUTPUT"
+git clone https://github.com/allora-network/allora-chain.git
+cd allora-chain && make all
 
-# Extract the version number (e.g., 1.20.12)
-GO_VERSION=$(echo "$GO_VERSION_OUTPUT" | awk '{print $3}' | cut -d 'o' -f 2)
+source .profile
 
-# Split the major and minor version numbers
-MAJOR_VERSION=$(echo "$GO_VERSION" | cut -d '.' -f 1)
-MINOR_VERSION=$(echo "$GO_VERSION" | cut -d '.' -f 2)
-
-# Check if the Go version is 1.21 or higher
-if [ "$MAJOR_VERSION" -gt "1" ] || { [ "$MAJOR_VERSION" -eq "1" ] && [ "$MINOR_VERSION" -ge "22" ]; }; then
-  echo "Go version is 1.22 or higher."
-else
-  echo "Переустановите версию GO. Необходимая версия 1.22+"
-  exit 1
-fi
-
-git clone https://github.com/allora-network/allora-chain.git && cd allora-chain
-sed -i 's/^go 1.22.2$/go 1.22/' $HOME/allora-chain/go.mod
-make all
 allorad version
