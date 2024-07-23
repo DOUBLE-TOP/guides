@@ -80,7 +80,7 @@ function eof_docker_compose {
           "--base-path", "/var/subspace",
           "--chain", "gemini-3h",
           "--blocks-pruning", "256",
-          "--state-pruning", "archive-canonical",
+          "--state-pruning", "140000",
           "--farmer",
           "--rpc-listen-on", "0.0.0.0:9944",
           "--rpc-cors", "all",
