@@ -31,7 +31,7 @@ line_1
 read OPERATOR_ID
 fi
 
-sudo tee <<EOF >/dev/null /etc/systemd/system/sswo.service
+sudo tee <<EOF >/dev/null /etc/systemd/system/ssw_operator.service
 [Unit]
   Description=Subspace Stake Wars Operator
   After=network-online.target
@@ -45,9 +45,9 @@ sudo tee <<EOF >/dev/null /etc/systemd/system/sswo.service
   WantedBy=multi-user.target
 EOF
 
-sudo systemctl enable sswo
+sudo systemctl enable ssw_operator
 sudo systemctl daemon-reload
-sudo systemctl start sswo
+sudo systemctl start ssw_operator
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
