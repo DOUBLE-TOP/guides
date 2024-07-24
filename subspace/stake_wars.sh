@@ -35,7 +35,7 @@ sudo tee <<EOF >/dev/null /etc/systemd/system/ssw_operator.service
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=$HOME/subspace_stake_wars/subspace-node run --chain gemini-3h --name $SUBSPACE_NODENAME --base-path $HOME/subspace_stake_wars --blocks-pruning archive-canonical --state-pruning archive-canonical --domain-id 0 --operator-id $OPERATOR_ID --listen-on /ip4/0.0.0.0/tcp/40333
+  ExecStart=$HOME/subspace_stake_wars/subspace-node run --chain gemini-3h --name $SUBSPACE_NODENAME --base-path $HOME/subspace_stake_wars --blocks-pruning archive-canonical --state-pruning archive-canonical -- --domain-id 0 --operator-id $OPERATOR_ID --listen-on /ip4/0.0.0.0/tcp/40333
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=65535
