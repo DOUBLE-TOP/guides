@@ -56,7 +56,7 @@ function plot_size {
 
 function get_vars {
   export CHAIN="gemini-3h"
-  export RELEASE="gemini-3h-2024-jul-16"
+  export RELEASE="gemini-3h-2024-jul-22"
 }
 
 function eof_docker_compose {
@@ -80,7 +80,7 @@ function eof_docker_compose {
           "--base-path", "/var/subspace",
           "--chain", "gemini-3h",
           "--blocks-pruning", "256",
-          "--state-pruning", "archive-canonical",
+          "--state-pruning", "140000",
           "--farmer",
           "--rpc-listen-on", "0.0.0.0:9944",
           "--rpc-cors", "all",
