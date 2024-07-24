@@ -25,37 +25,8 @@ line_1
 read SUBSPACE_NODENAME
 fi
 
-services:
-    node:
-        image: ghcr.io/subspace/node:gemini-3h-2024-jul-05
-        volumes:
-            - $HOME/subspace_stake_wars:/var/subspace:rw
-        ports:
-            - "0.0.0.0:30333:30333/tcp"
-            - "0.0.0.0:30433:30433/tcp"
-            - "0.0.0.0:40333:40333/tcp"
-        restart: unless-stopped
-        command: [
-            "run",
-            "--chain", "gemini-3h",
-            "--base-path", "/var/subspace",
-            "--listen-on", "0.0.0.0:30333",
-            "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-            # Replace INSERT_YOUR_ID with your node ID (will be shown in telemetry)
-            "--name", "$SUBSPACE_NODENAME",
-            "--blocks-pruning", "archive-canonical",
-            "--state-pruning". "archive-canonical"
-            "--",
-            "--domain-id", "0",
-            # Replace INSERT_YOUR_OPERATOR_ID with your operator ID
-            "--operator-id", "INSERT_YOUR_OPERATOR_ID",
-            "--listen-on", "/ip4/0.0.0.0/tcp/40333"
-        ]
-        healthcheck:
-        timeout: 5s
-    # If node setup takes longer than expected, you want to increase interval and retries number.
-        interval: 30s
-        retries: 60
-    volumes:
-    node-data:
+wget -O docker-compose.yml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/stake_docker_compose.yml
+sed -i "s|SUBSPACE_NODENAME|$SUBSPACE_NODENAME|" $HOME/subspace_stake_wars/docker-compose.yml
         
+docker compose up -d
+

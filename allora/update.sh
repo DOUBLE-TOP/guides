@@ -58,8 +58,8 @@ sed -i "s|HEAD_ID|$HEAD_ID|" $HOME/basic-coin-prediction-node/docker-compose.yml
 sed -i "s|WALLET_SEED_PHRASE|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/docker-compose.yml
 
 
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
