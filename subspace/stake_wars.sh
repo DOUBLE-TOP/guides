@@ -13,7 +13,7 @@ echo "--------------------------------------------------------------------------
 
 mkdir -p $HOME/subspace_stake_wars && cd $HOME/subspace_stake_wars
 
-wget https://github.com/subspace/subspace/releases/download/gemini-3h-2024-jul-22/subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-jul-22 -O subspace-node
+wget https://github.com/subspace/subspace/releases/download/gemini-3h-2024-jul-05/subspace-node-ubuntu-x86_64-skylake-gemini-3h-2024-jul-05 -O subspace-node
 
 chmod +x subspace-node
 
