@@ -21,13 +21,11 @@ chmod +x subspace-node
 
 if [ ! $SUBSPACE_NODENAME ]; then
 echo -e "Введите имя ноды для телеметрии"
-line_1
 read SUBSPACE_NODENAME
 fi
 
 if [ ! $OPERATOR_ID ]; then
 echo -e "Введите оператор ИД"
-line_1
 read OPERATOR_ID
 fi
 
