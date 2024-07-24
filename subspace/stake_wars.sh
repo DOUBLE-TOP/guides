@@ -20,13 +20,35 @@ chmod +x subspace-node
 ./subspace-node domain key create --base-path $HOME/subspace_stake_wars --domain-id 0
 
 if [ ! $SUBSPACE_NODENAME ]; then
-echo -e "Enter your node name(random name for telemetry)"
+echo -e "Введите имя ноды для телеметрии"
 line_1
 read SUBSPACE_NODENAME
 fi
 
-wget -O docker-compose.yml https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/subspace/stake_docker_compose.yml
-sed -i "s|SUBSPACE_NODENAME|$SUBSPACE_NODENAME|" $HOME/subspace_stake_wars/docker-compose.yml
-        
-docker compose up -d
+if [ ! $OPERATOR_ID ]; then
+echo -e "Введите оператор ИД"
+line_1
+read OPERATOR_ID
+fi
 
+sudo tee <<EOF >/dev/null /etc/systemd/system/sswo.service
+[Unit]
+  Description=Subspace Stake Wars Operator
+  After=network-online.target
+[Service]
+  User=$USER
+  ExecStart=$HOME/subspace_stake_wars/subspace-node run --chain gemini-3h --name $SUBSPACE_NODENAME --base-path $HOME/subspace_stake_wars --blocks-pruning archive-canonical --state-pruning archive-canonical --domain-id 0 --operator-id $OPERATOR_ID --listen-on /ip4/0.0.0.0/tcp/40333
+  Restart=on-failure
+  RestartSec=10
+  LimitNOFILE=65535
+[Install]
+  WantedBy=multi-user.target
+EOF
+
+sudo systemctl enable sswo
+sudo systemctl daemon-reload
+sudo systemctl start sswo
+
+echo "-----------------------------------------------------------------------------"
+echo "Wish lifechange case with DOUBLETOP"
+echo "-----------------------------------------------------------------------------"
