@@ -20,42 +20,33 @@ chmod +x subspace-node
 ./subspace-node domain key create --base-path $HOME/subspace_stake_wars --domain-id 0
 
 if [ ! $SUBSPACE_NODENAME ]; then
-echo -e "Enter your node name(random name for telemetry)"
-line_1
+echo -e "Введите имя ноды для телеметрии"
 read SUBSPACE_NODENAME
 fi
 
-services:
-    node:
-        image: ghcr.io/subspace/node:gemini-3h-2024-jul-05
-        volumes:
-            - $HOME/subspace_stake_wars:/var/subspace:rw
-        ports:
-            - "0.0.0.0:30333:30333/tcp"
-            - "0.0.0.0:30433:30433/tcp"
-            - "0.0.0.0:40333:40333/tcp"
-        restart: unless-stopped
-        command: [
-            "run",
-            "--chain", "gemini-3h",
-            "--base-path", "/var/subspace",
-            "--listen-on", "0.0.0.0:30333",
-            "--dsn-listen-on", "/ip4/0.0.0.0/tcp/30433",
-            # Replace INSERT_YOUR_ID with your node ID (will be shown in telemetry)
-            "--name", "$SUBSPACE_NODENAME",
-            "--blocks-pruning", "archive-canonical",
-            "--state-pruning". "archive-canonical"
-            "--",
-            "--domain-id", "0",
-            # Replace INSERT_YOUR_OPERATOR_ID with your operator ID
-            "--operator-id", "INSERT_YOUR_OPERATOR_ID",
-            "--listen-on", "/ip4/0.0.0.0/tcp/40333"
-        ]
-        healthcheck:
-        timeout: 5s
-    # If node setup takes longer than expected, you want to increase interval and retries number.
-        interval: 30s
-        retries: 60
-    volumes:
-    node-data:
-        
+if [ ! $OPERATOR_ID ]; then
+echo -e "Введите оператор ИД"
+read OPERATOR_ID
+fi
+
+sudo tee <<EOF >/dev/null /etc/systemd/system/ssw_operator.service
+[Unit]
+  Description=Subspace Stake Wars Operator
+  After=network-online.target
+[Service]
+  User=$USER
+  ExecStart=$HOME/subspace_stake_wars/subspace-node run --chain gemini-3h --name $SUBSPACE_NODENAME --base-path $HOME/subspace_stake_wars --blocks-pruning archive-canonical --state-pruning archive-canonical -- --domain-id 0 --operator-id $OPERATOR_ID --listen-on /ip4/0.0.0.0/tcp/40333
+  Restart=on-failure
+  RestartSec=10
+  LimitNOFILE=65535
+[Install]
+  WantedBy=multi-user.target
+EOF
+
+sudo systemctl enable ssw_operator
+sudo systemctl daemon-reload
+sudo systemctl start ssw_operator
+
+echo "-----------------------------------------------------------------------------"
+echo "Wish lifechange case with DOUBLETOP"
+echo "-----------------------------------------------------------------------------"
