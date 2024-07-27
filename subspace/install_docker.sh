@@ -56,7 +56,7 @@ function plot_size {
 
 function get_vars {
   export CHAIN="gemini-3h"
-  export RELEASE="gemini-3h-2024-jul-22"
+  export RELEASE="gemini-3h-2024-jul-26"
 }
 
 function eof_docker_compose {
@@ -65,7 +65,7 @@ function eof_docker_compose {
   version: "3.7"
   services:
     node:
-      image: ghcr.io/subspace/node:$RELEASE
+      image: ghcr.io/autonomys/node:$RELEASE
       volumes:
         - node-data:/var/subspace:rw
       ports:
@@ -96,7 +96,7 @@ function eof_docker_compose {
       depends_on:
         node:
           condition: service_healthy
-      image: ghcr.io/subspace/farmer:$RELEASE
+      image: ghcr.io/autonomys/farmer:$RELEASE
       volumes:
         - farmer-data:/var/subspace:rw
       ports:
