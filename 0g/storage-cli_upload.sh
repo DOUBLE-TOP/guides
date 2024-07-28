@@ -40,7 +40,7 @@ echo "--------------------------------------------------------------------------
 while true; do
     ./0g-storage-client upload \
     --url $BLOCKCHAIN_RPC_ENDPOINT \
-    --contract 0x8873cc79c5b3b5666535C825205C9a128B1D75F1 \
+    --contract 0xB7e39604f47c0e4a6Ad092a281c1A8429c2440d3 \
     --key $PRIVATE_KEY \
     --node $STORAGE_RPC_ENDPOINT \
     --file $TEST_FILE \

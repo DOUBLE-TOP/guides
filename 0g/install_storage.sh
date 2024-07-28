@@ -73,8 +73,8 @@ ENR_ADDR=$(wget -qO- eth0.me)
 
 echo export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log" >> ~/.bash_profile
 echo export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config" >> ~/.bash_profile
-echo export LOG_CONTRACT_ADDRESS="0x8873cc79c5b3b5666535C825205C9a128B1D75F1" >> ~/.bash_profile
-echo export MINE_CONTRACT="0x85F6722319538A805ED5733c5F4882d96F1C7384" >> ~/.bash_profile
+echo export LOG_CONTRACT_ADDRESS="0xB7e39604f47c0e4a6Ad092a281c1A8429c2440d3" >> ~/.bash_profile
+echo export MINE_CONTRACT="0x6176AA095C47A7F79deE2ea473B77ebf50035421" >> ~/.bash_profile
 echo export ENR_ADDR=${ENR_ADDR} >> ~/.bash_profile
 source ~/.bash_profile
 
@@ -93,7 +93,7 @@ sed -i 's|# network_discovery_port = 1234|network_discovery_port = 1234|' $HOME/
 sed -i 's|# network_boot_nodes = \[\]|network_boot_nodes = \["/ip4/54.219.26.22/udp/1234/p2p/16Uiu2HAmTVDGNhkHD98zDnJxQWu3i1FL1aFYeh9wiQTNu4pDCgps","/ip4/52.52.127.117/udp/1234/p2p/16Uiu2HAkzRjxK2gorngB1Xq84qDrT4hSVznYDHj6BkbaE4SGx9oS"\]|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# db_dir = "db"|db_dir = "db"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# blockchain_rpc_endpoint = "http://127.0.0.1:8545"|blockchain_rpc_endpoint = "http://127.0.0.1:8545"|' $HOME/0g-storage-node/run/config.toml
-sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 802|' $HOME/0g-storage-node/run/config.toml
+sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 401178|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# rpc_enabled = true|rpc_enabled = true|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# auto_sync_enabled = false|auto_sync_enabled = true|' $HOME/0g-storage-node/run/config.toml
