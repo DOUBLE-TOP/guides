@@ -29,10 +29,10 @@ function prepare_files {
         rm -rf $HOME/chasm-network
     fi
     mkdir -p $HOME/chasm-network && cd $HOME/chasm-network
-    read -p "Введите Scout имя" SCOUT_NAME
-    read -p "Введите Scout UID" SCOUT_UID
-    read -p "Введите Scout Webhook API ключ" WEBHOOK_API_KEY
-    read -p "Введите GROQ API ключ" GROQ_API_KEY
+    read -p "Введите Scout имя " SCOUT_NAME
+    read -p "Введите Scout UID " SCOUT_UID
+    read -p "Введите Scout Webhook API ключ " WEBHOOK_API_KEY
+    read -p "Введите GROQ API ключ " GROQ_API_KEY
 
     sudo tee $HOME/chasm-network/.env > /dev/null <<EOF
 PORT=3001
