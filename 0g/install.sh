@@ -23,7 +23,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 git clone https://github.com/0glabs/0g-chain.git
 cd 0g-chain
-git checkout v0.2.3 
+git checkout v0.2.5 
 make install
 0gchaind version
 echo "Репозиторий успешно склонирован, начинаем билд"
@@ -57,6 +57,8 @@ sed -i \
     -e "/\[grpc-web\]/,/^\[/{s/\(address = \"\)\([^:]*\):\([0-9]*\)\(\".*\)/\1\2:$GRPC_WEB_PORT\4/}" $HOME/.0gchain/config/app.toml
 SEEDS="81987895a11f6689ada254c6b57932ab7ed909b6@54.241.167.190:26656,010fb4de28667725a4fef26cdc7f9452cc34b16d@54.176.175.48:26656,e9b4bc203197b62cc7e6a80a64742e752f4210d5@54.193.250.204:26656,68b9145889e7576b652ca68d985826abd46ad660@18.166.164.232:26656" && \
 sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.0gchain/config/config.toml
+sed -i 's/logs-cap = 10000/logs-cap = 100000/' $HOME/.0gchain/config/app.toml
+sed -i 's/block-range-cap = 10000/block-range-cap = 100000/' $HOME/.0gchain/config/app.toml
 
 
 pruning="custom"
