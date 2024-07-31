@@ -29,27 +29,26 @@ function prepare_files {
         rm -rf $HOME/chasm-network
     fi
     mkdir -p $HOME/chasm-network && cd $HOME/chasm-network
-    read -p "Введите Scout имя" SCOUT_NAME
-    read -p "Введите Scout UID" SCOUT_UID
-    read -p "Введите Scout Webhook API ключ" WEBHOOK_API_KEY
-    read -p "Введите GROQ API ключ" GROQ_API_KEY
+    read -p "Введите Scout имя " SCOUT_NAME
+    read -p "Введите Scout UID " SCOUT_UID
+    read -p "Введите Scout Webhook API ключ " WEBHOOK_API_KEY
+    read -p "Введите GROQ API ключ " GROQ_API_KEY
 
     sudo tee $HOME/chasm-network/.env > /dev/null <<EOF
-    PORT=3001
-    LOGGER_LEVEL=debug
+PORT=3001
+LOGGER_LEVEL=debug
 
-    # Chasm
-    ORCHESTRATOR_URL=https://orchestrator.chasm.net
-    SCOUT_NAME=$SCOUT_NAME
-    SCOUT_UID=$SCOUT_UID
-    WEBHOOK_API_KEY=$WEBHOOK_API_KEY
-    WEBHOOK_URL=http://$(curl -s http://checkip.amazonaws.com):3001
+ORCHESTRATOR_URL=https://orchestrator.chasm.net
+SCOUT_NAME=$SCOUT_NAME
+SCOUT_UID=$SCOUT_UID
+WEBHOOK_API_KEY=$WEBHOOK_API_KEY
+WEBHOOK_URL=http://$(curl -s http://checkip.amazonaws.com):3001
 
-    # Chosen Provider (groq, openai)
-    PROVIDERS=groq
-    MODEL=gemma2-9b-it
-    GROQ_API_KEY=$GROQ_API_KEY
-    EOF
+# Chosen Provider (groq, openai)
+PROVIDERS=groq
+MODEL=gemma2-9b-it
+GROQ_API_KEY=$GROQ_API_KEY
+EOF
 }
 
 function run_docker {
