@@ -35,14 +35,14 @@ function prepare_files {
     read -p "Введите GROQ API ключ " GROQ_API_KEY
 
     sudo tee $HOME/chasm-network/.env > /dev/null <<EOF
-PORT=3001
+PORT=3002
 LOGGER_LEVEL=debug
 
 ORCHESTRATOR_URL=https://orchestrator.chasm.net
 SCOUT_NAME=$SCOUT_NAME
 SCOUT_UID=$SCOUT_UID
 WEBHOOK_API_KEY=$WEBHOOK_API_KEY
-WEBHOOK_URL=http://$(curl -s http://checkip.amazonaws.com):3001
+WEBHOOK_URL=http://$(curl -s http://checkip.amazonaws.com):3002
 
 # Chosen Provider (groq, openai)
 PROVIDERS=groq
