@@ -21,9 +21,9 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
-wget https://github.com/0glabs/0g-chain/archive/refs/tags/v0.2.5.zip
-unzip v0.2.5.zip && rm -rf v0.2.5.zip
-mv 0g-chain-0.2.5/ 0g-chain/
+wget https://github.com/0glabs/0g-chain/archive/refs/tags/v0.3.0.zip
+unzip v0.3.0.zip && rm -rf v0.3.0.zip
+mv 0g-chain-0.3.0/ 0g-chain/
 cd $HOME/0g-chain
 make install
 echo "Репозиторий успешно склонирован, начинаем билд"
@@ -33,7 +33,7 @@ echo "--------------------------------------------------------------------------
 0gchaind init $OG_NODENAME --chain-id zgtendermint_16600-2 &>/dev/null
 0gchaind config node tcp://127.0.0.1:12657
 wget https://github.com/0glabs/0g-chain/releases/download/v0.2.3/genesis.json -O $HOME/.0gchain/config/genesis.json
-curl -s https://snapshots-testnet.nodejumper.io/0g-testnet/addrbook.json > $HOME/.0gchain/config/addrbook.json
+#curl -s https://snapshots-testnet.nodejumper.io/0g-testnet/addrbook.json > $HOME/.0gchain/config/addrbook.json
 
 EXTERNAL_IP=$(wget -qO- eth0.me) \
 PROXY_APP_PORT=12658 \
