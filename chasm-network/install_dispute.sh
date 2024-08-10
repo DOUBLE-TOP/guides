@@ -29,9 +29,9 @@ function prepare_files {
         if [ "$(docker ps -q -f name=scout)" ]; then
             source $HOME/chasm-network/.env
             git clone https://github.com/ChasmNetwork/chasm-scout
-                sudo tee $HOME/chasm-scout/dispute/.env > /dev/null <<EOF
+            sudo tee $HOME/chasm-scout/dispute/.env > /dev/null <<EOF
 LLM_API_KEY=$GROQ_API_KEY
-LLM_BASE_URL=https://api.groq.com/openai/v1
+LLM_BASE_URL=https://localhost:3002
 MODELS=llama3-8b-8192,mixtral-8x7b-32768,gemma-7b-it,gemma2-9b-it
 SIMULATION_MODEL=gemma2-9b-it
 ORCHESTRATOR_URL=https://orchestrator.chasm.net
