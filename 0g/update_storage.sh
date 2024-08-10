@@ -25,7 +25,7 @@ echo export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config" >> ~/.bas
 echo export ENR_ADDR=${ENR_ADDR} >> ~/.bash_profile
 echo export LOG_CONTRACT_ADDRESS="0xbD2C3F0E65eDF5582141C35969d66e34629cC768" >> ~/.bash_profile
 echo export MINE_CONTRACT="0x6815F41019255e00D6F34aAB8397a6Af5b6D806f" >> ~/.bash_profile
-echo export REWARD CONTRACT="0x51998C4d486F406a788B766d93510980ae1f9360" >> ~/.bash_profile
+echo export REWARD_CONTRACT="0x51998C4d486F406a788B766d93510980ae1f9360" >> ~/.bash_profile
 source ~/.bash_profile
 
 echo -e "ZGS_LOG_DIR: $ZGS_LOG_DIR\nZGS_LOG_CONFIG_FILE: $ZGS_LOG_CONFIG_FILE\nENR_ADDR: $ENR_ADDR"
@@ -52,8 +52,7 @@ sed -i 's|# rpc_enabled = true|rpc_enabled = true|' $HOME/0g-storage-node/run/co
 sed -i 's|# miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# auto_sync_enabled = false|auto_sync_enabled = true|' $HOME/0g-storage-node/run/config.toml
 sed -i '/# shard_position = "0\/2"/a reward_contract_address = "'"$REWARD_CONTRACT"'"' $HOME/0g-storage-node/run/config.toml
-sed -i '/# shard_position = "0\/2"/a reward_contract_address = "'"$REWARD_CONTRACT"'"' $HOME/0g-storage-node/run/config.toml
-sed -i 's|^#\? *db_max_num_chunks = [0-9]\+|db_max_num_chunks = 1000000000|' $HOME/0g-storage-node/run/config.toml
+sed -i 's|^#\? *db_max_num_sectors = [0-9]\+|db_max_num_sectors = 1000000000|' $HOME/0g-storage-node/run/config.toml
 
 #sed -i 's/debug/info/; s/h2=info/h2=warn/' $HOME/0g-storage-node/run/log_config
 
