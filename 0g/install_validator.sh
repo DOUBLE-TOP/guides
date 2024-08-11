@@ -23,7 +23,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME
 git clone https://github.com/0glabs/0g-chain.git
 cd 0g-chain
-git checkout v0.3.0 
+git checkout v0.3.1.alpha.1
 make install
 0gchaind version
 echo "Репозиторий успешно склонирован, начинаем билд"
