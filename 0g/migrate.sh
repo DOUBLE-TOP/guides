@@ -24,7 +24,7 @@ echo "Выполняем миграцию"
 echo "-----------------------------------------------------------------------------"
 cd 0g-chain/
 git fetch 
-git checkout v0.3.1
+git checkout v0.3.0
 make install
 0gchaind config chain-id zgtendermint_16600-2
 0gchaind init $OG_NODENAME --chain-id zgtendermint_16600-2 &>/dev/null
