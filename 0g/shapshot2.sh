@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $HOME/.profile
+
 sudo apt-get install wget lz4 aria2 pv -y
 sudo systemctl stop 0g
 cp $HOME/.0gchain/data/priv_validator_state.json $HOME/.0gchain/priv_validator_state.json.backup

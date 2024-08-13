@@ -61,7 +61,7 @@ function run_docker {
         fi
     fi
     cd $HOME/chasm-network
-    docker run -d --restart=always --env-file ./.env -p 3001:3001 --name scout chasmtech/chasm-scout
+    docker run -d --restart=always --env-file ./.env -p 3002:3002 --name scout chasmtech/chasm-scout
 }
 
 
