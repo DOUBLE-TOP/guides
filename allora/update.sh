@@ -41,25 +41,19 @@ read WALLET_SEED_PHRASE
 cd $HOME
 git clone https://github.com/allora-network/basic-coin-prediction-node
 cd basic-coin-prediction-node
-mkdir -p worker-data
-mkdir -p head-data
-sudo chmod -R 777 worker-data head-data
+rm -rf config.json
 
-sudo docker run -it --entrypoint=bash -v $(pwd)/head-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
-sudo docker run -it --entrypoint=bash -v $(pwd)/worker-data:/data alloranetwork/allora-inference-base:latest -c "mkdir -p /data/keys && (cd /data/keys && allora-keys)"
-
-sleep 10
-
-HEAD_ID=$(cat head-data/keys/identity)
-rm -rf docker-compose.yml 
-
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/docker-compose.yml
-sed -i "s|HEAD_ID|$HEAD_ID|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|WALLET_SEED_PHRASE|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/docker-compose.yml
+wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
+sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
 
 
-docker compose build
-docker compose up -d
+chmod +x init.config
+./init.config
+
+sed -i "s|8000:8000|18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
+sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
+
+docker compose up -d --build
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
