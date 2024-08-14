@@ -14,15 +14,19 @@ read WALLET_SEED_PHRASE
 cd $HOME
 git clone https://github.com/allora-network/basic-coin-prediction-node
 cd basic-coin-prediction-node
+rm -rf config.json
 
-cp config.example.json config.json
+wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
+sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
+
+
+chmod +x init.config
+./init.config
 
 sed -i "s|8000:8000|18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|addressKeyName\": \"test\"|addressKeyName\": \"testkey\"|" $HOME/basic-coin-prediction-node/config.json
-sed -i "s|addressRestoreMnemonic\": \"\"|addressRestoreMnemonic\": \"$WALLET_SEED_PHRASE\"|" $HOME/basic-coin-prediction-node/config.json
+sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
 
-docker-compose build
-docker-compose up -d
+docker compose up -d --build
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
