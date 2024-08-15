@@ -11,7 +11,7 @@ echo "--------------------------------------------------------------------------
 cd basic-coin-prediction-node
 docker compose down -v
 
-sed -i "s|sentries|allora|" $HOME/basic-coin-prediction-node/model.py
+sed -i "s|sentries|allora|" $HOME/basic-coin-prediction-node/config.json
 
 chmod +x init.config
 sudo ./init.config
