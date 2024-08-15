@@ -50,7 +50,7 @@ sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/conf
 chmod +x init.config
 ./init.config
 
-sed -i "s|8000:8000|18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
+sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
 sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
 
 docker compose up -d --build
