@@ -14,7 +14,7 @@ docker compose down -v
 sed -i "s|sentries|allora|" $HOME/basic-coin-prediction-node/model.py
 
 chmod +x init.config
-./init.config
+sudo ./init.config
 
 docker compose up -d
 
