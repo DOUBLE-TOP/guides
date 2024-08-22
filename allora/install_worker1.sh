@@ -27,7 +27,6 @@ chmod +x init.config
 sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
 sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"1d\", \"10m\", \"1d\", \"10m\", \"1d\", \"20m\", \"20m\", \"20m\"]|" $HOME/basic-coin-prediction-node/model.py
 
-export COMPOSE_PROJECT_NAME=worker1
 docker compose up -d --build
 
 echo "-----------------------------------------------------------------------------"
