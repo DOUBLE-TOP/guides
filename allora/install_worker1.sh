@@ -24,7 +24,7 @@ sed -i "s|\":8000|\":18000|" $HOME/basic-coin-prediction-node/config.json
 chmod +x init.config
 ./init.config
 
-sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
+sed -i "s|\"8000:8000\"|\"18000:8000\"|" $HOME/basic-coin-prediction-node/docker-compose.yml
 sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"1d\", \"10m\", \"1d\", \"10m\", \"1d\", \"20m\", \"20m\", \"20m\"]|" $HOME/basic-coin-prediction-node/model.py
 
 docker compose up -d --build
