@@ -8,22 +8,28 @@ echo "--------------------------------------------------------------------------
 echo "Установка Allora Worker"
 echo "-----------------------------------------------------------------------------"
 
-echo "Введите сид фразу от кошелька, который будет использоваться для воркера"
+echo "Введите сид фразу от кошелька, который будет использоваться для воркера "
 read WALLET_SEED_PHRASE
 
+echo "Введите Coin Gecko API key"
+read COIN_GECKO_API_KEY
+
 cd $HOME
-git clone https://github.com/allora-network/basic-coin-prediction-node
-cd basic-coin-prediction-node
-rm -rf config.json
+git clone https://github.com/allora-network/allora-huggingface-walkthrough
+cd allora-huggingface-walkthrough
+mkdir -p worker-data
+chmod -R 777 worker-data
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
-sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
+sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
+sed -i "s|\":8000|\":18001|" $HOME/allora-huggingface-walkthrough/config.json
 
+sed -i "s|<Your Coingecko API key>|$COIN_GECKO_API_KEY|" $HOME/allora-huggingface-walkthrough/app.py
 
 chmod +x init.config
 ./init.config
 
-sed -i "s|8000:8000|18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
+sed -i "s|\"8000:8000|\"18001:8000|" $HOME/allora-huggingface-walkthrough/docker-compose.yml
 sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
 
 docker compose up -d --build
