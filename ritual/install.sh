@@ -93,8 +93,8 @@ if [ -z "$CONTRACT_ADDRESS" ]; then
   exit 1
 fi
 
-echo -e "${fmt}Адрес вашего контракта: $CONTRACT_ADDRESS${end}" | tee -a "$log_file"
-sed -i 's|0x13D69Cf7d6CE4218F646B759Dcf334D82c023d8e|$CONTRACT_ADDRESS|' "$HOME/infernet-container-starter/projects/hello-world/contracts/script/CallContract.s.sol"
+echo -e "${fmt}Адрес вашего контракта: $CONTRACT_ADDRESS${end}"
+sed -i '' "s|0x13D69Cf7d6CE4218F646B759Dcf334D82c023d8e|$CONTRACT_ADDRESS|" "$HOME/infernet-container-starter/projects/hello-world/contracts/script/CallContract.s.sol"
 
 # Call Consumer Contract
 cd $HOME/infernet-container-starter
