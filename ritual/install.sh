@@ -55,6 +55,7 @@ sed -i 's|"batch_size": "[^"]*"|"batch_size": 50|' "$DEPLOY_JSON"
 sed -i 's|address registry = .*|address registry = 0x3B1554f346DFe5c482Bb4BA31b880c1C18412170;|' "$HOME/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s.sol"
 
 # Конфигурация contracts/Makefile
+MAKEFILE=$HOME/infernet-container-starter/projects/hello-world/contracts/Makefile
 sed -i 's|sender := .*|sender := '"$PRIVATE_KEY"'|' "$MAKEFILE"
 sed -i 's|RPC_URL := .*|RPC_URL := '"$RPC_URL"'|' "$MAKEFILE"
 
