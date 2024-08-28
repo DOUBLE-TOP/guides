@@ -60,7 +60,7 @@ sed -i 's|sender := .*|sender := '"$PRIVATE_KEY"'|' "$MAKEFILE"
 sed -i 's|RPC_URL := .*|RPC_URL := '"$RPC_URL"'|' "$MAKEFILE"
 
 #Cтарт контейнеров для инициализации новой конфигурации
-sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0\n    restart: on-failure|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
+sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
 
 docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml up -d
 
