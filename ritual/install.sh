@@ -39,8 +39,8 @@ DEPLOY_JSON=$HOME/infernet-container-starter/deploy/config.json
 sed -i 's|"rpc_url": "[^"]*"|"rpc_url": "'"$RPC_URL"'"|' "$DEPLOY_JSON"
 sed -i 's|"private_key": "[^"]*"|"private_key": "'"$PRIVATE_KEY"'"|' "$DEPLOY_JSON"
 sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'"|' "$DEPLOY_JSON"
-sed -i 's|"sleep": "[^"]*"|"sleep": 5,|' "$DEPLOY_JSON"
-sed -i 's|"batch_size": "[^"]*"|"batch_size": 50|' "$DEPLOY_JSON"
+sed -i 's|"sleep": 3|"sleep": 5|' "$DEPLOY_JSON"
+sed -i 's|"batch_size": 100|"batch_size": 50|' "$DEPLOY_JSON"
 
 # Конфигурация container/config.json
 CONTAINER_JSON=$HOME/infernet-container-starter/projects/hello-world/container/config.json
@@ -48,8 +48,8 @@ CONTAINER_JSON=$HOME/infernet-container-starter/projects/hello-world/container/c
 sed -i 's|"rpc_url": "[^"]*"|"rpc_url": "'"$RPC_URL"'"|' "$CONTAINER_JSON"
 sed -i 's|"private_key": "[^"]*"|"private_key": "'"$PRIVATE_KEY"'"|' "$CONTAINER_JSON"
 sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'"|' "$CONTAINER_JSON"
-sed -i 's|"sleep": "[^"]*"|"sleep": 5,|' "$DEPLOY_JSON"
-sed -i 's|"batch_size": "[^"]*"|"batch_size": 50|' "$DEPLOY_JSON"
+sed -i 's|"sleep": 3|"sleep": 5|' "$CONTAINER_JSON"
+sed -i 's|"batch_size": 100|"batch_size": 50|' "$CONTAINER_JSON"
 
 # Конфигурация script/Deploy.s.sol
 sed -i 's|address registry = .*|address registry = 0x3B1554f346DFe5c482Bb4BA31b880c1C18412170;|' "$HOME/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s.sol"
@@ -60,7 +60,7 @@ sed -i 's|sender := .*|sender := '"$PRIVATE_KEY"'|' "$MAKEFILE"
 sed -i 's|RPC_URL := .*|RPC_URL := '"$RPC_URL"'|' "$MAKEFILE"
 
 #Cтарт контейнеров для инициализации новой конфигурации
-sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
+sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0\n    restart: on-failure|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
 
 docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml up -d
 
