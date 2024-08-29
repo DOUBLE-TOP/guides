@@ -61,6 +61,7 @@ sed -i 's|RPC_URL := .*|RPC_URL := '"$RPC_URL"'|' "$MAKEFILE"
 
 #Cтарт контейнеров для инициализации новой конфигурации
 sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
+sed -i 's|0.0.0.0:4000:4000|0.0.0.0:4321:4000|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
 
 docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml up -d
 
@@ -82,10 +83,11 @@ forge install --no-commit ritual-net/infernet-sdk
 # Deploy Consumer Contract
 cd $HOME/infernet-container-starter
 project=hello-world make deploy-contracts >> logs.txt
-CONTRACT_ADDRESS=$(grep "Contract Address" logs.txt | awk '{print $NF}')
+CONTRACT_ADDRESS=$(grep "Deployed SaysHello" logs.txt | awk '{print $NF}')
+rm -rf logs.txt
 
 if [ -z "$CONTRACT_ADDRESS" ]; then
-  echo -e "${err}Произошла ошибка: не удалось прочитать contractAddress из $CONTRACT_DATA_FILE${end}" | tee -a "$log_file"
+  echo -e "${err}Произошла ошибка: не удалось прочитать contractAddress из $CONTRACT_DATA_FILE${end}"
   exit 1
 fi
 
