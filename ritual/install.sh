@@ -18,6 +18,7 @@ if [[ "$PRIVATE_KEY" == 0x* ]]; then
     echo "Вы ввели приватный ключ верно!"
 else
     echo "Приватный ключ введен не верно. Приватный ключ должен начинаться с 0x"
+    exit 1
 fi
 
 REGISTRY_ADDRESS=0x3B1554f346DFe5c482Bb4BA31b880c1C18412170
