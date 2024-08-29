@@ -13,6 +13,13 @@ request_param() {
 echo "Пожалуйста, введите следующие параметры для настройки ноды:"
 RPC_URL=$(request_param "Введите RPC URL")
 PRIVATE_KEY=$(request_param "Введите ваш приватный ключ (начинающийся с 0x)")
+
+if [[ "$PRIVATE_KEY" == 0x* ]]; then
+    echo "Вы ввели приватный ключ верно!"
+else
+    echo "Приватный ключ введен не верно. Приватный ключ должен начинаться с 0x"
+fi
+
 REGISTRY_ADDRESS=0x3B1554f346DFe5c482Bb4BA31b880c1C18412170
 IMAGE="ritualnetwork/infernet-node:1.2.0"
 
@@ -62,6 +69,7 @@ sed -i 's|RPC_URL := .*|RPC_URL := '"$RPC_URL"'|' "$MAKEFILE"
 #Cтарт контейнеров для инициализации новой конфигурации
 sed -i 's|ritualnetwork/infernet-node:1.0.0|ritualnetwork/infernet-node:1.2.0|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
 sed -i 's|0.0.0.0:4000:4000|0.0.0.0:4321:4000|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
+sed -i 's|0.0.0.0:8545:3000|0.0.0.0:8845:3000|' $HOME/infernet-container-starter/deploy/docker-compose.yaml
 
 docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml up -d
 
