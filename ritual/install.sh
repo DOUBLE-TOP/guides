@@ -81,12 +81,9 @@ forge install --no-commit ritual-net/infernet-sdk
 
 # Deploy Consumer Contract
 cd $HOME/infernet-container-starter
-project=hello-world make deploy-contracts
-
-# Получение адреса контракта из файла run-latest.json
-CONTRACT_DATA_FILE="/root/infernet-container-starter/projects/hello-world/contracts/broadcast/Deploy.s.sol/8453/run-latest.json"
-CONFIG_FILE="/root/infernet-container-starter/deploy/config.json"
-CONTRACT_ADDRESS=$(jq -r '.receipts[0].contractAddress' "$CONTRACT_DATA_FILE")
+project=hello-world make deploy-contracts >> logs.txt
+CONTRACT_ADDRESS=$(grep "Contract Address" logs.txt | awk '{print $NF}')
+rm -rf logs.txt
 
 if [ -z "$CONTRACT_ADDRESS" ]; then
   echo -e "${err}Произошла ошибка: не удалось прочитать contractAddress из $CONTRACT_DATA_FILE${end}" | tee -a "$log_file"
@@ -94,6 +91,7 @@ if [ -z "$CONTRACT_ADDRESS" ]; then
 fi
 
 echo -e "${fmt}Адрес вашего контракта: $CONTRACT_ADDRESS${end}"
+pip3 install eth_utils
 CHECKSUMMED_ADDRESS=$(python3 -c "
 from eth_utils import to_checksum_address
 print(to_checksum_address('$CONTRACT_ADDRESS'))
