@@ -17,8 +17,9 @@ function line {
 
 function run_docker {
     echo -e "${YELLOW}Запускаем докер контейнер для валидатора${NORMAL}"
-    docker pull chasmtech/chasm-scout:latest
     docker rm -f scout
+    docker images | grep 'chasm-scout' | awk '{print $3}' | xargs docker rmi
+    docker pull chasmtech/chasm-scout:0.0.6
     docker run -d --restart=always --env-file $HOME/chasm-network/.env -p 3002:3002 --name scout chasmtech/chasm-scout
 }
 

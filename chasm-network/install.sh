@@ -53,7 +53,7 @@ EOF
 
 function run_docker {
     echo -e "${YELLOW}Запускаем докер контейнер для валидатора${NORMAL}"
-    docker pull chasmtech/chasm-scout:latest
+    docker pull chasmtech/chasm-scout:0.0.6
     if [ ! "$(docker ps -q -f name=^scout$)" ]; then
         if [ "$(docker ps -aq -f status=exited -f name=^frame$)" ]; then
             echo -e "${YELLOW}Докер контейнер уже существует в статусе exited. Удаляем его и запускаем заново${NORMAL}"
