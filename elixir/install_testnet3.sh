@@ -29,10 +29,10 @@ function prepare_files {
         rm -rf $HOME/elixir
     fi
 
-    docker rm -f ev
+    docker rm -f ev &>/dev/null
 
     mkdir -p $HOME/elixir && cd $HOME/elixir
-    
+
     STRATEGY_EXECUTOR_IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
     read -p "Введите имя вашей ноды(это имя будет отображаться на дашбордах) " STRATEGY_EXECUTOR_DISPLAY_NAME
     read -p "Введите адрес кошелька(этот кошелек будет использоваться для ревардов) " STRATEGY_EXECUTOR_BENEFICIARY
