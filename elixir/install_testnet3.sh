@@ -54,7 +54,7 @@ function run_docker {
     if [ ! "$(docker ps -q -f name=^elixir$)" ]; then
         if [ "$(docker ps -aq -f status=exited -f name=^elixir$)" ]; then
             echo -e "${YELLOW}Докер контейнер уже существует в статусе exited. Удаляем его и запускаем заново${NORMAL}"
-            docker rm -f elixir
+            docker rm -f elixir &>/dev/null
         fi
     fi
     cd $HOME/elixir
