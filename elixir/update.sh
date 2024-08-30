@@ -2,8 +2,7 @@
 
 cd $HOME/elixir/
 
-docker kill ev
-docker rm ev
-docker pull elixirprotocol/validator:testnet-2
-docker build . -t elixir-validator
-docker run -it --restart unless-stopped -d --name ev elixir-validator
+docker kill elixir
+docker rm -f elixir
+docker pull elixirprotocol/validator:v3
+docker run -d --env-file $HOME/elixir/.env --name elixir --restart unless-stopped elixirprotocol/validator:v3
