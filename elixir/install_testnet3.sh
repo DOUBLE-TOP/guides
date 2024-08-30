@@ -25,51 +25,48 @@ function install_docker {
 
 function prepare_files {
     echo -e "${YELLOW}Подготавливаем файлы конфига${NORMAL}"
-    if [ ! -d "$HOME/chasm-network" ]; then
-        rm -rf $HOME/chasm-network
+    if [ ! -d "$HOME/elixir" ]; then
+        rm -rf $HOME/elixir
     fi
-    mkdir -p $HOME/chasm-network && cd $HOME/chasm-network
-    read -p "Введите Scout имя " SCOUT_NAME
-    read -p "Введите Scout UID " SCOUT_UID
-    read -p "Введите Scout Webhook API ключ " WEBHOOK_API_KEY
-    read -p "Введите GROQ API ключ " GROQ_API_KEY
 
-    sudo tee $HOME/chasm-network/.env > /dev/null <<EOF
-PORT=3002
-LOGGER_LEVEL=debug
+    docker rm -f ev &>/dev/null
 
-ORCHESTRATOR_URL=https://orchestrator.chasm.net
-SCOUT_NAME=$SCOUT_NAME
-SCOUT_UID=$SCOUT_UID
-WEBHOOK_API_KEY=$WEBHOOK_API_KEY
-WEBHOOK_URL=http://$(curl -s http://checkip.amazonaws.com):3002
+    mkdir -p $HOME/elixir && cd $HOME/elixir
 
-# Chosen Provider (groq, openai)
-PROVIDERS=groq
-MODEL=gemma2-9b-it
-GROQ_API_KEY=$GROQ_API_KEY
+    STRATEGY_EXECUTOR_IP_ADDRESS=$(hostname -I | cut -d' ' -f1)
+    read -p "Введите имя вашей ноды(это имя будет отображаться на дашбордах) " STRATEGY_EXECUTOR_DISPLAY_NAME
+    read -p "Введите адрес кошелька(этот кошелек будет использоваться для ревардов) " STRATEGY_EXECUTOR_BENEFICIARY
+    read -p "Введите приватный ключ с предыдущего пункта. Приватный ключ НЕ должен содержать приставку 0x " SIGNER_PRIVATE_KEY
+
+    sudo tee $HOME/elixir/.env > /dev/null <<EOF
+ENV=testnet-3
+
+STRATEGY_EXECUTOR_IP_ADDRESS=$STRATEGY_EXECUTOR_IP_ADDRESS
+STRATEGY_EXECUTOR_DISPLAY_NAME=$STRATEGY_EXECUTOR_DISPLAY_NAME
+STRATEGY_EXECUTOR_BENEFICIARY=$STRATEGY_EXECUTOR_BENEFICIARY
+SIGNER_PRIVATE_KEY=$SIGNER_PRIVATE_KEY
 EOF
 }
 
 function run_docker {
     echo -e "${YELLOW}Запускаем докер контейнер для валидатора${NORMAL}"
-    docker pull chasmtech/chasm-scout:0.0.6
-    if [ ! "$(docker ps -q -f name=^scout$)" ]; then
-        if [ "$(docker ps -aq -f status=exited -f name=^frame$)" ]; then
+    docker pull elixirprotocol/validator:v3
+    if [ ! "$(docker ps -q -f name=^elixir$)" ]; then
+        if [ "$(docker ps -aq -f status=exited -f name=^elixir$)" ]; then
             echo -e "${YELLOW}Докер контейнер уже существует в статусе exited. Удаляем его и запускаем заново${NORMAL}"
-            docker rm -f scout
+            docker rm -f elixir &>/dev/null
         fi
     fi
-    cd $HOME/chasm-network
-    docker run -d --restart=always --env-file ./.env -p 3002:3002 --name scout chasmtech/chasm-scout
-}
+    cd $HOME/elixir
+    docker run -d --env-file $HOME/elixir/.env --name elixir --restart unless-stopped elixirprotocol/validator:v3
+  }
 
 
 function output {
     echo -e "${YELLOW}Для проверки логов выполняем команду:${NORMAL}"
-    echo -e "docker logs -f scout --tail=100"
+    echo -e "docker logs -f elixir --tail=100"
     echo -e "${YELLOW}Для перезапуска выполняем команду:${NORMAL}"
-    echo -e "docker restart scout"
+    echo -e "docker restart elixir"
 }
 
 
