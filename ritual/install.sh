@@ -79,7 +79,12 @@ cd $HOME
 mkdir -p foundry
 cd foundry
 curl -L https://foundry.paradigm.xyz | bash
+sleep 3
 source ~/.bashrc
+cd $HOME/.foundry/bin
+source ~/.bashrc
+sleep 3
+
 foundryup
 
 # Установка зависимостей для контрактов
