@@ -79,11 +79,9 @@ cd $HOME
 mkdir -p foundry
 cd foundry
 curl -L https://foundry.paradigm.xyz | bash
-sleep 3
 source ~/.bashrc
-cd $HOME/.foundry/bin
-source ~/.bashrc
-sleep 3
+echo 'export PATH="$PATH:/root/.foundry/bin"' >> .profile
+source .profile
 
 foundryup
 
