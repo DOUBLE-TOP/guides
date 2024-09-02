@@ -540,52 +540,46 @@ reexec_as_root_if_needed "$@"
 # Prompt for hub operator agreement
 prompt_for_hub_operator_agreement || exit $?
 
-
-
-# Check the command-line argument for 'upgrade'
-if [ "$1" == "upgrade" ]; then
-    # Ensure the ~/hubble directory exists
-    if [ ! -d ~/hubble ]; then
-        mkdir -p ~/hubble || { echo "Failed to create ~/hubble directory."; exit 1; }
-    fi
-
-    # Install dependencies
-    install_jq
-
-    set_platform_commands
-
-    # Call the function to install docker
-    install_docker "$@"
-
-    # Call the function to set the COMPOSE_CMD variable
-    set_compose_command
-
-    # Update the env file if needed
-    write_env_file
-
-    # Fetch the latest docker-compose.yml
-    fetch_latest_docker_compose_and_dashboard
-
-    # Setup the Grafana dashboard
-    setup_grafana
-
-    setup_identity
-
-    setup_crontab
-
-    sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml
-
-    # Start the hubble service
-    start_hubble
-
-    echo "✅ Upgrade complete."
-    echo ""
-    echo "Monitor your node at http://localhost:3000/"
-
-    # Sleep for 5 seconds
-    sleep 5
-
-    exit 0
+# Ensure the ~/hubble directory exists
+if [ ! -d ~/hubble ]; then
+    mkdir -p ~/hubble || { echo "Failed to create ~/hubble directory."; exit 1; }
 fi
 
+# Install dependencies
+install_jq
+
+set_platform_commands
+
+# Call the function to install docker
+install_docker "$@"
+
+# Call the function to set the COMPOSE_CMD variable
+set_compose_command
+
+# Update the env file if needed
+write_env_file
+
+# Fetch the latest docker-compose.yml
+fetch_latest_docker_compose_and_dashboard
+
+# Setup the Grafana dashboard
+setup_grafana
+
+setup_identity
+
+setup_crontab
+
+sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml
+
+# Start the hubble service
+start_hubble
+
+echo "✅ Upgrade complete."
+echo ""
+echo "Monitor your node at http://localhost:3000/"
+
+# Sleep for 5 seconds
+sleep 5
+
+exit 0
 
