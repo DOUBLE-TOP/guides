@@ -16,7 +16,7 @@ cd $HOME && mkdir -p farcaster && cd $HOME/hubble
 rm -rf hubble.sh*
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/farcaster/hubble.sh
 
-bash hubble.sh
+bash hubble.sh "upgrade"
 
 echo "-----------------------------------------------------------------------------"
 echo "Farcaster Node успешно установлена"

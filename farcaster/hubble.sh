@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # The Hubble installation script. This script is used to install the latest version of Hubble.
@@ -74,7 +75,6 @@ fetch_file_from_repo() {
     # exit with an error.
     curl -sS -o "$local_filename" "$download_url" || { echo "Failed to fetch $download_url."; exit 1; }
 }
-
 
 # Fetch the docker-compose.yml and grafana-dashboard.json files
 fetch_latest_docker_compose_and_dashboard() {
@@ -540,46 +540,124 @@ reexec_as_root_if_needed "$@"
 # Prompt for hub operator agreement
 prompt_for_hub_operator_agreement || exit $?
 
-# Ensure the ~/hubble directory exists
-if [ ! -d ~/hubble ]; then
-    mkdir -p ~/hubble || { echo "Failed to create ~/hubble directory."; exit 1; }
+# Check for the "up" command-line argument
+if [ "$1" == "up" ]; then
+   # Setup the docker-compose command
+    set_compose_command
+
+    # Run docker compose up -d hubble
+    $COMPOSE_CMD up -d hubble statsd grafana
+
+    echo "✅ Hubble is running."
+
+    # Finally, start showing the logs
+    $COMPOSE_CMD logs --tail 100 -f hubble
+
+    exit 0
 fi
 
-# Install dependencies
-install_jq
+# "down" command-line argument
+if [ "$1" == "down" ]; then
+    # Setup the docker-compose command
+    set_compose_command
 
-set_platform_commands
+    # Run docker compose down
+    $COMPOSE_CMD down
 
-# Call the function to install docker
-install_docker "$@"
+    echo "✅ Hubble is stopped."
 
-# Call the function to set the COMPOSE_CMD variable
-set_compose_command
+    exit 0
+fi
 
-# Update the env file if needed
-write_env_file
+# Check the command-line argument for 'upgrade'
+if [ "$1" == "upgrade" ]; then
+    # Ensure the ~/hubble directory exists
+    if [ ! -d ~/hubble ]; then
+        mkdir -p ~/hubble || { echo "Failed to create ~/hubble directory."; exit 1; }
+    fi
 
-# Fetch the latest docker-compose.yml
-fetch_latest_docker_compose_and_dashboard
+    # Install dependencies
+    install_jq
 
-# Setup the Grafana dashboard
-setup_grafana
+    set_platform_commands
 
-setup_identity
+    # Call the function to install docker
+    install_docker "$@"
 
-setup_crontab
+    # Call the function to set the COMPOSE_CMD variable
+    set_compose_command
 
-sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml
+    # Update the env file if needed
+    write_env_file
 
-# Start the hubble service
-start_hubble
+    # Fetch the latest docker-compose.yml
+    fetch_latest_docker_compose_and_dashboard
 
-echo "✅ Upgrade complete."
-echo ""
-echo "Monitor your node at http://localhost:3000/"
+    # Setup the Grafana dashboard
+    setup_grafana
 
-# Sleep for 5 seconds
-sleep 5
+    setup_identity
 
-exit 0
+    setup_crontab
 
+    # Start the hubble service
+    sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml 
+    start_hubble
+
+    echo "✅ Upgrade complete."
+    echo ""
+    echo "Monitor your node at http://localhost:3000/"
+
+    # Sleep for 5 seconds
+    sleep 5
+
+    exit 0
+fi
+
+# Show logs of the hubble service
+if [ "$1" == "logs" ]; then
+    set_compose_command
+    $COMPOSE_CMD logs --tail 100 -f hubble
+    exit 0
+fi
+
+if [ "$1" == "autoupgrade" ]; then
+    # Autoupgrade cronjob needs the correct $PATH entries
+    if [[ ! -f "~/.bashrc" ]]; then
+      source ~/.bashrc
+    fi
+
+    echo "$(date) Attempting hubble autoupgrade..."
+
+    # Since cronjob is running under root, make sure the dependencies are installed
+    install_jq
+    install_docker "$@"
+
+    set_platform_commands
+    set_compose_command
+
+    # Upgrade this script itself, fetch the latest docker-compose.yml, and restart the containers
+    fetch_latest_docker_compose_and_dashboard
+    ensure_grafana
+    start_hubble
+    sleep 5
+    cleanup
+
+    echo "$(date) Completed hubble autoupgrade"
+
+    exit 0
+fi
+
+# If run without args OR with "help", show a help
+if [ $# -eq 0 ] || [ "$1" == "help" ]; then
+    echo "hubble.sh - Install or upgrade Hubble"
+    echo "Usage:     hubble.sh [command]"
+    echo "  upgrade  Upgrade an existing installation of Hubble"
+    echo "  logs     Show the logs of the Hubble service"
+    echo "  up       Start Hubble and Grafana dashboard"
+    echo "  down     Stop Hubble and Grafana dashboard"
+    echo "  help     Show this help"
+    echo ""
+    echo "add SKIP_CRONTAB=true to your .env to skip installing the autoupgrade crontab"
+    exit 0
+fi
