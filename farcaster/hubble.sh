@@ -263,7 +263,7 @@ ensure_grafana() {
 
 ## Configure Grafana
 setup_grafana() {
-    local grafana_url="http://127.0.0.1:3000"
+    local grafana_url="http://127.0.0.1:3993"
     local credentials
     local response dashboard_uid prefs
 
@@ -606,7 +606,7 @@ if [ "$1" == "upgrade" ]; then
 
     echo "✅ Upgrade complete."
     echo ""
-    echo "Monitor your node at http://localhost:3000/"
+    echo "Monitor your node at http://localhost:3993/"
 
     # Sleep for 5 seconds
     sleep 5
