@@ -14,10 +14,11 @@ echo "--------------------------------------------------------------------------
 
 cd $HOME && mkdir -p hubble && cd $HOME/hubble
 docker compose down &>/dev/null
-rm -rf hubble.sh*
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/farcaster/hubble.sh
+rm -rf farcaster.sh*
+wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/farcaster/farcaster.sh
 
-bash hubble.sh "upgrade"
+chmod +x $HOME/hubble/farcaster.sh
+bash farcaster.sh "upgrade"
 
 echo "-----------------------------------------------------------------------------"
 echo "Farcaster Node успешно установлена"
