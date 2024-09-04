@@ -50,7 +50,7 @@ EOF
 
 function run_docker {
     echo -e "${YELLOW}Запускаем докер контейнер для валидатора${NORMAL}"
-    docker pull elixirprotocol/validator:v3
+    docker pull elixirprotocol/validator:v3 --platform linux/amd64
     if [ ! "$(docker ps -q -f name=^elixir$)" ]; then
         if [ "$(docker ps -aq -f status=exited -f name=^elixir$)" ]; then
             echo -e "${YELLOW}Докер контейнер уже существует в статусе exited. Удаляем его и запускаем заново${NORMAL}"
@@ -58,7 +58,7 @@ function run_docker {
         fi
     fi
     cd $HOME/elixir
-    docker run -d --env-file $HOME/elixir/.env --name elixir --restart unless-stopped elixirprotocol/validator:v3
+    docker run --env-file $HOME/elixir/.env --name elixir --platform linux/amd64 --restart always -p 17690:17690 elixirprotocol/validator:v3
   }
 
 
