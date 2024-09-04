@@ -5,8 +5,8 @@ FILE="$HOME/subspace_docker/docker-compose.yml"
 
 # Проверяем, существует ли файл
 if [ -f "$FILE" ]; then
-    sed -i 's/ghcr.io\/subspace\/node:.*/ghcr.io\/autonomys\/node:gemini-3h-2024-jul-29/g' $HOME/subspace_docker/docker-compose.yml
-    sed -i 's/ghcr.io\/subspace\/farmer:.*/ghcr.io\/autonomys\/farmer:gemini-3h-2024-jul-29/g' $HOME/subspace_docker/docker-compose.yml
+    sed -i 's/ghcr.io\/subspace\/node:.*/ghcr.io\/autonomys\/node:gemini-3h-2024-sep-03/g' $HOME/subspace_docker/docker-compose.yml
+    sed -i 's/ghcr.io\/subspace\/farmer:.*/ghcr.io\/autonomys\/farmer:gemini-3h-2024-sep-03/g' $HOME/subspace_docker/docker-compose.yml
     sed -i 's/--state-pruning", "archive-canonical"/--state-pruning", "140000"/g' $HOME/subspace_docker*/docker-compose.yml
     echo "Обновления были применены."
 else
@@ -15,17 +15,17 @@ fi
 
 docker-compose -f $FILE down
 
-docker rmi -f ghcr.io/subspace/node:gemini-3h-2024-jul-29
-docker rmi -f ghcr.io/subspace/farmer:gemini-3h-2024-jul-29
+docker rmi -f ghcr.io/subspace/node:gemini-3h-2024-sep-03
+docker rmi -f ghcr.io/subspace/farmer:gemini-3h-2024-sep-03
 docker image prune -a -f
 
 cd $HOME
 rm -rf $HOME/subspace
 git clone https://github.com/subspace/subspace
 cd $HOME/subspace
-git checkout 4de5f0534c6fc377d350b7c97ddaed638fd51fe4
+git checkout 5c484f368906206f07bab113d1e28da978786da8
 
-docker build -t ghcr.io/subspace/node:gemini-3h-2024-jul-29 -f Dockerfile-node .
-docker build -t ghcr.io/subspace/farmer:gemini-3h-2024-jul-29 -f Dockerfile-farmer .
+docker build -t ghcr.io/subspace/node:gemini-3h-2024-sep-03 -f Dockerfile-node .
+docker build -t ghcr.io/subspace/farmer:gemini-3h-2024-sep-03 -f Dockerfile-farmer .
 
 docker-compose -f $FILE up -d
