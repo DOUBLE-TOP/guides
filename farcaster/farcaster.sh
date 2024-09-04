@@ -593,6 +593,8 @@ if [ "$1" == "upgrade" ]; then
     # Fetch the latest docker-compose.yml
     fetch_latest_docker_compose_and_dashboard
 
+    sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml 
+
     # Setup the Grafana dashboard
     setup_grafana
 
@@ -601,7 +603,6 @@ if [ "$1" == "upgrade" ]; then
     setup_crontab
 
     # Start the hubble service
-    sed -i 's|3000:3000|3993:3000|' $HOME/hubble/docker-compose.yml 
     start_hubble
 
     echo "✅ Upgrade complete."
