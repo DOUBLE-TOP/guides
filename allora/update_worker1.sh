@@ -16,12 +16,6 @@ if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
-if [ -z "$COIN_GECKO_API_KEY" ]; then
-    echo "Введите Coin Gecko API key"
-    read COIN_GECKO_API_KEY
-    echo 'export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY >> $HOME/.profile
-fi
-
 cd basic-coin-prediction-node
 docker compose down -v
 cd $HOME
@@ -48,7 +42,7 @@ TIMEFRAME=4h
 MODEL=LinearRegression
 REGION=EU
 DATA_PROVIDER=Binance
-CG_API_KEY=$COIN_GECKO_API_KEY
+CG_API_KEY=
 EOF
 
 docker compose up -d --build
