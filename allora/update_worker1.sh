@@ -13,7 +13,7 @@ source $HOME/.profile
 if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "Введите сид фразу от кошелька, который будет использоваться для воркера"
     read ALLORA_SEED_PHRASE
-    echo 'export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE >> $HOME/.profile
+    echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
 if [ -z "$COIN_GECKO_API_KEY" ]; then
