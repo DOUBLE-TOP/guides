@@ -45,6 +45,8 @@ DATA_PROVIDER=Binance
 CG_API_KEY=
 EOF
 
+sleep 5
+
 docker compose up -d --build
 
 echo "-----------------------------------------------------------------------------"
