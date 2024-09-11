@@ -32,12 +32,12 @@ function cleanup {
   
   rm -rf $HOME/nwaku-compose/rln_tree/ 
   cd $HOME/nwaku-compose
-  git restore .
+  git restore . &>/dev/null
 }
 
 function update {
   # Выгружаем переменные с .env в среду выполнения
-  source $HOME/nwaku-compose/.env
+  source $HOME/nwaku-compose/.env &>/dev/null
 
   # Удаляем старый .env
   rm -rf $HOME/nwaku-compose/.env
