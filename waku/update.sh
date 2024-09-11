@@ -32,12 +32,12 @@ function cleanup {
   
   rm -rf $HOME/nwaku-compose/rln_tree/ 
   cd $HOME/nwaku-compose
-  git restore .
+  git restore . &>/dev/null
 }
 
 function update {
   # Выгружаем переменные с .env в среду выполнения
-  source $HOME/nwaku-compose/.env
+  source $HOME/nwaku-compose/.env &>/dev/null
 
   # Удаляем старый .env
   rm -rf $HOME/nwaku-compose/.env
@@ -45,26 +45,31 @@ function update {
   git pull
   cp .env.example .env
 
-  # Check which variable has a value
-  if [ -n "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
-    SEPOLIA_RPC="$RLN_RELAY_ETH_CLIENT_ADDRESS"
-  elif [ -n "$ETH_CLIENT_ADDRESS" ]; then
-    SEPOLIA_RPC="$ETH_CLIENT_ADDRESS"
-  else
-    echo "Проверьте .env файл"
-    exit 1
+  if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+      echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+      read RLN_RELAY_ETH_CLIENT_ADDRESS
   fi
 
-  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$SEPOLIA_RPC|" $HOME/nwaku-compose/.env
+  if [ -z "$ETH_TESTNET_KEY" ]; then
+      echo -e "Введите ваш приватник от ETH кошелека на котором есть как минимум 0.1 ETH в сети Sepolia"
+      read ETH_TESTNET_KEY
+  fi
+
+  if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
+      echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
+      read RLN_RELAY_CRED_PASSWORD
+  fi
+  sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
-  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=harbor.status.im/wakuorg/nwaku:v0.32.0|" $HOME/nwaku-compose/.env
+  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.32.0|" $HOME/nwaku-compose/.env
 
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
+  sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
 
   bash register_rln.sh
 }
