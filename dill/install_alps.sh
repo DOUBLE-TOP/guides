@@ -268,7 +268,7 @@ COMMON_FLAGS="--light --datadir $DATA_ROOT/beacondata \
 --block-batch-limit 128 --min-sync-peers 1 --minimum-peers-per-subnet 1 \
 --alps --enable-debug-rpc-endpoints \
 --suggested-fee-recipient 0x1a5E568E5b26A95526f469E8d9AC6d1C30432B33 \
---log-format json --verbosity error --log-file $LOG_ROOT/dill.log \
+--log-format json --verbosity info --log-file $LOG_ROOT/dill.log \
 --exec-http --exec-http.api eth,net,web3 --exec-gcmode archive --exec-syncmode full --exec-mine=false --accept-terms-of-use "
 
 sudo tee /etc/systemd/system/dill.service > /dev/null << EOF
