@@ -115,24 +115,7 @@ echo ""  # Move to a new line after the key press
 [ ! -d "$KEYS_DIR" ] && mkdir -p "$KEYS_DIR"
 echo $password > $PASSWORD_FILE
 
-while true; do
-    read -p "Please choose an option for deposit token amount [1, 3600, 2, 36000] [1]: " deposit_option
-    deposit_option=${deposit_option:-1}  # Set default choice to 1
-    case "$deposit_option" in
-        "1" | "3600")
-            deposit_amount=3600
-            break
-            ;;
-        "2" | "36000")
-            deposit_amount=36000
-            break
-            ;;
-        *)
-            echo ""
-            echo "[Error] $deposit_option is not a valid option for deposit token amount"
-            ;;
-    esac
-done
+deposit_amount=3600
 
 while true; do
     read -p "Please enter your withdrawal address: " with_addr
@@ -193,6 +176,9 @@ LIGHT_PROC_ROOT=$PJROOT/light_node
 FULL_PROC_ROOT=$PJROOT/full_node
 has_light=0
 has_full=0
+
+mkdir -p $PJROOT/light_node
+
 if [ -d $LIGHT_PROC_ROOT ];then
     has_light=1
 fi
