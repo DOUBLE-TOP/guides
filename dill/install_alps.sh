@@ -54,6 +54,7 @@ cd $HOME/dill
 
 # Define variables
 DILL_DIR="$(pwd)"
+PJROOT="$DILL_DIR"
 KEYS_DIR="$DILL_DIR/validator_keys"
 KEYSTORE_DIR="$DILL_DIR/keystore"
 PASSWORD_FILE="$KEYS_DIR/keystore_password.txt"
