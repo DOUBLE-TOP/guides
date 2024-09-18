@@ -111,6 +111,16 @@ sed -i 's|0x13D69Cf7d6CE4218F646B759Dcf334D82c023d8e|'$CONTRACT_ADDRESS'|' "$HOM
 cd $HOME/infernet-container-starter
 project=hello-world make call-contract
 
+cd $HOME/infernet-container-starter/deploy
+
+docker compose down
+sleep 3
+sudo rm -rf docker-compose.yaml
+wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/ritual/docker-compose.yaml
+docker compose up -d
+
+docker rm -fv infernet-anvil  &>/dev/null
+
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
