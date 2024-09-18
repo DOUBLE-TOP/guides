@@ -113,13 +113,13 @@ project=hello-world make call-contract
 
 cd $HOME/infernet-container-starter/deploy
 
-cd $HOME/infernet-container-starter/deploy
-
 docker compose down
 sleep 3
 sudo rm -rf docker-compose.yaml
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/ritual/docker-compose.yaml
 docker compose up -d
+
+docker rm -fv infernet-anvil  &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
