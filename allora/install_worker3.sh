@@ -22,6 +22,9 @@ if [ -z "$COIN_GECKO_API_KEY" ]; then
     echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
 fi
 
+docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down &>/dev/null
+docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down &>/dev/null
+
 cd $HOME
 git clone https://github.com/0xtnpxsgt/allora-worker-x-reputer.git
 cd allora-worker-x-reputer
