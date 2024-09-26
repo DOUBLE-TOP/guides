@@ -22,8 +22,6 @@ chmod -R 777 worker-data
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
 sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
-sed -i "s|\":8000|\":18000|" $HOME/allora-huggingface-walkthrough/config.json
-
 sed -i "s|<Your Coingecko API key>|$COIN_GECKO_API_KEY|" $HOME/allora-huggingface-walkthrough/app.py
 
 chmod +x init.config
