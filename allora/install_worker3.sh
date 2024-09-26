@@ -34,7 +34,11 @@ bash init.sh
 cd allora-node
 chmod +x ./init.config.sh
 bash init.config.sh "testkey" "$WALLET_SEED_PHRASE" "$COIN_GECKO_API_KEY"
+
+sed -i "s|\"8001:8001|\"18001:8001|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+sed -i "s|\"8002:8002|\"18002:8002|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
 sed -i "s|\"8003:8003|\"18003:8003|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+
 
 docker compose pull
 docker compose up --build -d 
