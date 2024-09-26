@@ -33,7 +33,7 @@ bash init.sh
 
 cd allora-node
 chmod +x ./init.config.sh
-bash init.config.sh "testkey" "$WALLET_SEED_PHRASE" "$COIN_GECKO_API_KEY"
+bash init.config.sh "testkey" "$ALLORA_SEED_PHRASE" "$COIN_GECKO_API_KEY"
 
 rm -rf $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/docker-compose.yaml
