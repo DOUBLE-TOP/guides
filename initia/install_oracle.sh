@@ -45,6 +45,7 @@ After=network-online.target
 
 [Service]
 User=$USER
+
 ExecStart=$(which slinky) --oracle-config-path $HOME/initia-oracle/config/core/oracle.json --market-map-endpoint 127.0.0.1:14090
 Restart=on-failure
 RestartSec=30
