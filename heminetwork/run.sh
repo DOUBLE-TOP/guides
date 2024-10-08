@@ -28,7 +28,7 @@ EOF
 
 sudo systemctl enable hemi &>/dev/null
 sudo systemctl daemon-reload
-sudo systemctl restart hemi
+sudo systemctl start hemi
 
 echo "Hemi майнер успешно запущен"
 echo "-----------------------------------------------------------------------------"
