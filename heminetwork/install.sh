@@ -16,7 +16,7 @@ cd $HOME
 wget https://github.com/hemilabs/heminetwork/releases/download/v0.4.4/heminetwork_v0.4.4_linux_amd64.tar.gz
 
 tar -xvf heminetwork_v0.4.4_linux_amd64.tar.gz && rm heminetwork_v0.4.4_linux_amd64.tar.gz
-mv -f $HOME/heminetwork_v0.4.4_linux_amd64/* $HOME/heminetwork
+mv heminetwork_v0.4.4_linux_amd64 heminetwork
 rm -rf $HOME/heminetwork_v0.4.4_linux_amd64
 
 echo "-----------------------------------------------------------------------------"
