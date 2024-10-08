@@ -22,7 +22,7 @@ echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
 wget https://github.com/0glabs/0g-chain/archive/refs/tags/v0.2.5.zip
-unzip 0.2.5.zip && rm -rf 0.2.5.zip
+unzip v0.2.5.zip && rm -rf v0.2.5.zip
 mv 0g-chain-0.2.5/ 0g-chain/
 cd $HOME/0g-chain
 make install
