@@ -12,6 +12,7 @@ echo "--------------------------------------------------------------------------
 echo "Установка майнера Hemi Network"
 echo "-----------------------------------------------------------------------------"
 
+cd $HOME
 wget https://github.com/hemilabs/heminetwork/releases/download/v0.4.4/heminetwork_v0.4.4_linux_amd64.tar.gz
 
 tar -xvf heminetwork_v0.4.4_linux_amd64.tar.gz && rm heminetwork_v0.4.4_linux_amd64.tar.gz
