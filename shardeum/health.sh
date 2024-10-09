@@ -20,7 +20,7 @@ do
         docker start shardeum-dashboard
         sleep 15m
     else
-        if [[ "$NODE_STATUS" == "standby" ]]; then
+        if [[ "${NODE_STATUS}" == *"standby"* ]]; then
             echo "Status is standby"
         else
             echo "Status is not standby"
