@@ -1,19 +1,9 @@
 #! /bin/bash
 #thanks for https://raw.githubusercontent.com/ipohosov/public-node-scripts/main/shardeum/shardeum_healthcheck.sh
 
-# function login() {
-#     DASHPORT=${1}
-#     DASHPASS=${2}
-#     TOKEN=$(curl --location --insecure --request POST "https://${IP_ADDRESS}:${DASHPORT}/auth/login" \
-#     --header "Content-Type: application/json" \
-#     --data-raw '{"password": "'"${DASHPASS}"'"}')
-#     access_token=$(echo "${TOKEN}" | jq -r '.accessToken')
-#     echo "${access_token}"
-# }
-
 
 function get_status() {
-    STATUS=$(docker exec -t shardeum-dashboard operator-cli status | grep state | awk '{ print $2 }' || echo "stopped")
+    STATUS=$(docker exec -it shardeum-dashboard operator-cli status | grep status | awk -F': ' '{print $2}')
     echo "${STATUS}"
 }
 
@@ -37,18 +27,17 @@ do
     NODE_STATUS=$(get_status)
     printf "Current status: ${NODE_STATUS}\n"
     sleep 5s
-    if [[ "${NODE_STATUS}" =~ "stopped" ]]; then
-        docker-compose restart
-        (docker logs -f shardeum-dashboard &) | grep -q 'done' && sleep 20
-        printf "Start shardeum node and wait 5 minutes\n"
-        # JWT_TOKEN=$(login "${DASHPORT}" "${DASHPASS}")
-        # start_node "${JWT_TOKEN}" "${DASHPORT}"
-        docker exec -it shardeum-dashboard operator-cli start
-        sleep 5m
+    if [ -z "$NODE_STATUS" ]; then
+        echo "Shardeum нода не запущена"
+        docker start shardeum-dashboard
+        sleep 15m
     else
-        date=$(date +"%H:%M")
-        echo "Last Update: ${date}"
-        printf "Sleep 15 minutes\n"
+        if [ "$NODE_STATUS" == "standby" ]; then
+            echo "Status is standby"
+        else
+            echo "Status is not standby"
+            docker exec -it shardeum-dashboard operator-cli start
+        fi
         sleep 15m
     fi
 done
