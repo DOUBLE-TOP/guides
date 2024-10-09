@@ -29,13 +29,12 @@ read CREATE_WALLET
 if [ "$CREATE_WALLET" -eq 1 ]; then
     cd $HOME/heminetwork
     ./keygen -secp256k1 -json -net="testnet" > $HOME/heminetwork/popm-address.json
+    PRIVATE_KEY=$(cat $HOME/heminetwork/popm-address.json | jq ".private_key")
 fi
 
 echo "-----------------------------------------------------------------------------"
 echo "Запуск майнера"
 echo "-----------------------------------------------------------------------------"
-
-PRIVATE_KEY=$(cat $HOME/heminetwork/popm-address.json | jq ".private_key")
 
 # Проверка, имеет ли переменная значение
 if [ -z "$PRIVATE_KEY" ]; then
