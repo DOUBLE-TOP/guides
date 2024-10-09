@@ -4,7 +4,13 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
 
-PRIVATE_KEY=$(cat $HOME/heminetwork/popm-address.json | jq ".private_key")
+echo "-----------------------------------------------------------------------------"
+echo "Обновление сервисного файла"
+echo "-----------------------------------------------------------------------------"
+
+sudo systemctl stop hemi
+sudo systemctl disable hemi &>/dev/null
+rm -rf /etc/systemd/system/hemi.service
 
 sudo tee /etc/systemd/system/hemi.service > /dev/null <<EOF
 [Unit]
@@ -30,10 +36,6 @@ sudo systemctl enable hemi &>/dev/null
 sudo systemctl daemon-reload
 sudo systemctl start hemi
 
-echo "Hemi майнер успешно запущен"
-echo "-----------------------------------------------------------------------------"
-echo "Проверка логов"
-echo "journalctl -n 100 -f -u hemi -o cat"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
