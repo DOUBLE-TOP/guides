@@ -69,7 +69,7 @@ sudo systemctl start hemi
 sleep 15
 
 echo "Ваш адрес кошелька. Для работы майнера вам необходимо запросить токены в дискорде"
-PUBLIC_ADDRESS=$(journalctl -n 100 -f -u hemi -o cat | grep -oP '(?<=address )[^\s]+')
+PUBLIC_ADDRESS=$(journalctl -n 100 -u hemi -o cat | grep -oP '(?<=address )[^\s]+')
 echo "$PUBLIC_ADDRESS"
 
 echo "-----------------------------------------------------------------------------"
