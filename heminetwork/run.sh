@@ -6,6 +6,12 @@ echo "--------------------------------------------------------------------------
 
 PRIVATE_KEY=$(cat $HOME/heminetwork/popm-address.json | jq ".private_key")
 
+# Проверка, имеет ли переменная значение
+if [ -z "$PRIVATE_KEY" ]; then
+    echo "Введите приватный ключ для запуска майнера"
+    read PRIVATE_KEY
+fi
+
 sudo tee /etc/systemd/system/hemi.service > /dev/null <<EOF
 [Unit]
 Description=Hemi miner
