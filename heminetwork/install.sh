@@ -29,15 +29,56 @@ read CREATE_WALLET
 if [ "$CREATE_WALLET" -eq 1 ]; then
     cd $HOME/heminetwork
     ./keygen -secp256k1 -json -net="testnet" > $HOME/heminetwork/popm-address.json
-
-    ADDRESS=$(cat $HOME/heminetwork/popm-address.json | jq ".pubkey_hash")
-
-    echo "Ваш адрес сгенерированного кошелька"
-    echo "$ADDRESS"
 fi
 
 echo "-----------------------------------------------------------------------------"
-echo "Hemi Network успешно установлен"
+echo "Запуск майнера"
+echo "-----------------------------------------------------------------------------"
+
+PRIVATE_KEY=$(cat $HOME/heminetwork/popm-address.json | jq ".private_key")
+
+# Проверка, имеет ли переменная значение
+if [ -z "$PRIVATE_KEY" ]; then
+    echo "Введите приватный ключ для запуска майнера"
+    read PRIVATE_KEY
+fi
+
+sudo tee /etc/systemd/system/hemi.service > /dev/null <<EOF
+[Unit]
+Description=Hemi miner
+After=network.target
+
+[Service]
+User=$USER
+Environment="POPM_BTC_PRIVKEY=$PRIVATE_KEY"
+Environment="POPM_STATIC_FEE=250"
+Environment="POPM_BFG_URL=wss://testnet.rpc.hemi.network/v1/ws/public"
+WorkingDirectory=$HOME/heminetwork
+ExecStart=$HOME/heminetwork/popmd
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl enable hemi &>/dev/null
+sudo systemctl daemon-reload
+sudo systemctl start hemi
+
+sleep 15
+
+echo "Ваш адрес кошелька. Для работы майнера вам необходимо запросить токены в дискорде"
+PUBLIC_ADDRESS=$(journalctl -n 100 -f -u hemi -o cat | grep -oP '(?<=address )[^\s]+')
+echo "$PUBLIC_ADDRESS"
+
+echo "-----------------------------------------------------------------------------"
+echo "Hemi майнер успешно запущен"
+echo "-----------------------------------------------------------------------------"
+echo "Проверка логов"
+echo "journalctl -n 100 -f -u hemi -o cat"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
+
