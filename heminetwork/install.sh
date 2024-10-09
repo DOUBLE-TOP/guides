@@ -23,13 +23,18 @@ echo "--------------------------------------------------------------------------
 echo "Создание кошелька"
 echo "-----------------------------------------------------------------------------"
 
-cd $HOME/heminetwork
-./keygen -secp256k1 -json -net="testnet" > $HOME/heminetwork/popm-address.json
+echo "Выберите создавать кошелек или нет 1-да, 2-нет"
+read CREATE_WALLET
 
-ADDRESS=$(cat $HOME/heminetwork/popm-address.json | jq ".pubkey_hash")
+if [ "$CREATE_WALLET" -eq 1 ]; then
+    cd $HOME/heminetwork
+    ./keygen -secp256k1 -json -net="testnet" > $HOME/heminetwork/popm-address.json
 
-echo "Ваш адрес сгенерированного кошелька"
-echo "$ADDRESS"
+    ADDRESS=$(cat $HOME/heminetwork/popm-address.json | jq ".pubkey_hash")
+
+    echo "Ваш адрес сгенерированного кошелька"
+    echo "$ADDRESS"
+fi
 
 echo "-----------------------------------------------------------------------------"
 echo "Hemi Network успешно установлен"
