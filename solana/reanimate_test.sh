@@ -23,10 +23,10 @@ ExecStart=$HOME/.local/share/solana/install/active_release/bin/agave-validator \
 --entrypoint entrypoint.testnet.solana.com:8001 \
 --entrypoint entrypoint2.testnet.solana.com:8001 \
 --entrypoint entrypoint3.testnet.solana.com:8001 \
---wait-for-supermajority 296876256 \
---expected-shred-version 10323 \
+--wait-for-supermajority 296877184 \
+--expected-shred-version 27799 \
 --no-incremental-snapshots \
---expected-bank-hash Ea1SMrWMbGnCiYV7cAZP3gWTeFeu5UkEBb7oDp8VKaLr \
+--expected-bank-hash ABuvd5grMYhbrjeLmu3qCNqiD8DaDRw6oyboMgZfaQS5 \
 --expected-genesis-hash 4uhcVJyU9pJkvQyS88uRDiswHXSCkY3zQawwpjk2NsNY \
 --known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
 --wal-recovery-mode skip_any_corrupted_record \
@@ -52,6 +52,6 @@ EOF"
 sudo systemctl daemon-reload
 
 sudo wget --trust-server-names http://139.178.94.143:8899/snapshot-296863173-82pXRtPWvfGPzkkFMgzEUZPvvmJPVMrXB7jtShndjpcR.tar.zst -P $HOME/ledger
-sudo wget --trust-server-names http://139.178.94.143:8899/incremental-snapshot-296863173-296876256-HX6g6X1tvRc3frT5XYi9B7PHRa8xHiULb79wgrFFqRTx.tar.zst -P $HOME/ledger
+sudo wget --trust-server-names http://139.178.94.143:8899/incremental-snapshot-296863173-296877184-8EQhtn3ZghtLpmZgwhFyH6USAyAr3hwWNszZNcwe7zUc.tar.zst -P $HOME/ledger
 
 sudo systemctl restart solana
