@@ -26,6 +26,10 @@ echo "--------------------------------------------------------------------------
 cd $HOME/aligned_layer/examples/zkquiz
 make answer_quiz KEYSTORE_PATH=$HOME/.foundry/keystores/wallet
 
+echo "-----------------------------------------------------------------------------"
+echo "Удаляем все данные после деплоя"
+echo "-----------------------------------------------------------------------------"
+
 cd $HOME
 rm -rf $HOME/aligned_layer
 rm -rf $HOME/.foundry/keystores/wallet
