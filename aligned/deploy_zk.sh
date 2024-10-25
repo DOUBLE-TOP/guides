@@ -6,13 +6,13 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем зависимости"
 echo "-----------------------------------------------------------------------------"
 
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/foundry.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash
 source $HOME/.profile
 source "$HOME/.cargo/env"
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/foundry.sh | bash
 
 echo "-----------------------------------------------------------------------------"
 echo "Качаем проект и импортируем кошелек по приватному ключу"
