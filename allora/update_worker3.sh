@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 
 echo "-----------------------------------------------------------------------------"
-echo "Обновление Allora Worker - Basic Coin Prediction Node"
+echo "Обновление Allora Worker - Reputer Node"
 echo "-----------------------------------------------------------------------------"
 
 source $HOME/.profile

@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker"
+echo "Установка Allora Worker - Huggingface Walkthrough"
 echo "-----------------------------------------------------------------------------"
 
 if [ -z "$ALLORA_SEED_PHRASE" ]; then
