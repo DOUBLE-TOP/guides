@@ -22,8 +22,9 @@ if [ -z "$COIN_GECKO_API_KEY" ]; then
     echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
 fi
 
-docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down &>/dev/null
-docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down &>/dev/null
+docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
+docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
+docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
 
 cd $HOME
 git clone https://github.com/0xtnpxsgt/allora-worker-x-reputer.git
@@ -35,12 +36,12 @@ cd allora-node
 chmod +x ./init.config.sh
 bash init.config.sh "testkey" "$ALLORA_SEED_PHRASE" "$COIN_GECKO_API_KEY"
 
-rm -rf $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/docker-compose.yaml
+sed -i "s|8001:8001|18001:8001|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+sed -i "s|8002:8002|18002:8002|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+sed -i "s|8003:8003|18003:8003|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
 
 docker compose pull
 docker compose up --build -d 
-
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"

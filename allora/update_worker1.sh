@@ -16,12 +16,13 @@ if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
-cd basic-coin-prediction-node
-docker compose down -v
+docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
+docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
+docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
+
 cd $HOME
 rm -rf basic-coin-prediction-node/
 
-cd $HOME
 git clone https://github.com/allora-network/basic-coin-prediction-node
 cd basic-coin-prediction-node
 rm -rf config.json
