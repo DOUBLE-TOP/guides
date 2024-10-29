@@ -117,5 +117,8 @@ docker compose up -d
 docker rm -fv infernet-anvil  &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
+echo "Проверка логов"
+echo "docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml logs -f --tail=100
+echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
