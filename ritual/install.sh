@@ -47,8 +47,11 @@ DEPLOY_JSON=$HOME/infernet-container-starter/deploy/config.json
 sed -i 's|"rpc_url": "[^"]*"|"rpc_url": "'"$RPC_URL"'"|' "$DEPLOY_JSON"
 sed -i 's|"private_key": "[^"]*"|"private_key": "'"$PRIVATE_KEY"'"|' "$DEPLOY_JSON"
 sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'"|' "$DEPLOY_JSON"
-sed -i 's|"sleep": 3|"sleep": 5|' "$DEPLOY_JSON"
-sed -i 's|"batch_size": 100|"batch_size": 1800, "starting_sub_id": 100000|' "$DEPLOY_JSON"
+sed -i 's|"sleep": .*|"sleep": 3,|' "$DEPLOY_JSON"
+sed -i 's|"batch_size": .*|"batch_size": 800,|' "$DEPLOY_JSON"
+sed -i 's|"trail_head_blocks": .*|"trail_head_blocks": 3,|' "$DEPLOY_JSON"
+sed -i 's|"sync_period": .*|"sync_period": 30|' "$DEPLOY_JSON"
+sed -i 's|"starting_sub_id": .*|"starting_sub_id": 160000,|' "$DEPLOY_JSON"
 
 # Конфигурация container/config.json
 CONTAINER_JSON=$HOME/infernet-container-starter/projects/hello-world/container/config.json
@@ -56,8 +59,11 @@ CONTAINER_JSON=$HOME/infernet-container-starter/projects/hello-world/container/c
 sed -i 's|"rpc_url": "[^"]*"|"rpc_url": "'"$RPC_URL"'"|' "$CONTAINER_JSON"
 sed -i 's|"private_key": "[^"]*"|"private_key": "'"$PRIVATE_KEY"'"|' "$CONTAINER_JSON"
 sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'"|' "$CONTAINER_JSON"
-sed -i 's|"sleep": 3|"sleep": 5|' "$CONTAINER_JSON"
-sed -i 's|"batch_size": 100|"batch_size": 1800, "starting_sub_id": 100000|' "$CONTAINER_JSON"
+sed -i 's|"sleep": .*|"sleep": 3,|' "$CONTAINER_JSON"
+sed -i 's|"batch_size": .*|"batch_size": 800,|' "$CONTAINER_JSON"
+sed -i 's|"trail_head_blocks": .*|"trail_head_blocks": 3,|' "$CONTAINER_JSON"
+sed -i 's|"sync_period": .*|"sync_period": 30|' "$CONTAINER_JSON"
+sed -i 's|"starting_sub_id": .*|"starting_sub_id": 160000,|' "$CONTAINER_JSON"
 
 # Конфигурация script/Deploy.s.sol
 sed -i 's|address registry = .*|address registry = 0x3B1554f346DFe5c482Bb4BA31b880c1C18412170;|' "$HOME/infernet-container-starter/projects/hello-world/contracts/script/Deploy.s.sol"
