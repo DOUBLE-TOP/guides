@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
@@ -38,7 +39,7 @@ sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'
 sed -i 's|"sleep": .*|"sleep": 3,|' "$DEPLOY_JSON"
 sed -i 's|"batch_size": .*|"batch_size": 800,|' "$DEPLOY_JSON"
 sed -i 's|"trail_head_blocks": .*|"trail_head_blocks": 3,|' "$DEPLOY_JSON"
-sed -i 's|"sync_period": .*|"sync_period": 30,|' "$DEPLOY_JSON"
+sed -i 's|"sync_period": .*|"sync_period": 30|' "$DEPLOY_JSON"
 sed -i 's|"starting_sub_id": .*|"starting_sub_id": 160000,|' "$DEPLOY_JSON"
 
 # Конфигурация container/config.json
@@ -50,7 +51,7 @@ sed -i 's|"registry_address": "[^"]*"|"registry_address": "'"$REGISTRY_ADDRESS"'
 sed -i 's|"sleep": .*|"sleep": 3,|' "$CONTAINER_JSON"
 sed -i 's|"batch_size": .*|"batch_size": 800,|' "$CONTAINER_JSON"
 sed -i 's|"trail_head_blocks": .*|"trail_head_blocks": 3,|' "$CONTAINER_JSON"
-sed -i 's|"sync_period": .*|"sync_period": 30,|' "$CONTAINER_JSON"
+sed -i 's|"sync_period": .*|"sync_period": 30|' "$CONTAINER_JSON"
 sed -i 's|"starting_sub_id": .*|"starting_sub_id": 160000,|' "$CONTAINER_JSON"
 
 # Конфигурация script/Deploy.s.sol
