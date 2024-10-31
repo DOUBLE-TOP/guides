@@ -39,7 +39,7 @@ function prepare_files {
     read -p "Введите приватный ключ с предыдущего пункта. Приватный ключ НЕ должен содержать приставку 0x " SIGNER_PRIVATE_KEY
 
     sudo tee $HOME/elixir/.env > /dev/null <<EOF
-ENV=testnet-3
+ENV=prod
 
 STRATEGY_EXECUTOR_IP_ADDRESS=$STRATEGY_EXECUTOR_IP_ADDRESS
 STRATEGY_EXECUTOR_DISPLAY_NAME=$STRATEGY_EXECUTOR_DISPLAY_NAME
@@ -50,7 +50,7 @@ EOF
 
 function run_docker {
     echo -e "${YELLOW}Запускаем докер контейнер для валидатора${NORMAL}"
-    docker pull elixirprotocol/validator:v3 --platform linux/amd64
+    docker pull elixirprotocol/validator --platform linux/amd64
     if [ ! "$(docker ps -q -f name=^elixir$)" ]; then
         if [ "$(docker ps -aq -f status=exited -f name=^elixir$)" ]; then
             echo -e "${YELLOW}Докер контейнер уже существует в статусе exited. Удаляем его и запускаем заново${NORMAL}"
@@ -58,7 +58,7 @@ function run_docker {
         fi
     fi
     cd $HOME/elixir
-    docker run --env-file $HOME/elixir/.env --name elixir --platform linux/amd64 --restart always -p 17690:17690 elixirprotocol/validator:v3
+    docker run --env-file $HOME/elixir/.env --name elixir --platform linux/amd64 --restart always -p 17690:17690 elixirprotocol/validator
   }
 
 
