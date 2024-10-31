@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker - Basic Coin Prediction Node"
+echo "Обновление Allora Worker - Reputer Node"
 echo "-----------------------------------------------------------------------------"
 
 source $HOME/.profile
@@ -16,37 +16,34 @@ if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
+if [ -z "$COIN_GECKO_API_KEY" ]; then
+    echo "Введите COINGECKO API KEY"
+    read COIN_GECKO_API_KEY
+    echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
+fi
+
 docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
 docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
 docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
 
 cd $HOME
-git clone https://github.com/allora-network/basic-coin-prediction-node
-cd basic-coin-prediction-node
-rm -rf config.json
+rm -rf allora-worker-x-reputer
 
-wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
-sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
+git clone https://github.com/0xtnpxsgt/allora-worker-x-reputer.git
+cd allora-worker-x-reputer
+chmod +x init.sh
+bash init.sh
 
-chmod +x init.config
-./init.config
+cd allora-node
+chmod +x ./init.config.sh
+bash init.config.sh "testkey" "$ALLORA_SEED_PHRASE" "$COIN_GECKO_API_KEY"
 
-sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
+sed -i "s|8001:8001|18001:8001|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+sed -i "s|8002:8002|18002:8002|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
+sed -i "s|8003:8003|18003:8003|" $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml
 
-sudo tee $HOME/basic-coin-prediction-node/.env > /dev/null <<EOF
-TOKEN=ETH
-TRAINING_DAYS=30
-TIMEFRAME=4h
-MODEL=LinearRegression
-REGION=EU
-DATA_PROVIDER=Binance
-CG_API_KEY=
-EOF
-
-sleep 5
-
-docker compose up -d --build
+docker compose pull
+docker compose up --build -d 
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"

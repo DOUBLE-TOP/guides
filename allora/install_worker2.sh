@@ -5,14 +5,24 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker"
+echo "Установка Allora Worker - Huggingface Walkthrough"
 echo "-----------------------------------------------------------------------------"
 
-echo "Введите сид фразу от кошелька, который будет использоваться для воркера "
-read WALLET_SEED_PHRASE
+if [ -z "$ALLORA_SEED_PHRASE" ]; then
+    echo "Введите сид фразу от кошелька, который будет использоваться для воркера"
+    read ALLORA_SEED_PHRASE
+    echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
+fi
 
-echo "Введите Coin Gecko API key"
-read COIN_GECKO_API_KEY
+if [ -z "$COIN_GECKO_API_KEY" ]; then
+    echo "Введите COINGECKO API KEY"
+    read COIN_GECKO_API_KEY
+    echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
+fi
+
+docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
+docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
+docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
 
 cd $HOME
 git clone https://github.com/allora-network/allora-huggingface-walkthrough
@@ -21,7 +31,7 @@ mkdir -p worker-data
 chmod -R 777 worker-data
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
-sed -i "s|SeedPhrase|$WALLET_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
+sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
 sed -i "s|<Your Coingecko API key>|$COIN_GECKO_API_KEY|" $HOME/allora-huggingface-walkthrough/app.py
 
 chmod +x init.config

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
@@ -22,26 +23,14 @@ else
 fi
 
 REGISTRY_ADDRESS=0x3B1554f346DFe5c482Bb4BA31b880c1C18412170
-IMAGE="ritualnetwork/infernet-node:1.2.0"
+IMAGE="ritualnetwork/infernet-node:1.4.0"
 
-echo "-----------------------------------------------------------------------------"
-echo "Устанавливаем софт"
-echo "-----------------------------------------------------------------------------"
-sudo apt update -y
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh) &>/dev/null
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh) &>/dev/null
+docker compose -f infernet-container-starter/deploy/docker-compose.yaml down
 
-echo "-----------------------------------------------------------------------------"
-echo "Весь необходимый софт установлен"
-echo "-----------------------------------------------------------------------------"
+mv ~/infernet-container-starter ~/infernet-container-starter-backup
+git clone https://github.com/ritual-net/infernet-container-starter
 
-# Клонирование репозитория
-cd $HOME
-git clone https://github.com/ritual-net/infernet-container-starter && cd infernet-container-starter
 cp $HOME/infernet-container-starter/projects/hello-world/container/config.json $HOME/infernet-container-starter/deploy/config.json
-
-
 # Конфигурация deploy/config.json
 DEPLOY_JSON=$HOME/infernet-container-starter/deploy/config.json
 sed -i 's|"rpc_url": "[^"]*"|"rpc_url": "'"$RPC_URL"'"|' "$DEPLOY_JSON"
@@ -127,6 +116,9 @@ docker compose up -d
 
 docker rm -fv infernet-anvil  &>/dev/null
 
+echo "-----------------------------------------------------------------------------"
+echo "Проверка логов"
+echo "docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml logs -f --tail=100"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"

@@ -13,11 +13,11 @@ echo "Установка майнера Hemi Network"
 echo "-----------------------------------------------------------------------------"
 
 cd $HOME
-wget https://github.com/hemilabs/heminetwork/releases/download/v0.4.5/heminetwork_v0.4.5_linux_amd64.tar.gz
+wget https://github.com/hemilabs/heminetwork/releases/download/v0.5.0/heminetwork_v0.5.0_linux_amd64.tar.gz
 
-tar -xvf heminetwork_v0.4.5_linux_amd64.tar.gz && rm heminetwork_v0.4.5_linux_amd64.tar.gz
-mv heminetwork_v0.4.5_linux_amd64 heminetwork
-rm -rf $HOME/heminetwork_v0.4.5_linux_amd64
+tar -xvf heminetwork_v0.5.0_linux_amd64.tar.gz && rm heminetwork_v0.5.0_linux_amd64.tar.gz
+mv heminetwork_v0.5.0_linux_amd64 heminetwork
+rm -rf $HOME/heminetwork_v0.5.0_linux_amd64
 
 echo "-----------------------------------------------------------------------------"
 echo "Создание кошелька"
@@ -50,7 +50,7 @@ After=network.target
 [Service]
 User=$USER
 Environment="POPM_BTC_PRIVKEY=$PRIVATE_KEY"
-Environment="POPM_STATIC_FEE=250"
+Environment="POPM_STATIC_FEE=4000"
 Environment="POPM_BFG_URL=wss://testnet.rpc.hemi.network/v1/ws/public"
 WorkingDirectory=$HOME/heminetwork
 ExecStart=$HOME/heminetwork/popmd

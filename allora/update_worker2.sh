@@ -5,7 +5,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | b
 echo "-----------------------------------------------------------------------------"
 
 echo "-----------------------------------------------------------------------------"
-echo "Установка Allora Worker - Basic Coin Prediction Node"
+echo "Обновление Allora Worker - Huggingface Walkthrough"
 echo "-----------------------------------------------------------------------------"
 
 source $HOME/.profile
@@ -16,36 +16,32 @@ if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
+if [ -z "$COIN_GECKO_API_KEY" ]; then
+    echo "Введите COINGECKO API KEY"
+    read COIN_GECKO_API_KEY
+    echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
+fi
+
 docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
 docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
 docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
 
 cd $HOME
-git clone https://github.com/allora-network/basic-coin-prediction-node
-cd basic-coin-prediction-node
-rm -rf config.json
+rm -rf allora-huggingface-walkthrough
+
+git clone https://github.com/allora-network/allora-huggingface-walkthrough
+cd allora-huggingface-walkthrough
+mkdir -p worker-data
+chmod -R 777 worker-data
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
-sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
+sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
+sed -i "s|<Your Coingecko API key>|$COIN_GECKO_API_KEY|" $HOME/allora-huggingface-walkthrough/app.py
 
 chmod +x init.config
 ./init.config
 
-sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
-
-sudo tee $HOME/basic-coin-prediction-node/.env > /dev/null <<EOF
-TOKEN=ETH
-TRAINING_DAYS=30
-TIMEFRAME=4h
-MODEL=LinearRegression
-REGION=EU
-DATA_PROVIDER=Binance
-CG_API_KEY=
-EOF
-
-sleep 5
-
+sed -i "s|\"8000:8000\"|\"18000:8000\"|" $HOME/allora-huggingface-walkthrough/docker-compose.yaml
 docker compose up -d --build
 
 echo "-----------------------------------------------------------------------------"
