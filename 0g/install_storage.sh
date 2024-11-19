@@ -59,7 +59,7 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
-git clone -b v0.6.0 https://github.com/0glabs/0g-storage-node.git
+git clone -b v0.7.4 https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
 git submodule update --init
 cargo build --release
