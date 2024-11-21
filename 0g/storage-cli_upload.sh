@@ -31,7 +31,7 @@ echo "--------------------------------------------------------------------------
 PRIVATE_KEY=$($HOME/go/bin/0gchaind keys unsafe-export-eth-key wallet2 --keyring-backend test)
 BLOCKCHAIN_RPC_ENDPOINT=$(grep 'blockchain_rpc_endpoint =' $HOME/0g-storage-node/run/config.toml | cut -d '"' -f 2)
 STORAGE_RPC_ENDPOINT=http://$(wget -qO- eth0.me):5678
-CONTRACT=0xB7e39604f47c0e4a6Ad092a281c1A8429c2440d3
+CONTRACT=0xbD2C3F0E65eDF5582141C35969d66e34629cC768
 
 # Выводим параметры
 echo -e "BLOCKCHAIN_RPC_ENDPOINT: $BLOCKCHAIN_RPC_ENDPOINT\nSTORAGE_RPC_ENDPOINT: $STORAGE_RPC_ENDPOINT\nPRIVATE_KEY: $PRIVATE_KEY\nCONTRACT: $CONTRACT"
@@ -43,9 +43,9 @@ while true; do
     --url $BLOCKCHAIN_RPC_ENDPOINT \
     --contract $CONTRACT \
     --key $PRIVATE_KEY \
-    --node $STORAGE_RPC_ENDPOINT \
+    --indexer https://indexer-storage-testnet-turbo.0g.ai \
     --file $TEST_FILE \
-    --gas-limit=700000
+    --finality-required
 
     if [ $? -eq 0 ]; then
         echo "---------------------------"
