@@ -8,13 +8,34 @@ echo "--------------------------------------------------------------------------
 echo "Удаление Sonaric Node"
 echo "-----------------------------------------------------------------------------"
 
-print_message "Uninstalling Sonaric..."
-
 DEVNULL="/dev/null"
 SONARIC_ARGS=""
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
+}
+
+print_message() {
+  tput bold
+  echo ""
+	echo "$@"
+	echo ""
+  tput sgr0
+}
+
+exec_cmd() {
+  if [ "$VERBOSE" = true ]; then
+    echo "$@"
+  fi
+  $sh_c "$@"
+}
+
+confirm_Y() {
+  read -p "$1 [Y/n] " reply;
+  if [ "$reply" = "${reply#[Nn]}" ]; then
+    return 0
+  fi
+ return 1
 }
 
 # stop and delete all workloads
