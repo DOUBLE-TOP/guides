@@ -54,33 +54,10 @@ fi
 
 print_message "Удаление установленных пакетов"
 
-# Run setup for each distro accordingly
-case "$lsb_dist" in
-    ubuntu|debian|raspbian)
-        DEBIAN_FRONTEND=noninteractive apt-get remove --auto-remove -y -qq sonaricd
-        rm -f /etc/apt/sources.list.d/sonaric.list
-        rm -f /etc/apt/keyrings/sonaric.gpg
-    echo "Завершено успешно"
-        exit 0
-        ;;
-    centos|fedora|rhel|rocky)
-        # use dnf for fedora or rocky linux, yum for centos or rhel
-        if [ "$lsb_dist" = "fedora" ] || [ "$lsb_dist" = "rocky" ]; then
-            pkg_manager="dnf"
-    elif [ "$lsb_dist" = "centos" ]; then
-            pkg_manager="yum"
-        fi
+DEBIAN_FRONTEND=noninteractive apt-get remove --auto-remove -y -qq sonaricd
+rm -f /etc/apt/sources.list.d/sonaric.list
+rm -f /etc/apt/keyrings/sonaric.gpg
 
-    $pkg_manager remove -y -q sonaricd sonaric
-    rm -f /etc/yum.repos.d/artifact-registry.repo
-    echo "Завершено успешно"
-        exit 0
-        ;;
-    *)
-        echo
-        echo "Ошибка: Неподдерживая ОС '$lsb_dist'"
-        echo
-        exit 1
-        ;;
-esac
-exit 1
+echo "-----------------------------------------------------------------------------"
+echo "Wish lifechange case with DOUBLETOP"
+echo "-----------------------------------------------------------------------------"
