@@ -9,7 +9,6 @@ echo "Удаление Sonaric Node"
 echo "-----------------------------------------------------------------------------"
 
 DEVNULL="/dev/null"
-SONARIC_ARGS=""
 
 command_exists() {
 	command -v "$@" > /dev/null 2>&1
@@ -21,13 +20,6 @@ print_message() {
 	echo "$@"
 	echo ""
   tput sgr0
-}
-
-exec_cmd() {
-  if [ "$VERBOSE" = true ]; then
-    echo "$@"
-  fi
-  $sh_c "$@"
 }
 
 confirm_Y() {
@@ -44,35 +36,31 @@ if ! command_exists sonaric; then
     exit 0
 fi
 
-confirm_Y "Do you really want to uninstall Sonaric?" || exit 0
+confirm_Y "Вы дейтвительно хотите удалить Sonaric?" || exit 0
 
 # check if systemctl unit is present and if it is active
 if command_exists systemctl && systemctl list-units --full --all sonaricd.service | grep -Fq 'loaded'; then
-    exec_cmd "systemctl start sonaricd > $DEVNULL"
+    systemctl start sonaricd 
 fi
 
 # stop and delete all workloads
 if command_exists sonaric; then
-    exec_cmd "systemctl start sonaricd"
-    for try in $(seq 1 20); do
-        exec_cmd "sonaric version > $DEVNULL 2>&1" && break || sleep 2
-    done
-    print_message "Preparing to remove Sonaric..."
-    confirm_Y "Do you want to export your Sonaric identity?" && exec_cmd "sonaric identity-export"
-    print_message "Removing workloads..."
-    exec_cmd "sonaric stop $SONARIC_ARGS -a > $DEVNULL 2>&1"
-    exec_cmd "sonaric delete $SONARIC_ARGS -a --force > $DEVNULL 2>&1"
+    systemctl start sonaricd
+    print_message "Подготовка к удалению Sonaric..."
+    confirm_Y "Хотите ли вы сделать бекап перед удалением?" && sonaric identity-export -o $HOME/.sonaric/identity.file
+    sonaric stop
+    sonaric delete -a --force
 fi
 
-print_message "Removing installed packages..."
+print_message "Удаление установленных пакетов"
 
 # Run setup for each distro accordingly
 case "$lsb_dist" in
     ubuntu|debian|raspbian)
-        exec_cmd "DEBIAN_FRONTEND=noninteractive apt-get remove --auto-remove -y -qq sonaricd > $DEVNULL"
-        exec_cmd "rm -f /etc/apt/sources.list.d/sonaric.list"
-        exec_cmd "rm -f /etc/apt/keyrings/sonaric.gpg"
-    echo "Done"
+        DEBIAN_FRONTEND=noninteractive apt-get remove --auto-remove -y -qq sonaricd
+        rm -f /etc/apt/sources.list.d/sonaric.list
+        rm -f /etc/apt/keyrings/sonaric.gpg
+    echo "Завершено успешно"
         exit 0
         ;;
     centos|fedora|rhel|rocky)
@@ -83,14 +71,14 @@ case "$lsb_dist" in
             pkg_manager="yum"
         fi
 
-    exec_cmd "$pkg_manager remove -y -q sonaricd sonaric > $DEVNULL 2>&1"
-    exec_cmd "rm -f /etc/yum.repos.d/artifact-registry.repo"
-    echo "Done"
+    $pkg_manager remove -y -q sonaricd sonaric
+    rm -f /etc/yum.repos.d/artifact-registry.repo
+    echo "Завершено успешно"
         exit 0
         ;;
     *)
         echo
-        echo "ERROR: Unsupported distribution '$lsb_dist'"
+        echo "Ошибка: Неподдерживая ОС '$lsb_dist'"
         echo
         exit 1
         ;;
