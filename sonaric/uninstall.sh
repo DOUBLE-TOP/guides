@@ -13,6 +13,10 @@ print_message "Uninstalling Sonaric..."
 DEVNULL="/dev/null"
 SONARIC_ARGS=""
 
+command_exists() {
+	command -v "$@" > /dev/null 2>&1
+}
+
 # stop and delete all workloads
 if ! command_exists sonaric; then
     echo "Sonaric installation is not found"
