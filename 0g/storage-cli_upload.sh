@@ -41,7 +41,6 @@ echo "--------------------------------------------------------------------------
 while true; do
     ./0g-storage-client upload \
     --url $BLOCKCHAIN_RPC_ENDPOINT \
-    --contract $CONTRACT \
     --key $PRIVATE_KEY \
     --indexer https://indexer-storage-testnet-turbo.0g.ai \
     --file $TEST_FILE \
