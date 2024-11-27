@@ -4,18 +4,22 @@
         "addressRestoreMnemonic": "SeedPhrase",
         "alloraHomeDir": "",
         "gas": "auto",
-        "gasAdjustment": 1.5,
-        "nodeRpc": "https://allora-rpc.testnet.allora.network",
+        "gasAdjustment": 2.0,
+        "gasPrices": 10,
+        "maxFees": 25000000,
+        "nodeRpc": "https://allora-rpc.testnet.allora.network/",
         "maxRetries": 5,
         "retryDelay": 3,
         "accountSequenceRetryDelay": 5,
-        "submitTx": true
+        "submitTx": true,
+        "blockDurationEstimated": 10,
+        "windowCorrectionFactor": 0.8
     },
     "worker": [
         {
             "topicId": 1,
             "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 1,
+            "loopSeconds": 2,
             "parameters": {
                 "InferenceEndpoint": "http://inference:18000/inference/{Token}",
                 "Token": "ETH"
@@ -24,7 +28,7 @@
         {
             "topicId": 2,
             "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 3,
+            "loopSeconds": 4,
             "parameters": {
                 "InferenceEndpoint": "http://inference:18000/inference/{Token}",
                 "Token": "ETH"
@@ -33,12 +37,11 @@
         {
             "topicId": 7,
             "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 2,
+            "loopSeconds": 6,
             "parameters": {
                 "InferenceEndpoint": "http://inference:18000/inference/{Token}",
                 "Token": "ETH"
             }
         }
-        
     ]
- }
+}
