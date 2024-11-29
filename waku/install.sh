@@ -72,6 +72,7 @@ function setup_env {
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
+  sed -i 's|127.0.0.1:8003:8003|127.0.0.1:8333:8003|' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
 
 
