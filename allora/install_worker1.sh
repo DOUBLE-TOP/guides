@@ -16,6 +16,12 @@ if [ -z "$ALLORA_SEED_PHRASE" ]; then
     echo "export ALLORA_SEED_PHRASE='$ALLORA_SEED_PHRASE'" >> $HOME/.profile
 fi
 
+if [ -z "$COIN_GECKO_API_KEY" ]; then
+    echo "Введите COINGECKO API KEY"
+    read COIN_GECKO_API_KEY
+    echo "export COIN_GECKO_API_KEY='$COIN_GECKO_API_KEY'" >> $HOME/.profile
+fi
+
 docker-compose -f $HOME/basic-coin-prediction-node/docker-compose.yml down -v &>/dev/null
 docker-compose -f $HOME/allora-huggingface-walkthrough/docker-compose.yaml down -v  &>/dev/null
 docker-compose -f $HOME/allora-worker-x-reputer/allora-node/docker-compose.yaml down -v &>/dev/null
@@ -28,23 +34,22 @@ rm -rf config.json
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
 sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
 
-chmod +x init.config
-./init.config
-
-sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|intervals = [\"1d\"]|intervals = [\"10m\", \"20m\", \"1h\", \"1d\"]|" $HOME/basic-coin-prediction-node/model.py
-
 sudo tee $HOME/basic-coin-prediction-node/.env > /dev/null <<EOF
 TOKEN=ETH
 TRAINING_DAYS=30
 TIMEFRAME=4h
-MODEL=LinearRegression
-REGION=EU
-DATA_PROVIDER=Binance
-CG_API_KEY=
+MODEL=SVR
+REGION=US
+DATA_PROVIDER=Coingecko
+CG_API_KEY=$COIN_GECKO_API_KEY
 EOF
 
 sleep 5
+
+chmod +x init.config
+./init.config
+
+sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
 
 docker compose up -d --build
 
