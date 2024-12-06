@@ -10,27 +10,19 @@ function logo {
   curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 }
 
-function line_1 {
-  echo -e "${GREEN}-----------------------------------------------------------------------------${NORMAL}"
-}
-
-function line_2 {
-  echo -e "${RED}##############################################################################${NORMAL}"
-}
-
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
-  mkdir -p $HOME/nwaku_backups
-  if [ -d "$HOME/nwaku_backups/keystore0.30" ]; then
-    echo "Бекап уже сделан"
-  else
-    echo "Делаем бекап ключей"
-    mkdir -p $HOME/nwaku_backups/keystore0.30
-    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
-    rm -rf $HOME/nwaku-compose/keystore/
-  fi
+  # mkdir -p $HOME/nwaku_backups
+  # if [ -d "$HOME/nwaku_backups/keystore0.30" ]; then
+  #   echo "Бекап уже сделан"
+  # else
+  #   echo "Делаем бекап ключей"
+  #   mkdir -p $HOME/nwaku_backups/keystore0.30
+  #   cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
+  #   rm -rf $HOME/nwaku-compose/keystore/
+  # fi
   
-  rm -rf $HOME/nwaku-compose/rln_tree/ 
+  # rm -rf $HOME/nwaku-compose/rln_tree/ 
   cd $HOME/nwaku-compose
   git restore . &>/dev/null
 }
@@ -42,7 +34,7 @@ function update {
   # Удаляем старый .env
   rm -rf $HOME/nwaku-compose/.env
   cd $HOME/nwaku-compose
-  git pull
+  git pull origin master
   cp .env.example .env
 
   if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
@@ -59,19 +51,20 @@ function update {
       echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
       read RLN_RELAY_CRED_PASSWORD
   fi
+
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
-  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.33.0|" $HOME/nwaku-compose/.env
+  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.33.1|" $HOME/nwaku-compose/.env
 
 
   # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
   # и она у него висит и занимает порт. Сыграем на опережение=)
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
+  sed -i 's|127.0.0.1:8003:8003|127.0.0.1:8333:8003|' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
 
-  bash register_rln.sh
 }
 
 
@@ -94,17 +87,10 @@ function echo_info {
 }
 
 colors
-line_1
 logo
-line_2
 echo -e "Останавливаем контейнер, чистим ненужные файлы и обновляемся"
-line_1
 cleanup
 update
-line_1
 echo -e "Запускаем docker контейнеры для waku"
-line_1
 docker_compose_up
-line_2
 echo_info
-line_2
