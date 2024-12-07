@@ -49,7 +49,7 @@ EOF
 sleep 5
 
 sed -i "s|\"8000:8000|\"18000:8000|" $HOME/basic-coin-prediction-node/docker-compose.yml
-sed -i "s|alloranetwork/allora-offchain-node:*|alloranetwork/allora-offchain-node:v0.7.0|" $HOME/basic-coin-prediction-node/docker-compose.yml
+sed -i "s|alloranetwork/allora-offchain-node:.*|alloranetwork/allora-offchain-node:v0.7.0|" $HOME/basic-coin-prediction-node/docker-compose.yml
 
 chmod +x init.config
 ./init.config
