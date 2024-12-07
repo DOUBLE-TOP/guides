@@ -25,23 +25,5 @@
             "Token": "ETH"
         }
         }
-    ],
-    "reputer": [
-        {
-        "topicId": 1,
-        "groundTruthEntrypointName": "apiAdapter",
-        "lossFunctionEntrypointName": "apiAdapter",
-        "minStake": 100000,
-        "groundTruthParameters": {
-            "GroundTruthEndpoint": "http://localhost:8888/gt/{Token}/{BlockHeight}",
-            "Token": "ETHUSD"
-        },
-        "lossFunctionParameters": {
-            "LossFunctionService": "http://localhost:5000",
-            "LossMethodOptions": {
-            "loss_method": "sqe"
-            }
-        }
-        }
     ]
-    }
+}
