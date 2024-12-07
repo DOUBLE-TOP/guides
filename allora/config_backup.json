@@ -24,6 +24,22 @@
                 "InferenceEndpoint": "http://inference:18000/inference/{Token}",
                 "Token": "ETH"
             }
+        },
+        {
+            "topicId": 2,
+            "inferenceEntrypointName": "apiAdapter",
+            "parameters": {
+                "InferenceEndpoint": "http://inference:18000/inference/{Token}",
+                "Token": "ETH"
+            }
+        },
+        {
+            "topicId": 7,
+            "inferenceEntrypointName": "apiAdapter",
+            "parameters": {
+                "InferenceEndpoint": "http://inference:18000/inference/{Token}",
+                "Token": "ETH"
+            }
         }
     ]
 }
