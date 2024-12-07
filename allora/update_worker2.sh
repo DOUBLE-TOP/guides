@@ -37,6 +37,8 @@ chmod -R 777 worker-data
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
 sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/allora-huggingface-walkthrough/config.json
 sed -i "s|<Your Coingecko API key>|$COIN_GECKO_API_KEY|" $HOME/allora-huggingface-walkthrough/app.py
+ip_address=$(hostname -I | awk '{print $1}') >/dev/null
+sed -i "s|inference:|$ip_address:|" $HOME/allora-huggingface-walkthrough/config.json
 
 chmod +x init.config
 ./init.config

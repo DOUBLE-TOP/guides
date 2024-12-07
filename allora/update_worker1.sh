@@ -35,6 +35,8 @@ rm -rf config.json
 
 wget https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/allora/config.json
 sed -i "s|SeedPhrase|$ALLORA_SEED_PHRASE|" $HOME/basic-coin-prediction-node/config.json
+ip_address=$(hostname -I | awk '{print $1}') >/dev/null
+sed -i "s|inference:|$ip_address:|" $HOME/allora-huggingface-walkthrough/config.json
 
 sudo tee $HOME/basic-coin-prediction-node/.env > /dev/null <<EOF
 TOKEN=ETH
