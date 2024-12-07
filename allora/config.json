@@ -4,10 +4,11 @@
         "addressRestoreMnemonic": "SeedPhrase",
         "alloraHomeDir": "",
         "gas": "auto",
-        "gasAdjustment": 2.0,
-        "gasPrices": 10,
-        "maxFees": 25000000,
-        "nodeRpc": "https://allora-rpc.testnet.allora.network/",
+        "gasAdjustment": 1.2,
+        "gasPrices": "auto",
+        "gasPriceUpdateInterval": 60,
+        "maxFees": 500000,
+        "nodeRpc": "https://allora-rpc.testnet.allora.network",
         "maxRetries": 5,
         "retryDelay": 3,
         "accountSequenceRetryDelay": 5,
@@ -17,31 +18,30 @@
     },
     "worker": [
         {
-            "topicId": 1,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 2,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:18000/inference/{Token}",
-                "Token": "ETH"
-            }
-        },
+        "topicId": 1,
+        "inferenceEntrypointName": "apiAdapter",
+        "parameters": {
+            "InferenceEndpoint": "http://source:18000/inference/{Token}",
+            "Token": "ETH"
+        }
+        }
+    ],
+    "reputer": [
         {
-            "topicId": 2,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 4,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:18000/inference/{Token}",
-                "Token": "ETH"
-            }
+        "topicId": 1,
+        "groundTruthEntrypointName": "apiAdapter",
+        "lossFunctionEntrypointName": "apiAdapter",
+        "minStake": 100000,
+        "groundTruthParameters": {
+            "GroundTruthEndpoint": "http://localhost:8888/gt/{Token}/{BlockHeight}",
+            "Token": "ETHUSD"
         },
-        {
-            "topicId": 7,
-            "inferenceEntrypointName": "api-worker-reputer",
-            "loopSeconds": 6,
-            "parameters": {
-                "InferenceEndpoint": "http://inference:18000/inference/{Token}",
-                "Token": "ETH"
+        "lossFunctionParameters": {
+            "LossFunctionService": "http://localhost:5000",
+            "LossMethodOptions": {
+            "loss_method": "sqe"
             }
         }
+        }
     ]
-}
+    }
