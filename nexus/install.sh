@@ -50,6 +50,8 @@ fi
 cd $REPO_PATH/clients/cli
 cargo build --release --bin prover
 
+cp /root/.nexus/network-api/clients/cli/target/release/prover /root/.nexus/network-api/clients/cli/prover
+
 cat <<EOF | sudo tee /etc/systemd/system/nexus.service >/dev/null
 [Unit]
 Description=Nexus prover
@@ -62,8 +64,8 @@ Restart=always
 RestartSec=30
 LimitNOFILE=65535
 Type=simple
-WorkingDirectory=$REPO_PATH/clients/cli
-ExecStart=$REPO_PATH/clients/cli/prover -- beta.orchestrator.nexus.xyz
+WorkingDirectory=/root/.nexus/network-api/clients/cli/prover
+ExecStart=/root/.nexus/network-api/clients/cli/prover -- beta.orchestrator.nexus.xyz
 Restart=on-failure
 
 [Install]
