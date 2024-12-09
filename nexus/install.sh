@@ -47,6 +47,9 @@ else
 fi
 (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
+cd $REPO_PATH/clients/cli
+cargo build --release --bin prover
+
 cat <<EOF | sudo tee /etc/systemd/system/nexus.service >/dev/null
 [Unit]
 Description=Nexus prover
@@ -60,7 +63,7 @@ RestartSec=30
 LimitNOFILE=65535
 Type=simple
 WorkingDirectory=$REPO_PATH/clients/cli
-ExecStart=cargo run --release --bin prover -- beta.orchestrator.nexus.xyz
+ExecStart=$REPO_PATH/clients/cli/prover -- beta.orchestrator.nexus.xyz
 Restart=on-failure
 
 [Install]
