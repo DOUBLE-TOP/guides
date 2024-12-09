@@ -12,12 +12,7 @@ source .profile
 
 NEXUS_HOME=$HOME/.nexus
 
-git --version 2>&1 >/dev/null
-GIT_IS_AVAILABLE=$?
-if [ $GIT_IS_AVAILABLE != 0 ]; then
-  echo Unable to find git. Please install it and try again.
-  exit 1;
-fi
+mkdir -p $NEXUS_HOME
 
 PROVER_ID=$(cat $NEXUS_HOME/prover-id 2>/dev/null)
 if [ -z "$NONINTERACTIVE" ] && [ "${#PROVER_ID}" -ne "28" ]; then
