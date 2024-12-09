@@ -11,16 +11,6 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &
 
 NEXUS_HOME=$HOME/.nexus
 
-while [ -z "$NONINTERACTIVE" ] && [ ! -f "$NEXUS_HOME/prover-id" ]; do
-    read -p "Do you agree to the Nexus Beta Terms of Use (https://nexus.xyz/terms-of-use)? (Y/n) " yn </dev/tty
-    case $yn in
-        [Nn]* ) exit;;
-        [Yy]* ) break;;
-        "" ) break;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
-
 git --version 2>&1 >/dev/null
 GIT_IS_AVAILABLE=$?
 if [ $GIT_IS_AVAILABLE != 0 ]; then
@@ -30,10 +20,7 @@ fi
 
 PROVER_ID=$(cat $NEXUS_HOME/prover-id 2>/dev/null)
 if [ -z "$NONINTERACTIVE" ] && [ "${#PROVER_ID}" -ne "28" ]; then
-    echo To receive credit for proving in Nexus testnets, click on your prover id
-    echo "(bottom left) at https://beta.nexus.xyz/ to copy the full prover id and"
-    echo paste it here. Press Enter to continue.
-    read -p "Prover Id (optional)> " PROVER_ID </dev/tty
+    read -p "Prover Id " PROVER_ID </dev/tty
     while [ ! ${#PROVER_ID} -eq "0" ]; do
         if [ ${#PROVER_ID} -eq "28" ]; then
             if [ -f "$NEXUS_HOME/prover-id" ]; then
