@@ -33,7 +33,7 @@ if [ -z "$NONINTERACTIVE" ] && [ "${#PROVER_ID}" -ne "28" ]; then
         else
             echo Unable to validate $PROVER_ID. Please make sure the full prover id is copied.
         fi
-        read -p "Prover Id (optional)> " PROVER_ID </dev/tty
+        read -p "Prover Id " PROVER_ID </dev/tty
     done
 fi
 
