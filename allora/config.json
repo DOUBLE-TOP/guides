@@ -8,7 +8,7 @@
         "gasPrices": "10",
         "gasPriceUpdateInterval": 60,
         "maxFees": 500000,
-        "nodeRpc": "http://142.132.221.103:26657",
+        "nodeRpc": "https://allora-rpc.testnet.allora.network",
         "maxRetries": 5,
         "retryDelay": 3,
         "accountSequenceRetryDelay": 5,
