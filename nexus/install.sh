@@ -65,7 +65,7 @@ Restart=always
 RestartSec=30
 LimitNOFILE=65535
 Type=simple
-WorkingDirectory=/root/.nexus/network-api/clients/cli/prover
+WorkingDirectory=/root/.nexus/network-api/clients/cli
 ExecStart=/root/.nexus/network-api/clients/cli/prover -- beta.orchestrator.nexus.xyz
 Restart=on-failure
 
