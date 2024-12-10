@@ -46,6 +46,7 @@ fi
 (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 cd $REPO_PATH/clients/cli
+cargo clean
 cargo build --release --bin prover
 
 cp /root/.nexus/network-api/clients/cli/target/release/prover /root/.nexus/network-api/clients/cli/prover
