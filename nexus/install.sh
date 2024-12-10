@@ -8,6 +8,8 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
 
+sudo apt install -y protobuf-compiler
+
 source .profile
 
 NEXUS_HOME=$HOME/.nexus
@@ -71,6 +73,10 @@ EOF
 systemctl daemon-reload
 systemctl enable nexus
 systemctl start nexus
+lsb_release -a
+rustc --version
+cargo --version
+
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
