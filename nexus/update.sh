@@ -7,6 +7,8 @@ echo "--------------------------------------------------------------------------
 systemctl stop nexus
 
 cd $HOME/.nexus/network-api
+
+git fetch
 git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1)
 
 cd $HOME/.nexus/network-api/clients/cli
