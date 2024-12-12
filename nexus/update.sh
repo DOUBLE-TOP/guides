@@ -7,7 +7,7 @@ echo "--------------------------------------------------------------------------
 systemctl stop nexus
 
 cd $HOME/.nexus/network-api
-git chekcout 0.4.3
+git chekcout 0.4.4
 
 cd $HOME/.nexus/network-api/clients/cli
 cargo build --release --bin prover
