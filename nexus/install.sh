@@ -4,9 +4,11 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
 
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash
+
+sudo apt install -y protobuf-compiler
 
 source .profile
 
@@ -44,6 +46,7 @@ fi
 (cd $REPO_PATH && git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1))
 
 cd $REPO_PATH/clients/cli
+cargo clean
 cargo build --release --bin prover
 
 cp /root/.nexus/network-api/clients/cli/target/release/prover /root/.nexus/network-api/clients/cli/prover
@@ -71,6 +74,10 @@ EOF
 systemctl daemon-reload
 systemctl enable nexus
 systemctl start nexus
+lsb_release -a
+rustc --version
+cargo --version
+
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
