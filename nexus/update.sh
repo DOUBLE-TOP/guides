@@ -7,7 +7,7 @@ echo "--------------------------------------------------------------------------
 systemctl stop nexus
 
 cd $HOME/.nexus/network-api
-git checkout 0.4.4
+git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1)
 
 cd $HOME/.nexus/network-api/clients/cli
 cargo build --release --bin prover
