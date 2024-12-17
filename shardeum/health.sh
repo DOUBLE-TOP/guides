@@ -3,7 +3,7 @@
 
 
 function get_status() {
-    STATUS=$(docker exec -it shardeum-validator operator-cli state | grep status | awk -F': ' '{print $2}')
+    STATUS=$(docker exec -it shardeum-validator operator-cli status | grep state | awk -F': ' '{print $2}')
     echo "${STATUS}"
 }
 
