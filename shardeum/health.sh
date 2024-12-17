@@ -3,7 +3,7 @@
 
 
 function get_status() {
-    STATUS=$(docker exec -it shardeum-dashboard operator-cli status | grep status | awk -F': ' '{print $2}')
+    STATUS=$(docker exec -it shardeum-validator operator-cli status | grep status | awk -F': ' '{print $2}')
     echo "${STATUS}"
 }
 
@@ -17,14 +17,14 @@ do
     sleep 5s
     if [ -z "$NODE_STATUS" ]; then
         echo "Shardeum нода не запущена"
-        docker start shardeum-dashboard
+        docker start shardeum-validator
         sleep 15m
     else
         if [[ "${NODE_STATUS}" == *"standby"* ]]; then
             echo "Status is standby"
         else
             echo "Status is not standby"
-            docker exec -it shardeum-dashboard operator-cli start
+            docker exec -it shardeum-validator operator-cli start
         fi
         sleep 15m
     fi
