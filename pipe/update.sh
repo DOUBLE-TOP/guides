@@ -15,21 +15,21 @@ echo "Введите DCDND URL: "
 read DCDND
 
 if [[ -z "$PIPE" || -z "$DCDND" ]]; then
-    echo "Ошибка: Вы должны ввести оба URL."
+    echo "Ошибка: Введите оба URL."
     exit 1
 fi
 
 sudo systemctl stop dcdnd
 
-sudo rm -f /opt/dcdn/pipe-tool
-sudo rm -f /opt/dcdn/dcdnd
+sudo rm -f $HOME/opt/dcdn/pipe-tool
+sudo rm -f $HOME/opt/dcdn/dcdnd
 
 
-sudo curl -L "$PIPE" -o /opt/dcdn/pipe-tool
-sudo curl -L "$DCDND" -o /opt/dcdn/dcdnd
+sudo curl -L "$PIPE" -o $HOME/opt/dcdn/pipe-tool
+sudo curl -L "$DCDND" -o $HOME/opt/dcdn/dcdnd
 
-sudo chmod +x /opt/dcdn/pipe-tool
-sudo chmod +x /opt/dcdn/dcdnd
+sudo chmod +x $HOME/opt/dcdn/pipe-tool
+sudo chmod +x $HOME/opt/dcdn/dcdnd
 
 sudo systemctl daemon-reload
 sudo systemctl restart dcdnd
