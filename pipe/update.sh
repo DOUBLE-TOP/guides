@@ -38,8 +38,8 @@ echo "--------------------------------------------------------------------------
 echo "Авторизация"
 echo "-----------------------------------------------------------------------------"
 
-/opt/dcdn/pipe-tool login --node-registry-url="https://rpc.pipedev.network"
-/opt/dcdn/pipe-tool list-nodes --node-registry-url="https://rpc.pipedev.network"
+pipe-tool login --node-registry-url="https://rpc.pipedev.network"
+pipe-tool list-nodes --node-registry-url="https://rpc.pipedev.network"
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
