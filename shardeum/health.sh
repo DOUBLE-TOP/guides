@@ -19,7 +19,9 @@ do
     printf "Check shardeum node status \n"
     NODE_STATUS=$(get_node_status)
     GUI_STATUS=$(get_gui_status)
-    printf "Current status: ${NODE_STATUS}\n"
+    printf "Current node status: ${NODE_STATUS}\n"
+    printf "Current dashboard status: ${GUI_STATUS}\n"
+
     sleep 5s
     if [ -z "$NODE_STATUS" ]; then
         echo "Shardeum нода не запущена"
@@ -27,19 +29,19 @@ do
         sleep 5m
     else
         if [[ "${NODE_STATUS}" == *"stopped"* ]]; then
-            echo "Status is stopped"
+            echo "Node status is stopped"
             docker exec -it shardeum-validator operator-cli start
         else
-            echo "Status is $NODE_STATUS"
+            echo "Node status is $NODE_STATUS"
         fi
     fi
 
     if [[ "${GUI_STATUS}" == *"online"* ]]; then
-        echo "Status is online"
+        echo "Dashboard status is online"
     else
-        echo "Status is $GUI_STATUS"
+        echo "Dashboard status is $GUI_STATUS"
         docker exec -it shardeum-validator operator-cli gui start
     fi
-    
+
     sleep 15m
 done
