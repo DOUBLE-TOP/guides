@@ -31,14 +31,17 @@ sudo curl -L "$DCDND" -o $HOME/opt/dcdn/dcdnd
 sudo chmod +x $HOME/opt/dcdn/pipe-tool
 sudo chmod +x $HOME/opt/dcdn/dcdnd
 
-sudo systemctl daemon-reload
-sudo systemctl restart dcdnd
 
 echo "-----------------------------------------------------------------------------"
-echo "Авторизация"
+echo "Авторизация и регистрация токена"
 echo "-----------------------------------------------------------------------------"
 
 pipe-tool login --node-registry-url="https://rpc.pipedev.network"
+pipe-tool generate-registration-token --node-registry-url="https://rpc.pipedev.network"
+
+sudo systemctl daemon-reload
+sudo systemctl start dcdnd
+
 pipe-tool list-nodes --node-registry-url="https://rpc.pipedev.network"
 
 echo "-----------------------------------------------------------------------------"
