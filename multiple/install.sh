@@ -23,7 +23,6 @@ fi
 
 wget $CLIENT_URL -O multipleforlinux.tar
 
-echo -e "Распаковка файлов..."
 tar -xvf multipleforlinux.tar
 rm -rf multipleforlinux.tar
 
@@ -67,7 +66,7 @@ read PIN
 
 echo "-----------------------------------------------------------------------"
 echo -e "Команда для проверки статуса ноды:"
-echo "$HOME/multipleforlinux/multiple-cli status"
+echo -e "\$HOME/multipleforlinux/multiple-cli status"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
