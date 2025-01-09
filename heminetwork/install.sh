@@ -12,6 +12,9 @@ echo "--------------------------------------------------------------------------
 echo "Установка майнера Hemi Network"
 echo "-----------------------------------------------------------------------------"
 
+grep -qxF 'fs.inotify.max_user_watches=524288' /etc/sysctl.conf || echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
 cd $HOME
 wget https://github.com/hemilabs/heminetwork/releases/download/v0.9.0/heminetwork_v0.9.0_linux_amd64.tar.gz
 

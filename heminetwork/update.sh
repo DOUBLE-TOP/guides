@@ -8,6 +8,9 @@ echo "--------------------------------------------------------------------------
 echo "Обновление майнера Hemi Network"
 echo "-----------------------------------------------------------------------------"
 
+grep -qxF 'fs.inotify.max_user_watches=524288' /etc/sysctl.conf || echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
 systemctl stop hemi
 
 cd $HOME
