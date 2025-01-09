@@ -13,11 +13,11 @@ echo "Установка майнера Hemi Network"
 echo "-----------------------------------------------------------------------------"
 
 cd $HOME
-wget https://github.com/hemilabs/heminetwork/releases/download/v0.8.0/heminetwork_v0.8.0_linux_amd64.tar.gz
+wget https://github.com/hemilabs/heminetwork/releases/download/v0.9.0/heminetwork_v0.9.0_linux_amd64.tar.gz
 
-tar -xvf heminetwork_v0.8.0_linux_amd64.tar.gz && rm heminetwork_v0.8.0_linux_amd64.tar.gz
-mv heminetwork_v0.8.0_linux_amd64 heminetwork
-rm -rf $HOME/heminetwork_v0.8.0_linux_amd64
+tar -xvf heminetwork_v0.9.0_linux_amd64.tar.gz && rm heminetwork_v0.9.0_linux_amd64.tar.gz
+mv heminetwork_v0.9.0_linux_amd64 heminetwork
+rm -rf $HOME/heminetwork_v0.9.0_linux_amd64
 
 echo "-----------------------------------------------------------------------------"
 echo "Создание кошелька"
