@@ -31,10 +31,7 @@ echo "4 : 4GB"
 echo "5 : 2GB"
 read TIER
 
-curl -o install_script.sh https://download.hyper.space/api/install
-chmod +x install_script.sh
-./install_script.sh
-rm -rf install_script.sh
+curl https://download.hyper.space/api/install | bash
 source /root/.bashrc
 
 sudo tee /etc/systemd/system/aios.service > /dev/null << EOF
