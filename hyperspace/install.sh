@@ -34,9 +34,8 @@ read TIER
 curl -o install_script.sh https://download.hyper.space/api/install
 chmod +x install_script.sh
 ./install_script.sh
-rm -rf install_script.shsource /root/.bashrc
-
-exec bash
+rm -rf install_script.sh
+source /root/.bashrc
 
 sudo tee /etc/systemd/system/aios.service > /dev/null << EOF
 [Unit]
