@@ -23,14 +23,6 @@ if [[ $PRIVATE_KEY == 0x* ]]; then
     PRIVATE_KEY="${PRIVATE_KEY:2}"
 fi
 
-echo "Введите Тир от 1 до 5 в зависимости от используемых ресурсов(RAM - оперативная память)"
-echo "1 : 30GB"
-echo "2 : 20GB"
-echo "3 : 8GB"
-echo "4 : 4GB"
-echo "5 : 2GB"
-read TIER
-
 curl https://download.hyper.space/api/install | bash
 source /root/.bashrc
 
@@ -74,7 +66,6 @@ aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf
 aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf
 aios-cli hive import-keys ./private_key.pem
 aios-cli hive login
-aios-cli hive select-tier $TIER
 
 sudo systemctl restart aios
 
