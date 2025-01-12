@@ -98,6 +98,7 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
         echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli hive import-keys $HOME/.aios/private_key.pem"
         echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli hive login"
         echo -e "${LIGHT_BLUE}sudo systemctl restart aios"
+        exit 1
     fi
 done
 
