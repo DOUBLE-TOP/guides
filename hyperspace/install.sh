@@ -14,7 +14,22 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем ноду"
 echo "-----------------------------------------------------------------------------"
 
-curl https://download.hyper.space/api/install | bash
+response=$(curl -s "https://api.github.com/repos/hyperspaceai/aios-cli/releases/latest")
+
+# Check if the response contains a rate limit error
+if echo "$response" | grep -q "API rate limit exceeded"; then
+    echo "Введите Гитхаб токен"
+    read GITHUB_TOKEN
+
+    curl -o install_script.sh https://download.hyper.space/api/install
+    chmod +x install_script.sh
+    sed -i "s|curl|curl -H \"Authorization: token $GITHUB_TOKEN\"|" install_script.sh
+    bash install_script.sh
+    rm install_script.sh
+else
+    curl https://download.hyper.space/api/install | bash
+fi
+
 source /root/.bashrc
 
 # Проверка наличия директории
@@ -25,6 +40,7 @@ fi
 
 echo "Введите PRIVATE KEY"
 read PRIVATE_KEY
+
 # Check if it starts with "0x" and remove it
 if [[ $PRIVATE_KEY == 0x* ]]; then
     PRIVATE_KEY="${PRIVATE_KEY:2}"
