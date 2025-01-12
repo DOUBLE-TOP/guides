@@ -14,15 +14,6 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем ноду"
 echo "-----------------------------------------------------------------------------"
 
-# 203,95
-
-echo "Введите PRIVATE KEY"
-read PRIVATE_KEY
-# Check if it starts with "0x" and remove it
-if [[ $PRIVATE_KEY == 0x* ]]; then
-    PRIVATE_KEY="${PRIVATE_KEY:2}"
-fi
-
 curl https://download.hyper.space/api/install | bash
 source /root/.bashrc
 
@@ -30,6 +21,13 @@ source /root/.bashrc
 if [[ ! -d "$HOME/.aios" ]]; then
     echo "Установка ноды прервана из-за недоступности серверов Hyperspace"
     exit 1  # Завершение скрипта с кодом 1
+fi
+
+echo "Введите PRIVATE KEY"
+read PRIVATE_KEY
+# Check if it starts with "0x" and remove it
+if [[ $PRIVATE_KEY == 0x* ]]; then
+    PRIVATE_KEY="${PRIVATE_KEY:2}"
 fi
 
 sudo tee /etc/systemd/system/aios.service > /dev/null << EOF
