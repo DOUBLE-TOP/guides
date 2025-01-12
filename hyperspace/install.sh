@@ -15,6 +15,7 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем ноду"
 echo "-----------------------------------------------------------------------------"
 
+LIGHT_BLUE="\033[1;34m" 
 response=$(curl -s "https://api.github.com/repos/hyperspaceai/aios-cli/releases/latest")
 
 # Check if the response contains a rate limit error
@@ -90,13 +91,13 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
     fi
     
     if [[ SECONDS -ge end_time ]]; then
-        echo "Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
-        echo "Выполните следующие команды, чтобы завершить установку:"
-        echo "$HOME/.aios/aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf"
-        echo "$HOME/.aios/aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf"
-        echo "$HOME/.aios/aios-cli hive import-keys $HOME/.aios/private_key.pem"
-        echo "$HOME/.aios/aios-cli hive login"
-        echo "sudo systemctl restart aios"
+        echo -e "${LIGHT_BLUE}Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
+        echo -e "${LIGHT_BLUE}Выполните следующие команды, чтобы завершить установку:"
+        echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf"
+        echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf"
+        echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli hive import-keys $HOME/.aios/private_key.pem"
+        echo -e "${LIGHT_BLUE}$HOME/.aios/aios-cli hive login"
+        echo -e "${LIGHT_BLUE}sudo systemctl restart aios"
     fi
 done
 
