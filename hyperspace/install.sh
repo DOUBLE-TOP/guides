@@ -75,7 +75,6 @@ aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruc
 aios-cli hive import-keys ./private_key.pem
 aios-cli hive login
 aios-cli hive select-tier $TIER
-aios-cli hive infer --model hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf --prompt "Can you explain how to write an HTTP server in Rust?"
 
 sudo systemctl restart aios
 
