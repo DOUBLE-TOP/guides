@@ -28,10 +28,10 @@ echo "1 : 30GB"
 echo "2 : 20GB"
 echo "3 : 8GB"
 echo "4 : 4GB"
-echo "5 : 2GB\n"
+echo "5 : 2GB"
 read TIER
 
-curl https://download.hyper.space/api/install | bash
+bash <(curl -s https://download.hyper.space/api/install)
 source /root/.bashrc
 
 exec bash
