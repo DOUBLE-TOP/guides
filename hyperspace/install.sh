@@ -26,6 +26,12 @@ fi
 curl https://download.hyper.space/api/install | bash
 source /root/.bashrc
 
+# Проверка наличия директории
+if [[ ! -d "$HOME/.aios" ]]; then
+    echo "Установка ноды прервана из-за недоступности серверов Hyperspace"
+    exit 1  # Завершение скрипта с кодом 1
+fi
+
 sudo tee /etc/systemd/system/aios.service > /dev/null << EOF
 [Unit]
 Description=Hyperspace Aios Node
