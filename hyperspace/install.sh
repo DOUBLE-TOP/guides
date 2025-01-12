@@ -50,9 +50,15 @@ sudo systemctl daemon-reload
 sudo systemctl enable aios
 sudo systemctl start aios
 
+end_time=$((SECONDS + 60))
+
 journalctl -n 100 -f -u aios -o cat | while read line; do
-        if [[ "$line" == *"Authenticated successfully"* ]]; then
+    if [[ "$line" == *"Authenticated successfully"* ]]; then
         echo "Log entry found: $line"
+        break
+    fi
+    
+    if [[ SECONDS -ge end_time ]]; then
         break
     fi
 done
