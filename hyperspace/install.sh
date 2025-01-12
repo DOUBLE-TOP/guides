@@ -31,8 +31,10 @@ echo "4 : 4GB"
 echo "5 : 2GB"
 read TIER
 
-bash <(curl -s https://download.hyper.space/api/install)
-source /root/.bashrc
+curl -o install_script.sh https://download.hyper.space/api/install
+chmod +x install_script.sh
+./install_script.sh
+rm -rf install_script.shsource /root/.bashrc
 
 exec bash
 
