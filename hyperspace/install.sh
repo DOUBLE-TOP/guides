@@ -15,7 +15,7 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем ноду"
 echo "-----------------------------------------------------------------------------"
 
-LIGHT_BLUE="\033[1;34m" 
+RED='\033[0;31m'
 RESET="\033[0m"
 response=$(curl -s "https://api.github.com/repos/hyperspaceai/aios-cli/releases/latest")
 
@@ -83,11 +83,16 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
     fi
     
     if [[ SECONDS -ge end_time ]]; then
-        echo -e "${LIGHT_BLUE}Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
-        echo -e "Выполните следующие команды, чтобы завершить установку:"
-        echo -e "$HOME/.aios/aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf"
-        echo -e "$HOME/.aios/aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf"
-        echo -e "sudo systemctl restart aios${RESET}"
+        echo -e "${RED}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        echo -e "Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
+        echo -e "${RED}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${RESET}"
+        systemctl stop aios
+        systemctl disable aios
+        rm -rf /etc/systemd/system/aios.service
+        rm -rf $HOME/.aios
+        rm -rf $HOME/.cache/hyperspace
+        rm -rf $HOME/.config/hyperspace
+        
         exit 1
     fi
 done
