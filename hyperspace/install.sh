@@ -27,10 +27,10 @@ if echo "$response" | grep -q "API rate limit exceeded"; then
     curl -o install_script.sh https://download.hyper.space/api/install
     chmod +x install_script.sh
     sed -i "s|curl|curl -H \"Authorization: token $GITHUB_TOKEN\"|" install_script.sh
-    bash install_script.sh
+    bash install_script.sh --verbose
     rm install_script.sh
 else
-    curl https://download.hyper.space/api/install | bash
+    curl https://download.hyper.space/api/install --verbose | bash
 fi
 
 source /root/.bashrc
@@ -39,14 +39,6 @@ source /root/.bashrc
 if [[ ! -d "$HOME/.aios" ]]; then
     echo "Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
     exit 1  # Завершение скрипта с кодом 1
-fi
-
-echo "Введите PRIVATE KEY"
-read PRIVATE_KEY
-
-# Check if it starts with "0x" and remove it
-if [[ $PRIVATE_KEY == 0x* ]]; then
-    PRIVATE_KEY="${PRIVATE_KEY:2}"
 fi
 
 sudo tee /etc/systemd/system/aios.service > /dev/null << EOF
@@ -83,11 +75,10 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
 
         $HOME/.aios/aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf
         $HOME/.aios/aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf
-        $HOME/.aios/aios-cli hive import-keys $HOME/.aios/private_key.pem
-        $HOME/.aios/aios-cli hive login
 
         sudo systemctl restart aios
-        
+
+        $HOME/.aios/aios-cli hive whoami
         break
     fi
     
@@ -96,13 +87,13 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
         echo -e "Выполните следующие команды, чтобы завершить установку:"
         echo -e "$HOME/.aios/aios-cli models add hf:TheBloke/phi-2-GGUF:phi-2.Q4_K_M.gguf"
         echo -e "$HOME/.aios/aios-cli models add hf:TheBloke/Mistral-7B-Instruct-v0.1-GGUF:mistral-7b-instruct-v0.1.Q4_K_S.gguf"
-        echo -e "$HOME/.aios/aios-cli hive import-keys $HOME/.aios/private_key.pem"
-        echo -e "$HOME/.aios/aios-cli hive login"
         echo -e "sudo systemctl restart aios${RESET}"
         exit 1
     fi
 done
-
+echo "-----------------------------------------------------------------------------"
+echo "Вывод ключей"
+echo "\$HOME/.aios/aios-cli hive whoami"
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
 echo "journalctl -n 100 -f -u aios -o cat"
