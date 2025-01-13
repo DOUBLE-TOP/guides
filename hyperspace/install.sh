@@ -83,7 +83,9 @@ journalctl -n 100 -f -u aios -o cat | while read line; do
     fi
     
     if [[ SECONDS -ge end_time ]]; then
-        echo -e "${LIGHT_BLUE}Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже.${RESET}"
+        echo -e "${RED}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        echo -e "Установка ноды прервана из-за недоступности серверов Hyperspace. Перезапустите скрипт установки позже."
+        echo -e "${RED}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${RESET}"
         systemctl stop aios
         systemctl disable aios
         rm -rf /etc/systemd/system/aios.service
