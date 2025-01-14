@@ -4,7 +4,7 @@ while true
 do
     printf "Check hyperspace logs \n"
     
-    logs=$(journalctl -n 100 -f -u aios -o cat)
+    logs=$(journalctl -n 10 -u aios)
 
     # Search the logs for the specific pattern and save the result
     search_result=$(echo "$logs" | grep "Last pong received.*Sending reconnect signal..")
