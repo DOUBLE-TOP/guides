@@ -8,7 +8,7 @@ install_0gchaind() {
     source $HOME/.profile
     git clone https://github.com/0glabs/0g-chain.git
     cd 0g-chain
-    git checkout v0.4.0
+    git checkout v0.5.0
     make install
     0gchaind version
 }
