@@ -8,80 +8,68 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
 sudo apt update -y
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
 echo "Установка ноды"
 echo "-----------------------------------------------------------------------------"
 
-echo "Введите PIPE URL: "
-read PIPE
+mkdir -p $HOME/pipe_backup
 
-echo "Введите DCDND URL: "
-read DCDND
+if systemctl list-units --type=service | grep -q "dcdnd.service"; then
+    cp -r $HOME/.permissionless $HOME/pipe_backup
+
+    sudo systemctl stop dcdnd
+    sudo systemctl disbale dcdnd
+    rm -rf /etc/systemd/system/dcdnd.service
+    rm -rf $HOME/opt/dcdn
+    rm -rf $HOME/.permissionless
+fi
+
+echo "Введите POP URL: "
+read POP
+
+echo "Введите адрес кошелька соланы: "
+read PUB_KEY
 
 cd $HOME
-sudo mkdir -p $HOME/opt/dcdn
+sudo mkdir -p $HOME/opt/dcdn/download_cache
 
-sudo wget -O $HOME/opt/dcdn/pipe-tool "$PIPE"
-sudo wget -O $HOME/opt/dcdn/dcdnd "$DCDND"
+sudo wget -O $HOME/opt/dcdn/pop "$POP"
 
-sudo chmod +x $HOME/opt/dcdn/pipe-tool
-sudo chmod +x $HOME/opt/dcdn/dcdnd
+sudo chmod +x $HOME/opt/dcdn/pop
+sudo ln -s $HOME/opt/dcdn/pop /usr/local/bin/pop -f
 
-sudo ln -s $HOME/opt/dcdn/pipe-tool /usr/local/bin/pipe-tool -f
-sudo ln -s $HOME/opt/dcdn/dcdnd /usr/local/bin/dcdnd -f
-
-sudo tee /etc/systemd/system/dcdnd.service > /dev/null << EOF
+sudo tee /etc/systemd/system/pop.service > /dev/null << EOF
 [Unit]
-Description=DCDN Node Service
+Description=Pipe POP Node Service
 After=network.target
 Wants=network-online.target
 
 [Service]
-ExecStart=$(which dcdnd) \
-                --grpc-server-url=0.0.0.0:8002 \
-                --http-server-url=0.0.0.0:8003 \
-                --node-registry-url="https://rpc.pipedev.network" \
-                --cache-max-capacity-mb=1024 \
-                --credentials-dir=/root/.permissionless \
-                --allow-origin=*
-
+User=dcdn-svc-user
+Group=dcdn-svc-user
+ExecStart=$HOME/opt/dcdn/pop --ram=4 --pubKey $PUB_KEY --max-disk 100 --cache-dir $HOME/opt/dcdn/download_cache
 Restart=always
 RestartSec=5
-
 LimitNOFILE=65536
 LimitNPROC=4096
-
 StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=dcdn-node
-
 WorkingDirectory=$HOME/opt/dcdn
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-echo "-----------------------------------------------------------------------------"
-echo "Авторизация и регистрация токена"
-echo "-----------------------------------------------------------------------------"
-
-pipe-tool login --node-registry-url="https://rpc.pipedev.network"
-pipe-tool generate-registration-token --node-registry-url="https://rpc.pipedev.network"
-
-
 sudo systemctl daemon-reload
-sudo systemctl enable dcdnd
-sudo systemctl restart dcdnd
-
-pipe-tool generate-wallet --node-registry-url="https://rpc.pipedev.network" --key-path=$HOME/.permissionless/key.json
-pipe-tool link-wallet --node-registry-url="https://rpc.pipedev.network" --key-path=$HOME/.permissionless/key.json
+sudo systemctl enable pop
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
-echo "journalctl -f -u dcdnd"
+echo "journalctl -f -u pop"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
