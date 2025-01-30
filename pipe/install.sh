@@ -48,8 +48,6 @@ After=network.target
 Wants=network-online.target
 
 [Service]
-User=dcdn-svc-user
-Group=dcdn-svc-user
 ExecStart=$HOME/opt/dcdn/pop --ram=4 --pubKey $PUB_KEY --max-disk 100 --cache-dir $HOME/opt/dcdn/download_cache
 Restart=always
 RestartSec=5
