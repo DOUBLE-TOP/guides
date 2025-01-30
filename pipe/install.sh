@@ -64,6 +64,9 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl enable pop
+sudo systemctl start pop
+
+cp $HOME/opt/dcdn/node_info.json $HOME/pipe_backup/node_info.json
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
