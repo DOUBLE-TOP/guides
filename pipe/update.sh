@@ -8,45 +8,20 @@ echo "--------------------------------------------------------------------------
 echo "Обновление ноды"
 echo "-----------------------------------------------------------------------------"
 
-echo "Введите PIPE URL: "
-read PIPE
+sudo systemctl stop pop
 
-echo "Введите DCDND URL: "
-read DCDND
+sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.1/pop"
 
-if [[ -z "$PIPE" || -z "$DCDND" ]]; then
-    echo "Ошибка: Введите оба URL."
-    exit 1
-fi
+chmod +x $HOME/opt/dcdn/pop
+sudo ln -s $HOME/opt/dcdn/pop /usr/local/bin/pop -f
 
-sudo systemctl stop dcdnd
+$HOME/opt/dcdn/pop --refresh
 
-sudo rm -f $HOME/opt/dcdn/pipe-tool
-sudo rm -f $HOME/opt/dcdn/dcdnd
-
-
-sudo curl -L "$PIPE" -o $HOME/opt/dcdn/pipe-tool
-sudo curl -L "$DCDND" -o $HOME/opt/dcdn/dcdnd
-
-sudo chmod +x $HOME/opt/dcdn/pipe-tool
-sudo chmod +x $HOME/opt/dcdn/dcdnd
-
-
-echo "-----------------------------------------------------------------------------"
-echo "Авторизация и регистрация токена"
-echo "-----------------------------------------------------------------------------"
-
-pipe-tool login --node-registry-url="https://rpc.pipedev.network"
-pipe-tool generate-registration-token --node-registry-url="https://rpc.pipedev.network"
-
-sudo systemctl daemon-reload
-sudo systemctl start dcdnd
-
-pipe-tool list-nodes --node-registry-url="https://rpc.pipedev.network"
+sudo systemctl start pop
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
-echo "journalctl -f -u dcdnd"
+echo "journalctl -n 100 -f -u pop -o cat"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
