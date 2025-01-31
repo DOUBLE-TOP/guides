@@ -10,7 +10,7 @@ echo "--------------------------------------------------------------------------
 
 sudo systemctl stop hemi
 
-sed -i "s|FEE=.*|FEE=4000\"|" /etc/systemd/system/hemi.service
+sed -i "s|FEE=.*|FEE=7000\"|" /etc/systemd/system/hemi.service
 
 sudo systemctl daemon-reload
 sudo systemctl start hemi
