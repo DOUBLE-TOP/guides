@@ -21,7 +21,7 @@ if systemctl list-units --type=service | grep -q "dcdnd.service"; then
     cp -r $HOME/.permissionless $HOME/pipe_backup
 
     sudo systemctl stop dcdnd
-    sudo systemctl disbale dcdnd
+    sudo systemctl disable dcdnd
     rm -rf /etc/systemd/system/dcdnd.service
     rm -rf $HOME/opt/dcdn
     rm -rf $HOME/.permissionless
