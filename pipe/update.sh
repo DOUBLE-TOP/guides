@@ -10,7 +10,7 @@ echo "--------------------------------------------------------------------------
 
 sudo systemctl stop pop
 
-sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.1/pop"
+sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.2/pop"
 
 chmod +x $HOME/opt/dcdn/pop
 sudo ln -s $HOME/opt/dcdn/pop /usr/local/bin/pop -f
