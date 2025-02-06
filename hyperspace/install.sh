@@ -57,6 +57,10 @@ LimitNOFILE=65535
 WantedBy=multi-user.target
 EOF
 
+
+echo "Enter PRIVATE_KEY"
+read PRIVATE_KEY
+
 sudo tee $HOME/.aios/private_key.pem > /dev/null << EOF
 $PRIVATE_KEY
 EOF
