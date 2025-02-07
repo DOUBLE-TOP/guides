@@ -15,7 +15,8 @@ if [ -d "$HOME/dill" ]; then
     sudo systemctl stop dill &>/dev/null
     sudo systemctl disable dill &>/dev/null
     sudo systemctl daemon-reload &>/dev/null
-    bash $HOME/dill/stop_dill_node.sh
+    cd $HOME/dill
+    bash stop_dill_node.sh
     rm -f /etc/systemd/system/dill.service
 fi
 
