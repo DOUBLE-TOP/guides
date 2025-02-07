@@ -11,6 +11,13 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
+if [ -d "$HOME/dill" ]; then
+    sudo systemctl stop dill &>/dev/null
+    sudo systemctl disable dill &>/dev/null
+    sudo systemctl daemon-reload &>/dev/null
+    bash $HOME/dill/stop_dill_node.sh
+    rm -f /etc/systemd/system/dill.service
+fi
 
 curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/upgrade.sh
 chmod +x upgrade.sh
