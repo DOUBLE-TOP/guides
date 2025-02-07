@@ -16,11 +16,11 @@ grep -qxF 'fs.inotify.max_user_watches=524288' /etc/sysctl.conf || echo 'fs.inot
 sudo sysctl -p
 
 cd $HOME
-wget https://github.com/hemilabs/heminetwork/releases/download/v0.11.3/heminetwork_v0.11.3_linux_amd64.tar.gz
+wget https://github.com/hemilabs/heminetwork/releases/download/v0.11.4/heminetwork_v0.11.4_linux_amd64.tar.gz
 
-tar -xvf heminetwork_v0.11.3_linux_amd64.tar.gz && rm heminetwork_v0.11.3_linux_amd64.tar.gz
-mv heminetwork_v0.11.3_linux_amd64 heminetwork
-rm -rf $HOME/heminetwork_v0.11.3_linux_amd64
+tar -xvf heminetwork_v0.11.4_linux_amd64.tar.gz && rm heminetwork_v0.11.4_linux_amd64.tar.gz
+mv heminetwork_v0.11.4_linux_amd64 heminetwork
+rm -rf $HOME/heminetwork_v0.11.4_linux_amd64
 
 echo "-----------------------------------------------------------------------------"
 echo "Создание кошелька"
