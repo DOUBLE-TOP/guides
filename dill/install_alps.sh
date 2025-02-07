@@ -44,23 +44,27 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
-
+# Качаем инсталлер и удаляем строку со скрипта по запуску ноды
 curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/dill.sh
 chmod +x dill.sh
 sed -i 's|$DILL_DIR/1_launch_dill_node.sh| |' "$HOME/dill.sh"
 ./dill.sh
 
+# Качаем скрипт с сервисником
 cd $HOME/dill
 curl -sO https://raw.githubusercontent.com/DOUBLE-TOP/guides/main/dill/dill_service.sh
 chmod +x dill_service.sh
 
+# Заменяем порты 
 sed -i 's|monitoring-port  9080 tcp|monitoring-port  8380 tcp|' "$HOME/dill/default_ports.txt"
 sed -i 's|exec-http.port 8545 tcp|exec-http.port 8945 tcp|' "$HOME/dill/default_ports.txt"
 sed -i 's|exec-port 30303 tcp&&udp|exec-port 30305 tcp&&udp|' "$HOME/dill/default_ports.txt"
 
+# Заменяем нохап запуск на создание сервисника
 sed -i 's|nohup \$PJROOT/\$NODE_BIN \$COMMON_FLAGS \$DISCOVERY_FLAGS \$VALIDATOR_FLAGS \$PORT_FLAGS > /dev/null 2>&1 &|\$PJROOT//dill_service.sh \"\$PJROOT/\$NODE_BIN \$COMMON_FLAGS \$DISCOVERY_FLAGS \$VALIDATOR_FLAGS \$PORT_FLAGS\"|' "$HOME/dill/start_dill_node.sh"
 
-bash $HOME/dill/start_dill_node.sh
+# Запускаем скрипт по запуску ноды
+bash $HOME/dill/1_launch_dill_node.sh
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
