@@ -24,9 +24,8 @@ fi
 # Качаем скрипт апгрейда и удаляем строки по старту ноды и удаляем проверки запущена нода или нет
 curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/upgrade.sh
 chmod +x upgrade.sh
-sed -i '/\.\/start_dill_node\.sh/,/exit 1/!b;/if \[ \$\? -ne 0 \]; then/,/^fi$/d;' "$HOME/upgrade.sh"
-sed -i '/if \[ \$\? -ne 0 \]; then/,/^fi$/d;' "$HOME/upgrade.sh"
-./upgrade.sh
+sed -i 's|\./start_dill_node\.sh| |' "$HOME/upgrade.sh"
+./upgrade.sh &>/dev/null
 
 # Качаем скрипт для запуска через сервис
 cd $HOME/dill
