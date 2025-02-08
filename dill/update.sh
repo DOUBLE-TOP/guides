@@ -21,6 +21,8 @@ if [ -d "$HOME/dill" ]; then
     rm -f /etc/systemd/system/dill.service
 fi
 
+cd $HOME
+
 # Качаем скрипт апгрейда и удаляем строки по старту ноды и удаляем проверки запущена нода или нет
 curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/upgrade.sh
 chmod +x upgrade.sh

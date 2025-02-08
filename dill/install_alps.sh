@@ -44,6 +44,9 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
+
+cd $HOME
+
 # Качаем инсталлер и удаляем строку со скрипта по запуску ноды
 curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/dill.sh
 chmod +x dill.sh
