@@ -49,6 +49,7 @@ curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/dill.s
 chmod +x dill.sh
 sed -i 's|$DILL_DIR/1_launch_dill_node.sh| |' "$HOME/dill.sh"
 ./dill.sh
+rm -rf $HOME/dill.sh
 
 # Качаем скрипт с сервисником
 cd $HOME/dill

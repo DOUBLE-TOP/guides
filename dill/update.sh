@@ -26,6 +26,7 @@ curl -sO https://raw.githubusercontent.com/DillLabs/launch-dill-node/main/upgrad
 chmod +x upgrade.sh
 sed -i 's|\./start_dill_node\.sh| |' "$HOME/upgrade.sh"
 ./upgrade.sh &>/dev/null
+rm -rf $HOME/upgrade.sh
 
 # Качаем скрипт для запуска через сервис
 cd $HOME/dill
