@@ -7,16 +7,16 @@ echo "--------------------------------------------------------------------------
 cd $HOME/multipleforlinux
 
 current_version=$(./multiple-cli --version)
-printf "Текущая версия: $current_version\n"
+echo -e  "Текущая версия: $current_version"
 
 latest_version=$(curl -s https://mdeck-download.s3.us-east-1.amazonaws.com/client/linux/version.txt | cat)
-printf "Последняя версия: $latest_version"
+echo -e  "Последняя версия: $latest_version"
 sleep 2
 
 if [[ "$current_version" =~ "$latest_version" ]];  then
-    printf "У вас и так уже последняя версия"
+    echo -e  "У вас и так уже последняя версия"
 else
-    printf "Обновление multiple node"
+    echo -e  "Обновление multiple node"
 
     sudo systemctl stop multiple
 
