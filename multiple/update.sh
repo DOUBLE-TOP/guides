@@ -7,7 +7,7 @@ echo "--------------------------------------------------------------------------
 cd $HOME/multipleforlinux
 
 current_version=$(./multiple-cli --version)
-printf "Текущая версия: $current_version"
+printf "Текущая версия: $current_version\n"
 
 latest_version=$(curl -s https://mdeck-download.s3.us-east-1.amazonaws.com/client/linux/version.txt | cat)
 printf "Последняя версия: $latest_version"
@@ -15,7 +15,6 @@ sleep 2
 
 if [[ "$current_version" =~ "$latest_version" ]];  then
     printf "У вас и так уже последняя версия"
-
 else
     printf "Обновление multiple node"
 
@@ -41,7 +40,7 @@ else
     chmod +x ./multiple-node
 
     sudo systemctl start multiple
-
+fi
 echo "-----------------------------------------------------------------------"
 echo -e "Команда для проверки статуса ноды:"
 echo -e "\$HOME/multipleforlinux/multiple-cli status"

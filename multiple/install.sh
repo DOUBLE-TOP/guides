@@ -9,13 +9,12 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>
 
 echo "Установка проекта"
 
-# Check CPU
 download_url=""
 get_arch=$(arch)
 if [[ $get_arch =~ "x86_64" ]];then download_url="https://mdeck-download.s3.us-east-1.amazonaws.com/client/linux/x64/multipleforlinux.tar"
 elif [[ $get_arch =~ "aarch64" ]];then download_url="https://mdeck-download.s3.us-east-1.amazonaws.com/client/linux/arm64/multipleforlinux.tar"
 else
-    printf "This system is not supported\n"
+    printf "Ваш сервер не подходит для запуска ноды"
     exit 0
 fi
 
