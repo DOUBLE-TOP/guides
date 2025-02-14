@@ -9,17 +9,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>
 
 echo "Установка проекта"
 
-ARCH=$(uname -m)
-if [[ "$ARCH" == "x86_64" ]]; then
-    CLIENT_URL="https://cdn.app.multiple.cc/client/linux/x64/multipleforlinux.tar"
-elif [[ "$ARCH" == "aarch64" ]]; then
-    CLIENT_URL="https://cdn.app.multiple.cc/client/linux/arm64/multipleforlinux.tar"
-else
-    echo -e "Неподдерживаемая архитектура системы: $ARCH"
-    exit 1
-fi
-
-wget $CLIENT_URL -O multipleforlinux.tar
+wget https://mdeck-download.s3.us-east-1.amazonaws.com/client/linux/MultipleForLinux.tar -O multipleforlinux.tar
 
 tar -xvf multipleforlinux.tar
 rm -rf multipleforlinux.tar
