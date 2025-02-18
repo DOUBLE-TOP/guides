@@ -65,6 +65,7 @@ StandardOutput=journal
 StandardError=journal
 SyslogIdentifier=dcdn-node
 WorkingDirectory=$HOME/opt/dcdn
+AmbientCapabilities=CAP_NET_BIND_SERVICE CapabilityBoundingSet=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
