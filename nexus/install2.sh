@@ -24,28 +24,6 @@ NEXUS_HOME=$HOME/.nexus
 
 mkdir -p $NEXUS_HOME
 
-PROVER_ID=$(cat $NEXUS_HOME/prover-id 2>/dev/null)
-if [ -z "$NONINTERACTIVE" ] && [ "${#PROVER_ID}" -ne "28" ]; then
-    read -p "Prover Id " PROVER_ID </dev/tty
-    while [ ! ${#PROVER_ID} -eq "0" ]; do
-        if [ ${#PROVER_ID} -eq "28" ]; then
-            if [ -f "$NEXUS_HOME/prover-id" ]; then
-                echo Copying $NEXUS_HOME/prover-id to $NEXUS_HOME/prover-id.bak
-                cp $NEXUS_HOME/prover-id $NEXUS_HOME/prover-id.bak
-            fi
-            echo "$PROVER_ID" > $NEXUS_HOME/prover-id
-            echo Prover id saved to $NEXUS_HOME/prover-id.
-            break;
-        else
-            echo Unable to validate $PROVER_ID. Please make sure the full prover id is copied.
-        fi
-        read -p "Prover Id " PROVER_ID </dev/tty
-    done
-fi
-
-mkdir -p $HOME/nexus_backups/testnet1
-cp $HOME/.nexus/prover-id $HOME/nexus_backups/testnet1/prover-id
-
 REPO_PATH=$NEXUS_HOME/network-api
 if [ -d "$REPO_PATH" ]; then
   echo "$REPO_PATH exists. Updating.";
@@ -58,7 +36,7 @@ fi
 
 cd $REPO_PATH/clients/cli
 cargo clean
-cargo build --release --bin prover
+cargo run --release -- --start --beta
 
 cp /root/.nexus/network-api/clients/cli/target/release/prover /root/.nexus/network-api/clients/cli/prover
 
@@ -75,7 +53,7 @@ RestartSec=30
 LimitNOFILE=65535
 Type=simple
 WorkingDirectory=/root/.nexus/network-api/clients/cli
-ExecStart=/root/.nexus/network-api/clients/cli/prover -- beta.orchestrator.nexus.xyz
+ExecStart=/root/.nexus/network-api/clients/cli/prover
 Restart=on-failure
 
 [Install]
