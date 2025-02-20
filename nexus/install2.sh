@@ -10,6 +10,8 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
+sudo apt purge -y protobuf-compiler
+
 ARCH=$(uname -m)
 
 if [[ "$ARCH" == "x86_64" ]]; then
@@ -23,7 +25,6 @@ else
     exit 1
 fi
 
-sudo apt purge -y protobuf-compiler
 curl -LO "$PROTOC_URL"
 unzip "protoc-${PROTOC_VERSION}-linux-*.zip" -d "$HOME/.local"
 # curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
@@ -94,6 +95,7 @@ cp /root/.nexus/network-api/clients/cli/target/release/nexus-network /root/.nexu
 lsb_release -a
 rustc --version
 cargo --version
+file $HOME/.local/bin/protoc
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
