@@ -83,9 +83,9 @@ fi
 
 cd "$REPO_PATH/clients/cli" 
 
-wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-linux-x86_64.zip
-unzip protoc-21.12-linux-x86_64.zip -d $HOME/.local
-export PATH="$HOME/.local/bin:$PATH"
+# wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-linux-x86_64.zip
+# unzip protoc-21.12-linux-x86_64.zip -d $HOME/.local
+# export PATH="$HOME/.local/bin:$PATH"
 
 cargo clean
 RUST_BACKTRACE=1 cargo build --release
