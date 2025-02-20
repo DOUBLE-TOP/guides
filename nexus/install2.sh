@@ -10,9 +10,24 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
+ARCH=$(uname -m)
+
+if [[ "$ARCH" == "x86_64" ]]; then
+    PROTOC_VERSION="25.2"
+    PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip"
+elif [[ "$ARCH" == "aarch64" ]]; then
+    PROTOC_VERSION="3.19.1"
+    PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-aarch_64.zip"
+else
+    echo "Архитектура $ARCH не поддерживается."
+    exit 1
+fi
+
 sudo apt purge -y protobuf-compiler
-curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
-unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
+curl -LO "$PROTOC_URL"
+unzip "protoc-${PROTOC_VERSION}-linux-*.zip" -d "$HOME/.local"
+# curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
+# unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
 grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 protoc --version
