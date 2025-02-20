@@ -46,7 +46,7 @@ RUST_BACKTRACE=1 cargo build --release
 
 read -p "Введите node id: " Node_ID
 
-cat $Node_ID > "$NEXUS_HOME"/node_id
+echo $Node_ID > "$NEXUS_HOME"/node_id
 
 cp /root/.nexus/network-api/clients/cli/target/release/nexus-network /root/.nexus/network-api/clients/cli/nexus-network
 
