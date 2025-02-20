@@ -6,6 +6,11 @@ echo "--------------------------------------------------------------------------
 
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
+
+wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-linux-x86_64.zip
+unzip protoc-21.12-linux-x86_64.zip -d $HOME/.local
+export PATH="$HOME/.local/bin:$PATH"
+
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 rustup target add riscv32i-unknown-none-elf
