@@ -7,20 +7,15 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
-PROTOC_VERSION=$(protoc --version 2>/dev/null | awk '{print $2}')
-if [[ "$PROTOC_VERSION" != "3.21.12" ]]; then
-    echo "Устанавливаем protoc версии 3.21.12"
-    wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-linux-x86_64.zip
-    unzip protoc-21.12-linux-x86_64.zip -d $HOME/.local
-    export PATH="$HOME/.local/bin:$PATH"
-else
-    echo "protoc 3.21.12 уже установлен, пропускаем установку."
-fi
-
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+sudo apt remove -y protobuf-compiler
+curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
+unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
+export PATH="$HOME/.local/bin:$PATH"
+protoc --version
+
 rustup target add riscv32i-unknown-none-elf
-sudo apt install -y protobuf-compiler
 
 # remove previous data
 systemctl stop nexus &>/dev/null
