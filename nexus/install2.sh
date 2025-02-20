@@ -13,6 +13,8 @@ sudo apt remove -y protobuf-compiler
 curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
 unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
 export PATH="$HOME/.local/bin:$PATH"
+source .profile
+apt install protobuf-compiler
 protoc --version
 
 rustup target add riscv32i-unknown-none-elf
@@ -25,8 +27,12 @@ source .profile
 
 # swap file fix
 
-SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
-swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
+# SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
+# swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
+SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}')
+if [[ -n "$SWAP_LOCATE" ]]; then
+    swapoff "$SWAP_LOCATE" && rm -f "$SWAP_LOCATE"
+fi
 fallocate -l 6G /swapfile && \
 chmod 600 /swapfile && \
 mkswap /swapfile && \
