@@ -10,13 +10,16 @@ echo "--------------------------------------------------------------------------
 
 sudo systemctl stop pop
 
-sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.6/pop"
+sudo sed -i '/^ExecStart=/ { /--enable-80-443/! s/$/ --enable-80-443/ }' /etc/systemd/system/pop.service
+
+sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.8/pop"
 
 chmod +x $HOME/opt/dcdn/pop
 sudo ln -s $HOME/opt/dcdn/pop /usr/local/bin/pop -f
 
 cd $HOME/opt/dcdn && ./pop --refresh
 
+sudo systemctl daemon-reload
 sudo systemctl start pop
 
 echo "-----------------------------------------------------------------------------"
