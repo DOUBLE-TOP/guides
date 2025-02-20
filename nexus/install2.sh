@@ -25,8 +25,12 @@ source .profile
 
 # swap file fix
 
-SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
-swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
+# SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
+# swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
+SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}')
+if [[ -n "$SWAP_LOCATE" ]]; then
+    swapoff "$SWAP_LOCATE" && rm -f "$SWAP_LOCATE"
+fi
 fallocate -l 6G /swapfile && \
 chmod 600 /swapfile && \
 mkswap /swapfile && \
