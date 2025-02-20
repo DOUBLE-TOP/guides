@@ -44,39 +44,11 @@ cd "$REPO_PATH/clients/cli"
 cargo clean
 RUST_BACKTRACE=1 cargo build --release
 
-read -p "Введите node id: " Node_ID
+cp /root/.nexus/network-api/clients/cli/target/release/nexus-network /root/.nexus/nexus-network
 
-echo $Node_ID > "$NEXUS_HOME"/node_id
-
-cp /root/.nexus/network-api/clients/cli/target/release/nexus-network /root/.nexus/network-api/clients/cli/nexus-network
-
-cat <<EOF | sudo tee /etc/systemd/system/nexus.service >/dev/null
-[Unit]
-Description=Nexus prover
-After=network-online.target
-StartLimitIntervalSec=0
-
-[Service]
-User=root
-Restart=always
-RestartSec=30
-LimitNOFILE=65535
-Type=simple
-WorkingDirectory=/root/.nexus/network-api/clients/cli
-ExecStart=/root/.nexus/network-api/clients/cli/nexus-network start --env beta
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-systemctl daemon-reload
-systemctl enable nexus
-systemctl start nexus
 lsb_release -a
 rustc --version
 cargo --version
-
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
