@@ -8,13 +8,15 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
 
-sudo apt remove -y protobuf-compiler
+#sudo apt remove -y protobuf-compiler
+sudo apt purge -y protobuf-compiler
 curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
 unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
 export PATH="$HOME/.local/bin:$PATH"
-source .profile
-apt install protobuf-compiler
+#source .profile
+#apt install protobuf-compiler
 protoc --version
 
 rustup target add riscv32i-unknown-none-elf
