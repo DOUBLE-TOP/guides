@@ -63,7 +63,7 @@ RestartSec=30
 LimitNOFILE=65535
 Type=simple
 WorkingDirectory=/root/.nexus/network-api/clients/cli
-ExecStart=/root/.nexus/network-api/clients/cli/nexus-network --start --env beta
+ExecStart=/root/.nexus/network-api/clients/cli/nexus-network start --env beta
 Restart=on-failure
 
 [Install]
