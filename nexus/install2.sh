@@ -27,7 +27,6 @@ source .profile
 
 SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
 swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
-
 fallocate -l 6G /swapfile && \
 chmod 600 /swapfile && \
 mkswap /swapfile && \
