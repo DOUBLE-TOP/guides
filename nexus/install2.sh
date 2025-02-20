@@ -22,6 +22,23 @@ systemctl disable nexus &>/dev/null
 rm -rf $HOME/.nexus /etc/systemd/system/nexus.service 
 source .profile
 
+# swap file fix
+
+SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}') && \
+swapoff $SWAP_LOCATE && rm $SWAP_LOCATE && \
+
+fallocate -l 6G /swapfile && \
+chmod 600 /swapfile && \
+mkswap /swapfile && \
+swapon /swapfile && \
+swapon --show && \
+echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab && \
+sysctl vm.swappiness=10 && \
+sysctl vm.vfs_cache_pressure=50 && \
+echo "vm.swappiness=10" >> /etc/sysctl.conf && \
+echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+
+
 NEXUS_HOME="$HOME/.nexus"
 mkdir -p "$NEXUS_HOME"
 
