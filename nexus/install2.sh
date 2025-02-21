@@ -85,7 +85,6 @@ fi
 
 cd "$REPO_PATH/clients/cli" 
 
-cargo clean
 RUST_BACKTRACE=1 cargo build --release
 
 cp /root/.nexus/network-api/clients/cli/target/release/nexus-network /root/.nexus/nexus-network
