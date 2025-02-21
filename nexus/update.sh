@@ -1,6 +1,5 @@
 #!/bin/bash
 source $HOME/.cargo/env
-source $HOME/.bashrc
 
 cd $HOME/.nexus/network-api
 git stash
