@@ -41,7 +41,7 @@ rustup target add riscv32i-unknown-none-elf
 systemctl stop nexus &>/dev/null
 systemctl disable nexus &>/dev/null
 rm -rf $HOME/.nexus /etc/systemd/system/nexus.service 
-source .profile
+#source .profile
 
 # swap file fix
 SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}')
