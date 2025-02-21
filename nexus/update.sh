@@ -1,7 +1,5 @@
 #!/bin/bash
 source $HOME/.cargo/env
-grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source $HOME/.bashrc
 
 cd $HOME/.nexus/network-api
 git stash
