@@ -7,7 +7,7 @@ git stash
 git fetch --tags
 git -c advice.detachedHead=false checkout $(git rev-list --tags --max-count=1)
 
-cd $HOME/.nexus/ && ./nexus-network start --env beta
+cd /.nexus/network-api/clients/cli && cargo run -r -- start --env beta
 
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
