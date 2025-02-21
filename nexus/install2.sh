@@ -29,19 +29,19 @@ curl -LO "$PROTOC_URL"
 unzip "protoc-${PROTOC_VERSION}-linux-*.zip" -d "$HOME/.local"
 # curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v25.2/protoc-25.2-linux-x86_64.zip
 # unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
-grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
+
 sleep 2
 export PATH=$HOME/.local/bin:$PATH
 protoc --version
-
 rustup target add riscv32i-unknown-none-elf
 
 # remove previous data
 systemctl stop nexus &>/dev/null
 systemctl disable nexus &>/dev/null
 rm -rf $HOME/.nexus /etc/systemd/system/nexus.service 
-source .profile
+#source .profile
 
 # swap file fix
 SWAP_LOCATE=$(swapon --show | awk 'NR==2 {print $1}')
