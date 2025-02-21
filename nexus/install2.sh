@@ -31,8 +31,10 @@ unzip "protoc-${PROTOC_VERSION}-linux-*.zip" -d "$HOME/.local"
 # unzip protoc-25.2-linux-x86_64.zip -d $HOME/.local
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
-protoc --version
 
+sleep 2
+export PATH=$HOME/.local/bin:$PATH
+protoc --version
 rustup target add riscv32i-unknown-none-elf
 
 # remove previous data
