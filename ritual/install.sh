@@ -22,7 +22,7 @@ else
 fi
 
 REGISTRY_ADDRESS=0x3B1554f346DFe5c482Bb4BA31b880c1C18412170
-IMAGE="ritualnetwork/infernet-node:1.2.0"
+IMAGE="ritualnetwork/infernet-node:1.4.0"
 
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
