@@ -4,9 +4,9 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
 
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash 
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash 
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash 
 
 # Скачиваем image из Docker Hub
 docker pull admier/brinxai_nodes-worker:latest
@@ -47,7 +47,7 @@ networks:
 EOF
 
 # Запускаем контейнер
-echo "Запускаем Docker контейнер"
+echo "Запускаем Worker Node"
 docker compose up -d
 
 echo "-----------------------------------------------------------------------"
