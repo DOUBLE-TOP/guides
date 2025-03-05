@@ -8,18 +8,16 @@ echo "--------------------------------------------------------------------------
 echo "Находим контейнер worker node и контейнеры запущенных моделей"
 brinxai_containers=$(docker ps --format "{{.Names}} {{.Image}}" | grep "brinxai" || true)
 
-if [ -n "$brinxai_containers" ]; then
-  echo "Будут остановлены и перезапущены следующие контейнеры:"
-  echo "$brinxai_containers"
-else
-  echo "Активных контейнеров brinxai не найдено."
-fi
-
 # Останавливаем все текущие запущенные контейнеры brinxai
-echo "Останавливаем контейнеры"
+echo "Удаляем контейнеры моделей"
 for container in $brinxai_containers; do
   container_name=$(echo $container | awk '{print $1}')
-  docker stop $container_name && echo "Остановлен: $container_name"
+  
+  # Проверяем, существует ли контейнер
+  if docker ps -a --format "{{.Names}}" | grep -q "^$container_name$"; then
+    # Останавливаем контейнер по имени
+    docker rm -f $container_name && echo "Остановлен: $container_name"
+  fi
 done
 
 # Загружаем последнюю версию Worker Node
@@ -32,7 +30,7 @@ cd $HOME/brinxai_worker
 docker compose up -d
 
 # Выводим список моделей, которые были запущены до обновления
-echo "Следующие модели были активны до обновления. Вы можете запустить их вручную, если это необходимо:"
+echo "Следующие модели были активны до обновления. Вы можете запустить их вручную:"
 echo "$brinxai_containers"
 
 echo "-----------------------------------------------------------------------"
