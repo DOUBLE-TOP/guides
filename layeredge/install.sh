@@ -69,7 +69,7 @@ cd light-node
 cat > .env <<EOL
 GRPC_URL=grpc.testnet.layeredge.io:9090
 CONTRACT_ADDR=cosmos1ufs3tlq4umljk0qfe8k5ya0x6hpavn897u2cnf9k0en9jr7qarqqt56709
-ZK_PROVER_URL=https://layeredge.mintair.xyz/
+ZK_PROVER_URL=https://layeredge.mintair.xyz
 API_REQUEST_TIMEOUT=100
 POINTS_API=https://light-node.layeredge.io
 PRIVATE_KEY='${private_key_value}'
