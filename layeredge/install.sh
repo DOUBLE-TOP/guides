@@ -78,7 +78,9 @@ EOL
 echo ".env файл создан"
 cd risc0-merkle-service
 # kill risc service if it exists
-tmux kill-session -t risc_service
+if tmux has-session -t risc_service 2>/dev/null; then
+    tmux kill-session -t risc_service
+fi
 tmux new-session -d -s risc_service "cargo build && cargo run"
 echo "risc0 сервис запущен (tmux session risc_service)"
 echo "-----------------------------------------------------------------------------"
