@@ -95,6 +95,8 @@ EXECUTABLE_PATH="/root/light-node/light-node"  # Change this to the actual path
 WORKING_DIR="/root/light-node/"                # Change this to the actual working directory
 LOG_FILE="/var/log/light_node.log"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME.service"
+
+> "$LOG_FILE"
 # Ensure the script is run as root
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root. Use sudo."
