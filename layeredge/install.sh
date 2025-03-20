@@ -103,6 +103,21 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
+# Check if the service exists
+if systemctl list-units --type=service --all | grep -q "$SERVICE_NAME.service"; then
+    echo "Найден существующий сервис '$SERVICE_NAME'. Удаляем..."
+    # Stop the service if it's running
+    sudo systemctl stop $SERVICE_NAME
+    # Disable the service so it doesn’t start on boot
+    sudo systemctl disable $SERVICE_NAME
+    # Remove the systemd service file
+    sudo rm -f $SERVICE_FILE
+    # Reload systemd
+    sudo systemctl daemon-reload
+
+    echo "Сервис '$SERVICE_NAME' удален."
+fi
+
 cat <<EOF > $SERVICE_FILE
 [Unit]
 Description=Light Node Service
