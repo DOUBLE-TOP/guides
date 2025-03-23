@@ -20,7 +20,7 @@ if command -v go &> /dev/null; then
 
     # Compare versions
     if version_lt "$INSTALLED_VERSION" "$MIN_GO_VERSION"; then
-        echo "Ошибка: Установленная версия Go ($INSTALLED_VERSION) ниже $MIN_GO_VERSION. Обновите Go и попробуйте сно>
+        echo "Ошибка: Установленная версия Go ($INSTALLED_VERSION) ниже $MIN_GO_VERSION. Обновите Go и попробуйте снова."
         exit 1
     fi
 else
