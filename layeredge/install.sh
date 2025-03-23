@@ -8,23 +8,33 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
-echo "Удаляем Go..."
-sudo rm -rf /usr/local/go
-rm -rf ~/go ~/.cache/go-build ~/.config/go
-sudo apt remove --purge -y golang-go &>/dev/null
-sudo apt autoremove -y &>/dev/null
-sudo snap remove go 2>/dev/null || true
-sed -i '/\/usr\/local\/go\/bin/d' ~/.profile ~/.bashrc ~/.zshrc 2>/dev/null || true
+MIN_GO_VERSION="1.18"
+version_lt() {
+    [ "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$2" ]
+}
 
-echo "Устанавливаем Go"
-wget https://golang.org/dl/go1.22.1.linux-amd64.tar.gz &>/dev/null
-sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz &>/dev/null
-rm go1.22.1.linux-amd64.tar.gz
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
-echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
-source ~/.bashrc
-source ~/.profile
-echo "Go установлена: $(go version)"
+# Check if Go is installed
+if command -v go &> /dev/null; then
+    INSTALLED_VERSION=$(go version | awk '{print $3}' | sed 's/go//')
+    echo "Go установлена: $(go version)"
+
+    # Compare versions
+    if version_lt "$INSTALLED_VERSION" "$MIN_GO_VERSION"; then
+        echo "❌ Ошибка: Установленная версия Go ($INSTALLED_VERSION) ниже $MIN_GO_VERSION. Обновите Go и попробуйте сно>
+        exit 1
+    fi
+else
+    echo "Go не установлена. Устанавливаем..."
+
+    wget https://golang.org/dl/go1.22.1.linux-amd64.tar.gz &>/dev/null
+    sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz &>/dev/null
+    rm go1.22.1.linux-amd64.tar.gz
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+    echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
+    source ~/.bashrc
+    source ~/.profile
+    echo "✅ Go установлена: $(go version)"
+fi
 
 echo "Удаляем Rust and Cargo..."
 rustup self uninstall -y 2>/dev/null || true
