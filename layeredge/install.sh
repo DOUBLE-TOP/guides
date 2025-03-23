@@ -10,7 +10,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>
 
 MIN_GO_VERSION="1.18"
 version_lt() {
-    [ "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$2" ]
+    [ "$(printf '%s\n%s\n' "$1" "$2" | sort -V | head -n 1)" != "$2" ]
 }
 
 # Check if Go is installed
