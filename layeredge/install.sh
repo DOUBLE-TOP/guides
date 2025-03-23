@@ -53,10 +53,11 @@ echo "--------------------------------------------------------------------------
 
 function get_private_key() {
   while true; do
-    read -p "Введите private key вашего кошелька (без 0х): " private_key_value
+    echo -n "Введите private key вашего кошелька (без 0х): "
+    read private_key_value
 
     # Check if the private key starts with "0x"
-    if [[ $private_key_value == 0x* ]]; then
+    if [[ "$private_key_value" == 0x* ]]; then
       echo "Error: Private key should not start with '0x'. Please try again."
     else
       echo "Private key accepted."
