@@ -20,7 +20,7 @@ if command -v go &> /dev/null; then
 
     # Compare versions
     if version_lt "$INSTALLED_VERSION" "$MIN_GO_VERSION"; then
-        echo "❌ Ошибка: Установленная версия Go ($INSTALLED_VERSION) ниже $MIN_GO_VERSION. Обновите Go и попробуйте сно>
+        echo "Ошибка: Установленная версия Go ($INSTALLED_VERSION) ниже $MIN_GO_VERSION. Обновите Go и попробуйте сно>
         exit 1
     fi
 else
@@ -33,7 +33,7 @@ else
     echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.profile
     source ~/.bashrc
     source ~/.profile
-    echo "✅ Go установлена: $(go version)"
+    echo "Go установлена: $(go version)"
 fi
 
 echo "Удаляем Rust and Cargo..."
