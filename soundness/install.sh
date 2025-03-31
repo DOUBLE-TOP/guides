@@ -13,7 +13,8 @@ echo "--------------------------------------------------------------------------
 echo "Установка CLI"
 echo "-----------------------------------------------------------------------------"
 curl -sSL https://raw.githubusercontent.com/soundnesslabs/soundness-layer/main/soundnessup/install | bash
-source ~/.bashrc
+sleep 1
+source $HOME/.bashrc
 sleep 1
 soundnessup install
 echo "Soundnessup CLI установлен"
