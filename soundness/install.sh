@@ -14,6 +14,14 @@ echo "Установка CLI"
 echo "-----------------------------------------------------------------------------"
 curl -sSL https://raw.githubusercontent.com/soundnesslabs/soundness-layer/main/soundnessup/install | bash
 sleep 1
+
+BASE_DIR=$HOME
+SOUNDNESS_DIR=${SOUNDNESS_DIR-"$BASE_DIR/.soundness"}
+SOUNDNESS_BIN_DIR="$SOUNDNESS_DIR/bin"
+PROFILE=$HOME/.profile
+echo >> $PROFILE && echo "export PATH=\"\$PATH:$SOUNDNESS_BIN_DIR\"" >> $PROFILE
+source ~/.profile
+
 source ~/.bashrc
 sleep 3
 soundnessup install
