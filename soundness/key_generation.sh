@@ -2,6 +2,8 @@
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
 echo "-----------------------------------------------------------------------------"
+source ~/.profile
+source ~/.bashrc
 
 read -p "Сколько ключей нужно сгенерировать? " num_keys
 
