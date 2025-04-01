@@ -1,0 +1,27 @@
+#!/bin/bash
+
+IMAGE_NAME="ritualnetwork/hello-world-infernet:latest"
+CONFIG_FILE="$HOME/infernet-container-starter/deploy/config.json"
+
+# Get the container ID using the image
+CONTAINER_ID=$(docker ps -a --filter "ancestor=$IMAGE_NAME" --format "{{.ID}}")
+
+# Check if both the container exists and the config file exists
+if [ -n "$CONTAINER_ID" ] && [ -f "$CONFIG_FILE" ]; then
+    CONTAINER_NAME=$(docker inspect --format '{{.Name}}' "$CONTAINER_ID" | sed 's/^\/\?//')
+
+    echo "Контейнер найден, останавливаем и удаляем: $CONTAINER_NAME"
+    
+    docker stop "$CONTAINER_NAME"
+    docker rm "$CONTAINER_NAME"
+    
+    echo "Контейнер удален."
+
+    sed -i 's/3000/3009/g' "$CONFIG_FILE"
+    echo "В файле $CONFIG_FILE: заменили порт 3000 на 3009."
+
+    echo "Запускаем контейнер назад..."
+    docker run -d --name "$CONTAINER_NAME" --restart unless-stopped -v "$CONFIG_FILE:/app/config.json" ritualnetwork/hello-world-infernet:latest
+
+    echo "Готово."
+fi
