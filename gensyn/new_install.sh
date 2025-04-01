@@ -7,7 +7,7 @@ echo "Устанавливаем софт (временной диапазон �
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-apt-get install python3 python3-pip python3-venv python3-dev -y
+apt-get install python3 python3-pip python3-venv python3-dev -y &>/dev/null
 
 
 FOLDER="rl-swarm"
