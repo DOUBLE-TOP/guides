@@ -166,6 +166,7 @@ FOLDER="$ROOT"
 cd "\$FOLDER" || exit 1
 
 source .venv/bin/activate
+source ~/.profile
 
 cd modal-login
 yarn install
