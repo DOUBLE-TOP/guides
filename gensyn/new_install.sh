@@ -38,7 +38,7 @@ echo "Node.js версия  $NODE_VERSION. Продолжаем..."
 #preinstall yarn, so its properly registered in ~/profile
 if ! command -v yarn >/dev/null 2>&1; then
       echo "Yarn не установлен. Устанавливаем..."
-      curl -o- -L https://yarnpkg.com/install.sh | sh
+      curl -o- -L https://yarnpkg.com/install.sh 2>/dev/null | sh >/dev/null 2>&1
       echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >> ~/.profile
       source ~/.profile
 fi
