@@ -117,7 +117,7 @@ IDENTITY_PATH=${IDENTITY_PATH:-$DEFAULT_IDENTITY_PATH}
     trap cleanup INT
 
 #lets go!
-echo "Ставим python dependencies (2-5 мин)..."
+echo "Ставим python dependencies (5-15 мин)..."
 pip install -r "$ROOT"/requirements-hivemind.txt > /dev/null
 pip install -r "$ROOT"/requirements.txt > /dev/null
 
