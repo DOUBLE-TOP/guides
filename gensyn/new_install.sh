@@ -165,8 +165,8 @@ cat <<EOF > "$OUTPUT_SCRIPT"
 FOLDER="$ROOT"
 cd "\$FOLDER" || exit 1
 
-source .venv/bin/activate
 source /root/.profile
+source .venv/bin/activate
 
 cd modal-login
 yarn install
