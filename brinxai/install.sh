@@ -39,6 +39,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - brinxai-network
+    restart: unless-stopped
 
 networks:
   brinxai-network:
