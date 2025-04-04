@@ -86,7 +86,7 @@ IDENTITY_PATH=${IDENTITY_PATH:-$DEFAULT_IDENTITY_PATH}
     yarn install &>/dev/null
     yarn upgrade &>/dev/null
     yarn add next@latest react react-dom &>/dev/null
-    yarn add viem@latest
+    yarn add viem@latest &>/dev/null
     yarn dev > /dev/null 2>&1 & # Run in background and suppress output
     echo "Установка завершена"
     echo "-----------------------------------------------------------------------------"
