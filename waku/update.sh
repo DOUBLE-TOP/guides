@@ -12,17 +12,17 @@ function logo {
 
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
-  # mkdir -p $HOME/nwaku_backups
-  # if [ -d "$HOME/nwaku_backups/keystore0.30" ]; then
-  #   echo "Бекап уже сделан"
-  # else
-  #   echo "Делаем бекап ключей"
-  #   mkdir -p $HOME/nwaku_backups/keystore0.30
-  #   cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.30/keystore.json
-  #   rm -rf $HOME/nwaku-compose/keystore/
-  # fi
+  mkdir -p $HOME/nwaku_backups
+  if [ -d "$HOME/nwaku_backups/keystore0.34" ]; then
+    echo "Бекап уже сделан"
+  else
+    echo "Делаем бекап ключей"
+    mkdir -p $HOME/nwaku_backups/keystore0.34
+    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.34/keystore.json
+    rm -rf $HOME/nwaku-compose/keystore
+  fi
   
-  # rm -rf $HOME/nwaku-compose/rln_tree/ 
+  rm -rf $HOME/nwaku-compose/rln_tree
   cd $HOME/nwaku-compose
   git restore . &>/dev/null
 }
@@ -55,18 +55,16 @@ function update {
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
-  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.35.0|" $HOME/nwaku-compose/.env
+  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.35.1|" $HOME/nwaku-compose/.env
 
-
-  # Меняем стандартный порт графаны, на случай если кто-то баловался с другими нодами 
-  # и она у него висит и занимает порт. Сыграем на опережение=)
+  # Меняем стандартный порт графаны
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's|127.0.0.1:8003:8003|127.0.0.1:8333:8003|' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
 
+  bash $HOME/nwaku-compose/register_rln.sh
 }
-
 
 function docker_compose_up {
   docker compose -f $HOME/nwaku-compose/docker-compose.yml up -d
