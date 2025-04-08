@@ -8,6 +8,9 @@ echo "--------------------------------------------------------------------------
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 
+# create bash_profile if it doesn't exist
+[ -f ~/.bash_profile ] || touch ~/.bash_profile
+
 # Ollama
 echo "Ставим Ollama..."
 curl -fsSL https://ollama.com/install.sh | sh &>/dev/null
