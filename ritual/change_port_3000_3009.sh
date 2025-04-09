@@ -18,7 +18,7 @@ if docker ps -a --filter "name=^/${CONTAINER_NAME}$" --format '{{.Names}}' | gre
     sed -i 's/3000/3009/g' "$CONFIG_FILE"
     sed -i 's/3000/3009/g' "$CONFIG_FILE_OWN"
     echo "Порт изменен с 3000 на 3009 в файле $CONFIG_FILE."
-    echo "Стартую Ритуал на 3009 порте."
+    echo "Стартую hello-world на 3009 порте."
     docker compose -f $HOME/infernet-container-starter/deploy/docker-compose.yaml up -d
   else
     echo "Config file not found: $CONFIG_FILE"
