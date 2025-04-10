@@ -198,6 +198,7 @@ cat <<EOF > "$OUTPUT_SCRIPT"
 FOLDER="$ROOT"
 cd "\$FOLDER" || exit 1
 
+source /root/.profile
 source .venv/bin/activate
 
 if [ ! -f "$ROOT/modal-login//temp-data/userApiKey.json" ]; then
