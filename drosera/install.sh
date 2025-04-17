@@ -7,8 +7,7 @@ echo "Устанавливаем софт (временной диапазон �
 echo "-----------------------------------------------------------------------------"
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/refs/heads/main/docker.sh | bash &>/dev/null
-sudo apt install curl ufw iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev  -y &>/dev/null
+sudo apt install iptables jq gcc automake autoconf nvme-cli libgbm1 pkg-config libleveldb-dev tar bsdmainutils libleveldb-dev  -y &>/dev/null
 echo "Dependencies установлены"
 echo "Ставим Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
@@ -71,7 +70,6 @@ tar -xvf drosera-operator-v1.16.2-x86_64-unknown-linux-gnu.tar.gz &>/dev/null
 ./drosera-operator --version
 sudo cp drosera-operator /usr/bin
 
-docker pull ghcr.io/drosera-network/drosera-operator:latest
 drosera-operator register --eth-rpc-url https://ethereum-holesky-rpc.publicnode.com --eth-private-key "$privkey"
 
 echo "Оператор установлен. Создаем системный сервис"
