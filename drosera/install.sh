@@ -13,6 +13,18 @@ echo "Dependencies установлены"
 # создаем файл .profile если его нет в системе
 [ -f /root/.profile ] || touch /root/.profile
 
+# Проверяем в системе git user.name
+if ! git config --global user.name > /dev/null; then
+  read -p "Введите Git user name: " name
+  git config --global user.name "$name"
+fi
+
+# Проверяем в системе git user.email
+if ! git config --global user.email > /dev/null; then
+  read -p "Введите Git email: " email
+  git config --global user.email "$email"
+fi
+
 echo "Ставим Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
 echo 'export PATH="$PATH:/root/.drosera/bin"' >> /root/.profile
