@@ -12,15 +12,20 @@ sudo apt install curl ufw iptables build-essential git wget lz4 jq make gcc nano
 echo "Dependencies установлены"
 echo "Ставим Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
-export PATH="$PATH:/root/.drosera/bin"
-source /root/.bashrc
+echo 'export PATH="$PATH:/root/.drosera/bin"' >> /root/.profile
+source /root/.profile
 droseraup &>/dev/null
+
 echo "Ставим Foundry CLI"
 curl -s -L https://foundry.paradigm.xyz | bash &>/dev/null
-source /root/.bashrc
+echo 'export PATH="$PATH:/root/.foundry/bin"' >> /root/.profile
+source /root/.profile
 foundryup &>/dev/null
+
 curl -fsSL https://bun.sh/install | bash &>/dev/null
-source /root/.bashrc
+echo 'export BUN_INSTALL="$HOME/.bun"' >> /root/.profile
+echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /root/.profile
+source /root/.profile
 
 echo "Создаем и компилируем Trap"
 mkdir -p drosera
@@ -29,6 +34,7 @@ forge init -t drosera-network/trap-foundry-template &>/dev/null
 bun install &>/dev/null
 source /root/.bashrc
 forge build &>/dev/null
+
 echo "Размещаем Trap"
 read -p "Введите паблик ключ (начинается с 0х): " pubkey
 read -p "Введите приватник: " privkey
