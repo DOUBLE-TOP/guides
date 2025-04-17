@@ -9,6 +9,10 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
 sudo apt install iptables jq gcc automake autoconf nvme-cli libgbm1 pkg-config libleveldb-dev tar bsdmainutils libleveldb-dev  -y &>/dev/null
 echo "Dependencies установлены"
+
+# создаем файл .profile если его нет в системе
+[ -f /root/.profile ] || touch /root/.profile
+
 echo "Ставим Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
 echo 'export PATH="$PATH:/root/.drosera/bin"' >> /root/.profile
