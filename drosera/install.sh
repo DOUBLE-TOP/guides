@@ -43,7 +43,7 @@ if [ -n "$existing_trap" ]; then
     echo "Вписали $existing_trap в файл drosera.toml"
     echo "address = \"$existing_trap\"" >> drosera.toml
 else
-    echo "Созадем новую трапу."
+    echo "Созадаем новую трапу."
 fi
 
 #DROSERA_PRIVATE_KEY="$privkey" drosera apply
