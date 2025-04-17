@@ -22,7 +22,7 @@ fi
 
 sed -i -E 's|--eth-rpc-url [^ ]+|--eth-rpc-url '"$new_rpc"'|g' "$service_file"
 
-echo "Изменили --eth-rpc-url в файле $service_file"
+echo "Изменен --eth-rpc-url в файле $service_file"
 
 
 
