@@ -72,6 +72,7 @@ cd ~
 curl -s -LO https://github.com/drosera-network/releases/releases/download/v1.16.2/drosera-operator-v1.16.2-x86_64-unknown-linux-gnu.tar.gz &>/dev/null
 tar -xvf drosera-operator-v1.16.2-x86_64-unknown-linux-gnu.tar.gz &>/dev/null
 ./drosera-operator --version
+rm drosera-operator-v1.16.2-x86_64-unknown-linux-gnu.tar.gz
 sudo cp drosera-operator /usr/bin
 
 drosera-operator register --eth-rpc-url https://ethereum-holesky-rpc.publicnode.com --eth-private-key "$privkey"
