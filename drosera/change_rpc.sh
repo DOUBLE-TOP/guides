@@ -8,7 +8,7 @@ service_file="/etc/systemd/system/drosera.service"
 
 read -p "Введите новый RPC адрес: " new_rpc
 if [ -f "$config_file" ]; then
-    sed -i "s|^drosera_rpc = \".*\"|drosera_rpc = \"$new_rpc\"|" "$config_file"
+    sed -i "s|^ethereum_rpc = \".*\"|ethereum_rpc = \"$new_rpc\"|" "$config_file"
     echo "RPC изменен в файле $config_file"
 else
     echo "Файл $config_file не найден"
