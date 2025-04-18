@@ -51,8 +51,8 @@ source /root/.bashrc
 forge build &>/dev/null
 
 echo "Размещаем Trap"
-read -p "Введите паблик ключ (начинается с 0х): " pubkey
-read -p "Введите приватник: " privkey
+read -p "Введите адрес кошелька (начинается с 0х): " pubkey
+read -p "Введите приватник данного кошелька: " privkey
 read -p "Введите адресс вашей существующей Трапы (или нажмите Enter чтобы создать новую): " existing_trap
 
 if [ -n "$existing_trap" ]; then
