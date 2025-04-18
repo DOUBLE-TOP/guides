@@ -14,13 +14,15 @@ echo "Dependencies установлены"
 [ -f /root/.profile ] || touch /root/.profile
 
 # Проверяем в системе git user.name
-if ! git config --global user.name > /dev/null; then
+name=$(git config --global user.name)
+if [ -z "$name" ]; then
   read -p "Введите Git user name: " name
   git config --global user.name "$name"
 fi
 
 # Проверяем в системе git user.email
-if ! git config --global user.email > /dev/null; then
+email=$(git config --global user.email)
+if [ -z "$email" ]; then
   read -p "Введите Git email: " email
   git config --global user.email "$email"
 fi
