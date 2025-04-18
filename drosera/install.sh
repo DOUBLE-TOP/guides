@@ -56,6 +56,7 @@ echo "Размещаем Trap"
 read -p "Введите адрес кошелька (начинается с 0х): " pubkey
 read -p "Введите приватник данного кошелька: " privkey
 read -p "Введите адресс вашей существующей Трапы (или нажмите Enter чтобы создать новую): " existing_trap
+read -p "Введите приватный RPC адрес (или нажмите Enter чтобы воспользоваться публичным https://ethereum-holesky-rpc.publicnode.com): " new_rpc
 
 if [ -n "$existing_trap" ]; then
     echo "Вписали $existing_trap в файл drosera.toml"
@@ -64,8 +65,13 @@ else
     echo "Созадаем новую трапу."
 fi
 
-#DROSERA_PRIVATE_KEY="$privkey" drosera apply
-#drosera dryrun
+config_file=~/drosera/drosera.toml
+if [ -n "$new_rpc" ]; then
+    sed -i "s|^ethereum_rpc = \".*\"|ethereum_rpc = \"$new_rpc\"|" "$config_file"
+else
+    new_rpc="https://ethereum-holesky-rpc.publicnode.com"
+fi
+
 
 echo "Обновляем Drosera.toml whitelist"
 sed -i "s/^whitelist = .*/whitelist = [\"$pubkey\"]/" drosera.toml
@@ -76,7 +82,6 @@ else
     echo 'private_trap = true' >> drosera.toml
 fi
 
-#echo 'address = "0x64A135dFb1DF9C23C7193EFc8C3D53f4142A626C"' >> drosera.toml
 
 DROSERA_PRIVATE_KEY="$privkey" drosera apply
 drosera dryrun
@@ -116,7 +121,7 @@ Restart=always
 RestartSec=15
 LimitNOFILE=65535
 ExecStart=$(which drosera-operator) node --db-file-path $HOME/.drosera.db --network-p2p-port 31313 --server-port 31314 \
-    --eth-rpc-url https://ethereum-holesky-rpc.publicnode.com \
+    --eth-rpc-url $new_rpc \
     --eth-backup-rpc-url https://1rpc.io/holesky \
     --drosera-address 0xea08f7d533C2b9A62F40D5326214f39a8E3A32F8 \
     --eth-private-key $privkey \
