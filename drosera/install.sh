@@ -70,6 +70,7 @@ if [ -n "$new_rpc" ]; then
     sed -i "s|^ethereum_rpc = \".*\"|ethereum_rpc = \"$new_rpc\"|" "$config_file"
 else
     new_rpc="https://ethereum-holesky-rpc.publicnode.com"
+    sed -i "s|^block_sample_size = .*|block_sample_size = 5|" "$config_file"
 fi
 
 
