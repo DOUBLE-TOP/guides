@@ -60,7 +60,7 @@ sleep 1
 echo "Весь необходимый софт установлен"
 echo "-----------------------------------------------------------------------------"
 cd $HOME
-git clone -b v0.8.7 https://github.com/0glabs/0g-storage-node.git
+git clone -b v1.0.0 https://github.com/0glabs/0g-storage-node.git
 cd 0g-storage-node
 git submodule update --init
 cargo build --release
@@ -74,9 +74,9 @@ ENR_ADDR=$(wget -qO- eth0.me)
 
 echo export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log" >> ~/.bash_profile
 echo export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config" >> ~/.bash_profile
-echo export LOG_CONTRACT_ADDRESS="0xbD2C3F0E65eDF5582141C35969d66e34629cC768" >> ~/.bash_profile
-echo export MINE_CONTRACT="0x6815F41019255e00D6F34aAB8397a6Af5b6D806f" >> ~/.bash_profile
-echo export REWARD_CONTRACT="0x51998C4d486F406a788B766d93510980ae1f9360" >> ~/.bash_profile
+echo export LOG_CONTRACT_ADDRESS="0x56A565685C9992BF5ACafb940ff68922980DBBC5" >> ~/.bash_profile
+echo export MINE_CONTRACT="0xB87E0e5657C25b4e132CB6c34134C0cB8A962AD6" >> ~/.bash_profile
+echo export REWARD_CONTRACT="0x233B2768332e4Bae542824c93cc5c8ad5d44517E" >> ~/.bash_profile
 echo export ENR_ADDR=${ENR_ADDR} >> ~/.bash_profile
 source ~/.bash_profile
 
@@ -95,7 +95,7 @@ sed -i 's|# network_discovery_port = 1234|network_discovery_port = 1234|' $HOME/
 sed -i 's|# network_boot_nodes = \[\]|network_boot_nodes = \["/ip4/47.251.117.133/udp/1234/p2p/16Uiu2HAmTVDGNhkHD98zDnJxQWu3i1FL1aFYeh9wiQTNu4pDCgps","/ip4/47.76.61.226/udp/1234/p2p/16Uiu2HAm2k6ua2mGgvZ8rTMV8GhpW71aVzkQWy7D37TTDuLCpgmX"]|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# db_dir = "db"|db_dir = "db"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# blockchain_rpc_endpoint = "http://127.0.0.1:8545"|blockchain_rpc_endpoint = "http://127.0.0.1:8545"|' $HOME/0g-storage-node/run/config.toml
-sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 595059|' $HOME/0g-storage-node/run/config.toml
+sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 1|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^#\? *confirmation_block_count = [0-9]\+|confirmation_block_count = 6|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# rpc_enabled = true|rpc_enabled = true|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-node/run/config.toml

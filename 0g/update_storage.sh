@@ -23,9 +23,9 @@ ENR_ADDR=$(wget -qO- eth0.me)
 echo export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log" >> ~/.bash_profile
 echo export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config" >> ~/.bash_profile
 echo export ENR_ADDR=${ENR_ADDR} >> ~/.bash_profile
-echo export LOG_CONTRACT_ADDRESS="0xbD2C3F0E65eDF5582141C35969d66e34629cC768" >> ~/.bash_profile
-echo export MINE_CONTRACT="0x6815F41019255e00D6F34aAB8397a6Af5b6D806f" >> ~/.bash_profile
-echo export REWARD_CONTRACT="0x51998C4d486F406a788B766d93510980ae1f9360" >> ~/.bash_profile
+echo export LOG_CONTRACT_ADDRESS="0x56A565685C9992BF5ACafb940ff68922980DBBC5" >> ~/.bash_profile
+echo export MINE_CONTRACT="0xB87E0e5657C25b4e132CB6c34134C0cB8A962AD6" >> ~/.bash_profile
+echo export REWARD_CONTRACT="0x233B2768332e4Bae542824c93cc5c8ad5d44517E" >> ~/.bash_profile
 source ~/.bash_profile
 
 echo -e "ZGS_LOG_DIR: $ZGS_LOG_DIR\nZGS_LOG_CONFIG_FILE: $ZGS_LOG_CONFIG_FILE\nENR_ADDR: $ENR_ADDR"
@@ -37,7 +37,7 @@ sed -i 's|# log_config_file = "log_config"|log_config_file = "'"$ZGS_LOG_CONFIG_
 sed -i 's|# log_directory = "log"|log_directory = "'"$ZGS_LOG_DIR"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^\s*#\?\s*network_enr_address\s*=\s*".*"\s*|network_enr_address = "'"$ENR_ADDR"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# mine_contract_address = ".*"|mine_contract_address = "'"$MINE_CONTRACT"'"|' $HOME/0g-storage-node/run/config.toml
-sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 595059|' $HOME/0g-storage-node/run/config.toml
+sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 1|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^#\? *confirmation_block_count = [0-9]\+|confirmation_block_count = 6|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# log_contract_address = ".*"|log_contract_address = "'"$LOG_CONTRACT_ADDRESS"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# network_dir = "network"|network_dir = "network"|' $HOME/0g-storage-node/run/config.toml
