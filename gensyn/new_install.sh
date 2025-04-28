@@ -44,8 +44,11 @@ NODE_VERSION=$(node -v 2>/dev/null | cut -d 'v' -f 2)
 
 # Check if the version is lower than 20.18.0
 if [[ -n "$NODE_VERSION" && $(echo -e "$NODE_VERSION\n20.18.0" | sort -V | head -n1) == "$NODE_VERSION" ]]; then
-    echo "Error: Node.js version is lower than 20.18.0 ($NODE_VERSION). Please upgrade manually."
-    exit 1
+    echo "Версия NodeJS ниже 20.18.0 ($NODE_VERSION). Обновляем..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - >/dev/null 2>&1
+    sudo apt install -y nodejs
+    echo "NodeJS обновлена: "
+    node -v
 fi
 
 echo "Node.js версия  $NODE_VERSION. Продолжаем..."
