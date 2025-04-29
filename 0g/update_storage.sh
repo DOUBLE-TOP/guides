@@ -54,10 +54,6 @@ sed -i 's|# auto_sync_enabled = false|auto_sync_enabled = true|' $HOME/0g-storag
 sed -i '/# shard_position = "0\/2"/a reward_contract_address = "'"$REWARD_CONTRACT"'"' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^#\? *db_max_num_sectors = [0-9]\+|db_max_num_sectors = 1000000000|' $HOME/0g-storage-node/run/config.toml
 
-#sed -i 's/debug/info/; s/h2=info/h2=warn/' $HOME/0g-storage-node/run/log_config
-
-#latest_block=$($HOME/go/bin/0gchaind status | jq -r .sync_info.latest_block_height)
-#sed -i 's/log_sync_start_block_number = [0-9]\+/log_sync_start_block_number = '"$latest_block"'/g' $HOME/0g-storage-node/run/config.toml
 
 rm -rf $HOME/0g-storage-node/run/db
 rm -rf $HOME/0g-storage-node/run/network

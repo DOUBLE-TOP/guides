@@ -94,7 +94,7 @@ sed -i 's|# network_libp2p_port = 1234|network_libp2p_port = 1234|' $HOME/0g-sto
 sed -i 's|# network_discovery_port = 1234|network_discovery_port = 1234|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# network_boot_nodes = \[\]|network_boot_nodes = \["/ip4/47.251.117.133/udp/1234/p2p/16Uiu2HAmTVDGNhkHD98zDnJxQWu3i1FL1aFYeh9wiQTNu4pDCgps","/ip4/47.76.61.226/udp/1234/p2p/16Uiu2HAm2k6ua2mGgvZ8rTMV8GhpW71aVzkQWy7D37TTDuLCpgmX"]|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# db_dir = "db"|db_dir = "db"|' $HOME/0g-storage-node/run/config.toml
-sed -i 's|# blockchain_rpc_endpoint = "http://127.0.0.1:8545"|blockchain_rpc_endpoint = "http://127.0.0.1:8545"|' $HOME/0g-storage-node/run/config.toml
+sed -i 's|# blockchain_rpc_endpoint = "http://127.0.0.1:8545"|blockchain_rpc_endpoint = "https://evmrpc-testnet.0g.ai"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^#\? *log_sync_start_block_number = [0-9]\+|log_sync_start_block_number = 1|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|^#\? *confirmation_block_count = [0-9]\+|confirmation_block_count = 6|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# rpc_enabled = true|rpc_enabled = true|' $HOME/0g-storage-node/run/config.toml
@@ -102,11 +102,6 @@ sed -i 's|# miner_key = ""|miner_key = "'"$PRIVATE_KEY"'"|' $HOME/0g-storage-nod
 sed -i 's|^#\? *db_max_num_sectors = [0-9]\+|db_max_num_sectors = 1000000000|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# auto_sync_enabled = false|auto_sync_enabled = true|' $HOME/0g-storage-node/run/config.toml
 sed -i '/# shard_position = "0\/2"/a reward_contract_address = "'"$REWARD_CONTRACT"'"' $HOME/0g-storage-node/run/config.toml
-
-#sed -i 's/debug/info/; s/h2=info/h2=warn/' $HOME/0g-storage-node/run/log_config
-
-#latest_block=$($HOME/go/bin/0gchaind status | jq -r .sync_info.latest_block_height)
-#sed -i 's/log_sync_start_block_number = [0-9]\+/log_sync_start_block_number = '"$latest_block"'/g' $HOME/0g-storage-node/run/config.toml
 
 echo "Переходим к инициализации ноды"
 echo "-----------------------------------------------------------------------------"
