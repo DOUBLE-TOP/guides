@@ -301,6 +301,7 @@ fi
 if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
     cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
 fi
+pkill next-server
 
 cd modal-login
 yarn install
@@ -343,6 +344,7 @@ fi
 if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
     cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
 fi
+pkill next-server
 
 
 # Set parameters
