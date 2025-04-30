@@ -211,7 +211,7 @@ done
     }
 
     # Set up trap to catch Ctrl+C and call cleanup
-    trap cleanup EXIT
+    #trap cleanup EXIT
 
     echo "Ждем активацию API ключа..."
     while true; do
