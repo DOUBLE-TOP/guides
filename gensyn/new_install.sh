@@ -28,6 +28,7 @@ SERVICE_NAME="gensyn.service"
 if systemctl list-units --type=service --all | grep -q "$SERVICE_NAME"; then
     echo "Нашли существующий сервис gensyn, останавливаем..."
     sudo systemctl stop "$SERVICE_NAME"
+    pkill next-server
 fi
 
 FOLDER="rl-swarm"
