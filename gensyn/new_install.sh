@@ -294,13 +294,6 @@ cd "\$FOLDER" || exit 1
 source /root/.profile
 source .venv/bin/activate
 
-if [ ! -f "$FOLDER/modal-login/temp-data/userApiKey.json" ]; then
-    cp "$FOLDER/userApiKey_backup.json" "$FOLDER/modal-login/temp-data/userApiKey.json"
-fi
-
-if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
-    cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
-fi
 pkill next-server
 
 cd modal-login
@@ -337,13 +330,6 @@ cd "\$FOLDER" || exit 1
 source /root/.profile
 source .venv/bin/activate
 
-if [ ! -f "$FOLDER/modal-login/temp-data/userApiKey.json" ]; then
-    cp "$FOLDER/userApiKey_backup.json" "$FOLDER/modal-login/temp-data/userApiKey.json"
-fi
-
-if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
-    cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
-fi
 pkill next-server
 
 
