@@ -294,6 +294,14 @@ cd "\$FOLDER" || exit 1
 source /root/.profile
 source .venv/bin/activate
 
+if [ ! -f "$FOLDER/modal-login/temp-data/userApiKey.json" ]; then
+    cp "$FOLDER/userApiKey_backup.json" "$FOLDER/modal-login/temp-data/userApiKey.json"
+fi
+
+if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
+    cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
+fi
+
 cd modal-login
 yarn install
 yarn dev > /dev/null 2>&1 &
@@ -328,12 +336,12 @@ cd "\$FOLDER" || exit 1
 source /root/.profile
 source .venv/bin/activate
 
-if [ ! -f "$ROOT/modal-login//temp-data/userApiKey.json" ]; then
-    cp "$ROOT/userApiKey_backup.json" "$ROOT/modal-login//temp-data/userApiKey.json"
+if [ ! -f "$FOLDER/modal-login/temp-data/userApiKey.json" ]; then
+    cp "$FOLDER/userApiKey_backup.json" "$FOLDER/modal-login/temp-data/userApiKey.json"
 fi
 
-if [ ! -f "$ROOT/modal-login//temp-data/userData.json" ]; then
-    cp "$ROOT/userData_backup.json" "$ROOT/modal-login//temp-data/userData.json"
+if [ ! -f "$FOLDER/modal-login/temp-data/userData.json" ]; then
+    cp "$FOLDER/userData_backup.json" "$FOLDER/modal-login/temp-data/userData.json"
 fi
 
 
