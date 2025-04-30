@@ -228,7 +228,7 @@ done
     sed -i "3s/.*/SMART_CONTRACT_ADDRESS=$SWARM_CONTRACT/" "$ENV_FILE"
 
 if [[ -f "/root/$PEM_FILE" ]]; then
-    echo "Нашли бекап файла $PEM_FILE в /root/. Копирую впапку проекта $ROOT..."
+    echo "Нашли бекап файла $PEM_FILE в /root/. Копирую в папку проекта $ROOT..."
     cp "/root/$PEM_FILE" "$ROOT/"
 fi
 
