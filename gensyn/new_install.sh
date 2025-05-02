@@ -20,7 +20,7 @@ if [[ "$(echo -e "$current_version\n$required_version" | sort -V | head -n1)" !=
     sudo apt update &>/dev/null
     sudo apt install -y python3.12 python3.12-venv python3.12-dev &>/dev/null
     sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 12
-    sudo update-alternatives --set python3 /usr/bin/python3.12
+    #sudo update-alternatives --set python3 /usr/bin/python3.12
     curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.12 &>/dev/null
 fi
 
@@ -78,7 +78,11 @@ echo "Клонируем GIT проекта..."
 REPO_URL="https://github.com/gensyn-ai/rl-swarm.git"
 git clone "$REPO_URL" &>/dev/null
 cd rl-swarm || { echo "Failed to enter directory rl-swarm"; exit 1; }
-python3 -m venv .venv
+if [[ -x /usr/bin/python3.12 ]]; then
+    /usr/bin/python3.12 -m venv .venv
+else
+    python3 -m venv .venv
+fi
 source .venv/bin/activate
 
 
