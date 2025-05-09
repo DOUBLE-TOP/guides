@@ -14,7 +14,7 @@ if [ ! -f drosera.toml ]; then
   cd drosera
 fi
 echo "Обновляем значение drosera_rpc в файле drosera.toml"
-sed -i 's|https://seed-node.testnet.drosera.io|https://relay.testnet.drosera.io|g' drosera.toml
+sed -i 's|^drosera_rpc =.*|drosera_rpc = "https://relay.testnet.drosera.io"|' drosera.toml
 
 # get private key to do drosera apply with it
 SERVICE_FILE="/etc/systemd/system/drosera.service"
