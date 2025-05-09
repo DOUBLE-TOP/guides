@@ -10,6 +10,19 @@ echo "Обновляемм Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
 droseraup &>/dev/null
 
+echo "Обновляем drosera-operator"
+TARGET="$HOME/.drosera/bin/drosera-operator"
+CURRENT_PATH=$(which drosera-operator 2>/dev/null)
+
+if [ "$CURRENT_PATH" != "$TARGET" ]; then
+  if [ -n "$CURRENT_PATH" ] && [ -e "$CURRENT_PATH" ]; then
+    sudo rm -f "$CURRENT_PATH"
+  fi
+
+  sudo ln -s "$TARGET" /usr/bin/drosera-operator
+fi
+
+
 if [ ! -f drosera.toml ]; then
   cd drosera
 fi
