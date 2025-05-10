@@ -219,7 +219,8 @@ RestartSec=5
 LimitNOFILE=65535
 StandardOutput=append:/opt/popcache/logs/stdout.log
 StandardError=append:/opt/popcache/logs/stderr.log
-Environment=POP_CONFIG_PATH=/opt/popcache/config.json POP_INVITE_CODE=$invite_code
+Environment=POP_CONFIG_PATH=/opt/popcache/config.json
+Environment=POP_INVITE_CODE=$invite_code
 
 [Install]
 WantedBy=multi-user.target
