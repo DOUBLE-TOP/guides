@@ -210,8 +210,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=popcache
-Group=popcache
+User=root
+Group=root
 WorkingDirectory=/opt/popcache
 ExecStart=$pop_cmd
 Restart=always
