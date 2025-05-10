@@ -7,10 +7,10 @@ echo "--------------------------------------------------------------------------
 echo "-----------------------------------------------------------------------------"
 echo "Устанавливаем софт"
 echo "-----------------------------------------------------------------------------"
-sudo apt update -y
+sudo apt update -y &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
 curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
-sudo apt install -y ca-certificates &>/dev/null
+sudo apt install gawk bison build-essential manpages-dev ca-certificates -y &>/dev/null
 
 echo "-----------------------------------------------------------------------------"
 echo "Установка ноды"
@@ -27,7 +27,7 @@ else
 fi
 sudo usermod -aG sudo "$USERNAME"
 
-sudo bash -c 'cat > /etc/sysctl.d/99-popcache.conf << "EOL"
+sudo tee /etc/sysctl.d/99-popcache.conf > /dev/null << "EOL"
 net.ipv4.ip_local_port_range = 1024 65535
 net.core.somaxconn = 65535
 net.ipv4.tcp_low_latency = 1
@@ -38,21 +38,150 @@ net.ipv4.tcp_wmem = 4096 65536 16777216
 net.ipv4.tcp_rmem = 4096 87380 16777216
 net.core.wmem_max = 16777216
 net.core.rmem_max = 16777216
-EOL'
+EOL
 
-sudo sysctl --system
+sudo sysctl --system &>/dev/null
 
-sudo bash -c 'cat > /etc/security/limits.d/popcache.conf << "EOL"
+sudo tee /etc/security/limits.d/popcache.conf > /dev/null << "EOL"
 *    hard nofile 65535
 *    soft nofile 65535
-EOL'
+EOL
+
 
 sudo mkdir -p /opt/popcache
 cd /opt/popcache
 
-# DOWNLOAD binary here
+ldd_version=$(ldd --version | head -n1 | awk '{print $NF}')
 
-# ask user questions and create config.json
+if [[ "$ldd_version" == "2.39" ]]; then
+    while true; do
+        echo "Какой бинарник качаем, x64 или ARM? (1 - x64 / 2 - ARM)"
+        read -rp "Введите 1 или 2: " choice
+        case "$choice" in
+            1)
+                url="https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz"
+                wget "$url" &>/dev/null
+                tar -xf pop-v0.3.0-linux-x64.tar.gz &>/dev/null
+                break
+                ;;
+            2)
+                url="https://download.pipe.network/static/pop-v0.3.0-linux-arm64.tar.gz"
+                wget "$url" &>/dev/null
+                tar -xf pop-v0.3.0-linux-arm64.tar.gz &>/dev/null
+                break
+                ;;
+            *)
+                echo "Введите 1 или 2."
+                ;;
+        esac
+    done
+    chmod +x pop
+    pop_cmd="/opt/popcache/pop"
+else
+    echo "Билдим нужную версию glibc (2.39) - время ожидания 3-5 минут"
+    # ubuntu 22.04 compatability
+    mkdir -p /opt/glibc-build
+    cd /opt/glibc-build
+    
+    # installing glibc 2.39
+    wget http://ftp.gnu.org/gnu/libc/glibc-2.39.tar.gz &>/dev/null
+    tar -xf glibc-2.39.tar.gz &>/dev/null
+    mkdir glibc-2.39-build glibc-2.39-install
+    cd glibc-2.39-build
+    ../glibc-2.39/configure --prefix=/opt/glibc-build/glibc-2.39-install &>/dev/null
+    make -j$(nproc) &>/dev/null
+    make install &>/dev/null
+
+    sudo chown -R root:root /opt/glibc-build
+    chmod -R a+rx /opt/glibc-build
+    
+    # downloading pop binary
+    cd /opt/popcache
+    wget https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz &>/dev/null
+    tar -xf pop-v0.3.0-linux-x64.tar.gz &>/dev/null
+    chmod +x pop
+    
+    pop_cmd="/opt/glibc-build/glibc-2.39-install/lib/ld-linux-x86-64.so.2 --library-path \"/opt/glibc-build/glibc-2.39-install/lib:/usr/lib/x86_64-linux-gnu/\" /opt/popcache/pop"
+fi
+
+read -rp "Введите Solana public key: " solana_addr
+read -rp "Введите инвайт код: " invite_code
+
+if [ -e /opt/popcache/config.json ]; then
+  read -rp "config.json уже существует. Перезаписать? [y/N]: " confirm
+  if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+    echo "Пропускаем запись в файл config.json."
+  else
+    cat > /opt/popcache/config.json <<EOF
+{
+  "pop_name": "your-pop-name",
+  "pop_location": "Your Location, Country",
+  "server": {
+    "host": "0.0.0.0",
+    "port": 443,
+    "http_port": 80,
+    "workers": 40
+  },
+  "cache_config": {
+    "memory_cache_size_mb": 4096,
+    "disk_cache_path": "./cache",
+    "disk_cache_size_gb": 100,
+    "default_ttl_seconds": 86400,
+    "respect_origin_headers": true,
+    "max_cacheable_size_mb": 1024
+  },
+  "api_endpoints": {
+    "base_url": "https://dataplane.pipenetwork.com"
+  },
+  "identity_config": {
+    "node_name": "your-node-name",
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "website": "https://your-website.com",
+    "discord": "your_discord_username",
+    "telegram": "your_telegram_handle",
+    "solana_pubkey": "$solana_addr",
+    "invite_code": "$invite_code"
+  }
+}
+EOF
+  fi
+else
+  cat > /opt/popcache/config.json <<EOF
+{
+  "pop_name": "your-pop-name",
+  "pop_location": "Your Location, Country",
+  "server": {
+    "host": "0.0.0.0",
+    "port": 443,
+    "http_port": 80,
+    "workers": 40
+  },
+  "cache_config": {
+    "memory_cache_size_mb": 4096,
+    "disk_cache_path": "./cache",
+    "disk_cache_size_gb": 100,
+    "default_ttl_seconds": 86400,
+    "respect_origin_headers": true,
+    "max_cacheable_size_mb": 1024
+  },
+  "api_endpoints": {
+    "base_url": "https://dataplane.pipenetwork.com"
+  },
+  "identity_config": {
+    "node_name": "your-node-name",
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "website": "https://your-website.com",
+    "discord": "your_discord_username",
+    "telegram": "your_telegram_handle",
+    "solana_pubkey": "$solana_addr",
+    "invite_code": "$invite_code"
+  }
+}
+EOF
+fi
+
 
 sudo mkdir -p /opt/popcache/logs
 sudo chown -R popcache:popcache /opt/popcache
@@ -72,7 +201,7 @@ fi
 
 echo "Создаем systemd сервис popcache."
 
-sudo bash -c 'cat > /etc/systemd/system/popcache.service << "EOL"
+sudo tee /etc/systemd/system/popcache.service > /dev/null <<EOL
 [Unit]
 Description=POP Cache Node
 After=network.target
@@ -82,17 +211,17 @@ Type=simple
 User=popcache
 Group=popcache
 WorkingDirectory=/opt/popcache
-ExecStart=/opt/popcache/pop
+ExecStart=$pop_cmd
 Restart=always
 RestartSec=5
 LimitNOFILE=65535
 StandardOutput=append:/opt/popcache/logs/stdout.log
 StandardError=append:/opt/popcache/logs/stderr.log
-Environment=POP_CONFIG_PATH=/opt/popcache/config.json
+Environment=POP_CONFIG_PATH=/opt/popcache/config.json POP_INVITE_CODE=$invite_code
 
 [Install]
 WantedBy=multi-user.target
-EOL'
+EOL
 
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
@@ -101,7 +230,11 @@ sudo systemctl enable popcache
 sudo service popcache start
 echo "Сервис создан и запущен."
 
-sudo bash -c 'cat > "$LOGROTATE_FILE" << "EOL"
+sudo touch "$LOGROTATE_FILE"
+sudo chmod 0640 "$LOGROTATE_FILE"
+sudo chown popcache:popcache "$LOGROTATE_FILE"
+
+sudo bash -c "cat > $LOGROTATE_FILE << EOL
 /opt/popcache/logs/*.log {
     daily
     missingok
@@ -115,16 +248,15 @@ sudo bash -c 'cat > "$LOGROTATE_FILE" << "EOL"
         systemctl reload popcache >/dev/null 2>&1 || true
     endscript
 }
-EOL'
+EOL"
 sudo mkdir -p /opt/popcache/logs
 sudo chown -R "$USER:$GROUP" /opt/popcache/logs
 echo "Ротация логов настроена."
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
-echo "tail -f /opt/popcache/logs/stderr.log"
 echo "tail -f /opt/popcache/logs/stdout.log"
-echo "sudo journalctl -u popcache"
+echo "sudo journalctl -u popcache -f"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
