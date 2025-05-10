@@ -118,6 +118,7 @@ if [ -e /opt/popcache/config.json ]; then
 {
   "pop_name": "$pop_name",
   "pop_location": "$pop_location",
+  "invite_code": "$invite_code",
   "server": {
     "host": "0.0.0.0",
     "port": 443,
@@ -142,8 +143,7 @@ if [ -e /opt/popcache/config.json ]; then
     "website": "https://your-website.com",
     "discord": "your_discord_username",
     "telegram": "your_telegram_handle",
-    "solana_pubkey": "$solana_addr",
-    "invite_code": "$invite_code"
+    "solana_pubkey": "$solana_addr"
   }
 }
 EOF
@@ -153,6 +153,7 @@ else
 {
   "pop_name": "$pop_name",
   "pop_location": "$pop_location",
+  "invite_code": "$invite_code",
   "server": {
     "host": "0.0.0.0",
     "port": 443,
@@ -177,8 +178,7 @@ else
     "website": "https://your-website.com",
     "discord": "your_discord_username",
     "telegram": "your_telegram_handle",
-    "solana_pubkey": "$solana_addr",
-    "invite_code": "$invite_code"
+    "solana_pubkey": "$solana_addr"
   }
 }
 EOF
