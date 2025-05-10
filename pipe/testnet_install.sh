@@ -106,6 +106,8 @@ fi
 
 read -rp "Введите Solana public key: " solana_addr
 read -rp "Введите инвайт код: " invite_code
+read -rp "Введите Pop Name(имя) для конфига: " pop_name
+read -rp "Введите Pop Location(Страну) для конфига: " pop_location
 
 if [ -e /opt/popcache/config.json ]; then
   read -rp "config.json уже существует. Перезаписать? [y/N]: " confirm
@@ -114,8 +116,8 @@ if [ -e /opt/popcache/config.json ]; then
   else
     cat > /opt/popcache/config.json <<EOF
 {
-  "pop_name": "your-pop-name",
-  "pop_location": "Your Location, Country",
+  "pop_name": "$pop_name",
+  "pop_location": "$pop_location",
   "server": {
     "host": "0.0.0.0",
     "port": 443,
