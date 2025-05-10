@@ -151,8 +151,8 @@ EOF
 else
   cat > /opt/popcache/config.json <<EOF
 {
-  "pop_name": "your-pop-name",
-  "pop_location": "Your Location, Country",
+  "pop_name": "$pop_name",
+  "pop_location": "$pop_location",
   "server": {
     "host": "0.0.0.0",
     "port": 443,
