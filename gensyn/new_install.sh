@@ -191,6 +191,9 @@ done
     echo "-----------------------------------------------------------------------------"
     echo ""
 
+    # fix forever loading
+    curl -s https://raw.githubusercontent.com/DOUBLE-TOP/guides/refs/heads/main/gensyn/fix_login_loading_screen.sh | bash &>/dev/null
+    
     echo "Please login to create an Ethereum Server Wallet"
     SERVER_PID=$!  # Store the process ID
     sleep 5
