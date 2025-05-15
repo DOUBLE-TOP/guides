@@ -18,7 +18,7 @@ echo "Удаляем Galileo и 0gchain если уже установлены"
 sudo systemctl stop 0gd >/dev/null 2>&1 || true && sudo systemctl disable 0gd >/dev/null 2>&1 || true
 sudo systemctl stop 0ggeth >/dev/null 2>&1 || true && sudo systemctl disable 0ggeth >/dev/null 2>&1 || true 
 sudo systemctl stop 0gchaind >/dev/null 2>&1 || true  && sudo systemctl disable 0gchaind >/dev/null 2>&1 || true 
-rm -rf galileo galileo-v1.0.1.tar.gz galileo-v1.1.0.tar.gz .0gchaind >/dev/null 2>&1
+rm -rf galileo galileo-v1.0.1.tar.gz galileo-v1.1.0.tar.gz galileo-v1.1.1.tar.gz .0gchaind >/dev/null 2>&1
 rm -rf $HOME/go/bin/* >/dev/null 2>&1
 rm -rf $HOME/.bash_profile >/dev/null 2>&1
 sudo rm /usr/local/bin/0gchaind >/dev/null 2>&1
