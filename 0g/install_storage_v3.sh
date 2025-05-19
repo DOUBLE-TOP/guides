@@ -6,9 +6,9 @@ echo "--------------------------------------------------------------------------
 echo "Устанавливаем софт (временной диапазон ожидания ~5-15 min.)"
 echo "-----------------------------------------------------------------------------"
 sudo apt update && sudo apt upgrade -y 
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh) &>/dev/null
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh) &>/dev/null
-bash <(curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh) &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/rust.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/go.sh | bash &>/dev/null
 sudo apt install --fix-broken -y &>/dev/null
 sudo apt install nano mc wget build-essential git jq make gcc tmux chrony lz4 unzip ncdu htop -y &>/dev/null
 source .profile
@@ -70,7 +70,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart 0g_storage
 
 echo "0G Storage Node успешно установлена"
-echo "Обязательно запросите токены в кране (гайд)"
+echo "Обязательно запросите токены в кране"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
