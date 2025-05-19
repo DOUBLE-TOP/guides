@@ -57,6 +57,9 @@ while true; do
     fi
 done
 
+mkdir -p $HOME/brinxai_worker
+cd $HOME/brinxai_worker
+
 echo "Создаем .env файл"
 cat <<EOF > .env
 WORKER_PORT=$USER_PORT
