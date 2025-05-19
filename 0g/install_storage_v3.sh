@@ -33,7 +33,7 @@ echo export MINE_CONTRACT="0x3A0d1d67497Ad770d6f72e7f4B8F0BAbaa2A649C" >> ~/.bas
 echo export REWARD_CONTRACT="0xd3D4D91125D76112AE256327410Dd0414Ee08Cb4" >> ~/.bash_profile
 source ~/.bash_profile
 
-echo -e "ZGS_LOG_DIR: $ZGS_LOG_DIR\nZGS_LOG_CONFIG_FILE: $ZGS_LOG_CONFIG_FILE\nLOG_CONTRACT_ADDRESS: $LOG_CONTRACT_ADDRESS\nMINE_CONTRACT: $MINE_CONTRACT
+echo -e "ZGS_LOG_DIR: $ZGS_LOG_DIR\nZGS_LOG_CONFIG_FILE: $ZGS_LOG_CONFIG_FILE\nLOG_CONTRACT_ADDRESS: $LOG_CONTRACT_ADDRESS\nMINE_CONTRACT: $MINE_CONTRACT"
 
 sed -i 's|# log_config_file = "log_config"|log_config_file = "'"$ZGS_LOG_CONFIG_FILE"'"|' $HOME/0g-storage-node/run/config.toml
 sed -i 's|# log_directory = "log"|log_directory = "'"$ZGS_LOG_DIR"'"|' $HOME/0g-storage-node/run/config.toml
@@ -70,4 +70,4 @@ sudo systemctl daemon-reload
 sudo systemctl restart 0g_storage
 
 echo "0G Storage Node успешно установлена"
-echo "Обязательно запросите токены в кране"
+echo "Обязательно запросите токены в кране - https://faucet.0g.ai/"
