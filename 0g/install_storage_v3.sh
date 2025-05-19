@@ -24,7 +24,7 @@ cargo build --release
 echo "Репозиторий успешно склонирован, начинаем настройку переменных"
 echo "-----------------------------------------------------------------------------"
 # Получение приватного ключа
-read -p "Введите private_key: " PRIVATE_KEY
+read -p "Введите private_key (without the `0x` prefix): " PRIVATE_KEY
 
 echo export ZGS_LOG_DIR="$HOME/0g-storage-node/run/log" >> ~/.bash_profile
 echo export ZGS_LOG_CONFIG_FILE="$HOME/0g-storage-node/run/log_config" >> ~/.bash_profile
