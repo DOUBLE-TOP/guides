@@ -73,7 +73,7 @@ After=network-online.target
 [Service]
 User=root
 ExecStart=$HOME/go/bin/0gchaind start \\
-    --rpc.laddr tcp://0.0.0.0:${OG_PORT}657 \\
+    --rpc.laddr tcp://0.0.0.0:26657 \\
     --chain-spec devnet \\
     --kzg.trusted-setup-path=$HOME/galileo/kzg-trusted-setup.json \\
     --engine.jwt-secret-path=$HOME/galileo/jwt-secret.hex \\
