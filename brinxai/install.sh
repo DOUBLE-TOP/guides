@@ -72,6 +72,7 @@ if [ "$GPU_AVAILABLE" = true ]; then
 services:
   brinxai_worker:
     image: admier/brinxai_nodes-worker:latest
+    restart: unless-stopped
     environment:
       - WORKER_PORT=\${WORKER_PORT:-5011}
       - NODE_UUID=\${NODE_UUID}
@@ -101,6 +102,7 @@ else
 services:
   brinxai_worker:
     image: admier/brinxai_nodes-worker:latest
+    restart: unless-stopped
     environment:
       - WORKER_PORT=\${WORKER_PORT:-5011}
       - NODE_UUID=\${NODE_UUID}
