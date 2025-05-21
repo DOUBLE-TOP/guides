@@ -12,6 +12,7 @@ curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/docker.sh | bash
 # Removing old installation if exists
 echo "Удаляем старую версию brinx.ai (если уже стоит)"
 docker rm -f brinxai_worker-worker-1 text-ui stable-diffusion rembg upscaler brinxai_relay 2>/dev/null || true
+docker ps -a -q --filter "name=brinxai_worker" | xargs -r docker rm -f > /dev/null 2>&1
 docker ps -a -q --filter ancestor=admier/brinxai_nodes-worker | xargs -r docker rm -f && docker rmi admier/brinxai_nodes-worker
 #docker image inspect admier/brinxai_nodes-worker >/dev/null 2>&1 && docker rmi admier/brinxai_nodes-worker
 docker volume prune -f
