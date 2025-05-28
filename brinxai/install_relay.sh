@@ -45,7 +45,7 @@ DEST_PATH="/var/lib/docker/volumes/openvpn_data/_data/"
 cp "$TA_KEY_PATH" "$VOLUME_PATH"
 #cp "$TA_KEY_PATH" "$DEST_PATH"
 if [ $? -eq 0 ]; then
-  echo "Файл ta.key успешно скопирован в $DEST_PATH"
+  echo "Файл ta.key успешно скопирован в $VOLUME_PATH"
 else
   echo "Ошибка копирования файла"
 fi
