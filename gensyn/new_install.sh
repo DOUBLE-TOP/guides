@@ -11,17 +11,17 @@ apt-get install python3 python3-pip python3-venv python3-dev -y &>/dev/null
 
 # Get the current Python version (major.minor format)
 current_version=$(python3 --version 2>&1 | awk '{print $2}')
-required_version="3.12"
+required_version="3.13"
 
 if [[ "$(echo -e "$current_version\n$required_version" | sort -V | head -n1)" != "$required_version" ]]; then
-    echo "Python версия ниже за 3.12. Устанавливаю Python 3.12..."
+    echo "Python версия ниже за 3.13. Устанавливаю Python 3.13..."
     sudo apt install -y software-properties-common &>/dev/null
     sudo add-apt-repository -y ppa:deadsnakes/ppa &>/dev/null
     sudo apt update &>/dev/null
-    sudo apt install -y python3.12 python3.12-venv python3.12-dev &>/dev/null
-    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 12
-    #sudo update-alternatives --set python3 /usr/bin/python3.12
-    curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.12 &>/dev/null
+    sudo apt install -y python3.13 python3.13-venv python3.13-dev &>/dev/null
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 13
+    #sudo update-alternatives --set python3 /usr/bin/python3.13
+    curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.13 &>/dev/null
 fi
 
 SERVICE_NAME="gensyn.service"
@@ -79,8 +79,8 @@ echo "Клонируем GIT проекта..."
 REPO_URL="https://github.com/gensyn-ai/rl-swarm.git"
 git clone "$REPO_URL" &>/dev/null
 cd rl-swarm || { echo "Failed to enter directory rl-swarm"; exit 1; }
-if [[ -x /usr/bin/python3.12 ]]; then
-    /usr/bin/python3.12 -m venv .venv
+if [[ -x /usr/bin/python3.13 ]]; then
+    /usr/bin/python3.13 -m venv .venv
 else
     python3 -m venv .venv
 fi
