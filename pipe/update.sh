@@ -8,23 +8,26 @@ echo "--------------------------------------------------------------------------
 echo "Обновление ноды"
 echo "-----------------------------------------------------------------------------"
 
-sudo systemctl stop pop
+cd /opt/popcache || { echo "Директория /opt/popcache не найдена"; exit 1; }
 
-sudo sed -i '/^ExecStart=/ { /--enable-80-443/! s/$/ --enable-80-443/ }' /etc/systemd/system/pop.service
+echo "Остановка сервиса popcache"
+systemctl stop popcache.service
 
-sudo wget -O $HOME/opt/dcdn/pop "https://dl.pipecdn.app/v0.2.8/pop"
+echo "Загрузка новой версии"
+wget https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz &>/dev/null || { echo "Произошла ошибка загрузки архива"; exit 1; }
 
-chmod +x $HOME/opt/dcdn/pop
-sudo ln -s $HOME/opt/dcdn/pop /usr/local/bin/pop -f
+echo "Удаляем старый бинарник, распаковываем архив"
+rm -f pop
+tar -xvzf pop-v0.3.1-linux-x64.tar.gz &>/dev/null
+rm -f pop-v0.3.1-linux-x64.tar.gz
+chmod +x pop
 
-cd $HOME/opt/dcdn && ./pop --refresh
-
-sudo systemctl daemon-reload
-sudo systemctl start pop
+echo "Запуск сервиса popcache"
+systemctl start popcache.service
 
 echo "-----------------------------------------------------------------------------"
 echo "Проверка логов"
-echo "journalctl -n 100 -f -u pop -o cat"
+echo "tail -f /opt/popcache/logs/stdout.log"
 echo "-----------------------------------------------------------------------------"
 echo "Wish lifechange case with DOUBLETOP"
 echo "-----------------------------------------------------------------------------"
