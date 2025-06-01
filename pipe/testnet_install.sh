@@ -59,15 +59,15 @@ if [[ "$ldd_version" == "2.39" ]]; then
         read -rp "Введите 1 или 2: " choice
         case "$choice" in
             1)
-                url="https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz"
+                url="https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz"
                 wget "$url" &>/dev/null
-                tar -xf pop-v0.3.0-linux-x64.tar.gz &>/dev/null
+                tar -xf pop-v0.3.1-linux-x64.tar.gz &>/dev/null
                 break
                 ;;
             2)
-                url="https://download.pipe.network/static/pop-v0.3.0-linux-arm64.tar.gz"
+                url="https://download.pipe.network/static/pop-v0.3.1-linux-arm64.tar.gz"
                 wget "$url" &>/dev/null
-                tar -xf pop-v0.3.0-linux-arm64.tar.gz &>/dev/null
+                tar -xf pop-v0.3.1-linux-arm64.tar.gz &>/dev/null
                 break
                 ;;
             *)
@@ -97,8 +97,8 @@ else
     
     # downloading pop binary
     cd /opt/popcache
-    wget https://download.pipe.network/static/pop-v0.3.0-linux-x64.tar.gz &>/dev/null
-    tar -xf pop-v0.3.0-linux-x64.tar.gz &>/dev/null
+    wget https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz &>/dev/null
+    tar -xf pop-v0.3.1-linux-x64.tar.gz &>/dev/null
     chmod +x pop
     
     pop_cmd="/opt/glibc-build/glibc-2.39-install/lib/ld-linux-x86-64.so.2 --library-path \"/opt/glibc-build/glibc-2.39-install/lib:/usr/lib/x86_64-linux-gnu/\" /opt/popcache/pop"
