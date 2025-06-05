@@ -17,7 +17,7 @@ export $(grep -v '^#' .env | xargs)
 TIMETOGO="$1"
 
 if [ -z "$TIMETOGO" ] || ! [[ "$TIMETOGO" =~ ^[0-9]+$ ]]; then
-  echo "Ошибка: укажите время регистрации валидатора как числовой аргумент. Например nohup ./aztec_validator.sh 1769125131 > /var/log/aztec_validator.log 2>&1"
+  echo "Ошибка: укажите время регистрации валидатора как числовой аргумент. Например nohup ./aztec_validator.sh 1749125131 > /var/log/aztec_validator.log 2>&1 &"
   exit 1
 fi
 
