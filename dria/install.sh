@@ -69,5 +69,6 @@ sudo systemctl daemon-reload
 sudo systemctl enable dria.service
 echo "Установка Dria завершена"
 echo ""
+echo 'export PATH=$PATH:$HOME/.dria/bin' >> /root/.bash_profile
 source ~/.bash_profile
 dkn-compute-launcher start
