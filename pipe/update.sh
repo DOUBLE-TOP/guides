@@ -14,12 +14,12 @@ echo "Остановка сервиса popcache"
 systemctl stop popcache.service
 
 echo "Загрузка новой версии"
-wget https://download.pipe.network/static/pop-v0.3.1-linux-x64.tar.gz &>/dev/null || { echo "Произошла ошибка загрузки архива"; exit 1; }
+wget https://download.pipe.network/static/pop-v0.3.2-linux-x64.tar.gz &>/dev/null || { echo "Произошла ошибка загрузки архива"; exit 1; }
 
 echo "Удаляем старый бинарник, распаковываем архив"
 rm -f pop
-tar -xvzf pop-v0.3.1-linux-x64.tar.gz &>/dev/null
-rm -f pop-v0.3.1-linux-x64.tar.gz
+tar -xvzf pop-v0.3.2-linux-x64.tar.gz &>/dev/null
+rm -f pop-v0.3.2-linux-x64.tar.gz
 chmod +x pop
 
 echo "Запуск сервиса popcache"
