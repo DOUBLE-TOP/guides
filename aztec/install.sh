@@ -32,7 +32,7 @@ P2P_IP=$(curl -s ifconfig.me)
 read -rp "Введите Sepolia Ethereum RPC URL: " RPC_URL
 read -rp "Введите Beacon URL: " BEACON_URL
 read -rp "Введите Ваш Private Key: " PRIVATE_KEY
-read -rp "Введите Ваш Public Key: " ADDRESS
+read -rp "Введите Ваш Public Address: " ADDRESS
 
 # PRIVATE_KEY starts with 0x
 if [[ $PRIVATE_KEY != 0x* ]]; then
@@ -82,4 +82,4 @@ EOF
 # launching docker
 docker compose up -d
 
-echo "Готово. Проверяем логи командой: docker logs -f --tail=1000 aztec-sequencer"
+echo "Готово. Проверяем логи командой: docker logs -f --tail=100 aztec-sequencer"
