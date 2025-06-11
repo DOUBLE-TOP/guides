@@ -91,14 +91,15 @@ After=network-online.target
 User=root
 ExecStart=$HOME/go/bin/0gchaind start \\
     --rpc.laddr tcp://0.0.0.0:${OG_PORT}657 \\
-    --chain-spec devnet \\
-    --kzg.trusted-setup-path=$HOME/galileo/kzg-trusted-setup.json \\
-    --engine.jwt-secret-path=$HOME/galileo/jwt-secret.hex \\
-    --kzg.implementation=crate-crypto/go-kzg-4844 \\
-    --block-store-service.enabled \\
-    --node-api.enabled \\
-    --node-api.logging \\
-    --node-api.address 0.0.0.0:${OG_PORT}500 \\
+    --chaincfg.chain-spec devnet \\
+    --chaincfg.kzg.trusted-setup-path=$HOME/galileo/kzg-trusted-setup.json \\
+    --chaincfg.engine.jwt-secret-path=$HOME/galileo/jwt-secret.hex \\
+    --chaincfg.kzg.implementation=crate-crypto/go-kzg-4844 \\
+    --chaincfg.engine.rpc-dial-url=http://localhost:${OG_PORT}551 \\
+    --chaincfg.block-store-service.enabled \\
+    --chaincfg.node-api.enabled \\
+    --chaincfg.node-api.logging \\
+    --chaincfg.node-api.address 0.0.0.0:${OG_PORT}500 \\
     --pruning=nothing \\
     --home $HOME/.0gchaind/0g-home/0gchaind-home \\
     --p2p.seeds 85a9b9a1b7fa0969704db2bc37f7c100855a75d9@8.218.88.60:26656 \\
