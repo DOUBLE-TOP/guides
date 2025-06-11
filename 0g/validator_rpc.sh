@@ -21,14 +21,14 @@ sudo systemctl stop 0ggeth >/dev/null 2>&1 || true && sudo systemctl disable 0gg
 sudo systemctl stop geth >/dev/null 2>&1 || true && sudo systemctl disable geth >/dev/null 2>&1 || true 
 sudo systemctl stop 0gchaind >/dev/null 2>&1 || true  && sudo systemctl disable 0gchaind >/dev/null 2>&1 || true 
 rm -rf galileo/* >/dev/null 2>&1
-rm -rf galileo galileo-v1.0.1.tar.gz galileo-v1.1.0.tar.gz galileo-v1.1.1.tar.gz .0gchaind >/dev/null 2>&1
+rm -rf galileo galileo-v1.1.1.tar.gz galileo-v1.2.0.tar.gz .0gchaind >/dev/null 2>&1
 rm -rf $HOME/go/bin/* >/dev/null 2>&1
 #rm -rf $HOME/.bash_profile >/dev/null 2>&1
 sudo rm /usr/local/bin/0gchaind >/dev/null 2>&1
 
 echo "Скачиваем и устанавливаем Galileo"
-wget -q https://github.com/0glabs/0gchain-NG/releases/download/v1.1.1/galileo-v1.1.1.tar.gz
-tar -xzf galileo-v1.1.1.tar.gz -C "$HOME" >/dev/null 2>&1
+wget -q https://github.com/0glabs/0gchain-NG/releases/download/v1.2.0/galileo-v1.2.0.tar.gz
+tar -xzf galileo-v1.2.0.tar.gz -C "$HOME" >/dev/null 2>&1
 
 sudo chmod 777 $HOME/galileo/bin/geth
 sudo chmod 777 $HOME/galileo/bin/0gchaind
