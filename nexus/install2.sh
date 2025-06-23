@@ -12,6 +12,8 @@ rustup target add riscv32i-unknown-none-elf
 
 sudo apt install -y protobuf-compiler
 
+curl https://cli.nexus.xyz/ | sh
+
 source .profile
 
 SERVICE_NAME="nexus.service"
