@@ -43,7 +43,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=$HOME_DIR
-ExecStart=/bin/bash -c 'source /root/.profile && nexus-network start --node-id $NODE_ID'
+ExecStart=/bin/bash -c 'source /root/.bashrc && nexus-network start --node-id $NODE_ID'
 Restart=always
 RestartSec=5
 StandardOutput=append:$LOG_FILE
