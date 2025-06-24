@@ -13,12 +13,12 @@ function logo {
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
   mkdir -p $HOME/nwaku_backups
-  if [ -d "$HOME/nwaku_backups/keystore0.34" ]; then
+  if [ -d "$HOME/nwaku_backups/keystore0.35" ]; then
     echo "Бекап уже сделан"
   else
     echo "Делаем бекап ключей"
-    mkdir -p $HOME/nwaku_backups/keystore0.34
-    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.34/keystore.json
+    mkdir -p $HOME/nwaku_backups/keystore0.35
+    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.35/keystore.json
     rm -rf $HOME/nwaku-compose/keystore
   fi
   
