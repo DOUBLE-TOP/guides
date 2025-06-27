@@ -1,9 +1,88 @@
 #!/bin/bash
+echo "-----------------------------------------------------------------------------"
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/doubletop.sh | bash
+echo "-----------------------------------------------------------------------------"
 
-service gensyn stop
-cd rl-swarm
-git pull
-rm -f modal-login/temp-data/userData.json
+echo "Устанавливаем софт (временной диапазон ожидания ~5-20 min.)"
+echo "-----------------------------------------------------------------------------"
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/main.sh | bash &>/dev/null
+curl -s https://raw.githubusercontent.com/DOUBLE-TOP/tools/main/ufw.sh | bash &>/dev/null
+apt-get install python3 python3-pip python3-venv python3-dev -y &>/dev/null
+
+# Get the current Python version (major.minor format)
+current_version=$(python3 --version 2>&1 | awk '{print $2}')
+required_version="3.13"
+if [[ "$(echo -e "$current_version\n$required_version" | sort -V | head -n1)" != "$required_version" ]]; then
+    echo "Python версия ниже за 3.13. Устанавливаю Python 3.13..."
+    sudo apt install -y software-properties-common &>/dev/null
+    sudo add-apt-repository -y ppa:deadsnakes/ppa &>/dev/null
+    sudo apt update &>/dev/null
+    sudo apt install -y python3.13 python3.13-venv python3.13-dev &>/dev/null
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 13
+    #sudo update-alternatives --set python3 /usr/bin/python3.13
+    curl -sS https://bootstrap.pypa.io/get-pip.py | sudo python3.13 &>/dev/null
+fi
+
+SERVICE_NAME="gensyn.service"
+if systemctl list-units --type=service --all | grep -q "$SERVICE_NAME"; then
+    echo "Нашли существующий сервис gensyn, останавливаем..."
+    sudo systemctl stop "$SERVICE_NAME"
+    pkill next-server
+fi
+
+FOLDER="rl-swarm"
+PEM_FILE="swarm.pem"
+
+if [[ -f "$FOLDER/$PEM_FILE" ]]; then
+    echo "Нашли файл $PEM_FILE в $FOLDER. Копирую в /root/..."
+    cp "$FOLDER/$PEM_FILE" /root/
+    echo "Бекап $PEM_FILE сохранен - /root/$PEM_FILE."
+fi
+
+if [ -d "$FOLDER" ]; then
+    echo "Удаляем папку $FOLDER перед установкой."
+    rm -rf "$FOLDER"
+fi
+
+# Check if Node.js is installed
+if ! command -v node &> /dev/null; then
+    echo "Node.js не установлена. Устанавливаем..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+fi
+
+# Get Node.js version
+NODE_VERSION=$(node -v 2>/dev/null | cut -d 'v' -f 2)
+
+# Check if the version is lower than 20.18.0
+if [[ -n "$NODE_VERSION" && $(echo -e "$NODE_VERSION\n20.18.0" | sort -V | head -n1) == "$NODE_VERSION" ]]; then
+    echo "Версия NodeJS ниже 20.18.0 ($NODE_VERSION). Обновляем..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - >/dev/null 2>&1
+    sudo apt install -y nodejs >/dev/null 2>&1
+    echo "NodeJS обновлена: "
+    node -v
+fi
+
+NODE_VERSION=$(node -v 2>/dev/null | cut -d 'v' -f 2)
+echo "Node.js версия  $NODE_VERSION. Продолжаем..."
+
+#preinstall yarn, so its properly registered in ~/profile
+if ! command -v yarn >/dev/null 2>&1; then
+      echo "Yarn не установлен. Устанавливаем..."
+      curl -o- -L https://yarnpkg.com/install.sh 2>/dev/null | sh >/dev/null 2>&1
+      echo 'export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"' >> ~/.profile
+      source ~/.profile
+fi
+
+echo "Клонируем GIT проекта..."
+REPO_URL="https://github.com/gensyn-ai/rl-swarm.git"
+git clone "$REPO_URL" &>/dev/null
+cd rl-swarm || { echo "Failed to enter directory rl-swarm"; exit 1; }
+if [[ -x /usr/bin/python3.13 ]]; then
+    /usr/bin/python3.13 -m venv .venv
+else
+    python3 -m venv .venv
+fi
 source .venv/bin/activate
 
 
@@ -170,6 +249,10 @@ if [ "$CONNECT_TO_TESTNET" = true ]; then
             sleep 5
         fi
     done
+    if [[ -f "/root/$PEM_FILE" ]]; then
+        echo "Нашли бекап файла $PEM_FILE в /root/. Копирую в папку проекта $ROOT..."
+        cp "/root/$PEM_FILE" "$ROOT/"
+    fi
 fi
 
 echo_green ">> Ставим библиотеки с помощью pip..."
