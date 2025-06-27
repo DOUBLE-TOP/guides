@@ -1,5 +1,6 @@
 #!/bin/bash
 
+service gensyn stop
 cd rl-swarm
 git pull
 rm -f modal-login/temp-data/userData.json
