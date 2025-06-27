@@ -117,7 +117,7 @@ if [ "$CONNECT_TO_TESTNET" = true ]; then
             echo "Detected Ubuntu or WSL Ubuntu. Installing Yarn via apt..."
             curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-            sudo apt update && sudo apt install -y yarn
+            sudo apt install -y yarn > /dev/null 2>&1
         else
             echo "Yarn not found. Installing Yarn globally with npm (no profile edits)…"
             # This lands in $NVM_DIR/versions/node/<ver>/bin which is already on PATH
