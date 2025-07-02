@@ -1,10 +1,9 @@
 #!/bin/bash
 
 sudo systemctl stop firedancer
-
 sudo rm -rf /firedancer/ledger/*
 
-bash -c "cat > /firedancer/firedancer-config.toml<<EOF
+cat <<EOF | sudo tee /firedancer/firedancer-config.toml > /dev/null
 user = "firedancer"
 dynamic_port_range = "8900-9000"
 
@@ -78,6 +77,7 @@ dynamic_port_range = "8900-9000"
         max_concurrent_handshakes = 4096
     [tiles.shred]
         max_pending_shred_sets = 512
+
 [tiles.bundle]
     enabled = true
     url = "https://testnet.block-engine.jito.wtf"
@@ -85,8 +85,7 @@ dynamic_port_range = "8900-9000"
     tip_payment_program_addr = "GJHtFqM9agxPmkeKjHny6qiRKrXZALvvFGiKf11QE7hy"
     tip_distribution_authority = "GZctHpWXmsZC1YHACTGGcHhYxjdRqQvTpYkb9LMvxDib"
     commission_bps = 10000
-EOF"
+EOF
 
 sudo systemctl daemon-reload
-
-sudo systemctl restart solana
+sudo systemctl restart firedancer
