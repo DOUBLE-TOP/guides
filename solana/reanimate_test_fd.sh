@@ -1,9 +1,9 @@
 #!/bin/bash
 
 sudo systemctl stop firedancer
-sudo rm -rf /firedancer/ledger/*
+sudo rm -rf /home/firedancer/ledger/*
 
-cat <<EOF | sudo tee /firedancer/firedancer-config.toml > /dev/null
+cat <<EOF | sudo tee /home/firedancer/firedancer-config.toml > /dev/null
 user = "firedancer"
 dynamic_port_range = "8900-9000"
 
