@@ -1,6 +1,6 @@
 #!/bin/bash
 
-agave-install init v2.0.22
+agave-install init v2.3.2
 
 sudo systemctl stop solana
 
@@ -39,9 +39,9 @@ ExecStart=/root/.local/share/solana/install/active_release/bin/agave-validator \
 --full-rpc-api \
 --known-validator FT9QgTVo375TgDAQusTgpsfXqTosCJLfrBpoVdcbnhtS \
 --known-validator 5D1fNXzvv5NjV1ysLjirC4WY92RNsVH18vjmcszZd8on \
---wait-for-supermajority 312256121 \
---expected-shred-version 64475 \
---expected-bank-hash 6A7U1X8WqnWRXWtqaxF15sSYHLT66j1ycBEyFigGwr2Z 
+--wait-for-supermajority 343175553 \
+--expected-shred-version 9065 \
+--expected-bank-hash 4oMrSXsLTiCc1X7S27kxSfGVraTCZoZ7YTy2skEB9bPk 
 ExecReload=/bin/kill -s HUP 
 ExecStop=/bin/kill -s QUIT 
 [Install]
