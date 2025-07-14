@@ -30,6 +30,7 @@ fi
 echo "Ставим Drosera CLI"
 curl -s -L https://app.drosera.io/install | bash > /dev/null 2>&1
 echo 'export PATH="$PATH:/root/.drosera/bin"' >> /root/.profile
+echo 'export PATH="/root/.drosera/bin:$PATH"' >> /root/.bashrc
 source /root/.profile
 droseraup &>/dev/null
 
