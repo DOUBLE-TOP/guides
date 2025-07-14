@@ -216,7 +216,7 @@ if [ "$CONNECT_TO_TESTNET" = true ]; then
 
     # Docker image already builds it, no need to again.
     if [ -z "$DOCKER" ]; then
-        yarn install --immutable --silent
+        yarn install --immutable --silent > /dev/null 2>&1
         echo "Building server"
         yarn build > "$ROOT/logs/yarn.log" 2>&1
     fi
