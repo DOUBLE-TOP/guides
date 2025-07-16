@@ -37,25 +37,25 @@ function update {
   git pull origin master
   cp .env.example .env
 
-  if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+  #if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
       echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
       read RLN_RELAY_ETH_CLIENT_ADDRESS
-  fi
+  #fi
 
-  if [ -z "$ETH_TESTNET_ACCOUNT" ]; then
+  #if [ -z "$ETH_TESTNET_ACCOUNT" ]; then
       echo -e "Введите адрес ETH кошелька"
       read ETH_TESTNET_ACCOUNT
-  fi
+  #fi
 
-  if [ -z "$ETH_TESTNET_KEY" ]; then
+  #if [ -z "$ETH_TESTNET_KEY" ]; then
       echo -e "Введите ваш приватник от ETH кошелька"
       read ETH_TESTNET_KEY
-  fi
+  #fi
 
-  if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
+  #if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
       echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
       read RLN_RELAY_CRED_PASSWORD
-  fi
+  #fi
 
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$ETH_TESTNET_ACCOUNT|" $HOME/nwaku-compose/.env
