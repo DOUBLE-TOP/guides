@@ -13,12 +13,12 @@ function logo {
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
   mkdir -p $HOME/nwaku_backups
-  if [ -d "$HOME/nwaku_backups/keystore0.35" ]; then
+  if [ -d "$HOME/nwaku_backups/keystore0.36" ]; then
     echo "Бекап уже сделан"
   else
     echo "Делаем бекап ключей"
-    mkdir -p $HOME/nwaku_backups/keystore0.35
-    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.35/keystore.json
+    mkdir -p $HOME/nwaku_backups/keystore0.36
+    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.36/keystore.json
     rm -rf $HOME/nwaku-compose/keystore
   fi
   
@@ -42,8 +42,13 @@ function update {
       read RLN_RELAY_ETH_CLIENT_ADDRESS
   fi
 
+  if [ -z "$ETH_TESTNET_ACCOUNT" ]; then
+      echo -e "Введите адрес ETH кошелька"
+      read ETH_TESTNET_ACCOUNT
+  fi
+
   if [ -z "$ETH_TESTNET_KEY" ]; then
-      echo -e "Введите ваш приватник от ETH кошелека на котором есть как минимум 0.1 ETH в сети Sepolia"
+      echo -e "Введите ваш приватник от ETH кошелька"
       read ETH_TESTNET_KEY
   fi
 
@@ -53,9 +58,10 @@ function update {
   fi
 
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
+  sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$ETH_TESTNET_ACCOUNT|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
-  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.35.1|" $HOME/nwaku-compose/.env
+  sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.36.0|" $HOME/nwaku-compose/.env
 
   # Меняем стандартный порт графаны
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
