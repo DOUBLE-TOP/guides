@@ -24,21 +24,21 @@ function install_ufw {
 
 function read_sepolia_rpc {
   if [ ! $RPC_URL ]; then
-  echo -e "Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+  echo -e "${GREEN}Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ${NORMAL}"
   read RPC_URL
   fi
 }
 
 function read_private_key {
   if [ ! $WAKU_PRIVATE_KEY ]; then
-  echo -e "Введите ваш приватник от ETH кошелека (без 0х)"
+  echo -e "${GREEN}Введите ваш приватник от ETH кошелека (без 0х)${NORMAL}"
   read WAKU_PRIVATE_KEY
   fi
 }
 
 function read_pass {
   if [ ! $WAKU_PASS ]; then
-  echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
+  echo -e "${GREEN}Введите пароль который вводили в п.4 гайда${NORMAL}"
   read WAKU_PASS
   fi
 }
@@ -69,7 +69,7 @@ function setup_env {
       echo "POSTGRES_SHM=$POSTGRES_SHM" >> "$ENV_FILE"
   fi
 
-  echo "Вставьте весь текст из файла keystore.json ${GREEN}и нажмите Ctrl+D${NORMAL}"
+  echo -e "${GREEN}Вставьте весь текст из файла keystore.json и нажмите ${RED}Ctrl+D${NORMAL}"
   USER_INPUT=$(cat)
 
   # Validate JSON
@@ -89,6 +89,7 @@ function setup_env {
 
 
   # Меняем стандартный порт графаны
+  sed -i '/^version: "3.7"$/d' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/0\.0\.0\.0:3000:3000/0.0.0.0:3004:3000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/127\.0\.0\.1:4000:4000/0.0.0.0:4044:4000/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's|127.0.0.1:8003:8003|127.0.0.1:8333:8003|' $HOME/nwaku-compose/docker-compose.yml
