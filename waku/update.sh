@@ -56,10 +56,10 @@ function update {
   fi
 
 
-  if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+  #if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
       echo -e "${GREEN}Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ${NORMAL}"
       read RLN_RELAY_ETH_CLIENT_ADDRESS
-  fi
+  #fi
 
   if [ -z "$ETH_TESTNET_KEY" ]; then
       echo -e "${GREEN}Введите ваш приватник от ETH кошелька (без 0х)${NORMAL}"
