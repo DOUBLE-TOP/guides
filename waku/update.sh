@@ -60,7 +60,7 @@ function update {
   fi
 
   if [ -z "$ETH_TESTNET_KEY" ]; then
-      echo -e "Введите ваш приватник от ETH кошелька"
+      echo -e "Введите ваш приватник от ETH кошелька (без 0х)"
       read ETH_TESTNET_KEY
   fi
 
