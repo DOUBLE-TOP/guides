@@ -112,7 +112,7 @@ echo -e "Установка tools, ufw, docker"
 install_tools
 install_ufw
 install_docker
-echo -e "Клонируем репозиторий, готовим env и регистрируем rln"
+echo -e "Клонируем репозиторий, готовим env"
 git_clone
 setup_env
 echo -e "Запускаем docker контейнеры для waku"
