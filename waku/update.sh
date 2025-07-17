@@ -66,7 +66,7 @@ function update {
   fi
 
   if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
-      echo -e "${GREEN}Введите(придумайте) пароль который вводили в п.4 гайда${NORMAL}"
+      echo -e "${GREEN}Введите пароль который вводили в п.4 гайда${NORMAL}"
       read RLN_RELAY_CRED_PASSWORD
   fi
 
