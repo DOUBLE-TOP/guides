@@ -70,7 +70,7 @@ function update {
       read RLN_RELAY_CRED_PASSWORD
   fi
 
-  echo "Вставьте весь текст из файла keystore.json:"
+  echo "Вставьте весь текст из файла keystore.json ${GREEN}и нажмите Ctrl+D${NORMAL}"
   USER_INPUT=$(cat)
 
   # Validate JSON
