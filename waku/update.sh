@@ -55,7 +55,7 @@ function update {
 
 
   if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
-      echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+      echo -e "Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
       read RLN_RELAY_ETH_CLIENT_ADDRESS
   fi
 
