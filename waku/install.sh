@@ -31,7 +31,7 @@ function read_sepolia_rpc {
 
 function read_private_key {
   if [ ! $WAKU_PRIVATE_KEY ]; then
-  echo -e "Введите ваш приватник от ETH кошелека на котором есть как минимум 0.1 ETH в сети Sepolia"
+  echo -e "Введите ваш приватник от ETH кошелека"
   read WAKU_PRIVATE_KEY
   fi
 }
