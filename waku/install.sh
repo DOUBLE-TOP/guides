@@ -24,7 +24,7 @@ function install_ufw {
 
 function read_sepolia_rpc {
   if [ ! $RPC_URL ]; then
-  echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+  echo -e "Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
   read RPC_URL
   fi
 }
