@@ -52,6 +52,7 @@ function setup_env {
   STORAGE_SIZE="50GB"
   POSTGRES_SHM="5g"
   ENV_FILE=$HOME/nwaku-compose/.env
+  KEYSTORE_PATH="$HOME/nwaku-compose/keystore/keystore.json"
   
   cd nwaku-compose
   cp .env.example .env
@@ -67,6 +68,19 @@ function setup_env {
   else
       echo "POSTGRES_SHM=$POSTGRES_SHM" >> "$ENV_FILE"
   fi
+
+  echo "Вставьте весь текст из файла keystore.json ${GREEN}и нажмите Ctrl+D${NORMAL}"
+  USER_INPUT=$(cat)
+
+  # Validate JSON
+  echo "$USER_INPUT" | jq empty 2>/dev/null
+  if [ $? -ne 0 ]; then
+    echo "JSON имеен некорректный формат. Отменяем установку."
+    exit 1
+  fi
+  mkdir -p "$(dirname "$KEYSTORE_PATH")"
+  echo "$USER_INPUT" > "$KEYSTORE_PATH"
+  echo "keystore.json сохранен: $KEYSTORE_PATH"
 
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
