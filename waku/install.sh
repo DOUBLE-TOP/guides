@@ -48,8 +48,25 @@ function git_clone {
 }
 
 function setup_env {
+  # Иницифализируем
+  STORAGE_SIZE="50GB"
+  POSTGRES_SHM="5g"
+  ENV_FILE=$HOME/nwaku-compose/.env
+  
   cd nwaku-compose
   cp .env.example .env
+
+  if grep -q "^STORAGE_SIZE=" "$ENV_FILE"; then
+      sed -i "s/^STORAGE_SIZE=.*/STORAGE_SIZE=$STORAGE_SIZE/" "$ENV_FILE"
+  else
+      echo "STORAGE_SIZE=$STORAGE_SIZE" >> "$ENV_FILE"
+  fi
+
+  if grep -q "^POSTGRES_SHM=" "$ENV_FILE"; then
+      sed -i "s/^POSTGRES_SHM=.*/POSTGRES_SHM=$POSTGRES_SHM/" "$ENV_FILE"
+  else
+      echo "POSTGRES_SHM=$POSTGRES_SHM" >> "$ENV_FILE"
+  fi
 
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
@@ -65,8 +82,6 @@ function setup_env {
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/80:80/8081:80/g' $HOME/nwaku-compose/docker-compose.yml
 
-
-  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 
