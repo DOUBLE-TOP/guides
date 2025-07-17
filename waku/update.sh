@@ -56,21 +56,21 @@ function update {
 
 
   if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
-      echo -e "Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
+      echo -e "${GREEN}Введите ваш RPC Linea Sepolia https url. Пример url'a - https://linea-sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ${NORMAL}"
       read RLN_RELAY_ETH_CLIENT_ADDRESS
   fi
 
   if [ -z "$ETH_TESTNET_KEY" ]; then
-      echo -e "Введите ваш приватник от ETH кошелька (без 0х)"
+      echo -e "${GREEN}Введите ваш приватник от ETH кошелька (без 0х)${NORMAL}"
       read ETH_TESTNET_KEY
   fi
 
   if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
-      echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
+      echo -e "${GREEN}Введите(придумайте) пароль который вводили в п.4 гайда${NORMAL}"
       read RLN_RELAY_CRED_PASSWORD
   fi
 
-  echo "Вставьте весь текст из файла keystore.json ${GREEN}и нажмите Ctrl+D${NORMAL}"
+  echo -e "${GREEN}Вставьте весь текст из файла keystore.json и нажмите${NORMAL} ${RED}Ctrl+D${NORMAL}"
   USER_INPUT=$(cat)
 
   # Validate JSON
