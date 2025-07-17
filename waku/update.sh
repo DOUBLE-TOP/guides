@@ -82,7 +82,7 @@ function update {
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/80:80/8081:80/g' $HOME/nwaku-compose/docker-compose.yml
 
-  bash $HOME/nwaku-compose/register_rln.sh
+  #bash $HOME/nwaku-compose/register_rln.sh
 }
 
 function docker_compose_up {
