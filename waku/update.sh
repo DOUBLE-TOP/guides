@@ -34,6 +34,7 @@ function update {
   ENV_FILE=$HOME/nwaku-compose/.env
   KEYSTORE_PATH="$HOME/nwaku-compose/keystore/keystore.json"
   # Выгружаем переменные с .env в среду выполнения
+  sed -i '/^ETH_TESTNET_ACCOUNT=/d' $HOME/nwaku-compose/.env
   source $HOME/nwaku-compose/.env &>/dev/null
 
   # Удаляем старый .env
@@ -83,11 +84,13 @@ function update {
   echo "$USER_INPUT" > "$KEYSTORE_PATH"
   echo "keystore.json сохранен: $KEYSTORE_PATH"
 
+  sed -i '/^ETH_TESTNET_ACCOUNT=/d' $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$ETH_TESTNET_ACCOUNT|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$RLN_RELAY_CRED_PASSWORD|" $HOME/nwaku-compose/.env
   sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.36.0|" $HOME/nwaku-compose/.env
+  
 
   # Меняем стандартный порт графаны
   sed -i '/^version: "3.7"$/d' $HOME/nwaku-compose/docker-compose.yml
