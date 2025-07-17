@@ -28,6 +28,10 @@ function cleanup {
 }
 
 function update {
+  # Иницифализируем
+  STORAGE_SIZE="50GB"
+  POSTGRES_SHM="5g"
+  ENV_FILE=$HOME/nwaku-compose/.env
   # Выгружаем переменные с .env в среду выполнения
   source $HOME/nwaku-compose/.env &>/dev/null
 
@@ -37,25 +41,33 @@ function update {
   git pull origin master
   cp .env.example .env
 
-  #if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
+  if grep -q "^STORAGE_SIZE=" "$ENV_FILE"; then
+      sed -i "s/^STORAGE_SIZE=.*/STORAGE_SIZE=$STORAGE_SIZE/" "$ENV_FILE"
+  else
+      echo "STORAGE_SIZE=$STORAGE_SIZE" >> "$ENV_FILE"
+  fi
+
+  if grep -q "^POSTGRES_SHM=" "$ENV_FILE"; then
+      sed -i "s/^POSTGRES_SHM=.*/POSTGRES_SHM=$POSTGRES_SHM/" "$ENV_FILE"
+  else
+      echo "POSTGRES_SHM=$POSTGRES_SHM" >> "$ENV_FILE"
+  fi
+
+
+  if [ -z "$RLN_RELAY_ETH_CLIENT_ADDRESS" ]; then
       echo -e "Введите ваш RPC Sepolia https url. Пример url'a - https://sepolia.infura.io/v3/ТУТ_ВАШ_КЛЮЧ"
       read RLN_RELAY_ETH_CLIENT_ADDRESS
-  #fi
+  fi
 
-  #if [ -z "$ETH_TESTNET_ACCOUNT" ]; then
-      echo -e "Введите адрес ETH кошелька"
-      read ETH_TESTNET_ACCOUNT
-  #fi
-
-  #if [ -z "$ETH_TESTNET_KEY" ]; then
+  if [ -z "$ETH_TESTNET_KEY" ]; then
       echo -e "Введите ваш приватник от ETH кошелька"
       read ETH_TESTNET_KEY
-  #fi
+  fi
 
-  #if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
+  if [ -z "$RLN_RELAY_CRED_PASSWORD" ]; then
       echo -e "Введите(придумайте) пароль который будет использваться для сетапа ноды"
       read RLN_RELAY_CRED_PASSWORD
-  #fi
+  fi
 
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$ETH_TESTNET_ACCOUNT|" $HOME/nwaku-compose/.env
