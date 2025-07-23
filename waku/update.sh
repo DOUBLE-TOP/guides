@@ -13,12 +13,12 @@ function logo {
 function cleanup {
   docker-compose -f $HOME/nwaku-compose/docker-compose.yml down
   mkdir -p $HOME/nwaku_backups
-  if [ -d "$HOME/nwaku_backups/keystore0.36" ]; then
+  if [ -d "$HOME/nwaku_backups/keystore0.36.0" ]; then
     echo "Бекап уже сделан"
   else
     echo "Делаем бекап ключей"
-    mkdir -p $HOME/nwaku_backups/keystore0.36
-    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.36/keystore.json
+    mkdir -p $HOME/nwaku_backups/keystore0.36.0
+    cp $HOME/nwaku-compose/keystore/keystore.json $HOME/nwaku_backups/keystore0.36.0/keystore.json
     rm -rf $HOME/nwaku-compose/keystore
   fi
   
@@ -34,7 +34,6 @@ function update {
   ENV_FILE=$HOME/nwaku-compose/.env
   KEYSTORE_PATH="$HOME/nwaku-compose/keystore/keystore.json"
   # Выгружаем переменные с .env в среду выполнения
-  sed -i '/^ETH_TESTNET_ACCOUNT=/d' $HOME/nwaku-compose/.env
   source $HOME/nwaku-compose/.env &>/dev/null
 
   # Удаляем старый .env
@@ -61,6 +60,13 @@ function update {
       read RLN_RELAY_ETH_CLIENT_ADDRESS
   #fi
 
+
+  if [ -z "$ETH_TESTNET_ACCOUNT" ]; then
+      echo -e "${GREEN}Введите ваш адрес ETH кошелька (начинается с 0х)${NORMAL}"
+      read ETH_TESTNET_ACCOUNT
+  fi
+
+  
   if [ -z "$ETH_TESTNET_KEY" ]; then
       echo -e "${GREEN}Введите ваш приватник от ETH кошелька (без 0х)${NORMAL}"
       read ETH_TESTNET_KEY
@@ -71,20 +77,6 @@ function update {
       read RLN_RELAY_CRED_PASSWORD
   fi
 
-  echo -e "${GREEN}Вставьте весь текст из файла keystore.json и нажмите${NORMAL} ${RED}Ctrl+D${NORMAL}"
-  USER_INPUT=$(cat)
-
-  # Validate JSON
-  echo "$USER_INPUT" | jq empty 2>/dev/null
-  if [ $? -ne 0 ]; then
-    echo "JSON имеен некорректный формат. Отменяем установку."
-    exit 1
-  fi
-  mkdir -p "$(dirname "$KEYSTORE_PATH")"
-  echo "$USER_INPUT" > "$KEYSTORE_PATH"
-  echo "keystore.json сохранен: $KEYSTORE_PATH"
-
-  sed -i '/^ETH_TESTNET_ACCOUNT=/d' $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RLN_RELAY_ETH_CLIENT_ADDRESS|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$ETH_TESTNET_ACCOUNT|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$ETH_TESTNET_KEY|" $HOME/nwaku-compose/.env
@@ -100,7 +92,7 @@ function update {
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/80:80/8081:80/g' $HOME/nwaku-compose/docker-compose.yml
 
-  #bash $HOME/nwaku-compose/register_rln.sh
+  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 function docker_compose_up {
