@@ -29,6 +29,13 @@ function read_sepolia_rpc {
   fi
 }
 
+function read_public_key {
+  if [ ! $WAKU_PUBLIC_KEY ]; then
+  echo -e "${GREEN}Введите ваш адрес ETH кошелека (начинается с 0х)${NORMAL}"
+  read WAKU_PUBLIC_KEY
+  fi
+}
+
 function read_private_key {
   if [ ! $WAKU_PRIVATE_KEY ]; then
   echo -e "${GREEN}Введите ваш приватник от ETH кошелека (без 0х)${NORMAL}"
@@ -69,20 +76,8 @@ function setup_env {
       echo "POSTGRES_SHM=$POSTGRES_SHM" >> "$ENV_FILE"
   fi
 
-  echo -e "${GREEN}Вставьте весь текст из файла keystore.json и нажмите ${RED}Ctrl+D${NORMAL}"
-  USER_INPUT=$(cat)
-
-  # Validate JSON
-  echo "$USER_INPUT" | jq empty 2>/dev/null
-  if [ $? -ne 0 ]; then
-    echo "JSON имеен некорректный формат. Отменяем установку."
-    exit 1
-  fi
-  mkdir -p "$(dirname "$KEYSTORE_PATH")"
-  echo "$USER_INPUT" > "$KEYSTORE_PATH"
-  echo "keystore.json сохранен: $KEYSTORE_PATH"
-
   sed -i "s|RLN_RELAY_ETH_CLIENT_ADDRESS=.*|RLN_RELAY_ETH_CLIENT_ADDRESS=$RPC_URL|" $HOME/nwaku-compose/.env
+  sed -i "s|ETH_TESTNET_ACCOUNT=.*|ETH_TESTNET_ACCOUNT=$WAKU_PUBLIC_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|ETH_TESTNET_KEY=.*|ETH_TESTNET_KEY=$WAKU_PRIVATE_KEY|" $HOME/nwaku-compose/.env
   sed -i "s|RLN_RELAY_CRED_PASSWORD=.*|RLN_RELAY_CRED_PASSWORD=$WAKU_PASS|" $HOME/nwaku-compose/.env
   sed -i "s|NWAKU_IMAGE=.*|NWAKU_IMAGE=wakuorg/nwaku:v0.36.0|" $HOME/nwaku-compose/.env
@@ -97,6 +92,7 @@ function setup_env {
   sed -i 's/:5432:5432/:5444:5432/g' $HOME/nwaku-compose/docker-compose.yml
   sed -i 's/80:80/8081:80/g' $HOME/nwaku-compose/docker-compose.yml
 
+  bash $HOME/nwaku-compose/register_rln.sh
 }
 
 
@@ -121,6 +117,7 @@ function echo_info {
 colors
 logo
 read_sepolia_rpc
+read_public_key
 read_private_key
 read_pass
 echo -e "Установка tools, ufw, docker"
