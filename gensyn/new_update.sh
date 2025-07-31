@@ -259,9 +259,10 @@ echo_green ">> Ставим библиотеки с помощью pip..."
 pip install --upgrade pip &>/dev/null
 
 # echo_green ">> Installing GenRL..."
+pip install "trl<0.20.0"
 pip install gensyn-genrl==0.1.4
 pip install reasoning-gym>=0.1.20 # for reasoning gym env
-pip install trl # for grpo config, will be deprecated soon
+#pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
 
 
