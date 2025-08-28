@@ -92,7 +92,7 @@ set -euo pipefail
 ROOT=$PWD
 
 # GenRL Swarm version to use
-GENRL_TAG="v0.1.1"
+GENRL_TAG="0.1.6"
 
 export IDENTITY_PATH
 export GENSYN_RESET_CONFIG
@@ -100,7 +100,9 @@ export CONNECT_TO_TESTNET=true
 export ORG_ID
 export HF_HUB_DOWNLOAD_TIMEOUT=120  # 2 minutes
 export SWARM_CONTRACT="0xFaD7C5e93f28257429569B854151A1B8DCD404c2"
+export PRG_CONTRACT="0x51D4db531ae706a6eC732458825465058fA23a35"
 export HUGGINGFACE_ACCESS_TOKEN="None"
+export PRG_GAME=true
 
 # Path to an RSA private key. If this path does not exist, a new key pair will be created.
 # Remove this file if you want a new PeerID.
@@ -207,16 +209,18 @@ if [ "$CONNECT_TO_TESTNET" = true ]; then
     ENV_FILE="$ROOT"/modal-login/.env
     if [[ "$OSTYPE" == "darwin"* ]]; then
         # macOS version
-        sed -i '' "3s/.*/SMART_CONTRACT_ADDRESS=$SWARM_CONTRACT/" "$ENV_FILE"
+        sed -i '' "3s/.*/SWARM_CONTRACT_ADDRESS=$SWARM_CONTRACT/" "$ENV_FILE"
+        sed -i '' "4s/.*/PRG_CONTRACT_ADDRESS=$PRG_CONTRACT/" "$ENV_FILE"
     else
         # Linux version
-        sed -i "3s/.*/SMART_CONTRACT_ADDRESS=$SWARM_CONTRACT/" "$ENV_FILE"
+        sed -i "3s/.*/SWARM_CONTRACT_ADDRESS=$SWARM_CONTRACT/" "$ENV_FILE"
+        sed -i "4s/.*/PRG_CONTRACT_ADDRESS=$PRG_CONTRACT/" "$ENV_FILE"
     fi
 
 
     # Docker image already builds it, no need to again.
     if [ -z "$DOCKER" ]; then
-        yarn install --immutable --silent
+        yarn install --immutable --silent > /dev/null 2>&1
         echo "Building server"
         yarn build > "$ROOT/logs/yarn.log" 2>&1
     fi
@@ -259,8 +263,9 @@ echo_green ">> Ставим библиотеки с помощью pip..."
 pip install --upgrade pip &>/dev/null
 
 # echo_green ">> Installing GenRL..."
-pip install "trl<0.20.0"
-pip install gensyn-genrl==0.1.4
+#pip install "trl<0.20.0"
+echo_green ">> Installing GenRL..."
+pip install gensyn-genrl==${GENRL_TAG}
 pip install reasoning-gym>=0.1.20 # for reasoning gym env
 #pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
@@ -292,20 +297,15 @@ fi
 
 echo_green ">> Done!"
 
-HF_TOKEN=${HF_TOKEN:-""}
-if [ -n "${HF_TOKEN}" ]; then # Check if HF_TOKEN is already set and use if so. Else give user a prompt to choose.
-    HUGGINGFACE_ACCESS_TOKEN=${HF_TOKEN}
-else
-    echo -en $GREEN_TEXT
-    read -p ">> Would you like to push models you train in the RL swarm to the Hugging Face Hub? [y/N] " yn
-    echo -en $RESET_TEXT
-    yn=${yn:-N} # Default to "N" if the user presses Enter
-    case $yn in
-        [Yy]*) read -p "Enter your Hugging Face access token: " HUGGINGFACE_ACCESS_TOKEN ;;
-        [Nn]*) HUGGINGFACE_ACCESS_TOKEN="None" ;;
-        *) echo ">>> No answer was given, so NO models will be pushed to Hugging Face Hub" && HUGGINGFACE_ACCESS_TOKEN="None" ;;
-    esac
-fi
+echo -en $GREEN_TEXT
+read -p ">> Would you like to push models you train in the RL swarm to the Hugging Face Hub? [y/N] " yn
+echo -en $RESET_TEXT
+yn=${yn:-N} # Default to "N" if the user presses Enter
+case $yn in
+    [Yy]*) read -p "Enter your Hugging Face access token: " HUGGINGFACE_ACCESS_TOKEN ;;
+    [Nn]*) HUGGINGFACE_ACCESS_TOKEN="None" ;;
+    *) echo ">>> No answer was given, so NO models will be pushed to Hugging Face Hub" && HUGGINGFACE_ACCESS_TOKEN="None" ;;
+esac
 
 echo -en $GREEN_TEXT
 read -p ">> Enter the name of the model you want to use in huggingface repo/name format, or press [Enter] to use the default model. " MODEL_NAME
@@ -318,6 +318,16 @@ if [ -n "$MODEL_NAME" ]; then
 else
     echo_green ">> Using default model from config"
 fi
+
+echo -en $GREEN_TEXT
+read -p ">> Would you like your model to participate in the AI Prediction Market? [Y/n] " yn
+if [ "$yn" = "n" ] || [ "$yn" = "N" ]; then
+    PRG_GAME=false
+    echo_green ">> Playing PRG game: false"
+else
+    echo_green ">> Playing PRG game: true"
+fi
+echo -en $RESET_TEXT
 
 echo_green ">> Good luck in the swarm!"
 # end official script part
